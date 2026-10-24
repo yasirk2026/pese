@@ -1,14 +1,18 @@
 [CmdletBinding()]
 param(
-    [string]$BuildRoot = (Join-Path ([IO.Path]::GetTempPath()) 'PESE Desktop Build'),
-    [string]$Dotnet = (Join-Path $PSScriptRoot '..\.tools\dotnet\dotnet.exe'),
-    [string]$Vpk = (Join-Path $PSScriptRoot '..\.tools\vpk\vpk.exe'),
+    [string]$BuildRoot = '',
+    [string]$Dotnet = '',
+    [string]$Vpk = '',
     [string]$NugetCache = '',
     [string]$Version = '0.1.0-alpha.3',
     [switch]$SkipVerifiedChecks
 )
 $ErrorActionPreference = 'Stop'
+if (!$PSScriptRoot) { $PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Definition }
 $repo = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+if (!$BuildRoot) { $BuildRoot = Join-Path ([IO.Path]::GetTempPath()) 'PESE Desktop Build' }
+if (!$Dotnet) { $Dotnet = Join-Path $repo '.tools\dotnet\dotnet.exe' }
+if (!$Vpk) { $Vpk = Join-Path $repo '.tools\vpk\vpk.exe' }
 $BuildRoot = [IO.Path]::GetFullPath($BuildRoot)
 $release = Join-Path $repo "dist\windows\$Version"
 $stage = Join-Path $BuildRoot "stage-$Version"

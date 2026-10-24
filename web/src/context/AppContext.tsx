@@ -93,6 +93,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setDeveloperModeState(savedDevMode === "true");
         }
       }
+
+      const mockUpdate = searchParams.get("mock_update");
+      if (mockUpdate === "available") {
+        setUpdateInfo({
+          status: "available",
+          currentVersion: APP_VERSION,
+          targetVersion: "0.1.0-alpha.4",
+          releaseNotes: "• Neural Genesis benchmark evaluation engine v2\n• Vector cache acceleration for FastEmbed\n• Local profile synchronization across local Brains",
+        });
+        setShowUpdateModal(true);
+      } else if (mockUpdate === "downloading") {
+        setUpdateInfo({
+          status: "downloading",
+          currentVersion: APP_VERSION,
+          targetVersion: "0.1.0-alpha.4",
+          progress: 68,
+        });
+      }
     } catch {}
 
     // Load initial profile
