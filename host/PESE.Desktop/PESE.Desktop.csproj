@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>PESE</AssemblyName>
+    <RootNamespace>ManiacSoftwares.PESE</RootNamespace>
+    <StartupObject>ManiacSoftwares.PESE.Program</StartupObject>
+    <Version>0.1.0-alpha.3</Version>
+    <Company>Maniac Softwares</Company>
+    <Product>PESE</Product>
+    <Description>PESE Desktop — Local Brain</Description>
+    <ApplicationIcon>pese.ico</ApplicationIcon>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>false</PublishSingleFile>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="pese.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
+    <PackageReference Include="Velopack" Version="0.0.1298" />
+  </ItemGroup>
+</Project>
