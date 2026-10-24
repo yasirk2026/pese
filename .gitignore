@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.pytest_cache/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+.env.*
+!.env.example
+*.pem
+service-account*.json
+*serviceAccount*.json
+firebase-adminsdk*.json
+*firebase-adminsdk*.json
+*.key
+
+# Local private content, search history and derived reports
+engine/data/firestore_documents.json
+engine/data/behavioural_events.jsonl
+engine/data/privacy_settings.json
+engine/data/*history*
+engine/data/*report*.json
+engine/data/knowledge_corpus/
+engine/neural/data/private/
+*.db
+*.sqlite*
+*.log
+.tmp/
+engine/data/demo_runtime/
+release/
+
+# Build and tools
+.tools/
+bin/
+obj/
+*.ico.tmp
+
+# OS and Editor
+packaging/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# PESE Derived Semantic Index
+engine/data/semantic_index/
+*.npy
+*.npz
+
+# PESE Neural Genesis & PyTorch Checkpoints
+*.pt
+*.pth
+checkpoints/
+engine/neural/checkpoints/
+engine/neural/data/downloaded/

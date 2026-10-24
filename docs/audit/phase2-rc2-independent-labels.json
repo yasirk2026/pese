@@ -1,0 +1,1704 @@
+{
+  "schema_version": 1,
+  "methodology": {
+    "authorship": "Independently conceived synthetic prose, FAQs and questions. All entities and local facts were invented. No repository source, tests, implementation rules, development data, historical benchmarks, reports, previous holdouts, private documents, other chats or agent history were inspected.",
+    "protocol": "Authored input and sealed labels together, then checked the newly authored data using Python standard library only. Fixed labels and a SHA256 seal before any production run. Did not execute the engine, inspect engine output, score results, browse the web or communicate with other chats. Authorship scratch is confined to the sealed-label directory.",
+    "scope": "Local grounded extraction with bounded nearby support. Includes natural prose, native FAQ, paraphrase, negation, cross-sentence support, easy and unresolved references, spelling errors, local comparisons, qualifiers, promotional competitors and related-topic negatives. Unanswerable requests have no positive factual answer anywhere in this synthetic corpus.",
+    "grading": "Supported full sentences are legitimate answers; exact bare-value formatting is not required. Each required_facts group accepts any one predeclared case-insensitive substring alternative. Requested values, units, relevant polarity and qualifiers are retained. Evidence is verbatim source content or a native FAQ answer. Unanswerables have empty required_facts and supporting_evidence. Do not revise labels after seeing outputs.",
+    "self_check": "Verified unique document and question identifiers, unique slugs and queries, exact question-label agreement, published status, source references, verbatim evidence, nonempty fact alternatives and a verbatim evidence alternative for every required group. Reviewed all unanswerables against the complete newly authored corpus. Counts and canonical arrays are sealed."
+  },
+  "labels": [
+    {
+      "id": "rc2-q001",
+      "query": "What is the body of the Veyra lamp made of?",
+      "category": "entity_attributes",
+      "answerable": true,
+      "expected_source_slugs": [
+        "pennwick-lamp-room"
+      ],
+      "required_facts": [
+        [
+          "blue enamelled steel"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "pennwick-lamp-room",
+          "text": "Its body is made of blue enamelled steel, and a loop of cork protects the handle."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q002",
+      "query": "Where is the demonstration Veyra kept?",
+      "category": "entity_attributes",
+      "answerable": true,
+      "expected_source_slugs": [
+        "pennwick-lamp-room"
+      ],
+      "required_facts": [
+        [
+          "east windowsill",
+          "eastern windowsill"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "pennwick-lamp-room",
+          "text": "The demonstration Veyra stands on the east windowsill, away from the curtain."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q003",
+      "query": "What material protects the Veyra handle?",
+      "category": "entity_attributes",
+      "answerable": true,
+      "expected_source_slugs": [
+        "pennwick-lamp-room"
+      ],
+      "required_facts": [
+        [
+          "cork"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "pennwick-lamp-room",
+          "text": "Its body is made of blue enamelled steel, and a loop of cork protects the handle."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q004",
+      "query": "Who manufactures the Veyra lamp?",
+      "category": "entity_attributes",
+      "answerable": false,
+      "expected_source_slugs": [
+        "pennwick-lamp-room"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q005",
+      "query": "Who coordinates the tool circle at Sedgebench?",
+      "category": "person_relations",
+      "answerable": true,
+      "expected_source_slugs": [
+        "sedgebench-workshop"
+      ],
+      "required_facts": [
+        [
+          "Olin Vess"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "sedgebench-workshop",
+          "text": "Olin Vess coordinates the tool circle; his job is to arrange the workbenches and pair new members with experienced ones."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q006",
+      "query": "Who owns Sedgebench workshop?",
+      "category": "person_relations",
+      "answerable": true,
+      "expected_source_slugs": [
+        "sedgebench-workshop"
+      ],
+      "required_facts": [
+        [
+          "Pell Arvo"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "sedgebench-workshop",
+          "text": "The workshop itself is owned by Pell Arvo."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q007",
+      "query": "Who teaches pot mending at the autumn repair day?",
+      "category": "person_relations",
+      "answerable": true,
+      "expected_source_slugs": [
+        "sedgebench-workshop"
+      ],
+      "required_facts": [
+        [
+          "Nema Tull"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "sedgebench-workshop",
+          "text": "For the autumn repair day, Olin asked ceramicist Nema Tull to demonstrate how to mend cracked plant pots."
+        },
+        {
+          "source_slug": "sedgebench-workshop",
+          "text": "Nema teaches the pot-mending session."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q008",
+      "query": "Where did Ruvan Silt train as a tool sharpener?",
+      "category": "person_relations",
+      "answerable": false,
+      "expected_source_slugs": [
+        "sedgebench-workshop"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q009",
+      "query": "Which organization administers Reedvale Seed Exchange?",
+      "category": "organization_relations",
+      "answerable": true,
+      "expected_source_slugs": [
+        "reedvale-seed-exchange"
+      ],
+      "required_facts": [
+        [
+          "Tarrow Commons Association"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "reedvale-seed-exchange",
+          "text": "The Tarrow Commons Association administers the exchange and keeps its membership register."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q010",
+      "query": "Who provides the space for the Reedvale seed cupboard?",
+      "category": "organization_relations",
+      "answerable": true,
+      "expected_source_slugs": [
+        "reedvale-seed-exchange"
+      ],
+      "required_facts": [
+        [
+          "Brookglass Library"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "reedvale-seed-exchange",
+          "text": "Brookglass Library provides the cupboard space."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q011",
+      "query": "Which group supplies spring-swap volunteer stewards?",
+      "category": "organization_relations",
+      "answerable": true,
+      "expected_source_slugs": [
+        "reedvale-seed-exchange"
+      ],
+      "required_facts": [
+        [
+          "Moorline Garden Guild"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "reedvale-seed-exchange",
+          "text": "The Moorline Garden Guild supplies volunteer stewards during the spring swap."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q012",
+      "query": "Which laboratory certifies the germination of Reedvale seed packets?",
+      "category": "organization_relations",
+      "answerable": false,
+      "expected_source_slugs": [
+        "reedvale-seed-exchange"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q013",
+      "query": "When do public trips on the Lowmere ferry resume?",
+      "category": "temporal_facts",
+      "answerable": true,
+      "expected_source_slugs": [
+        "lowmere-crossing"
+      ],
+      "required_facts": [
+        [
+          "17 April 2027",
+          "April 17, 2027",
+          "2027-04-17"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "lowmere-crossing",
+          "text": "The Lowmere ferry resumes public trips on 17 April 2027."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q014",
+      "query": "What is the scheduled final day of Lowmere public ferry trips in 2027?",
+      "category": "temporal_facts",
+      "answerable": true,
+      "expected_source_slugs": [
+        "lowmere-crossing"
+      ],
+      "required_facts": [
+        [
+          "28 September 2027",
+          "September 28, 2027",
+          "2027-09-28"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "lowmere-crossing",
+          "text": "The final public trip of the season is scheduled for 28 September 2027."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q015",
+      "query": "At what time does the first ferry leave the mill landing?",
+      "category": "temporal_facts",
+      "answerable": true,
+      "expected_source_slugs": [
+        "lowmere-crossing"
+      ],
+      "required_facts": [
+        [
+          "08:20",
+          "8:20 am",
+          "8:20 a.m."
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "lowmere-crossing",
+          "text": "On operating days, the first departure from the mill landing is at 08:20."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q016",
+      "query": "What time is the last daily return ferry from the opposite landing?",
+      "category": "temporal_facts",
+      "answerable": false,
+      "expected_source_slugs": [
+        "lowmere-crossing"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q017",
+      "query": "Who presented the river map at the 6 May unveiling?",
+      "category": "event_binding",
+      "answerable": true,
+      "expected_source_slugs": [
+        "vellum-house-events"
+      ],
+      "required_facts": [
+        [
+          "Dera Quill"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "vellum-house-events",
+          "text": "On 6 May 2026, the map unveiling took place in the glass gallery."
+        },
+        {
+          "source_slug": "vellum-house-events",
+          "text": "Dera Quill presented the river map, then left before the afternoon reading."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q018",
+      "query": "Where was the afternoon reading on 6 May 2026 held?",
+      "category": "event_binding",
+      "answerable": true,
+      "expected_source_slugs": [
+        "vellum-house-events"
+      ],
+      "required_facts": [
+        [
+          "west attic"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "vellum-house-events",
+          "text": "The reading was a separate event held in the west attic on the same date; its speaker was poet Sovan Pell."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q019",
+      "query": "On which date did Hesta Orm demonstrate bookbinding?",
+      "category": "event_binding",
+      "answerable": true,
+      "expected_source_slugs": [
+        "vellum-house-events"
+      ],
+      "required_facts": [
+        [
+          "9 May 2026",
+          "May 9, 2026",
+          "2026-05-09"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "vellum-house-events",
+          "text": "The bookbinding demonstration happened on 9 May 2026 in the courtyard."
+        },
+        {
+          "source_slug": "vellum-house-events",
+          "text": "At that demonstration, binder Hesta Orm showed visitors how to sew a flexible spine."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q020",
+      "query": "Who designed the flexible-spine pattern used in Hesta Orm's bookbinding demonstration?",
+      "category": "event_binding",
+      "answerable": false,
+      "expected_source_slugs": [
+        "vellum-house-events"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q021",
+      "query": "How many tins of beans go in one standard Claybank household parcel?",
+      "category": "quantities",
+      "answerable": true,
+      "expected_source_slugs": [
+        "claybank-pantry"
+      ],
+      "required_facts": [
+        [
+          "three tins of beans",
+          "3 tins of beans"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "claybank-pantry",
+          "text": "A standard household parcel from Claybank Pantry contains three tins of beans and two bags of oats."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q022",
+      "query": "How much does each oat bag in a Claybank parcel weigh?",
+      "category": "quantities",
+      "answerable": true,
+      "expected_source_slugs": [
+        "claybank-pantry"
+      ],
+      "required_facts": [
+        [
+          "750 grams",
+          "750 g",
+          "0.75 kilograms",
+          "0.75 kg"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "claybank-pantry",
+          "text": "Each oat bag weighs 750 grams."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q023",
+      "query": "How many household parcels are packed in a blue delivery crate?",
+      "category": "quantities",
+      "answerable": true,
+      "expected_source_slugs": [
+        "claybank-pantry"
+      ],
+      "required_facts": [
+        [
+          "six household parcels",
+          "6 household parcels"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "claybank-pantry",
+          "text": "Packers place six household parcels in each blue delivery crate."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q024",
+      "query": "What is the individual weight of a Claybank bean tin?",
+      "category": "quantities",
+      "answerable": false,
+      "expected_source_slugs": [
+        "claybank-pantry"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q025",
+      "query": "What does a weekday day pass at Mossquay Desk Hall cost?",
+      "category": "prices",
+      "answerable": true,
+      "expected_source_slugs": [
+        "mossquay-desks"
+      ],
+      "required_facts": [
+        [
+          "18 crowns",
+          "eighteen crowns"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "mossquay-desks",
+          "text": "A weekday day pass costs 18 crowns and includes tea."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q026",
+      "query": "How much is a Saturday day pass at Mossquay?",
+      "category": "prices",
+      "answerable": true,
+      "expected_source_slugs": [
+        "mossquay-desks"
+      ],
+      "required_facts": [
+        [
+          "24 crowns",
+          "twenty-four crowns"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "mossquay-desks",
+          "text": "A Saturday day pass costs 24 crowns, with tea included on the same terms."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q027",
+      "query": "What is the hourly quiet-booth surcharge at Mossquay?",
+      "category": "prices",
+      "answerable": true,
+      "expected_source_slugs": [
+        "mossquay-desks"
+      ],
+      "required_facts": [
+        [
+          "7 crowns per hour",
+          "7 crowns an hour",
+          "seven crowns per hour",
+          "7 crowns hourly"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "mossquay-desks",
+          "text": "Reserving the quiet booth costs an additional 7 crowns per hour."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q028",
+      "query": "How much is monthly membership at Mossquay Desk Hall?",
+      "category": "prices",
+      "answerable": false,
+      "expected_source_slugs": [
+        "mossquay-desks"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q029",
+      "query": "In Windrow repair tickets, what does bench hold mean?",
+      "category": "definitions",
+      "answerable": true,
+      "expected_source_slugs": [
+        "windrow-ticket-glossary"
+      ],
+      "required_facts": [
+        [
+          "pause in repair work",
+          "pause in the repair",
+          "repair work is paused"
+        ],
+        [
+          "customer decides whether to approve an estimate",
+          "customer approval of an estimate",
+          "customer decides on the estimate"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "windrow-ticket-glossary",
+          "text": "A bench hold is a pause in repair work while the customer decides whether to approve an estimate."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q030",
+      "query": "What is a return slip at Windrow?",
+      "category": "definitions",
+      "answerable": true,
+      "expected_source_slugs": [
+        "windrow-ticket-glossary"
+      ],
+      "required_facts": [
+        [
+          "paper receipt",
+          "receipt"
+        ],
+        [
+          "identifies an item",
+          "identify an item",
+          "identifying an item"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "windrow-ticket-glossary",
+          "text": "A return slip is the paper receipt that identifies an item when its owner collects it."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q031",
+      "query": "What does a trial run refer to in the Windrow glossary?",
+      "category": "definitions",
+      "answerable": true,
+      "expected_source_slugs": [
+        "windrow-ticket-glossary"
+      ],
+      "required_facts": [
+        [
+          "supervised test",
+          "supervised testing"
+        ],
+        [
+          "after a repair",
+          "after repair",
+          "following a repair"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "windrow-ticket-glossary",
+          "text": "A trial run is a supervised test after a repair, performed before the item is handed back."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q032",
+      "query": "What does field seal mean on a Windrow repair ticket?",
+      "category": "definitions",
+      "answerable": false,
+      "expected_source_slugs": [
+        "windrow-ticket-glossary"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q033",
+      "query": "Why was Tuesday public viewing at Hillwake cancelled?",
+      "category": "causes",
+      "answerable": true,
+      "expected_source_slugs": [
+        "hillwake-observatory-log"
+      ],
+      "required_facts": [
+        [
+          "grit had jammed the dome track",
+          "grit jammed the dome track",
+          "dome track was jammed by grit"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "hillwake-observatory-log",
+          "text": "Tuesday's public viewing session was cancelled because grit had jammed the dome track."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q034",
+      "query": "Why did Hillwake staff move the logbooks to the dry cabinet?",
+      "category": "causes",
+      "answerable": true,
+      "expected_source_slugs": [
+        "hillwake-observatory-log"
+      ],
+      "required_facts": [
+        [
+          "water had seeped through a window seam",
+          "water seeped through a window seam",
+          "leaking window seam"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "hillwake-observatory-log",
+          "text": "On Wednesday, the team moved the logbooks to the dry cabinet because water had seeped through a window seam."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q035",
+      "query": "What caused the blurred frames in Thursday camera test?",
+      "category": "causes",
+      "answerable": true,
+      "expected_source_slugs": [
+        "hillwake-observatory-log"
+      ],
+      "required_facts": [
+        [
+          "loose bracket",
+          "bracket was loose"
+        ],
+        [
+          "vibrate",
+          "vibration",
+          "vibrating"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "hillwake-observatory-log",
+          "text": "Thursday's camera test produced blurred frames because a loose bracket let the camera vibrate."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q036",
+      "query": "What caused the grit to get into the Hillwake dome track?",
+      "category": "causes",
+      "answerable": false,
+      "expected_source_slugs": [
+        "hillwake-observatory-log"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q037",
+      "query": "What should I do first when returning an ordinary Amberdock loan battery?",
+      "category": "procedures",
+      "answerable": true,
+      "expected_source_slugs": [
+        "amberdock-return-instructions"
+      ],
+      "required_facts": [
+        [
+          "switch the battery off",
+          "switch it off",
+          "turn the battery off",
+          "turn it off"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "amberdock-return-instructions",
+          "text": "First switch the battery off."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q038",
+      "query": "What goes on the battery after switching it off and before handing it over?",
+      "category": "procedures",
+      "answerable": true,
+      "expected_source_slugs": [
+        "amberdock-return-instructions"
+      ],
+      "required_facts": [
+        [
+          "orange terminal cover",
+          "orange cover"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "amberdock-return-instructions",
+          "text": "First switch the battery off."
+        },
+        {
+          "source_slug": "amberdock-return-instructions",
+          "text": "Next fit its orange terminal cover."
+        },
+        {
+          "source_slug": "amberdock-return-instructions",
+          "text": "Then hand it to the hatch attendant together with the numbered loan card."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q039",
+      "query": "What should a borrower do if the orange battery cover is missing?",
+      "category": "procedures",
+      "answerable": true,
+      "expected_source_slugs": [
+        "amberdock-return-instructions"
+      ],
+      "required_facts": [
+        [
+          "tell the attendant before handing over the battery",
+          "tell the attendant before handing it over",
+          "inform the attendant before handing over",
+          "notify the attendant before handing over"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "amberdock-return-instructions",
+          "text": "If the orange cover is missing, tell the attendant before handing over the battery; staff keep spare covers at the hatch."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q040",
+      "query": "How should I package a damaged Amberdock loan battery for transport?",
+      "category": "procedures",
+      "answerable": false,
+      "expected_source_slugs": [
+        "amberdock-return-instructions"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q041",
+      "query": "When may I take a dog into Brindle roof garden?",
+      "category": "native_faq",
+      "answerable": true,
+      "expected_source_slugs": [
+        "brindle-garden-questions"
+      ],
+      "required_facts": [
+        [
+          "only during the Sunday morning visit",
+          "Sunday morning visit only",
+          "Sunday morning visits only"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "brindle-garden-questions",
+          "text": "Dogs may enter the Brindle roof garden only during the Sunday morning visit."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q042",
+      "query": "Where can I leave a folded pushchair during a Brindle garden visit?",
+      "category": "native_faq",
+      "answerable": true,
+      "expected_source_slugs": [
+        "brindle-garden-questions"
+      ],
+      "required_facts": [
+        [
+          "stair-tower alcove",
+          "stair tower alcove"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "brindle-garden-questions",
+          "text": "Folded pushchairs can be left in the stair-tower alcove during a visit."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q043",
+      "query": "Do I need a paper printout of my Brindle garden booking?",
+      "category": "native_faq",
+      "answerable": true,
+      "expected_source_slugs": [
+        "brindle-garden-questions"
+      ],
+      "required_facts": [
+        [
+          "printed copy is optional",
+          "printout is optional",
+          "printing is optional",
+          "do not need",
+          "no paper",
+          "not required"
+        ],
+        [
+          "phone",
+          "mobile"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "brindle-garden-questions",
+          "text": "A booking code shown on a phone is accepted; a printed copy is optional."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q044",
+      "query": "Can I get a refund if I miss my Brindle garden visit?",
+      "category": "native_faq",
+      "answerable": false,
+      "expected_source_slugs": [
+        "brindle-garden-questions"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q045",
+      "query": "Where does Elmshoe take a package when nobody is home to receive it?",
+      "category": "paraphrase",
+      "answerable": true,
+      "expected_source_slugs": [
+        "elmshoe-courier-notes"
+      ],
+      "required_facts": [
+        [
+          "Wren Street depot"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "elmshoe-courier-notes",
+          "text": "If the recipient is absent, we take the parcel back to the Wren Street depot."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q046",
+      "query": "At Elmshoe, where is a package sent if its destination label becomes unreadable after washing away?",
+      "category": "paraphrase",
+      "answerable": true,
+      "expected_source_slugs": [
+        "elmshoe-courier-notes"
+      ],
+      "required_facts": [
+        [
+          "inspection desk"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "elmshoe-courier-notes",
+          "text": "If a parcel's address label has washed off, the parcel goes to the inspection desk."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q047",
+      "query": "What container do Elmshoe riders use for breakable packages?",
+      "category": "paraphrase",
+      "answerable": true,
+      "expected_source_slugs": [
+        "elmshoe-courier-notes"
+      ],
+      "required_facts": [
+        [
+          "padded green boxes",
+          "green padded boxes"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "elmshoe-courier-notes",
+          "text": "Fragile parcels travel in padded green boxes."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q048",
+      "query": "How many times will Elmshoe retry delivery before giving up?",
+      "category": "paraphrase",
+      "answerable": false,
+      "expected_source_slugs": [
+        "elmshoe-courier-notes"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q049",
+      "query": "Is Ornfield museum north entrance wheelchair accessible?",
+      "category": "negation",
+      "answerable": true,
+      "expected_source_slugs": [
+        "ornfield-museum-access"
+      ],
+      "required_facts": [
+        [
+          "not wheelchair accessible",
+          "not accessible",
+          "is not wheelchair-accessible",
+          "no,"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "ornfield-museum-access",
+          "text": "The north entrance is not wheelchair accessible."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q050",
+      "query": "Is flash photography allowed in the Ornfield tile room?",
+      "category": "negation",
+      "answerable": true,
+      "expected_source_slugs": [
+        "ornfield-museum-access"
+      ],
+      "required_facts": [
+        [
+          "flash is not permitted",
+          "flash is not allowed",
+          "no flash",
+          "not permitted",
+          "not allowed"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "ornfield-museum-access",
+          "text": "Photography is permitted in the tile room, but flash is not permitted there."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q051",
+      "query": "Does Ornfield museum lend umbrellas to visitors?",
+      "category": "negation",
+      "answerable": true,
+      "expected_source_slugs": [
+        "ornfield-museum-access"
+      ],
+      "required_facts": [
+        [
+          "does not lend umbrellas",
+          "doesn't lend umbrellas",
+          "umbrellas are not available to borrow",
+          "no,"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "ornfield-museum-access",
+          "text": "The museum does not lend umbrellas."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q052",
+      "query": "Does Ornfield museum provide hearing loops?",
+      "category": "negation",
+      "answerable": false,
+      "expected_source_slugs": [
+        "ornfield-museum-access"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q053",
+      "query": "Where are Cairnmeal insulated lunch carriers taken for cleaning?",
+      "category": "cross_sentence_support",
+      "answerable": true,
+      "expected_source_slugs": [
+        "cairnmeal-delivery"
+      ],
+      "required_facts": [
+        [
+          "laundry annex"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "cairnmeal-delivery",
+          "text": "Its insulated carriers are called silver baskets."
+        },
+        {
+          "source_slug": "cairnmeal-delivery",
+          "text": "After the final lunch drop, every silver basket is returned to the laundry annex for cleaning."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q054",
+      "query": "What vehicle delivers Cairnmeal lunches to the ridge cottages now?",
+      "category": "cross_sentence_support",
+      "answerable": true,
+      "expected_source_slugs": [
+        "cairnmeal-delivery"
+      ],
+      "required_facts": [
+        [
+          "small electric van",
+          "electric van"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "cairnmeal-delivery",
+          "text": "The village committee bought a small electric van in June."
+        },
+        {
+          "source_slug": "cairnmeal-delivery",
+          "text": "That vehicle now carries the lunches to the ridge cottages."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q055",
+      "query": "What time does the team that packs Cairnmeal dessert cups start?",
+      "category": "cross_sentence_support",
+      "answerable": true,
+      "expected_source_slugs": [
+        "cairnmeal-delivery"
+      ],
+      "required_facts": [
+        [
+          "17:30",
+          "5:30 pm",
+          "5:30 p.m."
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "cairnmeal-delivery",
+          "text": "Each lunch includes a dessert cup."
+        },
+        {
+          "source_slug": "cairnmeal-delivery",
+          "text": "The cups are packed by the evening team, which starts work at 17:30."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q056",
+      "query": "How long does a typical Cairnmeal lunch-delivery journey take?",
+      "category": "cross_sentence_support",
+      "answerable": false,
+      "expected_source_slugs": [
+        "cairnmeal-delivery"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q057",
+      "query": "Who found the split paddle after the morning canoe outing?",
+      "category": "easy_coreference",
+      "answerable": true,
+      "expected_source_slugs": [
+        "rillfen-canoe-notes"
+      ],
+      "required_facts": [
+        [
+          "Teva Noll"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "rillfen-canoe-notes",
+          "text": "Teva Noll inspected the borrowed canoe after the morning outing."
+        },
+        {
+          "source_slug": "rillfen-canoe-notes",
+          "text": "She found a split paddle and put it on the repair rack."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q058",
+      "query": "Where did Dasso put the shed key?",
+      "category": "easy_coreference",
+      "answerable": true,
+      "expected_source_slugs": [
+        "rillfen-canoe-notes"
+      ],
+      "required_facts": [
+        [
+          "brass-lined drawer at reception",
+          "brass lined drawer at reception"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "rillfen-canoe-notes",
+          "text": "Keeper Dasso Vell locked the shed at dusk."
+        },
+        {
+          "source_slug": "rillfen-canoe-notes",
+          "text": "He put the shed key in the brass-lined drawer at reception."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q059",
+      "query": "What was empty when Dasso checked it before locking the shed?",
+      "category": "easy_coreference",
+      "answerable": true,
+      "expected_source_slugs": [
+        "rillfen-canoe-notes"
+      ],
+      "required_facts": [
+        [
+          "rope basket"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "rillfen-canoe-notes",
+          "text": "Before locking up, he checked the rope basket."
+        },
+        {
+          "source_slug": "rillfen-canoe-notes",
+          "text": "It was empty, so he fetched a coil from the store."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q060",
+      "query": "What time did Teva begin the canoe inspection?",
+      "category": "easy_coreference",
+      "answerable": false,
+      "expected_source_slugs": [
+        "rillfen-canoe-notes"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q061",
+      "query": "Who is assigned to label the pear rows in the Bellgrove minutes?",
+      "category": "ambiguous_coreference",
+      "answerable": true,
+      "expected_source_slugs": [
+        "bellgrove-orchard-minutes"
+      ],
+      "required_facts": [
+        [
+          "Mira"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "bellgrove-orchard-minutes",
+          "text": "Mira will label the pear rows."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q062",
+      "query": "What task is Sela assigned in the Bellgrove signed decisions?",
+      "category": "ambiguous_coreference",
+      "answerable": true,
+      "expected_source_slugs": [
+        "bellgrove-orchard-minutes"
+      ],
+      "required_facts": [
+        [
+          "count the empty picking baskets",
+          "counting the empty picking baskets",
+          "count empty picking baskets"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "bellgrove-orchard-minutes",
+          "text": "Sela will count the empty picking baskets."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q063",
+      "query": "Where is the red Bellgrove ledger stored after meetings?",
+      "category": "ambiguous_coreference",
+      "answerable": true,
+      "expected_source_slugs": [
+        "bellgrove-orchard-minutes"
+      ],
+      "required_facts": [
+        [
+          "potting shed"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "bellgrove-orchard-minutes",
+          "text": "The red ledger is stored in the potting shed after meetings, whoever carries it during a walk."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q064",
+      "query": "In the rough Bellgrove sentence, was Mira or Sela carrying the red ledger?",
+      "category": "ambiguous_coreference",
+      "answerable": false,
+      "expected_source_slugs": [
+        "bellgrove-orchard-minutes"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q065",
+      "query": "Where do I chek in at the Tamber repair clinc?",
+      "category": "typos",
+      "answerable": true,
+      "expected_source_slugs": [
+        "tamber-repair-clinic"
+      ],
+      "required_facts": [
+        [
+          "old ticket booth"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "tamber-repair-clinic",
+          "text": "The Tamber repair clinic has moved its check-in desk to the old ticket booth."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q066",
+      "query": "Which room does Tamber use for sewin machine repaires?",
+      "category": "typos",
+      "answerable": true,
+      "expected_source_slugs": [
+        "tamber-repair-clinic"
+      ],
+      "required_facts": [
+        [
+          "east room"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "tamber-repair-clinic",
+          "text": "Sewing-machine repairs are handled in the east room; radios are handled in the west room."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q067",
+      "query": "What date is the nxt Tamber repair clinik session?",
+      "category": "typos",
+      "answerable": true,
+      "expected_source_slugs": [
+        "tamber-repair-clinic"
+      ],
+      "required_facts": [
+        [
+          "14 November 2026",
+          "November 14, 2026",
+          "2026-11-14"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "tamber-repair-clinic",
+          "text": "The clinic's next session is on 14 November 2026."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q068",
+      "query": "Whats the Tamber repair clinc appointment phone numbr?",
+      "category": "typos",
+      "answerable": false,
+      "expected_source_slugs": [
+        "tamber-repair-clinic"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q069",
+      "query": "Which portal takes applications for the Little Cedar Microgrant?",
+      "category": "spam_competition",
+      "answerable": true,
+      "expected_source_slugs": [
+        "little-cedar-grant"
+      ],
+      "required_facts": [
+        [
+          "Orchard Desk"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "little-cedar-grant",
+          "text": "Little Cedar Microgrant applications go through the Orchard Desk portal."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q070",
+      "query": "What is the autumn 2026 Little Cedar Microgrant application deadline?",
+      "category": "spam_competition",
+      "answerable": true,
+      "expected_source_slugs": [
+        "little-cedar-grant"
+      ],
+      "required_facts": [
+        [
+          "3 October 2026",
+          "October 3, 2026",
+          "2026-10-03"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "little-cedar-grant",
+          "text": "The application deadline for the autumn round is 3 October 2026."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q071",
+      "query": "What is the Little Cedar award ceiling per project?",
+      "category": "spam_competition",
+      "answerable": true,
+      "expected_source_slugs": [
+        "little-cedar-grant"
+      ],
+      "required_facts": [
+        [
+          "420 crowns",
+          "four hundred and twenty crowns",
+          "four hundred twenty crowns"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "little-cedar-grant",
+          "text": "The award ceiling is 420 crowns per project."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q072",
+      "query": "On what date will the Little Cedar autumn grant panel meet?",
+      "category": "spam_competition",
+      "answerable": false,
+      "expected_source_slugs": [
+        "little-cedar-grant"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q073",
+      "query": "How many calories are in a cup of Thimble Fen toasted pear infusion?",
+      "category": "unsupported_properties",
+      "answerable": false,
+      "expected_source_slugs": [
+        "thimble-fen-tea-room"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q074",
+      "query": "Is the Thimble Fen house infusion certified nut-free?",
+      "category": "unsupported_properties",
+      "answerable": false,
+      "expected_source_slugs": [
+        "thimble-fen-tea-room"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q075",
+      "query": "What is the Wi-Fi password for the Thimble Fen tea room?",
+      "category": "unsupported_properties",
+      "answerable": false,
+      "expected_source_slugs": [
+        "thimble-fen-tea-room"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q076",
+      "query": "Is the entrance to Thimble Fen tea room step-free?",
+      "category": "unsupported_properties",
+      "answerable": false,
+      "expected_source_slugs": [
+        "thimble-fen-tea-room"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q077",
+      "query": "Which of the two Gorsehall rehearsal rooms can accommodate a group of 25 indoors?",
+      "category": "bounded_comparison",
+      "answerable": true,
+      "expected_source_slugs": [
+        "gorsehall-stage-options"
+      ],
+      "required_facts": [
+        [
+          "Loft"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "gorsehall-stage-options",
+          "text": "For a group of 25 that needs everyone indoors, the Loft is the only one of these two rooms with enough capacity."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q078",
+      "query": "Which Gorsehall room has the longer standard booking?",
+      "category": "bounded_comparison",
+      "answerable": true,
+      "expected_source_slugs": [
+        "gorsehall-stage-options"
+      ],
+      "required_facts": [
+        [
+          "Loft"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "gorsehall-stage-options",
+          "text": "The Loft's standard booking lasts three hours, while a Yard Room booking lasts two hours."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q079",
+      "query": "Which Gorsehall rehearsal room has direct loading-yard access?",
+      "category": "bounded_comparison",
+      "answerable": true,
+      "expected_source_slugs": [
+        "gorsehall-stage-options"
+      ],
+      "required_facts": [
+        [
+          "Yard Room"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "gorsehall-stage-options",
+          "text": "Only the Yard Room has direct access to the loading yard."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q080",
+      "query": "Which Gorsehall rehearsal room has better sound insulation?",
+      "category": "bounded_comparison",
+      "answerable": false,
+      "expected_source_slugs": [
+        "gorsehall-stage-options"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q081",
+      "query": "How many ordinary folders may a Silverbarrow researcher have at a desk at once?",
+      "category": "qualifiers_and_limits",
+      "answerable": true,
+      "expected_source_slugs": [
+        "silverbarrow-storage"
+      ],
+      "required_facts": [
+        [
+          "up to four",
+          "up to 4",
+          "maximum of four",
+          "maximum of 4",
+          "four ordinary folders",
+          "4 ordinary folders"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "silverbarrow-storage",
+          "text": "A researcher may keep up to four ordinary folders at a reading desk at one time."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q082",
+      "query": "How many oversized map folders may be at a Silverbarrow desk at one time?",
+      "category": "qualifiers_and_limits",
+      "answerable": true,
+      "expected_source_slugs": [
+        "silverbarrow-storage"
+      ],
+      "required_facts": [
+        [
+          "only one",
+          "only 1",
+          "one oversized map folder",
+          "1 oversized map folder"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "silverbarrow-storage",
+          "text": "Oversized map folders are excluded from that allowance: only one oversized map folder may be on a desk at a time."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q083",
+      "query": "Who is eligible to hire a Silverbarrow weekend locker?",
+      "category": "qualifiers_and_limits",
+      "answerable": true,
+      "expected_source_slugs": [
+        "silverbarrow-storage"
+      ],
+      "required_facts": [
+        [
+          "researchers with a current Silverbarrow reader card",
+          "current Silverbarrow reader card",
+          "valid Silverbarrow reader card"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "silverbarrow-storage",
+          "text": "Weekend locker hire is available only to researchers with a current Silverbarrow reader card."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "rc2-q084",
+      "query": "May I leave food overnight in a Silverbarrow weekend locker?",
+      "category": "qualifiers_and_limits",
+      "answerable": false,
+      "expected_source_slugs": [
+        "silverbarrow-storage"
+      ],
+      "required_facts": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    }
+  ]
+}

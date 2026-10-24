@@ -1,0 +1,319 @@
+{
+  "actual_cms_ui": false,
+  "reason": "Browser and native automation kernel initialization failed; API lifecycle only",
+  "steps": [
+    {
+      "step": "publish",
+      "query": "When did Viridian instrument launch?",
+      "expected": "2011",
+      "answer": "2011",
+      "pass_": true,
+      "versions": {
+        "document_version": "8f8ffb6fbc347864",
+        "lexical_index_version": "8f8ffb6fbc347864",
+        "semantic_index_version": "8f8ffb6fbc347864",
+        "passage_index_version": "8f8ffb6fbc347864",
+        "faq_index_version": "8f8ffb6fbc347864",
+        "graph_version": "8f8ffb6fbc347864"
+      }
+    },
+    {
+      "step": "FAQ add",
+      "query": "What port does Viridian instrument use?",
+      "expected": "6401",
+      "answer": "Viridian instrument uses port 6401.",
+      "pass_": true,
+      "versions": {
+        "document_version": "8f8ffb6fbc347864",
+        "lexical_index_version": "8f8ffb6fbc347864",
+        "semantic_index_version": "8f8ffb6fbc347864",
+        "passage_index_version": "8f8ffb6fbc347864",
+        "faq_index_version": "8f8ffb6fbc347864",
+        "graph_version": "8f8ffb6fbc347864"
+      }
+    },
+    {
+      "step": "edit",
+      "query": "When did Viridian instrument launch?",
+      "expected": "2018",
+      "answer": "2018",
+      "pass_": true,
+      "versions": {
+        "document_version": "6a5b9007fea27243",
+        "lexical_index_version": "6a5b9007fea27243",
+        "semantic_index_version": "6a5b9007fea27243",
+        "passage_index_version": "6a5b9007fea27243",
+        "faq_index_version": "6a5b9007fea27243",
+        "graph_version": "6a5b9007fea27243"
+      }
+    },
+    {
+      "step": "FAQ edit",
+      "query": "What port does Viridian instrument use?",
+      "expected": "6402",
+      "answer": "Viridian instrument uses port 6402.",
+      "pass_": true,
+      "versions": {
+        "document_version": "6a5b9007fea27243",
+        "lexical_index_version": "6a5b9007fea27243",
+        "semantic_index_version": "6a5b9007fea27243",
+        "passage_index_version": "6a5b9007fea27243",
+        "faq_index_version": "6a5b9007fea27243",
+        "graph_version": "6a5b9007fea27243"
+      }
+    },
+    {
+      "step": "FAQ remove",
+      "query": "What port does Viridian instrument use?",
+      "expected": null,
+      "answer": null,
+      "pass_": true,
+      "versions": {
+        "document_version": "558f0db4fa2ac18d",
+        "lexical_index_version": "558f0db4fa2ac18d",
+        "semantic_index_version": "558f0db4fa2ac18d",
+        "passage_index_version": "558f0db4fa2ac18d",
+        "faq_index_version": "558f0db4fa2ac18d",
+        "graph_version": "558f0db4fa2ac18d"
+      }
+    },
+    {
+      "step": "unpublish",
+      "public_results": 0,
+      "pass_": true,
+      "versions": {
+        "document_version": "38937839568d0dda",
+        "lexical_index_version": "38937839568d0dda",
+        "semantic_index_version": "38937839568d0dda",
+        "passage_index_version": "38937839568d0dda",
+        "faq_index_version": "38937839568d0dda",
+        "graph_version": "38937839568d0dda"
+      }
+    }
+  ],
+  "cleanup_verified": true,
+  "final_health": {
+    "status": "healthy",
+    "service": "PESE Search Engine",
+    "boot_id": "0563c2589fd049118daa1e80d99f89b1",
+    "storage_backend": "local",
+    "canonical_document_version": "38937839568d0dda",
+    "publication": {
+      "dirty": false,
+      "stage": "ready",
+      "last_error": null
+    },
+    "index_versions": {
+      "document_version": "38937839568d0dda",
+      "lexical_index_version": "38937839568d0dda",
+      "semantic_index_version": "38937839568d0dda",
+      "passage_index_version": "38937839568d0dda",
+      "faq_index_version": "38937839568d0dda",
+      "graph_version": "38937839568d0dda"
+    },
+    "documents_indexed": 11,
+    "passages_indexed": 19,
+    "vector_passages_indexed": 19
+  },
+  "autocomplete": [
+    {
+      "prefix": "p",
+      "http_ms": 7.875799999965238,
+      "suggestions": [
+        "payments",
+        "procedure",
+        "personal-style",
+        "Demo project creator",
+        "Central processing unit",
+        "Harbor Clinic payment policy"
+      ],
+      "effective_prefix": "p"
+    },
+    {
+      "prefix": "pe",
+      "http_ms": 3.0166000001372595,
+      "suggestions": [
+        "personal-style"
+      ],
+      "effective_prefix": "pe"
+    },
+    {
+      "prefix": "pes",
+      "http_ms": 8.243400000083057,
+      "suggestions": [],
+      "effective_prefix": "pes"
+    },
+    {
+      "prefix": "pese",
+      "http_ms": 9.513099999821861,
+      "suggestions": [],
+      "effective_prefix": "pese"
+    },
+    {
+      "prefix": "j",
+      "http_ms": 3.9636999999856926,
+      "suggestions": [
+        "Japan"
+      ],
+      "effective_prefix": "j"
+    },
+    {
+      "prefix": "ja",
+      "http_ms": 5.111300000180563,
+      "suggestions": [
+        "Japan"
+      ],
+      "effective_prefix": "ja"
+    },
+    {
+      "prefix": "jap",
+      "http_ms": 10.479199999963384,
+      "suggestions": [
+        "Japan"
+      ],
+      "effective_prefix": "japan"
+    },
+    {
+      "prefix": "japn",
+      "http_ms": 5.417500000021391,
+      "suggestions": [
+        "Japan"
+      ],
+      "effective_prefix": "japan"
+    },
+    {
+      "prefix": "japna",
+      "http_ms": 5.675099999962185,
+      "suggestions": [
+        "Japan"
+      ],
+      "effective_prefix": "japan"
+    }
+  ],
+  "discovery": [
+    {
+      "query": "Harbor Clinic payments",
+      "questions": {
+        "query": "Harbor Clinic payments",
+        "questions": [
+          {
+            "question": "Does Harbor Clinic accept installments?",
+            "answer": "Harbor Clinic accepts payment in two equal installments.",
+            "justification": "Native FAQ match: validated against the current question",
+            "source_slug": "harbor-clinic",
+            "source_title": "Harbor Clinic payment policy",
+            "confidence_score": 24.84,
+            "passage_score": 49.0,
+            "answerability_status": "PASS",
+            "intent": "WHAT",
+            "debug_trace": {
+              "relatedness_score": 5.5,
+              "answer_confidence_score": 10.0,
+              "source_authority_score": 0.47,
+              "final_paa_score": 24.84,
+              "candidate_source": "native_faq",
+              "evaluated_slug": "harbor-clinic",
+              "evaluated_title": "Harbor Clinic payment policy",
+              "passage_score": 49.0,
+              "gate_passed": true
+            }
+          }
+        ],
+        "total_candidates_evaluated": 1,
+        "total_passed_gate": 1,
+        "took_ms": 13.18
+      },
+      "related": {
+        "query": "Harbor Clinic payments",
+        "related_searches": [
+          {
+            "query": "Harbor Clinic payment policy",
+            "score": 5.0,
+            "source": "query_family",
+            "co_occurrence_score": 4.0,
+            "result_overlap_score": 0.0,
+            "link_affinity_score": 1.0,
+            "debug_trace": {}
+          }
+        ],
+        "took_ms": 0.51
+      }
+    },
+    {
+      "query": "Japan history",
+      "questions": {
+        "query": "Japan history",
+        "questions": [],
+        "total_candidates_evaluated": 0,
+        "total_passed_gate": 0,
+        "took_ms": 0.05
+      },
+      "related": {
+        "query": "Japan history",
+        "related_searches": [
+          {
+            "query": "Japan",
+            "score": 3.5,
+            "source": "query_family",
+            "co_occurrence_score": 2.5,
+            "result_overlap_score": 0.0,
+            "link_affinity_score": 1.0,
+            "debug_trace": {}
+          },
+          {
+            "query": "Knowledge index",
+            "score": 2.0,
+            "source": "link_neighborhood",
+            "co_occurrence_score": 0.0,
+            "result_overlap_score": 0.0,
+            "link_affinity_score": 2.0,
+            "debug_trace": {}
+          },
+          {
+            "query": "Aurora Observatory",
+            "score": 2.0,
+            "source": "query_family",
+            "co_occurrence_score": 1.0,
+            "result_overlap_score": 0.0,
+            "link_affinity_score": 1.0,
+            "debug_trace": {}
+          }
+        ],
+        "took_ms": 0.59
+      }
+    },
+    {
+      "query": "unicorn lottery prediction",
+      "questions": {
+        "query": "unicorn lottery prediction",
+        "questions": [],
+        "total_candidates_evaluated": 0,
+        "total_passed_gate": 0,
+        "took_ms": 0.0
+      },
+      "related": {
+        "query": "unicorn lottery prediction",
+        "related_searches": [],
+        "took_ms": 0.0
+      }
+    }
+  ],
+  "frontend_http": {
+    "/": {
+      "status": 200,
+      "bytes": 16630
+    },
+    "/search?q=Harbor%20Clinic": {
+      "status": 200,
+      "bytes": 7834
+    },
+    "/admin": {
+      "status": 200,
+      "bytes": 14971
+    },
+    "/admin/new": {
+      "status": 200,
+      "bytes": 20337
+    }
+  }
+}

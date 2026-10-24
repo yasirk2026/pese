@@ -1,0 +1,93 @@
+{
+  "summary": {
+    "distinct_queries": 10000,
+    "rss_before_mb": 648.14,
+    "rss_after_mb": 653.73,
+    "duration_seconds": 157.4,
+    "p50_ms": 13.138150000031601,
+    "p95_ms": 24.382000000059634
+  },
+  "checkpoints": [
+    {
+      "searches": 100,
+      "rss_before_gc_mb": 650.33,
+      "rss_after_gc_mb": 650.43,
+      "result_cache_entries": 32,
+      "estimated_result_json_bytes": 205199,
+      "embedding_cache": {
+        "hits": 0,
+        "misses": 101,
+        "maxsize": 256,
+        "currsize": 101
+      },
+      "relation_cache": {
+        "hits": 0,
+        "misses": 0,
+        "maxsize": 256,
+        "currsize": 0
+      },
+      "elapsed_seconds": 1.21
+    },
+    {
+      "searches": 1000,
+      "rss_before_gc_mb": 651.74,
+      "rss_after_gc_mb": 651.74,
+      "result_cache_entries": 32,
+      "estimated_result_json_bytes": 201186,
+      "embedding_cache": {
+        "hits": 0,
+        "misses": 1001,
+        "maxsize": 256,
+        "currsize": 256
+      },
+      "relation_cache": {
+        "hits": 0,
+        "misses": 0,
+        "maxsize": 256,
+        "currsize": 0
+      },
+      "elapsed_seconds": 11.93
+    },
+    {
+      "searches": 5000,
+      "rss_before_gc_mb": 652.63,
+      "rss_after_gc_mb": 652.63,
+      "result_cache_entries": 32,
+      "estimated_result_json_bytes": 203146,
+      "embedding_cache": {
+        "hits": 0,
+        "misses": 5001,
+        "maxsize": 256,
+        "currsize": 256
+      },
+      "relation_cache": {
+        "hits": 0,
+        "misses": 0,
+        "maxsize": 256,
+        "currsize": 0
+      },
+      "elapsed_seconds": 88.7
+    },
+    {
+      "searches": 10000,
+      "rss_before_gc_mb": 653.73,
+      "rss_after_gc_mb": 653.73,
+      "result_cache_entries": 32,
+      "estimated_result_json_bytes": 218515,
+      "embedding_cache": {
+        "hits": 0,
+        "misses": 10001,
+        "maxsize": 256,
+        "currsize": 256
+      },
+      "relation_cache": {
+        "hits": 0,
+        "misses": 0,
+        "maxsize": 256,
+        "currsize": 0
+      },
+      "elapsed_seconds": 157.4
+    }
+  ],
+  "conditions": "Real BGE, synthetic 39-document corpus; single process, sequential cold query keys, QA disabled. Unique numeric suffixes force cache misses; this is not diverse natural-language accuracy evaluation. JSON byte estimate excludes Python object overhead and traces on list metadata."
+}

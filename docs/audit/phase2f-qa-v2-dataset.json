@@ -1,0 +1,512 @@
+{
+  "train": [
+    {
+      "id": "quasar:positive",
+      "question": "What is a quasar?",
+      "context": "A quasar is a luminous galactic nucleus.",
+      "answer_text": "a luminous galactic nucleus",
+      "answer_start_char": 12,
+      "answer_end_char": 39,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "quasar",
+      "metadata": {
+        "entity": "quasar",
+        "paraphrase_family": "quasar",
+        "split": "train"
+      }
+    },
+    {
+      "id": "quasar:negative",
+      "question": "What is its catalog number?",
+      "context": "A quasar is a luminous galactic nucleus.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "quasar",
+      "metadata": {
+        "entity": "quasar",
+        "paraphrase_family": "quasar",
+        "split": "train"
+      }
+    },
+    {
+      "id": "resistor:positive",
+      "question": "What does a resistor limit?",
+      "context": "A resistor limits electric current.",
+      "answer_text": "electric current",
+      "answer_start_char": 18,
+      "answer_end_char": 34,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "resistor",
+      "metadata": {
+        "entity": "resistor",
+        "paraphrase_family": "resistor",
+        "split": "train"
+      }
+    },
+    {
+      "id": "resistor:negative",
+      "question": "Who manufactured this resistor?",
+      "context": "A resistor limits electric current.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "resistor",
+      "metadata": {
+        "entity": "resistor",
+        "paraphrase_family": "resistor",
+        "split": "train"
+      }
+    },
+    {
+      "id": "enzyme:positive",
+      "question": "What does an enzyme accelerate?",
+      "context": "An enzyme accelerates a chemical reaction.",
+      "answer_text": "a chemical reaction",
+      "answer_start_char": 22,
+      "answer_end_char": 41,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "enzyme",
+      "metadata": {
+        "entity": "enzyme",
+        "paraphrase_family": "enzyme",
+        "split": "train"
+      }
+    },
+    {
+      "id": "enzyme:negative",
+      "question": "What is the enzyme's mass?",
+      "context": "An enzyme accelerates a chemical reaction.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "enzyme",
+      "metadata": {
+        "entity": "enzyme",
+        "paraphrase_family": "enzyme",
+        "split": "train"
+      }
+    },
+    {
+      "id": "cache:positive",
+      "question": "What does a cache store?",
+      "context": "A cache stores frequently accessed data.",
+      "answer_text": "frequently accessed data",
+      "answer_start_char": 15,
+      "answer_end_char": 39,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "cache",
+      "metadata": {
+        "entity": "cache",
+        "paraphrase_family": "cache",
+        "split": "train"
+      }
+    },
+    {
+      "id": "cache:negative",
+      "question": "What is this cache's capacity?",
+      "context": "A cache stores frequently accessed data.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "cache",
+      "metadata": {
+        "entity": "cache",
+        "paraphrase_family": "cache",
+        "split": "train"
+      }
+    }
+  ],
+  "validation": [
+    {
+      "id": "fjord:positive",
+      "question": "What is a fjord?",
+      "context": "A fjord is a narrow inlet with steep cliffs.",
+      "answer_text": "a narrow inlet with steep cliffs",
+      "answer_start_char": 11,
+      "answer_end_char": 43,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "fjord",
+      "metadata": {
+        "entity": "fjord",
+        "paraphrase_family": "fjord",
+        "split": "validation"
+      }
+    },
+    {
+      "id": "fjord:negative",
+      "question": "How deep is this fjord?",
+      "context": "A fjord is a narrow inlet with steep cliffs.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "fjord",
+      "metadata": {
+        "entity": "fjord",
+        "paraphrase_family": "fjord",
+        "split": "validation"
+      }
+    },
+    {
+      "id": "lichen:positive",
+      "question": "What does lichen combine?",
+      "context": "Lichen combines a fungus and a photosynthetic partner.",
+      "answer_text": "a fungus and a photosynthetic partner",
+      "answer_start_char": 16,
+      "answer_end_char": 53,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "lichen",
+      "metadata": {
+        "entity": "lichen",
+        "paraphrase_family": "lichen",
+        "split": "validation"
+      }
+    },
+    {
+      "id": "lichen:negative",
+      "question": "Who named this lichen?",
+      "context": "Lichen combines a fungus and a photosynthetic partner.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "lichen",
+      "metadata": {
+        "entity": "lichen",
+        "paraphrase_family": "lichen",
+        "split": "validation"
+      }
+    }
+  ],
+  "test": [
+    {
+      "id": "velora:positive",
+      "question": "When did the Velora lantern launch?",
+      "context": "The Velora lantern launched in 2016. The Velora lantern was discontinued in 2021.",
+      "answer_text": "2016",
+      "answer_start_char": 31,
+      "answer_end_char": 35,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "velora",
+      "metadata": {
+        "entity": "velora",
+        "paraphrase_family": "velora",
+        "split": "test"
+      }
+    },
+    {
+      "id": "velora:negative",
+      "question": "What color is the Velora lantern?",
+      "context": "The Velora lantern launched in 2016. The Velora lantern was discontinued in 2021.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "velora",
+      "metadata": {
+        "entity": "velora",
+        "paraphrase_family": "velora",
+        "split": "test"
+      }
+    },
+    {
+      "id": "thistle:positive",
+      "question": "When did Thistle Archive reopen?",
+      "context": "Thistle Archive opened in 1987. Thistle Archive reopened in 2009.",
+      "answer_text": "2009",
+      "answer_start_char": 60,
+      "answer_end_char": 64,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "thistle",
+      "metadata": {
+        "entity": "thistle",
+        "paraphrase_family": "thistle",
+        "split": "test"
+      }
+    },
+    {
+      "id": "thistle:negative",
+      "question": "Who designed Thistle Archive?",
+      "context": "Thistle Archive opened in 1987. Thistle Archive reopened in 2009.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "thistle",
+      "metadata": {
+        "entity": "thistle",
+        "paraphrase_family": "thistle",
+        "split": "test"
+      }
+    },
+    {
+      "id": "bracken:positive",
+      "question": "How much does the Bracken tablet weigh?",
+      "context": "The Bracken tablet weighs 620 grams and has a ceramic frame.",
+      "answer_text": "620 grams",
+      "answer_start_char": 26,
+      "answer_end_char": 35,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "bracken",
+      "metadata": {
+        "entity": "bracken",
+        "paraphrase_family": "bracken",
+        "split": "test"
+      }
+    },
+    {
+      "id": "bracken:negative",
+      "question": "What is the Bracken tablet battery capacity?",
+      "context": "The Bracken tablet weighs 620 grams and has a ceramic frame.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "bracken",
+      "metadata": {
+        "entity": "bracken",
+        "paraphrase_family": "bracken",
+        "split": "test"
+      }
+    },
+    {
+      "id": "mistral:positive",
+      "question": "Where is Mistral library located?",
+      "context": "Mistral library is located in Cedar Bay.",
+      "answer_text": "Cedar Bay",
+      "answer_start_char": 30,
+      "answer_end_char": 39,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "mistral",
+      "metadata": {
+        "entity": "mistral",
+        "paraphrase_family": "mistral",
+        "split": "test"
+      }
+    },
+    {
+      "id": "mistral:negative",
+      "question": "When did Mistral library open?",
+      "context": "Mistral library is located in Cedar Bay.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "mistral",
+      "metadata": {
+        "entity": "mistral",
+        "paraphrase_family": "mistral",
+        "split": "test"
+      }
+    },
+    {
+      "id": "silverfin:positive",
+      "question": "Does Silverfin workshop accept cryptocurrency?",
+      "context": "Silverfin workshop accepts installment payments. Silverfin workshop does not accept cryptocurrency.",
+      "answer_text": "Silverfin workshop does not accept cryptocurrency.",
+      "answer_start_char": 49,
+      "answer_end_char": 99,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "silverfin",
+      "metadata": {
+        "entity": "silverfin",
+        "paraphrase_family": "silverfin",
+        "split": "test"
+      }
+    },
+    {
+      "id": "silverfin:negative",
+      "question": "Who founded Silverfin workshop?",
+      "context": "Silverfin workshop accepts installment payments. Silverfin workshop does not accept cryptocurrency.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "silverfin",
+      "metadata": {
+        "entity": "silverfin",
+        "paraphrase_family": "silverfin",
+        "split": "test"
+      }
+    },
+    {
+      "id": "tavin:positive",
+      "question": "When did Tavin end the expedition?",
+      "context": "Tavin launched an expedition in 1998. He ended the expedition in 2003.",
+      "answer_text": "2003",
+      "answer_start_char": 65,
+      "answer_end_char": 69,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "tavin",
+      "metadata": {
+        "entity": "tavin",
+        "paraphrase_family": "tavin",
+        "split": "test"
+      }
+    },
+    {
+      "id": "tavin:negative",
+      "question": "How much did Tavin's expedition cost?",
+      "context": "Tavin launched an expedition in 1998. He ended the expedition in 2003.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "tavin",
+      "metadata": {
+        "entity": "tavin",
+        "paraphrase_family": "tavin",
+        "split": "test"
+      }
+    },
+    {
+      "id": "dovetail:positive",
+      "question": "What does Dovetail service use to coordinate tasks?",
+      "context": "Dovetail service uses a message queue to coordinate tasks.",
+      "answer_text": "a message queue",
+      "answer_start_char": 22,
+      "answer_end_char": 37,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "dovetail",
+      "metadata": {
+        "entity": "dovetail",
+        "paraphrase_family": "dovetail",
+        "split": "test"
+      }
+    },
+    {
+      "id": "dovetail:negative",
+      "question": "What programming language is Dovetail service written in?",
+      "context": "Dovetail service uses a message queue to coordinate tasks.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "dovetail",
+      "metadata": {
+        "entity": "dovetail",
+        "paraphrase_family": "dovetail",
+        "split": "test"
+      }
+    },
+    {
+      "id": "sorrel:positive",
+      "question": "Who created Sorrel?",
+      "context": "Sorrel was created by Elian Shore.",
+      "answer_text": "Elian Shore",
+      "answer_start_char": 22,
+      "answer_end_char": 33,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": true,
+      "abstention_reason": null,
+      "source_doc_id": "sorrel",
+      "metadata": {
+        "entity": "sorrel",
+        "paraphrase_family": "sorrel",
+        "split": "test"
+      }
+    },
+    {
+      "id": "sorrel:negative",
+      "question": "How much does Sorrel cost?",
+      "context": "Sorrel was created by Elian Shore.",
+      "answer_text": null,
+      "answer_start_char": null,
+      "answer_end_char": null,
+      "answer_start_token": null,
+      "answer_end_token": null,
+      "is_answerable": false,
+      "abstention_reason": null,
+      "source_doc_id": "sorrel",
+      "metadata": {
+        "entity": "sorrel",
+        "paraphrase_family": "sorrel",
+        "split": "test"
+      }
+    }
+  ]
+}

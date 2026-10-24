@@ -1,0 +1,16 @@
+{
+  "protocol": "Separate formatting adjudication; original labels and raw legacy runner output unchanged.",
+  "query": "What tools does Delta lab use?",
+  "raw_grounded": false,
+  "adjudicated_grounded": true,
+  "adjudicated_fact_correct": true,
+  "format": "FACT_CORRECT_FORMAT_NONCANONICAL",
+  "reason": "The source says Delta lab uses **microscopes** and [spectrometers](/doc/technical) for analysis. Passage cleaning removes Markdown delimiters/link syntax. The returned sentence preserves the entity, use relation and both tools.",
+  "raw_answerable_correct": 42,
+  "adjudicated_answerable_correct": 43,
+  "answerable": 50,
+  "raw_wrong_promotions": 1,
+  "adjudicated_wrong_promotions": 0,
+  "assessed_promoted": 43,
+  "unassessed_keyword_promoted": 3
+}

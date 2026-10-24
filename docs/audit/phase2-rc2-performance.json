@@ -1,0 +1,21 @@
+{
+  "answer_extraction_ms": {
+    "p50": 6.19,
+    "p75": 7.11,
+    "p95": 9.03,
+    "max": 12.7
+  },
+  "server_total_ms": {
+    "p50": 26.25,
+    "p75": 35.68,
+    "p95": 52.02,
+    "max": 88.73
+  },
+  "protocol": "84 distinct independent questions, isolated synthetic corpus, BGE warm after index construction, QA disabled, production timings. Model/index construction excluded.",
+  "budgets": {
+    "answer_extraction_p95_ms": 25,
+    "full_engine_p95_ms": 500,
+    "browser_primary_p50_ms": 500,
+    "browser_primary_p95_ms": 1000
+  }
+}

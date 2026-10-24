@@ -1,0 +1,110 @@
+{
+  "records": [
+    {
+      "query": "does healing lounge offer flexible payments",
+      "visible_ms": 399.1,
+      "http_ms": 320.5,
+      "top_slug": "what-is-the-healing-lounge-pakistan",
+      "answer": null
+    },
+    {
+      "query": "when did japan enter ww2",
+      "visible_ms": 843.2,
+      "http_ms": 755.2,
+      "top_slug": "japan",
+      "answer": "1941"
+    },
+    {
+      "query": "meiji period",
+      "visible_ms": 935.2,
+      "http_ms": 855.3,
+      "top_slug": "kc-meiji-restoration",
+      "answer": "The Meiji period ended in 1912, well before Japan's surrender at the end of World War II."
+    },
+    {
+      "query": "japna",
+      "visible_ms": 439.2,
+      "http_ms": 363.6,
+      "top_slug": "kc-japan-geography",
+      "answer": null
+    },
+    {
+      "query": "what is my bicycle specification",
+      "visible_ms": 355.8,
+      "http_ms": 291,
+      "top_slug": "content-quality-thoughts",
+      "answer": null
+    },
+    {
+      "query": "when did yasir dream pese",
+      "visible_ms": 139.4,
+      "http_ms": 108.1,
+      "top_slug": "what-is-pese",
+      "answer": null
+    },
+    {
+      "query": "when did islamic golden age end",
+      "visible_ms": 1038.5,
+      "http_ms": 963.8,
+      "top_slug": "what-is-islamic-golden-age",
+      "answer": null
+    },
+    {
+      "query": "when was bicycle invented",
+      "visible_ms": 694.2,
+      "http_ms": 630.1,
+      "top_slug": "what-is-a-bicycle-complete-breakdown",
+      "answer": null
+    },
+    {
+      "query": "when did Japan surrender",
+      "visible_ms": 594.6,
+      "http_ms": 517.8,
+      "top_slug": "kc-end-world-war-two",
+      "answer": "15 August 1945"
+    },
+    {
+      "query": "where is Mount Fuji",
+      "visible_ms": 94.8,
+      "http_ms": 69.1,
+      "top_slug": "japan",
+      "answer": null
+    },
+    {
+      "query": "what does a CPU execute",
+      "visible_ms": 311.6,
+      "http_ms": 240.7,
+      "top_slug": "pese-phase-2-roadmap",
+      "answer": "INCORRECT ROADMAP ANSWER; subsequently repaired, retest separately"
+    },
+    {
+      "query": "can PESE predict lottery numbers",
+      "visible_ms": 711.5,
+      "http_ms": 646.5,
+      "top_slug": "what-is-pese",
+      "answer": null
+    }
+  ],
+  "summary": {
+    "n": 12,
+    "p50_ms": 516.9,
+    "p95_nearest_rank_ms": 1038.5,
+    "max_ms": 1038.5
+  },
+  "method": "Actual in-app browser, full /search navigation, model-warm mixed uncached queries; effect start to two animation frames after primary state commit. Excludes initial Next shell navigation/hydration and does not guarantee compositor paint. Rapid navigation retains real discovery contention. CPU case was caught during this run and fixed afterward; timing remains recorded.",
+  "cms_acceptance": {
+    "create_publish": "2013 visible immediately",
+    "edit": "2018 visible after CMS save",
+    "faq": "Question available in PAA",
+    "save_draft": "Frontend contract bug found and repaired; zero search results after corrected button",
+    "cleanup": "Only temporary article deleted, recovery copy .tmp/phase2e-temporary-cms-backup.json",
+    "original_published_docs_restored": 212
+  },
+  "post_repair_retest": {
+    "query": "what does a CPU execute",
+    "visible_ms": 379.3,
+    "featured_answer": null,
+    "top_slug": "pese-phase-2-roadmap",
+    "result": "Incorrect featured answer suppressed; document retrieval remains weak"
+  }
+}

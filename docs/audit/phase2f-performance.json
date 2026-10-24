@@ -1,0 +1,41 @@
+{
+  "conditions": "Local HTTP, model-warm, 12 queries repeated three times; isolated/main and subsequent concurrent calls reuse caches. Not browser-visible timings. No user sessions/events were recorded.",
+  "metrics": {
+    "isolated_primary": {
+      "n": 36,
+      "p50_ms": 7.22,
+      "p75_ms": 27.97,
+      "p95_ms": 91.93,
+      "max_ms": 196.29
+    },
+    "/api/search": {
+      "n": 36,
+      "p50_ms": 16.38,
+      "p75_ms": 21.91,
+      "p95_ms": 37.57,
+      "max_ms": 38.84
+    },
+    "/api/questions": {
+      "n": 36,
+      "p50_ms": 17.57,
+      "p75_ms": 26.51,
+      "p95_ms": 277.06,
+      "max_ms": 295.13
+    },
+    "/api/related": {
+      "n": 36,
+      "p50_ms": 31.71,
+      "p75_ms": 38.79,
+      "p95_ms": 164.42,
+      "max_ms": 283.47
+    }
+  },
+  "primary_cache_hits": 25,
+  "browser": {
+    "status": "NOT RUN",
+    "error": "Browser and native automation kernel failed to initialize: failed to write kernel assets (os error 3)",
+    "primary_visible_p50_p75_p95_max_ms": null,
+    "rapid_navigation_ui_verified": false
+  },
+  "production_caveat": "HTTP timings were captured before the post-holdout relation-promotion safety disablement; the safety patch removes work. They are not proof of the final browser target."
+}

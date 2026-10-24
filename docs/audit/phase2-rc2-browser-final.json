@@ -1,0 +1,387 @@
+{
+  "protocol": "Actual rendered Chrome via isolated Playwright fallback. UI actions only for CMS. Existing private pages untouched.",
+  "cms": [
+    {
+      "step": "create_publish",
+      "passed": true
+    },
+    {
+      "step": "search_published",
+      "passed": true
+    },
+    {
+      "step": "edit_search_updated_fact",
+      "passed": true
+    },
+    {
+      "step": "faq_add_search",
+      "passed": true
+    },
+    {
+      "step": "faq_remove_search",
+      "passed": true
+    },
+    {
+      "step": "save_draft_unpublish",
+      "passed": true
+    },
+    {
+      "step": "delete_cleanup",
+      "passed": true
+    }
+  ],
+  "search": [
+    {
+      "query": "does healing lounge offer flexible payments",
+      "featured": null,
+      "top_source": "/doc/what-is-the-healing-lounge-pakistan",
+      "primary_visible_ms": 153.6,
+      "navigation_wall_ms": 378,
+      "normal_debug_noise": 0,
+      "passed": true
+    },
+    {
+      "query": "when did japan enter ww2",
+      "featured": "1941",
+      "top_source": "/doc/japan",
+      "primary_visible_ms": 258.2,
+      "navigation_wall_ms": 374,
+      "normal_debug_noise": 0,
+      "passed": true
+    },
+    {
+      "query": "what are my bicycle specifications",
+      "featured": null,
+      "top_source": "/doc/my-first-bicycle",
+      "primary_visible_ms": 293.3,
+      "navigation_wall_ms": 373,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what brakes does my bicycle have",
+      "featured": "[private fact redacted]",
+      "top_source": "/doc/my-first-bicycle",
+      "primary_visible_ms": 60.9,
+      "navigation_wall_ms": 156,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "when did the RC2 Test Lantern open",
+      "featured": "2011",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 103.8,
+      "navigation_wall_ms": 187,
+      "normal_debug_noise": 0,
+      "passed": true
+    },
+    {
+      "query": "what housing does the RC2 Test Lantern have",
+      "featured": "The RC2 Test Lantern has a brass housing.",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 87.4,
+      "navigation_wall_ms": 168,
+      "normal_debug_noise": 0,
+      "passed": true
+    },
+    {
+      "query": "can RC2 Test Lantern clients split the service fee",
+      "featured": "RC2 Test Lantern clients may divide the service fee into two equal installments.",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 90,
+      "navigation_wall_ms": 166,
+      "normal_debug_noise": 0,
+      "passed": true
+    },
+    {
+      "query": "what motor does the RC2 Test Lantern use",
+      "featured": null,
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 107.6,
+      "navigation_wall_ms": 163,
+      "normal_debug_noise": 0,
+      "passed": true
+    },
+    {
+      "query": "when did the RC2 Test Lantern open",
+      "featured": "2018",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 107.6,
+      "navigation_wall_ms": 187,
+      "normal_debug_noise": 0,
+      "passed": true
+    },
+    {
+      "query": "what is the RC2 Test Lantern access code",
+      "featured": "The RC2 Test Lantern access code is R2-6401.",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 110.2,
+      "navigation_wall_ms": 224,
+      "normal_debug_noise": 0,
+      "passed": true
+    },
+    {
+      "query": "when did japan enter ww2",
+      "featured": "1941",
+      "top_source": "/doc/japan",
+      "primary_visible_ms": 254.7,
+      "navigation_wall_ms": 416,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "when did japan surrender in ww2",
+      "featured": "[private fact redacted]",
+      "top_source": "/doc/kc-end-world-war-two",
+      "primary_visible_ms": 601.7,
+      "navigation_wall_ms": 889,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "when did japan annex taiwan",
+      "featured": null,
+      "top_source": "/doc/japan",
+      "primary_visible_ms": 113.2,
+      "navigation_wall_ms": 177,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what is PESE",
+      "featured": "[private fact redacted]",
+      "top_source": "/doc/what-is-pese",
+      "primary_visible_ms": 110.2,
+      "navigation_wall_ms": 181,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what are my bicycle specifications",
+      "featured": null,
+      "top_source": "/doc/my-first-bicycle",
+      "primary_visible_ms": 191.6,
+      "navigation_wall_ms": 262,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what brakes does my bicycle have",
+      "featured": "[private fact redacted]",
+      "top_source": "/doc/my-first-bicycle",
+      "primary_visible_ms": 61.6,
+      "navigation_wall_ms": 121,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "does healing lounge offer flexible payments",
+      "featured": null,
+      "top_source": "/doc/what-is-the-healing-lounge-pakistan",
+      "primary_visible_ms": 66.5,
+      "navigation_wall_ms": 177,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what is the capital of japan",
+      "featured": "[private fact redacted]",
+      "top_source": "/doc/japan",
+      "primary_visible_ms": 123.5,
+      "navigation_wall_ms": 210,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "when did the RC2 Test Lantern open",
+      "featured": "2018",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 101.2,
+      "navigation_wall_ms": 177,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what housing does the RC2 Test Lantern have",
+      "featured": "The RC2 Test Lantern has a brass housing.",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 77.5,
+      "navigation_wall_ms": 169,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "can RC2 Test Lantern clients split the service fee",
+      "featured": "RC2 Test Lantern clients may divide the service fee into two equal installments.",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 89,
+      "navigation_wall_ms": 161,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what motor does the RC2 Test Lantern use",
+      "featured": null,
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 92.1,
+      "navigation_wall_ms": 148,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "when did japan enter ww2",
+      "featured": "1941",
+      "top_source": "/doc/japan",
+      "primary_visible_ms": 104.9,
+      "navigation_wall_ms": 194,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "when did japan surrender in ww2",
+      "featured": "[private fact redacted]",
+      "top_source": "/doc/kc-end-world-war-two",
+      "primary_visible_ms": 46.3,
+      "navigation_wall_ms": 146,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "when did japan annex taiwan",
+      "featured": null,
+      "top_source": "/doc/japan",
+      "primary_visible_ms": 52.7,
+      "navigation_wall_ms": 140,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what is PESE",
+      "featured": "[private fact redacted]",
+      "top_source": "/doc/what-is-pese",
+      "primary_visible_ms": 45.3,
+      "navigation_wall_ms": 131,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what are my bicycle specifications",
+      "featured": null,
+      "top_source": "/doc/my-first-bicycle",
+      "primary_visible_ms": 44.4,
+      "navigation_wall_ms": 109,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what brakes does my bicycle have",
+      "featured": "[private fact redacted]",
+      "top_source": "/doc/my-first-bicycle",
+      "primary_visible_ms": 39.4,
+      "navigation_wall_ms": 115,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "does healing lounge offer flexible payments",
+      "featured": null,
+      "top_source": "/doc/what-is-the-healing-lounge-pakistan",
+      "primary_visible_ms": 42.7,
+      "navigation_wall_ms": 129,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what is the capital of japan",
+      "featured": "[private fact redacted]",
+      "top_source": "/doc/japan",
+      "primary_visible_ms": 58.1,
+      "navigation_wall_ms": 145,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "when did the RC2 Test Lantern open",
+      "featured": "2018",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 35.2,
+      "navigation_wall_ms": 155,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what housing does the RC2 Test Lantern have",
+      "featured": "The RC2 Test Lantern has a brass housing.",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 54.6,
+      "navigation_wall_ms": 158,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "can RC2 Test Lantern clients split the service fee",
+      "featured": "RC2 Test Lantern clients may divide the service fee into two equal installments.",
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 47.8,
+      "navigation_wall_ms": 135,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what motor does the RC2 Test Lantern use",
+      "featured": null,
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 58.8,
+      "navigation_wall_ms": 153,
+      "normal_debug_noise": 0
+    },
+    {
+      "query": "what is the RC2 Test Lantern access code",
+      "featured": null,
+      "top_source": "/doc/rc2-ui-lantern-acceptance-20261023",
+      "primary_visible_ms": 98.6,
+      "navigation_wall_ms": 191,
+      "normal_debug_noise": 0,
+      "passed": true
+    },
+    {
+      "query": "when did the RC2 Test Lantern open",
+      "featured": null,
+      "top_source": "/doc/kc-ancient-egypt",
+      "primary_visible_ms": 257,
+      "navigation_wall_ms": 387,
+      "normal_debug_noise": 0,
+      "passed": true
+    }
+  ],
+  "timings": [
+    153.6,
+    258.2,
+    293.3,
+    60.9,
+    103.8,
+    87.4,
+    90,
+    107.6,
+    107.6,
+    110.2,
+    254.7,
+    601.7,
+    113.2,
+    110.2,
+    191.6,
+    61.6,
+    66.5,
+    123.5,
+    101.2,
+    77.5,
+    89,
+    92.1,
+    104.9,
+    46.3,
+    52.7,
+    45.3,
+    44.4,
+    39.4,
+    42.7,
+    58.1,
+    35.2,
+    54.6,
+    47.8,
+    58.8,
+    98.6,
+    257
+  ],
+  "errors": [],
+  "source_sha256": "eeeffb8cc18fce99c13777666566a849971910a3596264f71279555507e6f550",
+  "personal_bicycle": {
+    "correct_page": true,
+    "brake_answer_present": true,
+    "answer_grounded_in_rendered_source": true,
+    "private_fact_exported": false
+  },
+  "performance": {
+    "samples": 36,
+    "p50": 90,
+    "p75": 110.2,
+    "p95": 293.3,
+    "max": 601.7,
+    "methodology": "Nearest-rank; frontend double-requestAnimationFrame main-visible attribute after fetch. Model-warm, cache-aware full page navigations; includes 24 repeated varied timing probes plus lifecycle/search checks. Navigation wall is recorded separately. Headless installed Chrome at 1440x1000."
+  }
+}

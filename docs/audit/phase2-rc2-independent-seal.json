@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "sealed_at": "2026-10-23T06:22:58.727716Z",
+  "input_path": "docs/audit/phase2-rc2-independent-input.json",
+  "labels_path": ".tmp/rc2-sealed/labels.json",
+  "input_sha256": "152d8e9e3f893a242db3ae9e006e47e57845c0960bdb6e0e888bccfbb12d7c72",
+  "labels_sha256": "8bca130fb24382e4bf0566b5d9a5f4f5985c3b3f2e6d94db09f07c022e8a9f8c",
+  "documents_canonical_sha256": "bfb7593d93cc237ee418886d3f968f8f25ce8434ec47b593b125001d240b1e88",
+  "questions_canonical_sha256": "baf7cc1ef8acb9b7da806f406ac0da7bde9001c1d88ca57cfe75cd33943af99d",
+  "canonicalization": "UTF-8 JSON; sort_keys=True; ensure_ascii=False; separators=(comma,colon); no trailing newline",
+  "counts": {
+    "documents": 26,
+    "questions": 84,
+    "categories": 21,
+    "answerable": 60,
+    "unanswerable": 24
+  },
+  "frozen_source_sha256": "699ec98a683500c96665d016a25ddf30b3a99cf6ab7f7a2ef39982ef9aa9a0fd",
+  "production_run_observed": false,
+  "authorship_complete_before_production_run": true
+}

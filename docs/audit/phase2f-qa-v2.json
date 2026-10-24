@@ -1,0 +1,505 @@
+{
+  "dataset_status": "exposed source-grouped public evaluation, not independent holdout",
+  "manifest": {
+    "train": [
+      {
+        "id": "quasar:positive",
+        "source": "quasar",
+        "context_sha256": "2fdb2e1ad7ecec210be73da1ddf061290e0e0edc4139c8cc0a0be4fcabac5f47",
+        "example_sha256": "9407d2437c7d6f896882fb6faa18b10ce8c3536f2a12709daae1f030f99d71c0"
+      },
+      {
+        "id": "quasar:negative",
+        "source": "quasar",
+        "context_sha256": "2fdb2e1ad7ecec210be73da1ddf061290e0e0edc4139c8cc0a0be4fcabac5f47",
+        "example_sha256": "d013c36d0509a898d50b2ea5f2574b7eb0de30efcd68d9529dc14fdef9f9b6e5"
+      },
+      {
+        "id": "resistor:positive",
+        "source": "resistor",
+        "context_sha256": "cfcd1a58a96f1f1c111c9dfcc7d9c84f45e5174f554aa0a8b8b0072b5f7746f8",
+        "example_sha256": "2de96b5328732bb639d0a1cd8299bc05638b6e3eb4d10d1fea54319c7df2662e"
+      },
+      {
+        "id": "resistor:negative",
+        "source": "resistor",
+        "context_sha256": "cfcd1a58a96f1f1c111c9dfcc7d9c84f45e5174f554aa0a8b8b0072b5f7746f8",
+        "example_sha256": "637476195d349423df2cba5c115e77bc23d2852bb133a368d5ea8accda5a203a"
+      },
+      {
+        "id": "enzyme:positive",
+        "source": "enzyme",
+        "context_sha256": "529f9f1345f6078ba1daa2391c9d99c0cceaa13a4fb4d8ed176664d1755165af",
+        "example_sha256": "18b046b2c7dd3701eed0e6db969cc3a3dd884dadaa4720cc8088dcfbe52ad7f7"
+      },
+      {
+        "id": "enzyme:negative",
+        "source": "enzyme",
+        "context_sha256": "529f9f1345f6078ba1daa2391c9d99c0cceaa13a4fb4d8ed176664d1755165af",
+        "example_sha256": "97cde13dd227110460e4c9984addec296672f5ed4eec7dd1d14ca8d4187fd841"
+      },
+      {
+        "id": "cache:positive",
+        "source": "cache",
+        "context_sha256": "ff98722105e232b5d58b1d9014f29a852ad74e4684091d6e5ff7626af4e7dc32",
+        "example_sha256": "33df20d053687ff69f61206ac8035ab90126471291cfe5ef6778960e45f0cc9b"
+      },
+      {
+        "id": "cache:negative",
+        "source": "cache",
+        "context_sha256": "ff98722105e232b5d58b1d9014f29a852ad74e4684091d6e5ff7626af4e7dc32",
+        "example_sha256": "d438759c8efd21736c42a30ea3c560831cb48167ea0228ba7414d3e4897ebe54"
+      }
+    ],
+    "validation": [
+      {
+        "id": "fjord:positive",
+        "source": "fjord",
+        "context_sha256": "94f22fe67fc247e1871a44ac45f3a05f6be105993fe082dbb4fd9f215c778aea",
+        "example_sha256": "686f194d2be110b1c838e2f80cd55eeede27f2431739e4729f24006094ab6358"
+      },
+      {
+        "id": "fjord:negative",
+        "source": "fjord",
+        "context_sha256": "94f22fe67fc247e1871a44ac45f3a05f6be105993fe082dbb4fd9f215c778aea",
+        "example_sha256": "5da86848a9924bff426d96688912a69f05b476d107cca4c9e73ad75583259969"
+      },
+      {
+        "id": "lichen:positive",
+        "source": "lichen",
+        "context_sha256": "f24037e5be57df479c928765f8fdd76e1a97059bdae1647b849509cac0328caf",
+        "example_sha256": "6d2fc820a4742c8b7eab602d2bc23d1c36041b84018165ecc2cd8c8f35f42e67"
+      },
+      {
+        "id": "lichen:negative",
+        "source": "lichen",
+        "context_sha256": "f24037e5be57df479c928765f8fdd76e1a97059bdae1647b849509cac0328caf",
+        "example_sha256": "24065df8678d368f4d22b4402e1b49b1e4e3dacbf2f5b1b38cd81f77d91cc00a"
+      }
+    ],
+    "test": [
+      {
+        "id": "velora:positive",
+        "source": "velora",
+        "context_sha256": "e92d9affd7ededdc92181aa8d1b5d2b726d7912ba8fda6e215213c844f3786cf",
+        "example_sha256": "3557f3de314617530d1c395d0a0efba233c6d4a898bbe71ffade884c9b864408"
+      },
+      {
+        "id": "velora:negative",
+        "source": "velora",
+        "context_sha256": "e92d9affd7ededdc92181aa8d1b5d2b726d7912ba8fda6e215213c844f3786cf",
+        "example_sha256": "2b62f1a6a7b63e80c824bf2b1e529b0fe8b5221140d344c6f40b8eb490ddbd4a"
+      },
+      {
+        "id": "thistle:positive",
+        "source": "thistle",
+        "context_sha256": "3d346cb99e4a4b249fb4f552dd447ffa75b142f80b6dc8a3f5f7d795d2081b3f",
+        "example_sha256": "80f8c6539989e35eb8aecfed6079b1a86d96aada8f020773da3422df1040a800"
+      },
+      {
+        "id": "thistle:negative",
+        "source": "thistle",
+        "context_sha256": "3d346cb99e4a4b249fb4f552dd447ffa75b142f80b6dc8a3f5f7d795d2081b3f",
+        "example_sha256": "0c4d04cb2fa387f2d7302d8fdc4392a1bdbf033885b531a7771a8d0bbf1d00aa"
+      },
+      {
+        "id": "bracken:positive",
+        "source": "bracken",
+        "context_sha256": "85c7d8767fb4d2813bbde8066452cf291da083178d1c28ece3cd6ad7e3b4d8cf",
+        "example_sha256": "da7621043eb3b8810a66df2649df7a1b2971cd63b5ab1d4ba4dd9a08fa05325d"
+      },
+      {
+        "id": "bracken:negative",
+        "source": "bracken",
+        "context_sha256": "85c7d8767fb4d2813bbde8066452cf291da083178d1c28ece3cd6ad7e3b4d8cf",
+        "example_sha256": "19968d7847caa961c39a9ad402f5f4cc083ec11948f65b87e5845e5d5b136ed8"
+      },
+      {
+        "id": "mistral:positive",
+        "source": "mistral",
+        "context_sha256": "c519f6f49d156743d53760d356b5ee2c771b87fcf197838cd7d86a1650ea2fbb",
+        "example_sha256": "8de698905e680a4598c77170e3bc956311573bc8c2927a60e400515a26f4753b"
+      },
+      {
+        "id": "mistral:negative",
+        "source": "mistral",
+        "context_sha256": "c519f6f49d156743d53760d356b5ee2c771b87fcf197838cd7d86a1650ea2fbb",
+        "example_sha256": "5571b3c2ab474e686848d774f3e7015c6a147e617ebe0871acb400ec7677bc3a"
+      },
+      {
+        "id": "silverfin:positive",
+        "source": "silverfin",
+        "context_sha256": "c70f694a657cf0a50fd8ac7353d7e4f5f9d6cd8ed41b8bf3b8ece10d1ef9aaea",
+        "example_sha256": "93a33cd8dff248d48d61e9b772eaaabf6ac06422e91a7f218642125478e16e36"
+      },
+      {
+        "id": "silverfin:negative",
+        "source": "silverfin",
+        "context_sha256": "c70f694a657cf0a50fd8ac7353d7e4f5f9d6cd8ed41b8bf3b8ece10d1ef9aaea",
+        "example_sha256": "e748e5800f13d522e9b0d9a5b9598089896e3c5eb0b11f507d80243669111628"
+      },
+      {
+        "id": "tavin:positive",
+        "source": "tavin",
+        "context_sha256": "46241c4e1a3af2f14769f31e5e79264bc905c52ec80baa863ddbf0e15fae3698",
+        "example_sha256": "bd36b34a970ba94daaffea9f5737637589934101cfae2079d1d02c3f4c353882"
+      },
+      {
+        "id": "tavin:negative",
+        "source": "tavin",
+        "context_sha256": "46241c4e1a3af2f14769f31e5e79264bc905c52ec80baa863ddbf0e15fae3698",
+        "example_sha256": "9c211299bda6406212883ffd5d1dc5880e41f2e74e9a57a35c536a3f2a78e856"
+      },
+      {
+        "id": "dovetail:positive",
+        "source": "dovetail",
+        "context_sha256": "2a778636d1d75effe25a8cd76fff8a9523ff5db843aa230555a9f678692cacc5",
+        "example_sha256": "0e3d4d3e311f88d025fc3de0c3b770fb19b50100c27b5e8cfb9f88118c85733c"
+      },
+      {
+        "id": "dovetail:negative",
+        "source": "dovetail",
+        "context_sha256": "2a778636d1d75effe25a8cd76fff8a9523ff5db843aa230555a9f678692cacc5",
+        "example_sha256": "a6ccc62827613c2cf72908efed78638e8f8d5150a204fe4550443f1d03b6bdc1"
+      },
+      {
+        "id": "sorrel:positive",
+        "source": "sorrel",
+        "context_sha256": "a3ce4d502a675a4aebabd485018875b027cd0532d460c65afa1178d9457c40dc",
+        "example_sha256": "5ebf4d7990c89b99fdcf9d379bbae43f2397ac6bf16556e6779a3fa34821df8f"
+      },
+      {
+        "id": "sorrel:negative",
+        "source": "sorrel",
+        "context_sha256": "a3ce4d502a675a4aebabd485018875b027cd0532d460c65afa1178d9457c40dc",
+        "example_sha256": "e99fa7d86b3747f61d5d139bf54c3001a240ffbfda23212724550c550860f17e"
+      }
+    ]
+  },
+  "tokenizer": {
+    "policy": "V2 training examples only; not used to alter legacy checkpoint",
+    "sha256": "afa9d02a4762e77ba3d2a02e0f9626c8ed1e42aa6109b74b8737390068a75a94",
+    "vocab_size": 171
+  },
+  "legacy_checkpoint": {
+    "status": "EXPERIMENT",
+    "original_leakage": "5 identical train/validation contexts; 9/15 old benchmark items shared training contexts; original tokenizer saw validation. These cannot be retroactively repaired.",
+    "test_identical_context_overlap": 0,
+    "trained_v2": false
+  },
+  "summary": {
+    "test_examples": 16,
+    "answerable": 8,
+    "unanswerable": 8,
+    "checkpoint_available": true,
+    "complete_search_accuracy": 1,
+    "incremental_complete_search_gain": 0,
+    "qa_exact_match": 0.4375,
+    "qa_token_f1": 0.5676587301587301,
+    "qa_answerability_accuracy": 0.6875,
+    "no_answer_precision": 0.7142857142857143,
+    "no_answer_recall": 0.625,
+    "grounded_span_rate": 1
+  },
+  "calibration": [
+    {
+      "low": 0,
+      "high": 0.5,
+      "count": 3,
+      "exact_match": 1
+    },
+    {
+      "low": 0.5,
+      "high": 0.7,
+      "count": 5,
+      "exact_match": 0.2
+    },
+    {
+      "low": 0.7,
+      "high": 0.9,
+      "count": 3,
+      "exact_match": 0.3333333333333333
+    },
+    {
+      "low": 0.9,
+      "high": 1,
+      "count": 5,
+      "exact_match": 0.4
+    }
+  ],
+  "records": [
+    {
+      "id": "velora:positive",
+      "question": "When did the Velora lantern launch?",
+      "expected": "2016",
+      "answerable": true,
+      "deterministic": "2016",
+      "plus_shadow": "2016",
+      "complete_search_correct": true,
+      "qa_passage_answer": "2016",
+      "qa_exact_match": true,
+      "qa_token_f1": 1.0,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": true,
+      "qa_confidence": 0.8559,
+      "complete_search_shadow": "2016",
+      "shadow_promoted": false
+    },
+    {
+      "id": "velora:negative",
+      "question": "What color is the Velora lantern?",
+      "expected": null,
+      "answerable": false,
+      "deterministic": null,
+      "plus_shadow": null,
+      "complete_search_correct": true,
+      "qa_passage_answer": "launched in 2016",
+      "qa_exact_match": false,
+      "qa_token_f1": 0.0,
+      "qa_answerability_correct": false,
+      "qa_span_grounded": true,
+      "qa_confidence": 0.5865,
+      "complete_search_shadow": "launched in 2016",
+      "shadow_promoted": false
+    },
+    {
+      "id": "thistle:positive",
+      "question": "When did Thistle Archive reopen?",
+      "expected": "2009",
+      "answerable": true,
+      "deterministic": "2009",
+      "plus_shadow": "2009",
+      "complete_search_correct": true,
+      "qa_passage_answer": null,
+      "qa_exact_match": false,
+      "qa_token_f1": 0.0,
+      "qa_answerability_correct": false,
+      "qa_span_grounded": null,
+      "qa_confidence": 0.9998,
+      "complete_search_shadow": null,
+      "shadow_promoted": false
+    },
+    {
+      "id": "thistle:negative",
+      "question": "Who designed Thistle Archive?",
+      "expected": null,
+      "answerable": false,
+      "deterministic": null,
+      "plus_shadow": null,
+      "complete_search_correct": true,
+      "qa_passage_answer": null,
+      "qa_exact_match": true,
+      "qa_token_f1": 1.0,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": null,
+      "qa_confidence": 0.9998,
+      "complete_search_shadow": null,
+      "shadow_promoted": false
+    },
+    {
+      "id": "bracken:positive",
+      "question": "How much does the Bracken tablet weigh?",
+      "expected": "620 grams",
+      "answerable": true,
+      "deterministic": "The Bracken tablet weighs 620 grams and has a ceramic frame.",
+      "plus_shadow": "The Bracken tablet weighs 620 grams and has a ceramic frame.",
+      "complete_search_correct": true,
+      "qa_passage_answer": null,
+      "qa_exact_match": false,
+      "qa_token_f1": 0.0,
+      "qa_answerability_correct": false,
+      "qa_span_grounded": null,
+      "qa_confidence": 0.9997,
+      "complete_search_shadow": null,
+      "shadow_promoted": false
+    },
+    {
+      "id": "bracken:negative",
+      "question": "What is the Bracken tablet battery capacity?",
+      "expected": null,
+      "answerable": false,
+      "deterministic": null,
+      "plus_shadow": null,
+      "complete_search_correct": true,
+      "qa_passage_answer": null,
+      "qa_exact_match": true,
+      "qa_token_f1": 1.0,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": null,
+      "qa_confidence": 0.0004,
+      "complete_search_shadow": null,
+      "shadow_promoted": false
+    },
+    {
+      "id": "mistral:positive",
+      "question": "Where is Mistral library located?",
+      "expected": "Cedar Bay",
+      "answerable": true,
+      "deterministic": "Mistral library is located in Cedar Bay.",
+      "plus_shadow": "Mistral library is located in Cedar Bay.",
+      "complete_search_correct": true,
+      "qa_passage_answer": "Mistral library is located in Cedar Bay",
+      "qa_exact_match": false,
+      "qa_token_f1": 0.4444444444444444,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": true,
+      "qa_confidence": 0.5566,
+      "complete_search_shadow": "Mistral library is located in Cedar Bay",
+      "shadow_promoted": false
+    },
+    {
+      "id": "mistral:negative",
+      "question": "When did Mistral library open?",
+      "expected": null,
+      "answerable": false,
+      "deterministic": null,
+      "plus_shadow": null,
+      "complete_search_correct": true,
+      "qa_passage_answer": null,
+      "qa_exact_match": true,
+      "qa_token_f1": 1.0,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": null,
+      "qa_confidence": 0.0,
+      "complete_search_shadow": null,
+      "shadow_promoted": false
+    },
+    {
+      "id": "silverfin:positive",
+      "question": "Does Silverfin workshop accept cryptocurrency?",
+      "expected": "Silverfin workshop does not accept cryptocurrency.",
+      "answerable": true,
+      "deterministic": "Silverfin workshop does not accept cryptocurrency.",
+      "plus_shadow": "Silverfin workshop does not accept cryptocurrency.",
+      "complete_search_correct": true,
+      "qa_passage_answer": "Silverfin workshop accepts installment",
+      "qa_exact_match": false,
+      "qa_token_f1": 0.4,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": true,
+      "qa_confidence": 0.5889,
+      "complete_search_shadow": "Silverfin workshop accepts installment",
+      "shadow_promoted": false
+    },
+    {
+      "id": "silverfin:negative",
+      "question": "Who founded Silverfin workshop?",
+      "expected": null,
+      "answerable": false,
+      "deterministic": null,
+      "plus_shadow": null,
+      "complete_search_correct": true,
+      "qa_passage_answer": null,
+      "qa_exact_match": true,
+      "qa_token_f1": 1.0,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": null,
+      "qa_confidence": 0.9997,
+      "complete_search_shadow": null,
+      "shadow_promoted": false
+    },
+    {
+      "id": "tavin:positive",
+      "question": "When did Tavin end the expedition?",
+      "expected": "2003",
+      "answerable": true,
+      "deterministic": "2003",
+      "plus_shadow": "2003",
+      "complete_search_correct": true,
+      "qa_passage_answer": "2003",
+      "qa_exact_match": true,
+      "qa_token_f1": 1.0,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": true,
+      "qa_confidence": 0.5042,
+      "complete_search_shadow": "2003",
+      "shadow_promoted": false
+    },
+    {
+      "id": "tavin:negative",
+      "question": "How much did Tavin's expedition cost?",
+      "expected": null,
+      "answerable": false,
+      "deterministic": null,
+      "plus_shadow": null,
+      "complete_search_correct": true,
+      "qa_passage_answer": "1998",
+      "qa_exact_match": false,
+      "qa_token_f1": 0.0,
+      "qa_answerability_correct": false,
+      "qa_span_grounded": true,
+      "qa_confidence": 0.7942,
+      "complete_search_shadow": "1998",
+      "shadow_promoted": false
+    },
+    {
+      "id": "dovetail:positive",
+      "question": "What does Dovetail service use to coordinate tasks?",
+      "expected": "a message queue",
+      "answerable": true,
+      "deterministic": "Dovetail service uses a message queue to coordinate tasks.",
+      "plus_shadow": "Dovetail service uses a message queue to coordinate tasks.",
+      "complete_search_correct": true,
+      "qa_passage_answer": "a message queue to coordinate tasks",
+      "qa_exact_match": false,
+      "qa_token_f1": 0.5714285714285714,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": true,
+      "qa_confidence": 0.5456,
+      "complete_search_shadow": "a message queue to coordinate tasks",
+      "shadow_promoted": false
+    },
+    {
+      "id": "dovetail:negative",
+      "question": "What programming language is Dovetail service written in?",
+      "expected": null,
+      "answerable": false,
+      "deterministic": null,
+      "plus_shadow": null,
+      "complete_search_correct": true,
+      "qa_passage_answer": "to coordinate tasks",
+      "qa_exact_match": false,
+      "qa_token_f1": 0.0,
+      "qa_answerability_correct": false,
+      "qa_span_grounded": true,
+      "qa_confidence": 0.707,
+      "complete_search_shadow": "to coordinate tasks",
+      "shadow_promoted": false
+    },
+    {
+      "id": "sorrel:positive",
+      "question": "Who created Sorrel?",
+      "expected": "Elian Shore",
+      "answerable": true,
+      "deterministic": "Sorrel was created by Elian Shore.",
+      "plus_shadow": "Sorrel was created by Elian Shore.",
+      "complete_search_correct": true,
+      "qa_passage_answer": "Elian",
+      "qa_exact_match": false,
+      "qa_token_f1": 0.6666666666666666,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": true,
+      "qa_confidence": 0.9081,
+      "complete_search_shadow": "Elian",
+      "shadow_promoted": false
+    },
+    {
+      "id": "sorrel:negative",
+      "question": "How much does Sorrel cost?",
+      "expected": null,
+      "answerable": false,
+      "deterministic": null,
+      "plus_shadow": null,
+      "complete_search_correct": true,
+      "qa_passage_answer": null,
+      "qa_exact_match": true,
+      "qa_token_f1": 1.0,
+      "qa_answerability_correct": true,
+      "qa_span_grounded": null,
+      "qa_confidence": 0.0,
+      "complete_search_shadow": null,
+      "shadow_promoted": false
+    }
+  ],
+  "decision": "EXPERIMENT: no promotion; shadow has zero authoritative answer impact by design"
+}

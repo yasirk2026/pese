@@ -1,0 +1,1036 @@
+{
+  "summary": {
+    "typos": 100,
+    "controls": 40,
+    "precision": 1.0,
+    "recall": 0.59,
+    "false_correction_rate": 0.0
+  },
+  "categories": {
+    "missing_letter": {
+      "total": 20,
+      "correct": 14
+    },
+    "extra_letter": {
+      "total": 20,
+      "correct": 15
+    },
+    "two_edits": {
+      "total": 20,
+      "correct": 0
+    },
+    "wrong_vowel": {
+      "total": 20,
+      "correct": 11
+    },
+    "transposition": {
+      "total": 20,
+      "correct": 19
+    }
+  },
+  "records": [
+    {
+      "input": "jaapn",
+      "expected": "japan",
+      "actual": "japan",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "jaan",
+      "expected": "japan",
+      "actual": "japan",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "jappan",
+      "expected": "japan",
+      "actual": "japan",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "jaaan",
+      "expected": "japan",
+      "actual": "japan",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "aanj",
+      "expected": "japan",
+      "actual": "aanj",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "biccyle",
+      "expected": "bicycle",
+      "actual": "bicycle",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "biccle",
+      "expected": "bicycle",
+      "actual": "bicycle",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "bicyycle",
+      "expected": "bicycle",
+      "actual": "bicycle",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "bicacle",
+      "expected": "bicycle",
+      "actual": "bicycle",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "iccleb",
+      "expected": "bicycle",
+      "actual": "iccleb",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "camrea",
+      "expected": "camera",
+      "actual": "camera",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "camra",
+      "expected": "camera",
+      "actual": "camera",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "cameera",
+      "expected": "camera",
+      "actual": "camera",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "camara",
+      "expected": "camera",
+      "actual": "camera",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "amrac",
+      "expected": "camera",
+      "actual": "amrac",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "merucry",
+      "expected": "mercury",
+      "actual": "mercury",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "merury",
+      "expected": "mercury",
+      "actual": "mercury",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "merccury",
+      "expected": "mercury",
+      "actual": "mercury",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "meraury",
+      "expected": "mercury",
+      "actual": "mercury",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "erurym",
+      "expected": "mercury",
+      "actual": "erurym",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "cliinc",
+      "expected": "clinic",
+      "actual": "clinic",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "cliic",
+      "expected": "clinic",
+      "actual": "clinic",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "clinnic",
+      "expected": "clinic",
+      "actual": "clinic",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "cliaic",
+      "expected": "clinic",
+      "actual": "clinic",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "liicc",
+      "expected": "clinic",
+      "actual": "liicc",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "payemnt",
+      "expected": "payment",
+      "actual": "payment",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "payent",
+      "expected": "payment",
+      "actual": "payment",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "paymment",
+      "expected": "payment",
+      "actual": "payment",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "payaent",
+      "expected": "payment",
+      "actual": "payaent",
+      "category": "wrong_vowel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "ayentp",
+      "expected": "payment",
+      "actual": "ayentp",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "instalmlents",
+      "expected": "installments",
+      "actual": "installments",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "instalments",
+      "expected": "installments",
+      "actual": "instalments",
+      "category": "missing_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "installlments",
+      "expected": "installments",
+      "actual": "installments",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "instalaments",
+      "expected": "installments",
+      "actual": "installments",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "nstalmentsi",
+      "expected": "installments",
+      "actual": "nstalmentsi",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "raiwlay",
+      "expected": "railway",
+      "actual": "railway",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "raiway",
+      "expected": "railway",
+      "actual": "railway",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "raillway",
+      "expected": "railway",
+      "actual": "railway",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "raiaway",
+      "expected": "railway",
+      "actual": "railway",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "aiwayr",
+      "expected": "railway",
+      "actual": "aiwayr",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "obseravtory",
+      "expected": "observatory",
+      "actual": "observatory",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "obseratory",
+      "expected": "observatory",
+      "actual": "observatory",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "observvatory",
+      "expected": "observatory",
+      "actual": "observatory",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "obseraatory",
+      "expected": "observatory",
+      "actual": "obseraatory",
+      "category": "wrong_vowel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "bseratoryo",
+      "expected": "observatory",
+      "actual": "bseratoryo",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "constiuttion",
+      "expected": "constitution",
+      "actual": "constitution",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "constiution",
+      "expected": "constitution",
+      "actual": "constiution",
+      "category": "missing_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "constittution",
+      "expected": "constitution",
+      "actual": "constittution",
+      "category": "extra_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "constiaution",
+      "expected": "constitution",
+      "actual": "constiaution",
+      "category": "wrong_vowel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "onstiutionc",
+      "expected": "constitution",
+      "actual": "onstiutionc",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "instrutcions",
+      "expected": "instructions",
+      "actual": "instructions",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "instrutions",
+      "expected": "instructions",
+      "actual": "instrutions",
+      "category": "missing_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "instrucctions",
+      "expected": "instructions",
+      "actual": "instrucctions",
+      "category": "extra_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "instruations",
+      "expected": "instructions",
+      "actual": "instruations",
+      "category": "wrong_vowel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "nstrutionsi",
+      "expected": "instructions",
+      "actual": "nstrutionsi",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "telecsope",
+      "expected": "telescope",
+      "actual": "telescope",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "telecope",
+      "expected": "telescope",
+      "actual": "telescope",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "telesscope",
+      "expected": "telescope",
+      "actual": "telescope",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "teleacope",
+      "expected": "telescope",
+      "actual": "teleacope",
+      "category": "wrong_vowel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "elecopet",
+      "expected": "telescope",
+      "actual": "elecopet",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "mechaincal",
+      "expected": "mechanical",
+      "actual": "mechaincal",
+      "category": "transposition",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "mechaical",
+      "expected": "mechanical",
+      "actual": "mechaical",
+      "category": "missing_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "mechannical",
+      "expected": "mechanical",
+      "actual": "mechannical",
+      "category": "extra_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "mechaaical",
+      "expected": "mechanical",
+      "actual": "mechaaical",
+      "category": "wrong_vowel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "echaicalm",
+      "expected": "mechanical",
+      "actual": "echaicalm",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "specifiactions",
+      "expected": "specifications",
+      "actual": "specifications",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "specifiations",
+      "expected": "specifications",
+      "actual": "specifications",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "specificcations",
+      "expected": "specifications",
+      "actual": "specifications",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "specifiaations",
+      "expected": "specifications",
+      "actual": "specifications",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "pecifiationss",
+      "expected": "specifications",
+      "actual": "pecifiationss",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "geogarphy",
+      "expected": "geography",
+      "actual": "geography",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "geogaphy",
+      "expected": "geography",
+      "actual": "geography",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "geogrraphy",
+      "expected": "geography",
+      "actual": "geography",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "geogaaphy",
+      "expected": "geography",
+      "actual": "geography",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "eogaphyg",
+      "expected": "geography",
+      "actual": "eogaphyg",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "linedn",
+      "expected": "linden",
+      "actual": "linden",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "linen",
+      "expected": "linden",
+      "actual": "linden",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "lindden",
+      "expected": "linden",
+      "actual": "linden",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "linaen",
+      "expected": "linden",
+      "actual": "linden",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "inenl",
+      "expected": "linden",
+      "actual": "inenl",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "coblat",
+      "expected": "cobalt",
+      "actual": "cobalt",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "coblt",
+      "expected": "cobalt",
+      "actual": "cobalt",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "cobaalt",
+      "expected": "cobalt",
+      "actual": "cobalt",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "cobelt",
+      "expected": "cobalt",
+      "actual": "cobalt",
+      "category": "wrong_vowel",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "obltc",
+      "expected": "cobalt",
+      "actual": "obltc",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "citirne",
+      "expected": "citrine",
+      "actual": "citrine",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "citine",
+      "expected": "citrine",
+      "actual": "citrine",
+      "category": "missing_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "citrrine",
+      "expected": "citrine",
+      "actual": "citrine",
+      "category": "extra_letter",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "citaine",
+      "expected": "citrine",
+      "actual": "citaine",
+      "category": "wrong_vowel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "itinec",
+      "expected": "citrine",
+      "actual": "itinec",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "aurroa",
+      "expected": "aurora",
+      "actual": "aurora",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "aurra",
+      "expected": "aurora",
+      "actual": "aurra",
+      "category": "missing_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "auroora",
+      "expected": "aurora",
+      "actual": "auroora",
+      "category": "extra_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "aurara",
+      "expected": "aurora",
+      "actual": "aurara",
+      "category": "wrong_vowel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "urraa",
+      "expected": "aurora",
+      "actual": "urraa",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "kesrtel",
+      "expected": "kestrel",
+      "actual": "kestrel",
+      "category": "transposition",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "kesrel",
+      "expected": "kestrel",
+      "actual": "kesrel",
+      "category": "missing_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "kesttrel",
+      "expected": "kestrel",
+      "actual": "kesttrel",
+      "category": "extra_letter",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "kesarel",
+      "expected": "kestrel",
+      "actual": "kesarel",
+      "category": "wrong_vowel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "esrelk",
+      "expected": "kestrel",
+      "actual": "esrelk",
+      "category": "two_edits",
+      "changed": false,
+      "correct": false
+    }
+  ],
+  "controls": [
+    {
+      "input": "cpu",
+      "actual": "cpu",
+      "changed": false
+    },
+    {
+      "input": "gpu",
+      "actual": "gpu",
+      "changed": false
+    },
+    {
+      "input": "bge",
+      "actual": "bge",
+      "changed": false
+    },
+    {
+      "input": "onnx",
+      "actual": "onnx",
+      "changed": false
+    },
+    {
+      "input": "grpc",
+      "actual": "grpc",
+      "changed": false
+    },
+    {
+      "input": "cuda",
+      "actual": "cuda",
+      "changed": false
+    },
+    {
+      "input": "numpy",
+      "actual": "numpy",
+      "changed": false
+    },
+    {
+      "input": "pydantic",
+      "actual": "pydantic",
+      "changed": false
+    },
+    {
+      "input": "uvicorn",
+      "actual": "uvicorn",
+      "changed": false
+    },
+    {
+      "input": "torch",
+      "actual": "torch",
+      "changed": false
+    },
+    {
+      "input": "bm25f",
+      "actual": "bm25f",
+      "changed": false
+    },
+    {
+      "input": "rrf",
+      "actual": "rrf",
+      "changed": false
+    },
+    {
+      "input": "sqlite",
+      "actual": "sqlite",
+      "changed": false
+    },
+    {
+      "input": "oauth",
+      "actual": "oauth",
+      "changed": false
+    },
+    {
+      "input": "json",
+      "actual": "json",
+      "changed": false
+    },
+    {
+      "input": "http",
+      "actual": "http",
+      "changed": false
+    },
+    {
+      "input": "https",
+      "actual": "https",
+      "changed": false
+    },
+    {
+      "input": "next.js",
+      "actual": "next.js",
+      "changed": false
+    },
+    {
+      "input": "typescript",
+      "actual": "typescript",
+      "changed": false
+    },
+    {
+      "input": "tokenizers",
+      "actual": "tokenizers",
+      "changed": false
+    },
+    {
+      "input": "fastembed",
+      "actual": "fastembed",
+      "changed": false
+    },
+    {
+      "input": "protobuf",
+      "actual": "protobuf",
+      "changed": false
+    },
+    {
+      "input": "aperture",
+      "actual": "aperture",
+      "changed": false
+    },
+    {
+      "input": "shutter",
+      "actual": "shutter",
+      "changed": false
+    },
+    {
+      "input": "mercury",
+      "actual": "mercury",
+      "changed": false
+    },
+    {
+      "input": "cobalt",
+      "actual": "cobalt",
+      "changed": false
+    },
+    {
+      "input": "go",
+      "actual": "go",
+      "changed": false
+    },
+    {
+      "input": "rust",
+      "actual": "rust",
+      "changed": false
+    },
+    {
+      "input": "c",
+      "actual": "c",
+      "changed": false
+    },
+    {
+      "input": "r",
+      "actual": "r",
+      "changed": false
+    },
+    {
+      "input": "ai",
+      "actual": "ai",
+      "changed": false
+    },
+    {
+      "input": "ml",
+      "actual": "ml",
+      "changed": false
+    },
+    {
+      "input": "ir",
+      "actual": "ir",
+      "changed": false
+    },
+    {
+      "input": "qa",
+      "actual": "qa",
+      "changed": false
+    },
+    {
+      "input": "os",
+      "actual": "os",
+      "changed": false
+    },
+    {
+      "input": "api",
+      "actual": "api",
+      "changed": false
+    },
+    {
+      "input": "sql",
+      "actual": "sql",
+      "changed": false
+    },
+    {
+      "input": "tcp",
+      "actual": "tcp",
+      "changed": false
+    },
+    {
+      "input": "udp",
+      "actual": "udp",
+      "changed": false
+    },
+    {
+      "input": "ram",
+      "actual": "ram",
+      "changed": false
+    }
+  ],
+  "limitations": "Generated development mutations. Precision includes corrections to a wrong corpus word; conservative misses remain visible. Technical controls may be out of corpus."
+}

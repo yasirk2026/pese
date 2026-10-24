@@ -1,0 +1,57 @@
+{
+  "rows": [
+    {
+      "query": "Can I split the fee?",
+      "evidence": "Clients may pay in two equal installments.",
+      "cosine": 0.7383225560188293,
+      "threshold": 0.84
+    },
+    {
+      "query": "When did Arlen dream ASTRA?",
+      "evidence": "Arlen envisioned ASTRA in 2023.",
+      "cosine": 0.6081670522689819,
+      "threshold": 0.84
+    },
+    {
+      "query": "What was Helix built with?",
+      "evidence": "Helix was developed using Python.",
+      "cosine": 0.5659127235412598,
+      "threshold": 0.84
+    },
+    {
+      "query": "When did Toria enter the war?",
+      "evidence": "Toria joined the conflict in 1942.",
+      "cosine": 0.6200286149978638,
+      "threshold": 0.84
+    },
+    {
+      "query": "Where does Remy live?",
+      "evidence": "Remy resides in Lisbon.",
+      "cosine": 0.0,
+      "threshold": 0.84
+    },
+    {
+      "query": "Can I split the fee?",
+      "evidence": "Clients may book two appointment slots.",
+      "cosine": 0.6639811396598816,
+      "threshold": 0.84
+    },
+    {
+      "query": "When did Arlen dream ASTRA?",
+      "evidence": "Arlen joined ASTRA in 2024.",
+      "cosine": 0.49374380707740784,
+      "threshold": 0.84
+    },
+    {
+      "query": "What was Helix built with?",
+      "evidence": "Helix offers a development newsletter.",
+      "cosine": 0.5497286319732666,
+      "threshold": 0.84
+    }
+  ],
+  "summary": {
+    "passing_similarity": 0,
+    "pairs": 8
+  },
+  "limitation": "Similarity alone is never sufficient for promotion; mandatory entity/property/negation/type/span gates still apply."
+}

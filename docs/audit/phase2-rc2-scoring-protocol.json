@@ -1,0 +1,11 @@
+{
+  "frozen_at": "2026-10-23T06:11:07.907117+00:00",
+  "source_sha256": "699ec98a683500c96665d016a25ddf30b3a99cf6ab7f7a2ef39982ef9aa9a0fd",
+  "scorer_sha256": "f72087487fea908a5a8b3ed76a0c998811de7e9a1b98d6c2f36811d206387d95",
+  "correctness": "Expected source plus every required-fact group, no forbidden claims, and manually confirmed requested relation, answer type, polarity and qualifiers. All promotions reviewed; raw flags preserved.",
+  "format": "A supported full sentence is fact-correct even when not a canonical bare value. FACT_CORRECT_FORMAT_NONCANONICAL is informational, never automatically a hallucination.",
+  "retrieval": "Answerable denominator. Document first/first3. Supporting evidence within first/first3 captured passages, in capture order: up to three per first3 documents.",
+  "holdout": "Fresh author with no inherited turns, implementation, development, old holdout, benchmark or private corpus exposure. Hash documents/questions/labels/input/source before run. One frozen production run, QA disabled. No source edits after reveal.",
+  "statistics": "Report counts and percentages independently: recall, promoted precision, wrong/all questions, negative abstention, false abstention and category breakdown. No statistical guarantee from this sample.",
+  "immutable": "Original RC1 artifacts and labels preserved. New author labels never revised to fit outputs. Any adjudication is a separate explicit override with reason."
+}

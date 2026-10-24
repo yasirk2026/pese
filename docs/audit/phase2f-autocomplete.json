@@ -1,0 +1,59 @@
+{
+  "actual_browser_typing_verified": false,
+  "records": [
+    {
+      "prefix": "p",
+      "http_ms": 67.59,
+      "suggestion_count": 6,
+      "effective_prefix": "p"
+    },
+    {
+      "prefix": "pe",
+      "http_ms": 47.14,
+      "suggestion_count": 6,
+      "effective_prefix": "pe"
+    },
+    {
+      "prefix": "pes",
+      "http_ms": 41.78,
+      "suggestion_count": 6,
+      "effective_prefix": "pes"
+    },
+    {
+      "prefix": "pese",
+      "http_ms": 41.47,
+      "suggestion_count": 6,
+      "effective_prefix": "pese"
+    },
+    {
+      "prefix": "j",
+      "http_ms": 40.96,
+      "suggestion_count": 6,
+      "effective_prefix": "j"
+    },
+    {
+      "prefix": "ja",
+      "http_ms": 42.46,
+      "suggestion_count": 6,
+      "effective_prefix": "ja"
+    },
+    {
+      "prefix": "jap",
+      "http_ms": 41.41,
+      "suggestion_count": 6,
+      "effective_prefix": "jap"
+    },
+    {
+      "prefix": "japn",
+      "http_ms": 40.74,
+      "suggestion_count": 3,
+      "effective_prefix": "japn"
+    },
+    {
+      "prefix": "japna",
+      "http_ms": 55.19,
+      "suggestion_count": 6,
+      "effective_prefix": "japan"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "dataset_name": "PESE-REL-DATA-0",
+  "dataset_version": "1.0.0",
+  "phase": "Neural Genesis N1",
+  "frozen_at_utc": "2026-10-23T18:17:57.915133+00:00",
+  "total_examples": 720,
+  "split_counts": {
+    "train": 480,
+    "validation": 120,
+    "test": 120
+  },
+  "label_counts": {
+    "train": {
+      "ANSWERS": 240,
+      "DOES_NOT_ANSWER": 240
+    },
+    "validation": {
+      "ANSWERS": 60,
+      "DOES_NOT_ANSWER": 60
+    },
+    "test": {
+      "ANSWERS": 60,
+      "DOES_NOT_ANSWER": 60
+    }
+  },
+  "challenge_counts": {
+    "train": 308,
+    "validation": 75,
+    "test": 75
+  },
+  "scenario_family_counts": {
+    "train": 60,
+    "validation": 15,
+    "test": 15
+  },
+  "source_id_counts": {
+    "train": 60,
+    "validation": 15,
+    "test": 15
+  },
+  "entity_counts": {
+    "train": 181,
+    "validation": 45,
+    "test": 45
+  },
+  "negative_reasons": {
+    "train": {
+      "SAME_TOPIC_WRONG_RELATION": 59,
+      "WRONG_PREDICATE": 58,
+      "WRONG_PROPERTY": 4,
+      "RELATED_EVENT": 3,
+      "WRONG_ENTITY": 2,
+      "ENTITY_CONFUSION": 2,
+      "QUESTION_RESTATEMENT": 57,
+      "EXPLICIT_UNKNOWN": 1,
+      "MISSING_INFORMATION": 53,
+      "WRONG_ANSWER_TYPE": 1
+    },
+    "validation": {
+      "SAME_TOPIC_WRONG_RELATION": 15,
+      "WRONG_PREDICATE": 15,
+      "QUESTION_RESTATEMENT": 15,
+      "MISSING_INFORMATION": 15
+    },
+    "test": {
+      "SAME_TOPIC_WRONG_RELATION": 15,
+      "WRONG_PREDICATE": 15,
+      "QUESTION_RESTATEMENT": 15,
+      "MISSING_INFORMATION": 15
+    }
+  },
+  "contrast_types": {
+    "train": {
+      "DIRECT_FACTUAL": 56,
+      "PARAPHRASE_LOW_OVERLAP": 114,
+      "TEMPORAL_CONTRAST": 5,
+      "HIGH_OVERLAP_DISTRACTOR": 109,
+      "PERSON_ROLE_CONTRAST": 5,
+      "ENTITY_CONTRAST": 4,
+      "ATTRIBUTE_CONTRAST": 55,
+      "BOOLEAN_NEGATION_CONTRAST": 54,
+      "ENTITY_VERSION_CONTRAST": 2,
+      "QUESTION_REPETITION": 57,
+      "EXPLICIT_UNKNOWN_CONTRAST": 1,
+      "DEFINITION_CONTRAST": 3,
+      "PROCEDURAL_CONTRAST": 3,
+      "COMPARISON_CONTRAST": 6,
+      "SAME_TOPIC_WRONG_RELATION": 1,
+      "CAUSAL_CONTRAST": 5
+    },
+    "validation": {
+      "DIRECT_FACTUAL": 15,
+      "PARAPHRASE_LOW_OVERLAP": 30,
+      "BOOLEAN_NEGATION_CONTRAST": 15,
+      "HIGH_OVERLAP_DISTRACTOR": 30,
+      "ATTRIBUTE_CONTRAST": 15,
+      "QUESTION_REPETITION": 15
+    },
+    "test": {
+      "DIRECT_FACTUAL": 15,
+      "PARAPHRASE_LOW_OVERLAP": 30,
+      "BOOLEAN_NEGATION_CONTRAST": 15,
+      "HIGH_OVERLAP_DISTRACTOR": 30,
+      "ATTRIBUTE_CONTRAST": 15,
+      "QUESTION_REPETITION": 15
+    }
+  },
+  "file_hashes": {
+    "train.json": "280b47feccfb4b2e0524058ed0e0dfb371bc61f09b19dd4cfda96e98bdb57ce5",
+    "validation.json": "3b1cc202a2d435b1d4ab6b8f406b8ab554af034e432f12962a648de34ef47bf5",
+    "test.json": "db739b29e6e5891fd6a83804ab29925cc9c536fbc5b1231268d77b770ea5df89"
+  },
+  "near_duplicate_audit": {
+    "threshold": 0.85,
+    "flagged_count": 0,
+    "flagged_items": []
+  },
+  "privacy_compliance": {
+    "zero_private_corpus": true,
+    "zero_search_logs": true,
+    "zero_user_documents": true,
+    "synthetic_public_safe": true
+  },
+  "holdout_integrity": {
+    "zero_old_holdout_leakage": true,
+    "scenario_disjoint": true,
+    "entity_disjoint": true
+  }
+}

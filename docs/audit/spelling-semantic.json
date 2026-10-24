@@ -1,0 +1,377 @@
+{
+  "spelling": {
+    "metrics": {
+      "typo_cases": 8,
+      "controls": 16,
+      "correction_precision": 1.0,
+      "correction_recall": 0.875,
+      "false_correction_rate": 0.0
+    },
+    "records": [
+      {
+        "input": "japna",
+        "expected": "japan",
+        "actual": "japan",
+        "is_typo": true,
+        "changed": true,
+        "correct": true
+      },
+      {
+        "input": "bycycle",
+        "expected": "bicycle",
+        "actual": "bicycle",
+        "is_typo": true,
+        "changed": true,
+        "correct": true
+      },
+      {
+        "input": "purhcase",
+        "expected": "purchase",
+        "actual": "purchase",
+        "is_typo": true,
+        "changed": true,
+        "correct": true
+      },
+      {
+        "input": "firbase",
+        "expected": "firebase",
+        "actual": "firebase",
+        "is_typo": true,
+        "changed": true,
+        "correct": true
+      },
+      {
+        "input": "hydrtion",
+        "expected": "hydration",
+        "actual": "hydration",
+        "is_typo": true,
+        "changed": true,
+        "correct": true
+      },
+      {
+        "input": "pyskology",
+        "expected": "psychology",
+        "actual": "pyskology",
+        "is_typo": true,
+        "changed": false,
+        "correct": false
+      },
+      {
+        "input": "bicycel",
+        "expected": "bicycle",
+        "actual": "bicycle",
+        "is_typo": true,
+        "changed": true,
+        "correct": true
+      },
+      {
+        "input": "japn",
+        "expected": "japan",
+        "actual": "japan",
+        "is_typo": true,
+        "changed": true,
+        "correct": true
+      },
+      {
+        "input": "enter",
+        "expected": "enter",
+        "actual": "enter",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "invade",
+        "expected": "invade",
+        "actual": "invade",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "surrender",
+        "expected": "surrender",
+        "actual": "surrender",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "promulgate",
+        "expected": "promulgate",
+        "actual": "promulgate",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "specification",
+        "expected": "specification",
+        "actual": "specification",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "firebase",
+        "expected": "firebase",
+        "actual": "firebase",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "next.js",
+        "expected": "next.js",
+        "actual": "next.js",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "bm25f",
+        "expected": "bm25f",
+        "actual": "bm25f",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "torch",
+        "expected": "torch",
+        "actual": "torch",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "uvicorn",
+        "expected": "uvicorn",
+        "actual": "uvicorn",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "pydantic",
+        "expected": "pydantic",
+        "actual": "pydantic",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "numpy",
+        "expected": "numpy",
+        "actual": "numpy",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "onnx",
+        "expected": "onnx",
+        "actual": "onnx",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "sqlite",
+        "expected": "sqlite",
+        "actual": "sqlite",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "grpc",
+        "expected": "grpc",
+        "actual": "grpc",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      },
+      {
+        "input": "cuda",
+        "expected": "cuda",
+        "actual": "cuda",
+        "is_typo": false,
+        "changed": false,
+        "correct": true
+      }
+    ],
+    "orthographic_variant": {
+      "input": "instalment",
+      "output": "instalment"
+    }
+  },
+  "semantic": {
+    "provider": {
+      "provider_type": "fastembed_onnx_local",
+      "model_name": "BAAI/bge-small-en-v1.5",
+      "vector_dimension": 384,
+      "device": "cpu",
+      "normalized": true
+    },
+    "phrases": [
+      "bike",
+      "cycle",
+      "bicycle",
+      "japan",
+      "japanese",
+      "japna",
+      "payment",
+      "installment",
+      "split fee",
+      "flexible payments",
+      "Yasir joined an organization in November 2024"
+    ],
+    "cosine_similarity": [
+      [
+        1.0,
+        0.8762000203132629,
+        0.9455999732017517,
+        0.5727999806404114,
+        0.5903000235557556,
+        0.5375999808311462,
+        0.5579000115394592,
+        0.5817999839782715,
+        0.4749000072479248,
+        0.5148000121116638,
+        0.37229999899864197
+      ],
+      [
+        0.8762000203132629,
+        1.0,
+        0.8733999729156494,
+        0.5504999756813049,
+        0.5501999855041504,
+        0.5579000115394592,
+        0.5745999813079834,
+        0.6434000134468079,
+        0.49570000171661377,
+        0.5275999903678894,
+        0.37439998984336853
+      ],
+      [
+        0.9455999732017517,
+        0.8733999729156494,
+        1.0,
+        0.5309000015258789,
+        0.5651000142097473,
+        0.5313000082969666,
+        0.548799991607666,
+        0.5770000219345093,
+        0.4650999903678894,
+        0.48500001430511475,
+        0.3659999966621399
+      ],
+      [
+        0.5727999806404114,
+        0.5504999756813049,
+        0.5309000015258789,
+        1.0,
+        0.8835999965667725,
+        0.5446000099182129,
+        0.4900999963283539,
+        0.5444999933242798,
+        0.4043999910354614,
+        0.48919999599456787,
+        0.5333999991416931
+      ],
+      [
+        0.5903000235557556,
+        0.5501999855041504,
+        0.5651000142097473,
+        0.8835999965667725,
+        1.0,
+        0.5842000246047974,
+        0.5321999788284302,
+        0.6051999926567078,
+        0.4284999966621399,
+        0.504800021648407,
+        0.49149999022483826
+      ],
+      [
+        0.5375999808311462,
+        0.5579000115394592,
+        0.5313000082969666,
+        0.5446000099182129,
+        0.5842000246047974,
+        1.0,
+        0.5281999707221985,
+        0.5166000127792358,
+        0.44429999589920044,
+        0.4799000024795532,
+        0.4456999897956848
+      ],
+      [
+        0.5579000115394592,
+        0.5745999813079834,
+        0.548799991607666,
+        0.4900999963283539,
+        0.5321999788284302,
+        0.5281999707221985,
+        1.0,
+        0.6628000140190125,
+        0.7050999999046326,
+        0.7727000117301941,
+        0.39559999108314514
+      ],
+      [
+        0.5817999839782715,
+        0.6434000134468079,
+        0.5770000219345093,
+        0.5444999933242798,
+        0.6051999926567078,
+        0.5166000127792358,
+        0.6628000140190125,
+        1.0,
+        0.5965999960899353,
+        0.5906000137329102,
+        0.4681999981403351
+      ],
+      [
+        0.4749000072479248,
+        0.49570000171661377,
+        0.4650999903678894,
+        0.4043999910354614,
+        0.4284999966621399,
+        0.44429999589920044,
+        0.7050999999046326,
+        0.5965999960899353,
+        1.0,
+        0.6980999708175659,
+        0.34940001368522644
+      ],
+      [
+        0.5148000121116638,
+        0.5275999903678894,
+        0.48500001430511475,
+        0.48919999599456787,
+        0.504800021648407,
+        0.4799000024795532,
+        0.7727000117301941,
+        0.5906000137329102,
+        0.6980999708175659,
+        1.0,
+        0.41769999265670776
+      ],
+      [
+        0.37229999899864197,
+        0.37439998984336853,
+        0.3659999966621399,
+        0.5333999991416931,
+        0.49149999022483826,
+        0.4456999897956848,
+        0.39559999108314514,
+        0.4681999981403351,
+        0.34940001368522644,
+        0.41769999265670776,
+        1.0
+      ]
+    ]
+  },
+  "limitations": "Small exposed controls, not a dictionary-wide precision estimate. Cosine similarity probes topic affinity, not answer entailment."
+}

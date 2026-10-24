@@ -1,0 +1,1427 @@
+{
+  "schema_version": 1,
+  "methodology": {
+    "synthetic_only": true,
+    "source_freeze_sha256": "0f1aca13a0e257ac6c387260c81b758603468fd5315277836426380def98b744",
+    "authorship": "Independent author with no implementation, benchmark, report, private corpus, or result inspection",
+    "frozen_before_production_run": true,
+    "answer_matching": "Each required_facts group requires one alternative. Full grounded sentences are accepted. Numeric answers require correct value, object, relation, and source. Negation, temporal relation, and entity identity override naive substrings. Manual adjudication may preserve raw flags with explicit reasons; no input or original label revision is allowed.",
+    "passage_matching": "Supporting evidence should occur in a captured passage from its expected source. Normalized whitespace and punctuation are allowed. Manually equivalent complete evidence may be adjudicated with raw flags preserved.",
+    "abstention": "Unanswerable cases need explicit abstention and must not promote a document into a supported answer.",
+    "categories_per_group": 3
+  },
+  "labels": [
+    {
+      "id": "syn-q-001",
+      "category": "exact lexical",
+      "query": "What is the label on Brindle walking club’s spare-lantern cabinet?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "brindle-lantern-cabinet"
+      ],
+      "required_facts": [
+        [
+          "copper finch"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "copper finch"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "brindle-lantern-cabinet",
+          "text": "The label on the spare-lantern cabinet is \"COPPER FINCH\"."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-002",
+      "category": "exact lexical",
+      "query": "Which reference appears on Avelin glazing room booking confirmations?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "avelin-room-code"
+      ],
+      "required_facts": [
+        [
+          "glz-482"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "glz-482"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "avelin-room-code",
+          "text": "Booking confirmations for the glazing room carry the reference GLZ-482."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-003",
+      "category": "exact lexical",
+      "query": "What wording identifies the Pember Quay lifejacket return bin?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "pember-quay-return-bin"
+      ],
+      "required_facts": [
+        [
+          "dry heron"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "dry heron"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "pember-quay-return-bin",
+          "text": "Borrowed lifejackets at Pember Quay are returned to the bin marked \"DRY HERON\"."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-004",
+      "category": "semantic paraphrase",
+      "query": "If I miss Marnwick nursery’s afternoon order cutoff, when will my seeds be packed?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "marnwick-late-seed-orders"
+      ],
+      "required_facts": [
+        [
+          "next working day",
+          "next business day"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "next working day",
+          "next business day"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "marnwick-late-seed-orders",
+          "text": "Orders submitted after the afternoon cutoff are held for the next working day's packing round."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-005",
+      "category": "semantic paraphrase",
+      "query": "Where can I work without people chatting at Tallowmere reading house?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "tallowmere-quiet-work"
+      ],
+      "required_facts": [
+        [
+          "upstairs map room"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "upstairs map room"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "tallowmere-quiet-work",
+          "text": "People who need an interruption-free place to concentrate should use the upstairs map room."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-006",
+      "category": "semantic paraphrase",
+      "query": "How do I keep a borrowed Orren repair shed tool for longer?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "orren-borrowed-tools"
+      ],
+      "required_facts": [
+        [
+          "shed coordinator",
+          "coordinator"
+        ],
+        [
+          "before the return deadline",
+          "before the deadline"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "shed coordinator",
+          "coordinator"
+        ],
+        [
+          "before the return deadline",
+          "before the deadline"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "orren-borrowed-tools",
+          "text": "A member who needs more time should ask the shed coordinator to extend the loan before the return deadline."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-007",
+      "category": "entity attribute",
+      "query": "What color is the Veska cargo bicycle named Kestrel?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "veska-cargo-bicycle"
+      ],
+      "required_facts": [
+        [
+          "plum purple",
+          "purple"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "plum purple",
+          "purple"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "veska-cargo-bicycle",
+          "text": "Kestrel is painted plum purple and has a wooden front box."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-008",
+      "category": "entity attribute",
+      "query": "Who designed the fountain in Nembel Arts Yard?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "nembel-fountain-designer"
+      ],
+      "required_facts": [
+        [
+          "iona pell"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "iona pell"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "nembel-fountain-designer",
+          "text": "The small fountain in Nembel Arts Yard was designed by Iona Pell."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-009",
+      "category": "entity attribute",
+      "query": "What is the Alder Loop at Darsen surfaced with?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "darsen-trail-surface"
+      ],
+      "required_facts": [
+        [
+          "compacted limestone",
+          "limestone"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "compacted limestone",
+          "limestone"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "darsen-trail-surface",
+          "text": "The Alder Loop has a compacted limestone surface."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-010",
+      "category": "multiple dates",
+      "query": "In what year did the Halmere Clay Archive open its public reading room?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "halmere-clay-archive-history"
+      ],
+      "required_facts": [
+        [
+          "2014"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "2014"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "halmere-clay-archive-history",
+          "text": "Its public reading room opened in 2014, after the samples had been catalogued."
+        }
+      ],
+      "forbidden_answer_claims": [
+        "reading room opened in 2009",
+        "reading room opened in 2021",
+        "reading room opened in 2023"
+      ]
+    },
+    {
+      "id": "syn-q-011",
+      "category": "multiple dates",
+      "query": "When did the Fenrick ferry change to an electric motor?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "fenrick-ferry-history"
+      ],
+      "required_facts": [
+        [
+          "2024"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "2024"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "fenrick-ferry-history",
+          "text": "A replacement jetty opened in 2019, and the ferry switched to an electric motor in 2024."
+        }
+      ],
+      "forbidden_answer_claims": [
+        "electric motor in 2011",
+        "electric motor in 2016",
+        "electric motor in 2019"
+      ]
+    },
+    {
+      "id": "syn-q-012",
+      "category": "multiple dates",
+      "query": "What year was Sorrelbank’s covered market hall completed?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "sorrelbank-market-history"
+      ],
+      "required_facts": [
+        [
+          "2013"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "2013"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "sorrelbank-market-history",
+          "text": "The covered market hall was completed in 2013."
+        }
+      ],
+      "forbidden_answer_claims": [
+        "hall was completed in 2007",
+        "hall was completed in 2018",
+        "hall was completed in 2022"
+      ]
+    },
+    {
+      "id": "syn-q-013",
+      "category": "multiple entities",
+      "query": "Who looks after the foyer lighting at Calver playhouse?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "calver-lighting-shifts"
+      ],
+      "required_facts": [
+        [
+          "pavo renn"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "pavo renn"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "calver-lighting-shifts",
+          "text": "Pavo Renn is responsible for the foyer lighting."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-014",
+      "category": "multiple entities",
+      "query": "Which entrance should a timber delivery use at Lorness workshop?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "lorness-delivery-addresses"
+      ],
+      "required_facts": [
+        [
+          "west gate"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "west gate"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "lorness-delivery-addresses",
+          "text": "Timber is unloaded at the west gate."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-015",
+      "category": "multiple entities",
+      "query": "On which weekday does Bexlen hall’s seed-saving group meet?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "bexlen-club-days"
+      ],
+      "required_facts": [
+        [
+          "friday"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "friday"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "bexlen-club-days",
+          "text": "The weaving circle meets on Tuesday, the chess club meets on Thursday, and the seed-saving group meets on Friday."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-016",
+      "category": "negation",
+      "query": "Can I reserve a breakfast table at Mirehaven café?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "mirehaven-cafe-booking"
+      ],
+      "required_facts": [
+        [
+          "does not take reservations for breakfast",
+          "cannot reserve",
+          "can’t reserve",
+          "no breakfast reservations",
+          "no,",
+          "no.",
+          "not take breakfast reservations"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "does not take reservations for breakfast",
+          "cannot reserve",
+          "can’t reserve",
+          "no breakfast reservations",
+          "no,",
+          "no.",
+          "not take breakfast reservations"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "mirehaven-cafe-booking",
+          "text": "Mirehaven café takes reservations for lunch, but it does not take reservations for breakfast."
+        }
+      ],
+      "forbidden_answer_claims": [
+        "breakfast reservations are accepted",
+        "can reserve a breakfast table"
+      ]
+    },
+    {
+      "id": "syn-q-017",
+      "category": "negation",
+      "query": "Are folding bicycles allowed on the Peldon ridge shuttle?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "peldon-shuttle-bikes"
+      ],
+      "required_facts": [
+        [
+          "does not carry bicycles",
+          "not carry bicycles",
+          "not allowed",
+          "not permitted",
+          "no,",
+          "no.",
+          "cannot bring",
+          "can’t bring"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "does not carry bicycles",
+          "not carry bicycles",
+          "not allowed",
+          "not permitted",
+          "no,",
+          "no.",
+          "cannot bring",
+          "can’t bring"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "peldon-shuttle-bikes",
+          "text": "It does not carry bicycles, including folding bicycles."
+        }
+      ],
+      "forbidden_answer_claims": [
+        "folding bicycles are allowed",
+        "folding bicycles are permitted"
+      ]
+    },
+    {
+      "id": "syn-q-018",
+      "category": "negation",
+      "query": "May visitors set up a tripod in Rillcrest Miniature Museum’s display rooms?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "rillcrest-museum-tripods"
+      ],
+      "required_facts": [
+        [
+          "tripods are not permitted",
+          "not permitted",
+          "not allowed",
+          "no,",
+          "no."
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "tripods are not permitted",
+          "not permitted",
+          "not allowed",
+          "no,",
+          "no."
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "rillcrest-museum-tripods",
+          "text": "Tripods are not permitted in the display rooms."
+        }
+      ],
+      "forbidden_answer_claims": [
+        "tripods are permitted",
+        "tripods are allowed"
+      ]
+    },
+    {
+      "id": "syn-q-019",
+      "category": "FAQ",
+      "query": "How long will Velmere pottery keep my finished pieces after emailing me?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "velmere-pottery-faq"
+      ],
+      "required_facts": [
+        [
+          "six weeks",
+          "6 weeks"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "six weeks",
+          "6 weeks"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "velmere-pottery-faq",
+          "text": "Finished pieces are kept for six weeks after the collection email."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-020",
+      "category": "FAQ",
+      "query": "What coin do I need for a locker at Lunford swimming pond?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "lunford-lockers-faq"
+      ],
+      "required_facts": [
+        [
+          "two-crown",
+          "two crown",
+          "2-crown",
+          "2 crown"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "two-crown",
+          "two crown",
+          "2-crown",
+          "2 crown"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "lunford-lockers-faq",
+          "text": "The lockers take a two-crown coin, which is returned when the locker is opened."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-021",
+      "category": "FAQ",
+      "query": "Is an audition required to join Eshwick community choir?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "eshwick-choir-faq"
+      ],
+      "required_facts": [
+        [
+          "no audition",
+          "audition is not required",
+          "audition isn’t required",
+          "do not need to audition",
+          "no,",
+          "no."
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "no audition",
+          "audition is not required",
+          "audition isn’t required",
+          "do not need to audition",
+          "no,",
+          "no."
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "eshwick-choir-faq",
+          "text": "No audition is required for the Eshwick community choir."
+        }
+      ],
+      "forbidden_answer_claims": [
+        "an audition is required",
+        "must audition"
+      ]
+    },
+    {
+      "id": "syn-q-022",
+      "category": "procedural",
+      "query": "What should I do before unplugging the Talven hall projector?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "talven-projector-return"
+      ],
+      "required_facts": [
+        [
+          "switch off",
+          "turn off"
+        ],
+        [
+          "fan stops",
+          "fan has stopped",
+          "fan to stop",
+          "fan is no longer running",
+          "cooling fan stops"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "switch off",
+          "turn off"
+        ],
+        [
+          "fan stops",
+          "fan has stopped",
+          "fan to stop",
+          "fan is no longer running",
+          "cooling fan stops"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "talven-projector-return",
+          "text": "At the end of a booking, switch off the projector and wait until its fan stops. Then disconnect the power lead and place the projector in its padded case."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-023",
+      "category": "procedural",
+      "query": "What is the first step if I lose my Selwick allotment key?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "selwick-key-replacement"
+      ],
+      "required_facts": [
+        [
+          "report the loss",
+          "report it",
+          "report the lost key",
+          "contact",
+          "tell"
+        ],
+        [
+          "plot secretary"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "report the loss",
+          "report it",
+          "report the lost key",
+          "contact",
+          "tell"
+        ],
+        [
+          "plot secretary"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "selwick-key-replacement",
+          "text": "If a Selwick allotment key is lost, first report the loss to the plot secretary."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-024",
+      "category": "procedural",
+      "query": "Before opening a Norven wildlife camera’s battery compartment, what should I do?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "norven-camera-battery"
+      ],
+      "required_facts": [
+        [
+          "off"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "off"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "norven-camera-battery",
+          "text": "move the side switch to OFF before opening the battery compartment."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-025",
+      "category": "definition",
+      "query": "What does “witness strip” mean in the Torvale dye workshop?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "torvale-dye-terms"
+      ],
+      "required_facts": [
+        [
+          "small piece of cloth",
+          "piece of cloth",
+          "cloth sample",
+          "fabric sample"
+        ],
+        [
+          "dyed alongside",
+          "alongside the main",
+          "color develops",
+          "colour develops",
+          "same dye batch"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "small piece of cloth",
+          "piece of cloth",
+          "cloth sample",
+          "fabric sample"
+        ],
+        [
+          "dyed alongside",
+          "alongside the main",
+          "color develops",
+          "colour develops",
+          "same dye batch"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "torvale-dye-terms",
+          "text": "a witness strip is a small piece of cloth dyed alongside the main fabric to show how the color develops."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-026",
+      "category": "definition",
+      "query": "What is a rest basket at Cairlen orchard?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "cairlen-orchard-terms"
+      ],
+      "required_facts": [
+        [
+          "shallow basket",
+          "basket"
+        ],
+        [
+          "pears",
+          "freshly picked fruit"
+        ],
+        [
+          "before sorting",
+          "await sorting",
+          "awaiting sorting",
+          "prior to sorting"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "shallow basket",
+          "basket"
+        ],
+        [
+          "pears",
+          "freshly picked fruit"
+        ],
+        [
+          "before sorting",
+          "await sorting",
+          "awaiting sorting",
+          "prior to sorting"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "cairlen-orchard-terms",
+          "text": "rest basket for the shallow basket where freshly picked pears sit before sorting."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-027",
+      "category": "definition",
+      "query": "What does Elwick printshop mean by a blind proof?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "elwick-printshop-terms"
+      ],
+      "required_facts": [
+        [
+          "without ink",
+          "no ink",
+          "inkless"
+        ],
+        [
+          "pressure"
+        ],
+        [
+          "alignment"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "without ink",
+          "no ink",
+          "inkless"
+        ],
+        [
+          "pressure"
+        ],
+        [
+          "alignment"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "elwick-printshop-terms",
+          "text": "a blind proof is an impression made without ink to check the pressure and alignment of the type."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-028",
+      "category": "cross-sentence",
+      "query": "What wood was used to build Evening Drift at the Ravenel craft gallery?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "ravenel-boat-material"
+      ],
+      "required_facts": [
+        [
+          "cedar"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "cedar"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "ravenel-boat-material",
+          "text": "The Ravenel craft gallery's newest model boat is called Evening Drift. The model is built from cedar salvaged from the old boathouse."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-029",
+      "category": "cross-sentence",
+      "query": "Who funded the rain garden made from Varell school’s old sandpit?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "varell-rain-garden"
+      ],
+      "required_facts": [
+        [
+          "dapple lane residents’ association",
+          "dapple lane residents' association",
+          "dapple lane residents association",
+          "dapple lane"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "dapple lane residents’ association",
+          "dapple lane residents' association",
+          "dapple lane residents association",
+          "dapple lane"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "varell-rain-garden",
+          "text": "Varell school turned the old sandpit into a rain garden. The project was funded by the Dapple Lane residents' association."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-030",
+      "category": "cross-sentence",
+      "query": "Who repaired Nimber station’s platform clock after the winter storm?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "nimber-station-clock"
+      ],
+      "required_facts": [
+        [
+          "tessa wren"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "tessa wren"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "nimber-station-clock",
+          "text": "The damaged mechanism was sent to Tessa Wren in the hill workshop. She repaired the escapement and returned the clock before the spring timetable began."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-031",
+      "category": "simple coreference",
+      "query": "When does Mira Dalen empty the Fallowden garden message box?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "fallowden-message-box"
+      ],
+      "required_facts": [
+        [
+          "monday morning",
+          "monday"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "monday morning",
+          "monday"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "fallowden-message-box",
+          "text": "Mira Dalen looks after the message box at Fallowden community garden. She empties it every Monday morning and passes repair requests to the maintenance group."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-032",
+      "category": "simple coreference",
+      "query": "Where is Dovren storytelling club’s cedar chest kept?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "dovren-loan-chest"
+      ],
+      "required_facts": [
+        [
+          "beneath the stairs",
+          "under the stairs"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "beneath the stairs",
+          "under the stairs"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "dovren-loan-chest",
+          "text": "The Dovren storytelling club bought a cedar chest for its costumes. It is kept beneath the stairs in the village hall."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-033",
+      "category": "simple coreference",
+      "query": "What does Sena Vell, the Wexley botany guide, specialize in?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "wexley-botany-guide"
+      ],
+      "required_facts": [
+        [
+          "wetland mosses"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "wetland mosses"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "wexley-botany-guide",
+          "text": "Sena Vell leads the Wexley botany walks. Her field of study is wetland mosses,"
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-034",
+      "category": "typo",
+      "query": "Which gate do I use for evening entry to Olmwick observatroy?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "olmwick-observatory-entry"
+      ],
+      "required_facts": [
+        [
+          "orchard gate"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "orchard gate"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "olmwick-observatory-entry",
+          "text": "Evening visitors to Olmwick observatory should enter through the orchard gate."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-035",
+      "category": "typo",
+      "query": "Where is the public pritner in Kelden library?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "kelden-library-printer"
+      ],
+      "required_facts": [
+        [
+          "mezzanine"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "mezzanine"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "kelden-library-printer",
+          "text": "The public printer at Kelden library is on the mezzanine beside the local-history shelves."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-036",
+      "category": "typo",
+      "query": "How do I book an appoitment at Morlen repair café?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "morlen-repair-bookings"
+      ],
+      "required_facts": [
+        [
+          "village information desk"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "village information desk"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "morlen-repair-bookings",
+          "text": "Morlen repair café appointments are booked through the village information desk."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-037",
+      "category": "unanswerable",
+      "query": "How much is an annual reader membership at Hesper archive?",
+      "answerable": false,
+      "expected_source_slugs": [],
+      "required_facts": [],
+      "accepted_answer_substrings": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-038",
+      "category": "unanswerable",
+      "query": "In what year was the Wrenford footbridge originally built?",
+      "answerable": false,
+      "expected_source_slugs": [],
+      "required_facts": [],
+      "accepted_answer_substrings": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-039",
+      "category": "unanswerable",
+      "query": "How many rowing boats does Tessel boat station own?",
+      "answerable": false,
+      "expected_source_slugs": [],
+      "required_facts": [],
+      "accepted_answer_substrings": [],
+      "supporting_evidence": [],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-040",
+      "category": "spam competition",
+      "query": "Where can I borrow the key to the Umbrell marsh bird hide?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "umbrell-bird-hide-key"
+      ],
+      "required_facts": [
+        [
+          "post office counter"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "post office counter"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "umbrell-bird-hide-key",
+          "text": "The key to the Umbrell marsh bird hide can be borrowed from the post office counter."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-041",
+      "category": "spam competition",
+      "query": "Which shelf holds prepaid bread orders at Davren bakery?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "davren-bread-collection"
+      ],
+      "required_facts": [
+        [
+          "birch shelf"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "birch shelf"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "davren-bread-collection",
+          "text": "Prepaid bread orders at Davren bakery are placed on the birch shelf beside the side entrance."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-042",
+      "category": "spam competition",
+      "query": "Where do I ask about lost property during the Firlen lantern festival?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "firlen-lost-property"
+      ],
+      "required_facts": [
+        [
+          "school porch"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "school porch"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "firlen-lost-property",
+          "text": "During the Firlen lantern festival, found items are taken to the school porch."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-043",
+      "category": "short exact answer",
+      "query": "What temperature is the Oswick seedling greenhouse thermostat set to overnight?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "oswick-greenhouse-minimum"
+      ],
+      "required_facts": [
+        [
+          "8 °c",
+          "8°c",
+          "8 c",
+          "8 degrees",
+          "eight degrees",
+          "8°c"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "8 °c",
+          "8°c",
+          "8 c",
+          "8 degrees",
+          "eight degrees",
+          "8°c"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "oswick-greenhouse-minimum",
+          "text": "The Oswick seedling greenhouse thermostat is set to 8 °C overnight."
+        }
+      ],
+      "forbidden_answer_claims": [
+        "18 °c",
+        "18°c",
+        "18 degrees"
+      ]
+    },
+    {
+      "id": "syn-q-044",
+      "category": "short exact answer",
+      "query": "How many participants can attend one Islen silver workshop session?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "islen-workshop-capacity"
+      ],
+      "required_facts": [
+        [
+          "nine",
+          "9"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "nine",
+          "9"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "islen-workshop-capacity",
+          "text": "The Islen silver workshop accepts nine participants per session."
+        }
+      ],
+      "forbidden_answer_claims": [
+        "twenty participants",
+        "20 participants"
+      ]
+    },
+    {
+      "id": "syn-q-045",
+      "category": "short exact answer",
+      "query": "What color are Aurick puppet theatre’s children’s matinee tickets?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "aurick-ticket-color"
+      ],
+      "required_facts": [
+        [
+          "amber"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "amber"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "aurick-ticket-color",
+          "text": "Children's matinee tickets at Aurick puppet theatre are amber."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-046",
+      "category": "semantic distractor",
+      "query": "What are damp bean seeds put on to dry at Marsten community seed room?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "marsten-seed-drying"
+      ],
+      "required_facts": [
+        [
+          "mesh trays"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "mesh trays"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "marsten-seed-drying",
+          "text": "At Marsten community seed room, damp bean seeds are spread on mesh trays to dry."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-047",
+      "category": "semantic distractor",
+      "query": "What does Eldren astronomy club use to keep dust off its telescope in indoor storage?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "eldren-telescope-protection"
+      ],
+      "required_facts": [
+        [
+          "cotton cover"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "cotton cover"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "eldren-telescope-protection",
+          "text": "The Eldren astronomy club protects its telescope from dust with a cotton cover when it is stored indoors."
+        }
+      ],
+      "forbidden_answer_claims": []
+    },
+    {
+      "id": "syn-q-048",
+      "category": "semantic distractor",
+      "query": "Who repaired the wooden stand for Pelwick hall’s bell?",
+      "answerable": true,
+      "expected_source_slugs": [
+        "pelwick-bell-restoration"
+      ],
+      "required_facts": [
+        [
+          "jaren moss"
+        ]
+      ],
+      "accepted_answer_substrings": [
+        [
+          "jaren moss"
+        ]
+      ],
+      "supporting_evidence": [
+        {
+          "source_slug": "pelwick-bell-restoration",
+          "text": "The cracked wooden bell stand was repaired by Jaren Moss."
+        }
+      ],
+      "forbidden_answer_claims": []
+    }
+  ]
+}

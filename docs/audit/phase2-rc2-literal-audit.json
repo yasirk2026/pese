@@ -1,0 +1,1844 @@
+{
+  "protocol": "Post-run integrity check, no production edits. Whole-word literal scan of old/new synthetic source prefixes and every expected-answer alternative in general Python/TS rules. Test/evaluation/data-fixture directories excluded. Generic datatype/negation vocabulary and illustrative public years require manual classification; a literal hit alone does not prove a lookup.",
+  "source_sha256": "699ec98a683500c96665d016a25ddf30b3a99cf6ab7f7a2ef39982ef9aa9a0fd",
+  "files_scanned": 112,
+  "source_prefixes_checked": 69,
+  "answer_alternatives_checked": 254,
+  "hits": [
+    {
+      "file": "engine/discovery/history.py",
+      "line": 61,
+      "term": "off",
+      "name_prefix": false,
+      "source_line": "\"\"\"Toggle behavioural history collection on or off.\"\"\""
+    },
+    {
+      "file": "engine/neural/data/qa_dataset.py",
+      "line": 216,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "context=\"After months of research, I finally bought my bicycle on 17 March 2024 from the shop.\","
+    },
+    {
+      "file": "engine/neural/data/qa_dataset.py",
+      "line": 217,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "answer_text=\"17 March 2024\","
+    },
+    {
+      "file": "engine/neural/data/qa_dataset.py",
+      "line": 2,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "PESE-QA-0: QA Dataset, Sliding Window Tokenizer Alignment & Provenance Tracking"
+    },
+    {
+      "file": "engine/neural/data/qa_dataset.py",
+      "line": 650,
+      "term": "mobile",
+      "name_prefix": false,
+      "source_line": "context=\"The refurbished mobile phone was bought on 22 August 2022 from an online store.\","
+    },
+    {
+      "file": "engine/neural/data/qa_dataset.py",
+      "line": 649,
+      "term": "phone",
+      "name_prefix": false,
+      "source_line": "question=\"When was the phone acquired?\","
+    },
+    {
+      "file": "engine/neural/data/qa_dataset.py",
+      "line": 650,
+      "term": "phone",
+      "name_prefix": false,
+      "source_line": "context=\"The refurbished mobile phone was bought on 22 August 2022 from an online store.\","
+    },
+    {
+      "file": "engine/neural/inference/qa_reader.py",
+      "line": 41,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "# Check for dates with months (e.g. 15 May 2023, 17 March 2024, October 2026)"
+    },
+    {
+      "file": "engine/neural/inference/qa_reader.py",
+      "line": 254,
+      "term": "off",
+      "name_prefix": false,
+      "source_line": "valid_offsets = [off for off in feat.token_to_char_offsets[c_start:c_end] if off is not None]"
+    },
+    {
+      "file": "engine/neural/inference/qa_reader.py",
+      "line": 254,
+      "term": "off",
+      "name_prefix": false,
+      "source_line": "valid_offsets = [off for off in feat.token_to_char_offsets[c_start:c_end] if off is not None]"
+    },
+    {
+      "file": "engine/neural/inference/qa_reader.py",
+      "line": 254,
+      "term": "off",
+      "name_prefix": false,
+      "source_line": "valid_offsets = [off for off in feat.token_to_char_offsets[c_start:c_end] if off is not None]"
+    },
+    {
+      "file": "engine/nlp/normalizer.py",
+      "line": 11,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "# Common contractions mapping for query/document alignment"
+    },
+    {
+      "file": "engine/nlp/stemmer.py",
+      "line": 261,
+      "term": "off",
+      "name_prefix": false,
+      "source_line": "\"\"\"Step 4 takes off -ant, -ence etc., in context <c>vcvc<v>.\"\"\""
+    },
+    {
+      "file": "engine/nlp/stopwords.py",
+      "line": 19,
+      "term": "off",
+      "name_prefix": false,
+      "source_line": "\"most\", \"mustn't\", \"my\", \"myself\", \"no\", \"nor\", \"not\", \"of\", \"off\", \"on\", \"once\", \"only\","
+    },
+    {
+      "file": "engine/nlp/tokenizer.py",
+      "line": 13,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "# Pattern matching alphanumeric words, compound terms (e.g., next.js), and numbers (2024)"
+    },
+    {
+      "file": "engine/passages/answer_extractor.py",
+      "line": 4,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "Applies temporal specificity (e.g. preferring '17 March 2024' over '2024'),"
+    },
+    {
+      "file": "engine/passages/answer_extractor.py",
+      "line": 4,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "Applies temporal specificity (e.g. preferring '17 March 2024' over '2024'),"
+    },
+    {
+      "file": "engine/passages/answer_extractor.py",
+      "line": 25,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "# 1. Full date: '17 March 2024' or 'March 17, 2024' (Specificity 3)"
+    },
+    {
+      "file": "engine/passages/answer_extractor.py",
+      "line": 25,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "# 1. Full date: '17 March 2024' or 'March 17, 2024' (Specificity 3)"
+    },
+    {
+      "file": "engine/passages/answer_extractor.py",
+      "line": 30,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "# 2. Month + Year: 'March 2024' or 'mid-March' (Specificity 2)"
+    },
+    {
+      "file": "engine/passages/answer_extractor.py",
+      "line": 34,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "# 3. Standalone Year or Season: '2024', '1941', 'late July' (Specificity 1)"
+    },
+    {
+      "file": "engine/passages/answer_extractor.py",
+      "line": 54,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "Prefers '17 March 2024' over 'March 2024' over '2024'."
+    },
+    {
+      "file": "engine/passages/answer_extractor.py",
+      "line": 54,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "Prefers '17 March 2024' over 'March 2024' over '2024'."
+    },
+    {
+      "file": "engine/passages/answer_extractor.py",
+      "line": 54,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "Prefers '17 March 2024' over 'March 2024' over '2024'."
+    },
+    {
+      "file": "engine/passages/answer_pipeline.py",
+      "line": 28,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "COLORS = re.compile(r'\\b(?:red|orange|yellow|green|blue|violet|purple|amber|black|white|grey|gray|brown|pink|silver|gold)\\b',re.I)"
+    },
+    {
+      "file": "engine/passages/answer_pipeline.py",
+      "line": 275,
+      "term": "contact",
+      "name_prefix": false,
+      "source_line": "elif kind in {'ACTION','PROCEDURE'}:type_ok=bool(re.search(r'\\b(?:first|then|before|after|by|through|contact|ask|report|switch|wait|use|booked|reserve|turn|press|run|install|remove)\\b',evidence,re.I))"
+    },
+    {
+      "file": "engine/passages/answer_pipeline.py",
+      "line": 31,
+      "term": "friday",
+      "name_prefix": false,
+      "source_line": "TIME = re.compile(r'\\b(?:\\d{1,2}\\s+)?(?:January|February|March|April|May|June|July|August|September|October|November|December)(?:\\s+\\d{1,2},?)?(?:\\s+\\d{4})?\\b|\\b\\d{4}-\\d{2}-\\d{2}\\b|\\b\\d{1,2}(?:st|nd|rd|th)\\s+century(?:\\s"
+    },
+    {
+      "file": "engine/passages/answer_pipeline.py",
+      "line": 274,
+      "term": "mezzanine",
+      "name_prefix": false,
+      "source_line": "elif kind=='LOCATION':type_ok=bool(re.search(r'\\b(?:in|at|on|from|under|beneath|above|behind|near|outside|inside|through|upstairs|downstairs|mezzanine)\\b',evidence,re.I))"
+    },
+    {
+      "file": "engine/passages/answer_pipeline.py",
+      "line": 31,
+      "term": "monday",
+      "name_prefix": false,
+      "source_line": "TIME = re.compile(r'\\b(?:\\d{1,2}\\s+)?(?:January|February|March|April|May|June|July|August|September|October|November|December)(?:\\s+\\d{1,2},?)?(?:\\s+\\d{4})?\\b|\\b\\d{4}-\\d{2}-\\d{2}\\b|\\b\\d{1,2}(?:st|nd|rd|th)\\s+century(?:\\s"
+    },
+    {
+      "file": "engine/passages/answer_pipeline.py",
+      "line": 30,
+      "term": "nine",
+      "name_prefix": false,
+      "source_line": "NUM = re.compile(r'\\b(?:\\d[\\d,.]*|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|twenty|hundred)\\b', re.I)"
+    },
+    {
+      "file": "engine/passages/answer_pipeline.py",
+      "line": 14,
+      "term": "off",
+      "name_prefix": false,
+      "source_line": "STOP.update('s if named called during off up one before after dr mr mrs ms prof'.split())"
+    },
+    {
+      "file": "engine/passages/answer_pipeline.py",
+      "line": 28,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "COLORS = re.compile(r'\\b(?:red|orange|yellow|green|blue|violet|purple|amber|black|white|grey|gray|brown|pink|silver|gold)\\b',re.I)"
+    },
+    {
+      "file": "engine/passages/answer_pipeline.py",
+      "line": 13,
+      "term": "tell",
+      "name_prefix": false,
+      "source_line": "STOP = set('what which who whom whose where when why how a an the of on at in to for from with by into through as and or does do did is are was were be been being can could may might must should would will shall has have"
+    },
+    {
+      "file": "engine/passages/answer_relevance.py",
+      "line": 238,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "For extractive short spans (e.g. '1941', '17 March 2024', 'Python'),"
+    },
+    {
+      "file": "engine/passages/answer_relevance.py",
+      "line": 7,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "- Predicate / relation alignment (what the user is asking ABOUT vs what the answer says)"
+    },
+    {
+      "file": "engine/passages/answer_relevance.py",
+      "line": 8,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "- Key property / attribute alignment"
+    },
+    {
+      "file": "engine/passages/answer_relevance.py",
+      "line": 239,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "the evidence for predicate, property, and entity alignment comes from"
+    },
+    {
+      "file": "engine/passages/answer_relevance.py",
+      "line": 542,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "# Answer type alignment"
+    },
+    {
+      "file": "engine/passages/answer_relevance.py",
+      "line": 603,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "# Entity alignment"
+    },
+    {
+      "file": "engine/passages/answer_relevance.py",
+      "line": 617,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "# Predicate alignment"
+    },
+    {
+      "file": "engine/passages/answer_relevance.py",
+      "line": 631,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "# Property alignment"
+    },
+    {
+      "file": "engine/passages/answer_relevance.py",
+      "line": 581,
+      "term": "no.",
+      "name_prefix": false,
+      "source_line": "if c_stripped in (\"yes\", \"no\", \"yes.\", \"no.\"):"
+    },
+    {
+      "file": "engine/passages/highlighter.py",
+      "line": 98,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "# Check for temporal featured answer (e.g. '17 March 2024')"
+    },
+    {
+      "file": "engine/query_analysis/spelling.py",
+      "line": 157,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "# Do not correct tokens with digits (e.g. 2024, v2)"
+    },
+    {
+      "file": "engine/ranking/explain.py",
+      "line": 53,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "f\"[Exact Phrase Alignment]: '{winner.title}' matched exact multi-word query phrases (+{winner.phrase_signal:.2f}).\""
+    },
+    {
+      "file": "engine/ranking/explain.py",
+      "line": 56,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "# 5. Title & Heading alignment"
+    },
+    {
+      "file": "engine/ranking/signals.py",
+      "line": 69,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "\"\"\"Calculate explicit title token & stem alignment.\"\"\""
+    },
+    {
+      "file": "engine/ranking/signals.py",
+      "line": 87,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "\"\"\"Calculate query alignment across section headings.\"\"\""
+    },
+    {
+      "file": "engine/ranking/signals.py",
+      "line": 106,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "\"\"\"Calculate query alignment with authored tags/keywords.\"\"\""
+    },
+    {
+      "file": "engine/semantic/drift.py",
+      "line": 85,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "return 0.35, f\"Weak semantic alignment without lexical support: 0/{len(query_terms)} terms present.\""
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 89,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<BarChart2 className=\"w-6 h-6 text-amber-500\" />"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 176,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<BarChart2 className=\"w-5 h-5 text-amber-500\" />"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 185,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<Award className=\"w-4 h-4 text-amber-500\" />"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 107,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"flex items-center gap-2 text-purple-700 dark:text-purple-300\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 107,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"flex items-center gap-2 text-purple-700 dark:text-purple-300\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 108,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Compass className=\"w-5 h-5 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 108,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Compass className=\"w-5 h-5 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 114,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-white dark:bg-neutral-900 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 shadow-2xs\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 114,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-white dark:bg-neutral-900 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 shadow-2xs\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 117,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Sparkles className=\"w-4 h-4 text-purple-500\" />"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 119,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"mt-2 text-2xl font-extrabold font-mono text-purple-700 dark:text-purple-300\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 119,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"mt-2 text-2xl font-extrabold font-mono text-purple-700 dark:text-purple-300\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 128,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-white dark:bg-neutral-900 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 shadow-2xs\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 128,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-white dark:bg-neutral-900 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 shadow-2xs\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 142,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-white dark:bg-neutral-900 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 shadow-2xs\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 142,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-white dark:bg-neutral-900 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 shadow-2xs\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 156,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-white dark:bg-neutral-900 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 shadow-2xs\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 156,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-white dark:bg-neutral-900 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 shadow-2xs\">"
+    },
+    {
+      "file": "web/src/app/admin/eval/page.tsx",
+      "line": 213,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Zap className=\"w-4 h-4 text-purple-500\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 172,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/30 flex items-start gap-3\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 172,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/30 flex items-start gap-3\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 172,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/30 flex items-start gap-3\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 172,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/30 flex items-start gap-3\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 173,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<AlertTriangle className=\"w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 173,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<AlertTriangle className=\"w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 174,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-xs text-amber-900 dark:text-amber-200 leading-relaxed\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 174,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-xs text-amber-900 dark:text-amber-200 leading-relaxed\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 175,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<strong className=\"font-semibold block text-amber-800 dark:text-amber-300 mb-0.5\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 175,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<strong className=\"font-semibold block text-amber-800 dark:text-amber-300 mb-0.5\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 361,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-xs text-amber-600 dark:text-amber-400 font-medium\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 361,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-xs text-amber-600 dark:text-amber-400 font-medium\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 439,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<p className=\"text-[11px] text-amber-600 dark:text-amber-400 italic\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 439,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<p className=\"text-[11px] text-amber-600 dark:text-amber-400 italic\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 826,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<AlertTriangle className=\"w-5 h-5 text-amber-500\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 134,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"p-2 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 134,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"p-2 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 134,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"p-2 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 134,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"p-2 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 134,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"p-2 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 134,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"p-2 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 149,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 149,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 149,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 149,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 149,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 149,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 188,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Layers className=\"w-5 h-5 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 188,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Layers className=\"w-5 h-5 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 204,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 204,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 210,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 210,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 216,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 216,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 222,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 222,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 228,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 228,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 234,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 234,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 316,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Terminal className=\"w-5 h-5 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 316,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Terminal className=\"w-5 h-5 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 339,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 339,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono font-bold text-sm text-purple-600 dark:text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 358,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Sparkles className=\"w-5 h-5 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 358,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Sparkles className=\"w-5 h-5 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 376,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-950 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500\""
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 414,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-medium text-xs transition-colors cursor-pointer\""
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 414,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-medium text-xs transition-colors cursor-pointer\""
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 437,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-purple-600 dark:text-purple-400\">{genOutput.generated_text}</span>"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 437,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-purple-600 dark:text-purple-400\">{genOutput.generated_text}</span>"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 686,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-base font-bold text-purple-600 dark:text-purple-400 font-mono mt-0.5\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 686,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-base font-bold text-purple-600 dark:text-purple-400 font-mono mt-0.5\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 720,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "Extracted: <strong className=\"text-purple-600 dark:text-purple-400\">2023</strong> (Correctly distinguished conception from Oct 2026 completion)."
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 720,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "Extracted: <strong className=\"text-purple-600 dark:text-purple-400\">2023</strong> (Correctly distinguished conception from Oct 2026 completion)."
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 734,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "Extracted: <strong className=\"text-purple-600 dark:text-purple-400\">14th century</strong> (Evidence-supported historical conclusion)."
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 734,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "Extracted: <strong className=\"text-purple-600 dark:text-purple-400\">14th century</strong> (Evidence-supported historical conclusion)."
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 810,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "Answer: &ldquo;<span className=\"text-purple-600 dark:text-purple-400\">{qa.answer_text}</span>&rdquo; (char {qa.answer_start_char}..{qa.answer_end_char})"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 810,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "Answer: &ldquo;<span className=\"text-purple-600 dark:text-purple-400\">{qa.answer_text}</span>&rdquo; (char {qa.answer_start_char}..{qa.answer_end_char})"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 903,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono text-[10px] text-purple-600 dark:text-purple-400 font-bold\">"
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "line": 903,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-mono text-[10px] text-purple-600 dark:text-purple-400 font-bold\">"
+    },
+    {
+      "file": "web/src/app/admin/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"mt-4 p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-lg text-amber-900 dark:text-amber-200 text-xs flex items-center justify-between\">"
+    },
+    {
+      "file": "web/src/app/admin/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"mt-4 p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-lg text-amber-900 dark:text-amber-200 text-xs flex items-center justify-between\">"
+    },
+    {
+      "file": "web/src/app/admin/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"mt-4 p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-lg text-amber-900 dark:text-amber-200 text-xs flex items-center justify-between\">"
+    },
+    {
+      "file": "web/src/app/admin/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"mt-4 p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-lg text-amber-900 dark:text-amber-200 text-xs flex items-center justify-between\">"
+    },
+    {
+      "file": "web/src/app/admin/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"mt-4 p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-lg text-amber-900 dark:text-amber-200 text-xs flex items-center justify-between\">"
+    },
+    {
+      "file": "web/src/app/admin/page.tsx",
+      "line": 153,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"mt-4 p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-lg text-amber-900 dark:text-amber-200 text-xs flex items-center justify-between\">"
+    },
+    {
+      "file": "web/src/app/admin/page.tsx",
+      "line": 158,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "className=\"text-amber-700 dark:text-amber-400 font-bold ml-4\""
+    },
+    {
+      "file": "web/src/app/admin/page.tsx",
+      "line": 158,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "className=\"text-amber-700 dark:text-amber-400 font-bold ml-4\""
+    },
+    {
+      "file": "web/src/app/doc/[slug]/page.tsx",
+      "line": 85,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"flex items-center gap-1 text-purple-400\">"
+    },
+    {
+      "file": "web/src/app/doc/[slug]/page.tsx",
+      "line": 158,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Link2 className=\"w-4 h-4 text-purple-400\" />"
+    },
+    {
+      "file": "web/src/app/page.tsx",
+      "line": 67,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"flex items-center gap-1.5 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors cursor-pointer\""
+    },
+    {
+      "file": "web/src/app/page.tsx",
+      "line": 67,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"flex items-center gap-1.5 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors cursor-pointer\""
+    },
+    {
+      "file": "web/src/app/page.tsx",
+      "line": 67,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"flex items-center gap-1.5 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors cursor-pointer\""
+    },
+    {
+      "file": "web/src/app/page.tsx",
+      "line": 67,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"flex items-center gap-1.5 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors cursor-pointer\""
+    },
+    {
+      "file": "web/src/app/page.tsx",
+      "line": 69,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Brain className=\"w-3.5 h-3.5 text-purple-500\" />"
+    },
+    {
+      "file": "web/src/app/search/page.tsx",
+      "line": 317,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"absolute top-0 right-0 bg-amber-500 text-slate-950 px-3 py-0.5 text-[10px] font-mono font-bold tracking-wider uppercase rounded-bl\">"
+    },
+    {
+      "file": "web/src/app/search/page.tsx",
+      "line": 352,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-[11px] font-bold text-amber-400\">"
+    },
+    {
+      "file": "web/src/app/search/page.tsx",
+      "line": 416,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-[11px] font-bold text-amber-400\">"
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 4,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "* Inspects entity alignment, predicate alignment, property alignment,"
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 4,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "* Inspects entity alignment, predicate alignment, property alignment,"
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 4,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "* Inspects entity alignment, predicate alignment, property alignment,"
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 283,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "Component Alignment Scores"
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 288,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "label=\"Entity Alignment\""
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 292,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "label=\"Predicate Alignment\""
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 296,
+      "term": "alignment",
+      "name_prefix": false,
+      "source_line": "label=\"Property / Attribute Alignment\""
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 65,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "? \"bg-amber-500\""
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 76,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "? \"text-amber-400\""
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 106,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-amber-950/60 border border-amber-800 text-amber-400\">"
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 106,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-amber-950/60 border border-amber-800 text-amber-400\">"
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 106,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-amber-950/60 border border-amber-800 text-amber-400\">"
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 251,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "? \"text-amber-400\""
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 333,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-amber-400 font-bold text-sm\">"
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 346,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "? \"text-amber-400\""
+    },
+    {
+      "file": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "line": 398,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": ": \"text-amber-400\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 21,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"mb-6 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 bg-purple-50/40 dark:bg-purple-950/20 font-mono text-xs\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 21,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"mb-6 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 bg-purple-50/40 dark:bg-purple-950/20 font-mono text-xs\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 21,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"mb-6 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 bg-purple-50/40 dark:bg-purple-950/20 font-mono text-xs\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 21,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"mb-6 p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 bg-purple-50/40 dark:bg-purple-950/20 font-mono text-xs\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 22,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"flex items-center justify-between pb-3 border-b border-purple-200/60 dark:border-purple-900/40\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 22,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"flex items-center justify-between pb-3 border-b border-purple-200/60 dark:border-purple-900/40\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 23,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"flex items-center gap-2 text-purple-950 dark:text-purple-200\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 23,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"flex items-center gap-2 text-purple-950 dark:text-purple-200\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 24,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Compass className=\"w-4 h-4 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 24,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Compass className=\"w-4 h-4 text-purple-600 dark:text-purple-400\" />"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 32,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "? \"bg-purple-600 text-white font-medium\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 33,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": ": \"text-purple-800 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 33,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": ": \"text-purple-800 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 33,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": ": \"text-purple-800 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 33,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": ": \"text-purple-800 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 42,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "? \"bg-purple-600 text-white font-medium\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 43,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": ": \"text-purple-800 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 43,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": ": \"text-purple-800 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 43,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": ": \"text-purple-800 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 43,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": ": \"text-purple-800 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/40\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 54,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-[11px] text-purple-800 dark:text-purple-300 font-sans\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 54,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-[11px] text-purple-800 dark:text-purple-300 font-sans\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 60,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-3 rounded bg-white dark:bg-neutral-900 border border-purple-200 dark:border-purple-900/40 text-neutral-500\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 60,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-3 rounded bg-white dark:bg-neutral-900 border border-purple-200 dark:border-purple-900/40 text-neutral-500\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 68,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"p-3 rounded-lg bg-white dark:bg-neutral-900 border border-purple-200 dark:border-purple-900/40 space-y-1.5\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 68,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"p-3 rounded-lg bg-white dark:bg-neutral-900 border border-purple-200 dark:border-purple-900/40 space-y-1.5\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 95,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-semibold text-purple-700 dark:text-purple-300\">{q.confidence_score.toFixed(2)}</span>"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 95,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"font-semibold text-purple-700 dark:text-purple-300\">{q.confidence_score.toFixed(2)}</span>"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 113,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-[11px] text-purple-800 dark:text-purple-300 font-sans\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 113,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-[11px] text-purple-800 dark:text-purple-300 font-sans\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 118,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-3 rounded bg-white dark:bg-neutral-900 border border-purple-200 dark:border-purple-900/40 text-neutral-500\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 118,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-3 rounded bg-white dark:bg-neutral-900 border border-purple-200 dark:border-purple-900/40 text-neutral-500\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 126,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"p-3 rounded-lg bg-white dark:bg-neutral-900 border border-purple-200 dark:border-purple-900/40 space-y-1.5\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 126,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"p-3 rounded-lg bg-white dark:bg-neutral-900 border border-purple-200 dark:border-purple-900/40 space-y-1.5\""
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 132,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-purple-700 dark:text-purple-300 font-bold\">"
+    },
+    {
+      "file": "web/src/components/DiscoveryAudit.tsx",
+      "line": 132,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-purple-700 dark:text-purple-300 font-bold\">"
+    },
+    {
+      "file": "web/src/components/DocumentEditorForm.tsx",
+      "line": 524,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "placeholder=\"bicycle, maintenance, chain, 2024\""
+    },
+    {
+      "file": "web/src/components/DocumentEditorForm.tsx",
+      "line": 537,
+      "term": "2024",
+      "name_prefix": false,
+      "source_line": "placeholder=\"my-first-bicycle, things-i-bought-in-2024\""
+    },
+    {
+      "file": "web/src/components/Header.tsx",
+      "line": 73,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-950/50 transition-colors\""
+    },
+    {
+      "file": "web/src/components/Header.tsx",
+      "line": 73,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-950/50 transition-colors\""
+    },
+    {
+      "file": "web/src/components/Header.tsx",
+      "line": 73,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-950/50 transition-colors\""
+    },
+    {
+      "file": "web/src/components/Header.tsx",
+      "line": 73,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "className=\"flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-950/50 transition-colors\""
+    },
+    {
+      "file": "web/src/components/Header.tsx",
+      "line": 75,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Brain className=\"w-3.5 h-3.5 text-purple-500\" />"
+    },
+    {
+      "file": "web/src/components/HybridRetrievalAudit.tsx",
+      "line": 64,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-sm font-bold text-amber-600 dark:text-amber-400 mt-0.5\">"
+    },
+    {
+      "file": "web/src/components/HybridRetrievalAudit.tsx",
+      "line": 64,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-sm font-bold text-amber-600 dark:text-amber-400 mt-0.5\">"
+    },
+    {
+      "file": "web/src/components/HybridRetrievalAudit.tsx",
+      "line": 49,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-sm font-bold text-purple-700 dark:text-purple-300 mt-0.5\">"
+    },
+    {
+      "file": "web/src/components/HybridRetrievalAudit.tsx",
+      "line": 49,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-sm font-bold text-purple-700 dark:text-purple-300 mt-0.5\">"
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 29,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "return \"bg-amber-900/60 text-amber-300 border-amber-700\";"
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 29,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "return \"bg-amber-900/60 text-amber-300 border-amber-700\";"
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 29,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "return \"bg-amber-900/60 text-amber-300 border-amber-700\";"
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 46,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-amber-400 font-bold\">Query Analysis & Evidence Gate Audit</span>"
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 189,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<Shield className=\"w-4 h-4 text-amber-400\" />"
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 200,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "className=\"inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 transition-colors\""
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 200,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "className=\"inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 transition-colors\""
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 27,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "return \"bg-purple-900/60 text-purple-300 border-purple-700\";"
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 27,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "return \"bg-purple-900/60 text-purple-300 border-purple-700\";"
+    },
+    {
+      "file": "web/src/components/QueryAnalysisAudit.tsx",
+      "line": 27,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "return \"bg-purple-900/60 text-purple-300 border-purple-700\";"
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 68,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-amber-400 font-bold\">"
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 125,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": ": \"bg-amber-950 text-amber-300 border border-amber-700\""
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 125,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": ": \"bg-amber-950 text-amber-300 border border-amber-700\""
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 125,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": ": \"bg-amber-950 text-amber-300 border border-amber-700\""
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 200,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-amber-300\">"
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 263,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<strong className=\"text-amber-400\">{trace.final_score.toFixed(4)}</strong>"
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 273,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<Scale className=\"w-3.5 h-3.5 text-amber-400\" />"
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 279,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "className=\"bg-neutral-900 border border-neutral-700 text-neutral-200 text-xs rounded px-2.5 py-1 focus:outline-none focus:ring-1 focus:ring-amber-400\""
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 101,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-purple-400 font-semibold mt-0.5\">"
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 115,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-3 bg-neutral-900/80 rounded border border-purple-900/40 space-y-2\">"
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 117,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"flex items-center gap-1.5 text-purple-400\">"
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 133,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-purple-300 font-semibold mt-0.5 font-sans\">"
+    },
+    {
+      "file": "web/src/components/RankingTraceAudit.tsx",
+      "line": 213,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<span className=\"text-purple-400 font-semibold\">+{trace.link_authority.toFixed(4)}</span>"
+    },
+    {
+      "file": "web/src/components/SearchAutocomplete.tsx",
+      "line": 255,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<Sparkles className=\"w-3.5 h-3.5 text-amber-500\" />"
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 75,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "color: \"text-amber-400\","
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 172,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": ": \"bg-amber-950 text-amber-300 border border-amber-700\""
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 172,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": ": \"bg-amber-950 text-amber-300 border border-amber-700\""
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 172,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": ": \"bg-amber-950 text-amber-300 border border-amber-700\""
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 54,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "color: \"text-purple-400\","
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 160,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"p-4 bg-slate-950/90 border border-purple-900/40 rounded-lg space-y-3\">"
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 161,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"flex items-center justify-between text-purple-400 uppercase text-[11px] font-mono font-bold tracking-wider\">"
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 163,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<Brain className=\"w-4 h-4 text-purple-400\" />"
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 236,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-purple-300 font-bold mt-0.5\">"
+    },
+    {
+      "file": "web/src/components/SearchTimingAudit.tsx",
+      "line": 251,
+      "term": "purple",
+      "name_prefix": false,
+      "source_line": "<div className=\"text-purple-300 font-serif text-sm mt-0.5\">"
+    },
+    {
+      "file": "web/src/components/StructuredEditor.tsx",
+      "line": 207,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-amber-950/40 border-b border-amber-800/60 px-4 py-2.5 flex items-center gap-2 text-xs text-amber-300\">"
+    },
+    {
+      "file": "web/src/components/StructuredEditor.tsx",
+      "line": 207,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-amber-950/40 border-b border-amber-800/60 px-4 py-2.5 flex items-center gap-2 text-xs text-amber-300\">"
+    },
+    {
+      "file": "web/src/components/StructuredEditor.tsx",
+      "line": 207,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<div className=\"bg-amber-950/40 border-b border-amber-800/60 px-4 py-2.5 flex items-center gap-2 text-xs text-amber-300\">"
+    },
+    {
+      "file": "web/src/components/StructuredEditor.tsx",
+      "line": 208,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<AlertTriangle className=\"w-4 h-4 text-amber-400 shrink-0\" />"
+    },
+    {
+      "file": "web/src/lib/markdown.tsx",
+      "line": 185,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<blockquote key={`quote-${i}`} className=\"border-l-4 border-amber-500 pl-4 py-1 my-3 bg-amber-50/50 dark:bg-amber-950/20 text-neutral-800 dark:text-neutral-200 italic\">"
+    },
+    {
+      "file": "web/src/lib/markdown.tsx",
+      "line": 185,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<blockquote key={`quote-${i}`} className=\"border-l-4 border-amber-500 pl-4 py-1 my-3 bg-amber-50/50 dark:bg-amber-950/20 text-neutral-800 dark:text-neutral-200 italic\">"
+    },
+    {
+      "file": "web/src/lib/markdown.tsx",
+      "line": 185,
+      "term": "amber",
+      "name_prefix": false,
+      "source_line": "<blockquote key={`quote-${i}`} className=\"border-l-4 border-amber-500 pl-4 py-1 my-3 bg-amber-50/50 dark:bg-amber-950/20 text-neutral-800 dark:text-neutral-200 italic\">"
+    }
+  ],
+  "manual_review": {
+    "source_prefix_hits": 0,
+    "specific_synthetic_question_answer_lookup_hits": 0,
+    "hit_terms": [
+      "2024",
+      "alignment",
+      "amber",
+      "contact",
+      "friday",
+      "mezzanine",
+      "mobile",
+      "monday",
+      "nine",
+      "no.",
+      "off",
+      "phone",
+      "purple",
+      "tell"
+    ],
+    "classification": "Reviewed all 14 hit terms. They are common datatype/action/spatial words, CSS colors, variable names, documentation examples or unchanged legacy training fixtures. No synthetic entity/fact association or query-specific answer-return branch is present.",
+    "short_alternatives": "Strings shorter than three characters were skipped by the literal scanner; those include ordinary digits/logical tokens, not a full answer-lookup audit by themselves."
+  }
+}

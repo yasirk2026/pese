@@ -1,0 +1,10 @@
+{
+  "format": "pese-brain",
+  "schemaVersion": 1,
+  "brainId": "00000000-0000-4000-8000-000000000001",
+  "createdAt": "2026-10-21T00:00:00Z",
+  "name": "PESE Development Brain",
+  "appCompatibility": {
+    "minEngineVersion": "1.0.0"
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "status": "NOT READY FOR BLIND WHOLE-FOLDER PUBLICATION",
+  "git_available": false,
+  "categories": {
+    "local_data_files_review_or_exclude": 39,
+    "derived_vector_files_exclude": 3,
+    "checkpoint_files_exclude": 13,
+    "local_environment_files": 1
+  },
+  "source_review_flags": [
+    {
+      "file": "engine/evaluation/answer_relevance_runner.py",
+      "counts": {
+        "personal_name_references": 10,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    },
+    {
+      "file": "engine/evaluation/cold_http_probe.py",
+      "counts": {
+        "personal_name_references": 0,
+        "absolute_user_path_references": 0,
+        "private_store_references": 1
+      }
+    },
+    {
+      "file": "engine/evaluation/discovery_dataset.py",
+      "counts": {
+        "personal_name_references": 1,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    },
+    {
+      "file": "engine/evaluation/http_probe.py",
+      "counts": {
+        "personal_name_references": 1,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    },
+    {
+      "file": "engine/evaluation/qa_reader_dataset.py",
+      "counts": {
+        "personal_name_references": 2,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    },
+    {
+      "file": "engine/evaluation/qa_reader_runner.py",
+      "counts": {
+        "personal_name_references": 2,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    },
+    {
+      "file": "engine/evaluation/query_trace.py",
+      "counts": {
+        "personal_name_references": 0,
+        "absolute_user_path_references": 0,
+        "private_store_references": 1
+      }
+    },
+    {
+      "file": "engine/evaluation/release_hygiene.py",
+      "counts": {
+        "personal_name_references": 0,
+        "absolute_user_path_references": 0,
+        "private_store_references": 1
+      }
+    },
+    {
+      "file": "engine/evaluation/runtime_audit.py",
+      "counts": {
+        "personal_name_references": 0,
+        "absolute_user_path_references": 0,
+        "private_store_references": 1
+      }
+    },
+    {
+      "file": "engine/evaluation/source_audit.py",
+      "counts": {
+        "personal_name_references": 1,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    },
+    {
+      "file": "engine/evaluation/spelling_semantic_audit.py",
+      "counts": {
+        "personal_name_references": 1,
+        "absolute_user_path_references": 0,
+        "private_store_references": 1
+      }
+    },
+    {
+      "file": "engine/indexing/store.py",
+      "counts": {
+        "personal_name_references": 0,
+        "absolute_user_path_references": 0,
+        "private_store_references": 1
+      }
+    },
+    {
+      "file": "engine/neural/data/qa_dataset.py",
+      "counts": {
+        "personal_name_references": 1,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    },
+    {
+      "file": "engine/tests/test_evidence_gate.py",
+      "counts": {
+        "personal_name_references": 2,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    },
+    {
+      "file": "engine/tests/test_qa_reader.py",
+      "counts": {
+        "personal_name_references": 1,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    },
+    {
+      "file": "scripts/build_knowledge_corpus.py",
+      "counts": {
+        "personal_name_references": 0,
+        "absolute_user_path_references": 0,
+        "private_store_references": 1
+      }
+    },
+    {
+      "file": "scripts/build_knowledge_queries.py",
+      "counts": {
+        "personal_name_references": 0,
+        "absolute_user_path_references": 0,
+        "private_store_references": 1
+      }
+    },
+    {
+      "file": "web/src/app/admin/neural-lab/page.tsx",
+      "counts": {
+        "personal_name_references": 5,
+        "absolute_user_path_references": 0,
+        "private_store_references": 0
+      }
+    }
+  ],
+  "source_credential_signatures": [],
+  "boundary": "Default demo store/history/vectors are isolated; explicit demo startup uses synthetic data. Legacy seed and neural playground personal passage replaced with synthetic examples; originals preserved only under ignored .tmp.",
+  "required_before_publication": [
+    "Export an explicit source allowlist; never upload this entire working directory",
+    "Review historical docs/evaluations and name references for publication consent",
+    "Exclude all environment files, local stores/history, checkpoints, vectors, logs and .tmp",
+    "Audit Git tracked files and history after creating a repository; none exists here",
+    "Keep the unauthenticated CMS/API bound to loopback; public hosting requires a separate authentication review"
+  ],
+  "limits": "Pattern scan is not proof that secrets never existed; private file contents were not copied into this report. No publication occurred."
+}

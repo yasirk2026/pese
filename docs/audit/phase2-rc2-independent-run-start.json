@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-10-23T06:24:11.201894+00:00",
+  "source_sha256": "699ec98a683500c96665d016a25ddf30b3a99cf6ab7f7a2ef39982ef9aa9a0fd",
+  "input_sha256": "152d8e9e3f893a242db3ae9e006e47e57845c0960bdb6e0e888bccfbb12d7c72",
+  "labels_sha256": "8bca130fb24382e4bf0566b5d9a5f4f5985c3b3f2e6d94db09f07c022e8a9f8c",
+  "seal_sha256": "ec0e3d44e4e2a6df91f4ea887dad0acea90217d8c7259ece33079ddb61162bd6",
+  "labels_inspected": false,
+  "protocol": "Hashes verified before one production run; no source edits after label reveal permitted."
+}

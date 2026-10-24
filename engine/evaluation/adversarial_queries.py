@@ -1,0 +1,207 @@
+"""
+PESE Evaluation: Adversarial Benchmark Dataset
+Independent regression dataset testing resilience to messy human queries:
+typos, transpositions, question intents, weak evidence, and no-result safety.
+"""
+
+from typing import List, Dict, Any
+
+ADVERSARIAL_DATASET: List[Dict[str, Any]] = [
+    # ==================== CATEGORY 1: TYPO QUERIES ====================
+    {
+        "query": "bycycle",
+        "category": "Typo Queries",
+        "expected_intent": "GENERAL",
+        "expected_corrections": [("bycycle", "bicycle")],
+        "expected_top_slug": "my-bicycle-story",
+        "relevant_slugs": ["my-bicycle-story", "bicycle-maintenance-notes", "my-first-bicycle"],
+        "expected_no_result": False,
+        "expected_answer_contains": None,
+    },
+    {
+        "query": "when did I purhcase my bycycle",
+        "category": "Typo Queries",
+        "expected_intent": "WHEN",
+        "expected_corrections": [("purhcase", "purchase"), ("bycycle", "bicycle")],
+        "expected_top_slug": "my-bicycle-story",
+        "relevant_slugs": ["my-bicycle-story", "things-i-bought-in-2024"],
+        "expected_no_result": False,
+        "expected_answer_contains": "17 March 2024",
+    },
+    {
+        "query": "when did I purchase my bycycle",
+        "category": "Typo Queries",
+        "expected_intent": "WHEN",
+        "expected_corrections": [("bycycle", "bicycle")],
+        "expected_top_slug": "my-bicycle-story",
+        "relevant_slugs": ["my-bicycle-story", "things-i-bought-in-2024"],
+        "expected_no_result": False,
+        "expected_answer_contains": "17 March 2024",
+    },
+    {
+        "query": "bycycle purchase",
+        "category": "Typo Queries",
+        "expected_intent": "GENERAL",
+        "expected_corrections": [("bycycle", "bicycle")],
+        "expected_top_slug": "things-i-bought-in-2024",
+        "relevant_slugs": ["things-i-bought-in-2024", "my-bicycle-story"],
+        "expected_no_result": False,
+        "expected_answer_contains": None,
+    },
+    {
+        "query": "when buy bycycle",
+        "category": "Typo Queries",
+        "expected_intent": "WHEN",
+        "expected_corrections": [("bycycle", "bicycle")],
+        "expected_top_slug": "my-bicycle-story",
+        "relevant_slugs": ["my-bicycle-story", "things-i-bought-in-2024"],
+        "expected_no_result": False,
+        "expected_answer_contains": "17 March 2024",
+    },
+    {
+        "query": "what is hyderation",
+        "category": "Typo Queries",
+        "expected_intent": "WHAT",
+        "expected_corrections": [("hyderation", "hydration")],
+        "expected_top_slug": "hydration-bugs-i-faced",
+        "relevant_slugs": ["hydration-bugs-i-faced", "nextjs-rendering-notes"],
+        "expected_no_result": False,
+        "expected_answer_contains": "hydration",
+    },
+    {
+        "query": "bycicle date",
+        "category": "Typo Queries",
+        "expected_intent": "WHEN",
+        "expected_corrections": [("bycicle", "bicycle")],
+        "expected_top_slug": "my-bicycle-story",
+        "relevant_slugs": ["my-bicycle-story"],
+        "expected_no_result": False,
+        "expected_answer_contains": "March 2024",
+    },
+
+    # ==================== CATEGORY 2: INTENT & ANSWER EXTRACTION ====================
+    {
+        "query": "what search cannot rank",
+        "category": "Featured Answer Queries",
+        "expected_intent": "WHAT",
+        "expected_corrections": [],
+        "expected_top_slug": "technical-seo-lessons",
+        "relevant_slugs": ["technical-seo-lessons", "content-quality-thoughts"],
+        "expected_no_result": False,
+        "expected_answer_contains": "Search engines cannot rank what they cannot discover",
+    },
+    {
+        "query": "why hydration bug happen",
+        "category": "Intent Queries",
+        "expected_intent": "WHY",
+        "expected_corrections": [],
+        "expected_top_slug": "hydration-bugs-i-faced",
+        "relevant_slugs": ["hydration-bugs-i-faced"],
+        "expected_no_result": False,
+        "expected_answer_contains": "differs from",
+    },
+    {
+        "query": "how to clean and oil bicycle chain",
+        "category": "Featured Answer Queries",
+        "expected_intent": "HOW",
+        "expected_corrections": [],
+        "expected_top_slug": "bicycle-maintenance-notes",
+        "relevant_slugs": ["bicycle-maintenance-notes"],
+        "expected_no_result": False,
+        "expected_answer_contains": "degreaser",
+    },
+    {
+        "query": "what should learn japanese next",
+        "category": "Intent Queries",
+        "expected_intent": "WHAT",
+        "expected_corrections": [],
+        "expected_top_slug": "what-i-should-learn-next-in-japanese",
+        "relevant_slugs": ["what-i-should-learn-next-in-japanese"],
+        "expected_no_result": False,
+        "expected_answer_contains": "radicals",
+    },
+    {
+        "query": "when did I buy my bicycle",
+        "category": "Clean Queries",
+        "expected_intent": "WHEN",
+        "expected_corrections": [],
+        "expected_top_slug": "my-bicycle-story",
+        "relevant_slugs": ["my-bicycle-story"],
+        "expected_no_result": False,
+        "expected_answer_contains": "17 March 2024",
+    },
+    {
+        "query": "cycle",
+        "category": "Clean Queries",
+        "expected_intent": "GENERAL",
+        "expected_corrections": [],  # Must NOT be corrected
+        "expected_top_slug": "my-bicycle-story",
+        "relevant_slugs": ["my-bicycle-story", "random-memories-from-2024"],
+        "expected_no_result": False,
+        "expected_answer_contains": None,
+    },
+
+    # ==================== CATEGORY 3: WEAK EVIDENCE & NO-RESULT SAFETY ====================
+    {
+        "query": "what is flimflamglurp",
+        "category": "No-Result Queries",
+        "expected_intent": "WHAT",
+        "expected_corrections": [],
+        "expected_top_slug": None,
+        "relevant_slugs": [],
+        "expected_no_result": True,
+        "expected_answer_contains": None,
+    },
+    {
+        "query": "when did xyznonexistent happen",
+        "category": "No-Result Queries",
+        "expected_intent": "WHEN",
+        "expected_corrections": [],
+        "expected_top_slug": None,
+        "relevant_slugs": [],
+        "expected_no_result": True,
+        "expected_answer_contains": None,
+    },
+    {
+        "query": "how do zoobadongas calculate",
+        "category": "No-Result Queries",
+        "expected_intent": "HOW",
+        "expected_corrections": [],
+        "expected_top_slug": None,
+        "relevant_slugs": [],
+        "expected_no_result": True,
+        "expected_answer_contains": None,
+    },
+
+    # ==================== CATEGORY 4: CONSERVATIVE CORRECTION SAFETY ====================
+    {
+        "query": "Next.js server components",
+        "category": "Clean Queries",
+        "expected_intent": "GENERAL",
+        "expected_corrections": [],  # Proper technical term: must NOT be altered!
+        "expected_top_slug": "nextjs-rendering-notes",
+        "relevant_slugs": ["nextjs-rendering-notes"],
+        "expected_no_result": False,
+        "expected_answer_contains": None,
+    },
+    {
+        "query": "Firestore security rules",
+        "category": "Clean Queries",
+        "expected_intent": "GENERAL",
+        "expected_corrections": [],  # Proper term: must NOT be altered!
+        "expected_top_slug": "firebase-architecture-notes",
+        "relevant_slugs": ["firebase-architecture-notes"],
+        "expected_no_result": False,
+        "expected_answer_contains": None,
+    },
+    {
+        "query": "BM25 scoring formula",
+        "category": "Clean Queries",
+        "expected_intent": "GENERAL",
+        "expected_corrections": [],  # Acronym: must NOT be altered!
+        "expected_top_slug": "tfidf-and-bm25-deep-dive",
+        "relevant_slugs": ["tfidf-and-bm25-deep-dive"],
+        "expected_no_result": False,
+        "expected_answer_contains": None,
+    },
+]

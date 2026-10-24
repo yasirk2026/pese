@@ -1,0 +1,12 @@
+{
+  "completed_at": "2026-10-23T06:31:30.336640+00:00",
+  "source_sha256": "699ec98a683500c96665d016a25ddf30b3a99cf6ab7f7a2ef39982ef9aa9a0fd",
+  "input_sha256": "152d8e9e3f893a242db3ae9e006e47e57845c0960bdb6e0e888bccfbb12d7c72",
+  "labels_sha256": "8bca130fb24382e4bf0566b5d9a5f4f5985c3b3f2e6d94db09f07c022e8a9f8c",
+  "outputs_sha256": "cf9dc17cc0791b5868e3f7366e527d73f13407f1c1e15c8f17effefb05121fad",
+  "adjudicated_score_sha256": "bb27d2cc835fa9b117a7276ed855ad577c513973164177d4b07bbc184bf9911f",
+  "run_count": 1,
+  "labels_revealed_only_after_output": true,
+  "production_edits_after_reveal": false,
+  "now_exposed_regression_data": true
+}

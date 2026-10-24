@@ -1,0 +1,101 @@
+{
+  "browser_verified": false,
+  "records": [
+    {
+      "query": "does healing lounge offer flexible payments",
+      "source": "what-is-the-healing-lounge-pakistan",
+      "answer": null,
+      "effective_query": "does healing lounge offer flexible payments",
+      "engine_ms": 3.39,
+      "cached": 1.0
+    },
+    {
+      "query": "when did japan enter ww2",
+      "source": "japan",
+      "answer": "1941",
+      "effective_query": "when did japan enter ww2",
+      "engine_ms": 7.09,
+      "cached": 1.0
+    },
+    {
+      "query": "japna",
+      "source": "kc-japan-geography",
+      "answer": null,
+      "effective_query": "japan",
+      "engine_ms": 4.73,
+      "cached": 1.0
+    },
+    {
+      "query": "meiji period",
+      "source": "kc-meiji-restoration",
+      "answer": "The Meiji period ended in 1912, well before Japan's surrender at the end of World War II.",
+      "effective_query": "meiji period",
+      "engine_ms": 6.74,
+      "cached": 1.0
+    },
+    {
+      "query": "what are my bicycle specifications",
+      "source": "my-first-bicycle",
+      "answer": null,
+      "effective_query": "what are my bicycle specifications",
+      "engine_ms": 85.7,
+      "cached": 0.0
+    },
+    {
+      "query": "when did yasir dream pese",
+      "source": "what-is-pese",
+      "answer": null,
+      "effective_query": "when did yasir dream pese",
+      "engine_ms": 2.05,
+      "cached": 1.0
+    },
+    {
+      "query": "when did islamic golden age end",
+      "source": "what-is-islamic-golden-age",
+      "answer": null,
+      "effective_query": "when did islamic golden age end",
+      "engine_ms": 7.18,
+      "cached": 1.0
+    },
+    {
+      "query": "when was bicycle invented",
+      "source": "what-is-a-bicycle-complete-breakdown",
+      "answer": null,
+      "effective_query": "when was bicycle invented",
+      "engine_ms": 4.2,
+      "cached": 1.0
+    },
+    {
+      "query": "what does a CPU execute",
+      "source": "pese-phase-2-roadmap",
+      "answer": null,
+      "effective_query": "what does a CPU execute",
+      "engine_ms": 106.74,
+      "cached": 0.0
+    },
+    {
+      "query": "when did Japan annex Taiwan",
+      "source": "japan",
+      "answer": null,
+      "effective_query": "when did Japan annex Taiwan",
+      "engine_ms": 132.15,
+      "cached": 0.0
+    },
+    {
+      "query": "where is Mount Fuji",
+      "source": "japan",
+      "answer": null,
+      "effective_query": "where is Mount Fuji",
+      "engine_ms": 89.43,
+      "cached": 0.0
+    },
+    {
+      "query": "what is PESE development language",
+      "source": "what-is-pese-developed-with",
+      "answer": null,
+      "effective_query": "what is PESE development language",
+      "engine_ms": 127.41,
+      "cached": 0.0
+    }
+  ]
+}

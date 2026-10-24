@@ -1,0 +1,46 @@
+{
+  "source_sha256": "e6098cdbb357835edb545bdb1b3ea15134b726ef3c7e0889b2ff90c5280a321c",
+  "private_corpus_restored": true,
+  "health": {
+    "status": "healthy",
+    "service": "PESE Search Engine",
+    "boot_id": "aba75dbb5f314dbb99294b0a013dbcf2",
+    "storage_backend": "local",
+    "canonical_document_version": "6d0d10e8ad03b547",
+    "publication": {
+      "dirty": false,
+      "stage": "ready",
+      "last_error": null
+    },
+    "index_versions": {
+      "document_version": "6d0d10e8ad03b547",
+      "lexical_index_version": "6d0d10e8ad03b547",
+      "semantic_index_version": "6d0d10e8ad03b547",
+      "passage_index_version": "6d0d10e8ad03b547",
+      "faq_index_version": "6d0d10e8ad03b547",
+      "graph_version": "6d0d10e8ad03b547"
+    },
+    "documents_indexed": 212,
+    "passages_indexed": 1314,
+    "vector_passages_indexed": 1314
+  },
+  "web_http_status": 200,
+  "web_hydration_verified": false,
+  "records": [
+    {
+      "query": "when did japan enter ww2",
+      "top": "japan",
+      "answer": "1941"
+    },
+    {
+      "query": "what are my bicycle specifications",
+      "top": "my-first-bicycle",
+      "answer": null
+    },
+    {
+      "query": "does healing lounge offer flexible payments",
+      "top": "what-is-the-healing-lounge-pakistan",
+      "answer": null
+    }
+  ]
+}

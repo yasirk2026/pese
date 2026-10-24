@@ -1,0 +1,2 @@
+# Runtime versions are locked, including transitive dependencies.
+-r requirements.lock.txt

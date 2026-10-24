@@ -1,0 +1,988 @@
+{
+  "name": "PESE Phase 2 \u2014 Search Intelligence Baseline",
+  "version": "2.0.0-rc.1",
+  "sha256": "0f1aca13a0e257ac6c387260c81b758603468fd5315277836426380def98b744",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 788,
+      "sha256": "5432ae9863722025aa5636736fdbfca5583cdaa36dfba38ca96803651de17f9f"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 915,
+      "sha256": "1ad252c61262ff7e22498a4ab008a8f44543a87f6104d301efe8df4f5c367306"
+    },
+    {
+      "path": "engine/api/__init__.py",
+      "bytes": 68,
+      "sha256": "6ad3491a9558f781bcab8b4fcc1e7ae22fa716e0937ff0e5421472da9fc12071"
+    },
+    {
+      "path": "engine/api/main.py",
+      "bytes": 29592,
+      "sha256": "81b80b2e957e5e8a8987703f15b742bf74eca2237a7370c722179e263eee0c9e"
+    },
+    {
+      "path": "engine/config.py",
+      "bytes": 639,
+      "sha256": "c2f943c3b1b270917d8129f82a29fd890a6e60e405d7a8b847640fbe7218154e"
+    },
+    {
+      "path": "engine/data/demo_corpus.py",
+      "bytes": 2750,
+      "sha256": "b4403fd6743be3be57126ff43351d155f696b948bca50d7b16a6686ee3f16b63"
+    },
+    {
+      "path": "engine/data/seed_corpus.py",
+      "bytes": 329,
+      "sha256": "2874685dcf1196e654d857e7c2501465e01c0741b268dadee8962c5457c537d3"
+    },
+    {
+      "path": "engine/data/synthetic_history.py",
+      "bytes": 4601,
+      "sha256": "20188fa83e779abf71cea2e4855485898f3bd513792f63d67c32285af208dee0"
+    },
+    {
+      "path": "engine/data/test_manual_queries.py",
+      "bytes": 1487,
+      "sha256": "70657c847e94b4b44bf291ba088e38c8379222880cdfde160c021fc161e7170c"
+    },
+    {
+      "path": "engine/discovery/__init__.py",
+      "bytes": 851,
+      "sha256": "32cdd27df1cd7d63375938bece834dde42e7f90438ccc112b49087f0f377a0c8"
+    },
+    {
+      "path": "engine/discovery/autocomplete.py",
+      "bytes": 16510,
+      "sha256": "f364bc78af307b89cab6b799c5faf0c1c1e7437136cb31d1b189ef52d617ad61"
+    },
+    {
+      "path": "engine/discovery/families.py",
+      "bytes": 2095,
+      "sha256": "b0bc653f303e7d1cdd8d4ecdbd1fc9a0415805cb6c1f1d71ba25053bd26f4c04"
+    },
+    {
+      "path": "engine/discovery/history.py",
+      "bytes": 7881,
+      "sha256": "8651d9c0e09aeffeb975caf23156d4870316f69b0f176bba422714166f6e30f7"
+    },
+    {
+      "path": "engine/discovery/models.py",
+      "bytes": 3690,
+      "sha256": "83efa7c40d751352350c9844ff1bc62e2f3717eb41e61cdf75c453078f7ae151"
+    },
+    {
+      "path": "engine/discovery/priority.py",
+      "bytes": 426,
+      "sha256": "7600e0f8a687370ef3dd00cd19bff45523208131390558d7dcff5b5227120821"
+    },
+    {
+      "path": "engine/discovery/questions.py",
+      "bytes": 13359,
+      "sha256": "ec6a17e89a5f4f71d2f40170ae77b1d322dcd85ab548800018a3376f263ac62c"
+    },
+    {
+      "path": "engine/discovery/related_searches.py",
+      "bytes": 10207,
+      "sha256": "28600795f0e86ac1bdb1553de5d563920b8e75b8ef7e0a99db49fffe34fbf7fc"
+    },
+    {
+      "path": "engine/discovery/scoring.py",
+      "bytes": 5084,
+      "sha256": "f7a4c2a15ab625d988d9a00a73ab8b2f5ab428897eb6cc238b7c56274cc09030"
+    },
+    {
+      "path": "engine/discovery/sessions.py",
+      "bytes": 5029,
+      "sha256": "3c42929de542a49b684abbac1dcc5fc9f29765d81add9f8fe75cfb33196e08d0"
+    },
+    {
+      "path": "engine/evaluation/__init__.py",
+      "bytes": 506,
+      "sha256": "c27d083f128237f4050bc6a74ed12e4fe9f8fca67988b7858ce86f09d0198395"
+    },
+    {
+      "path": "engine/evaluation/adversarial_queries.py",
+      "bytes": 7891,
+      "sha256": "8f462b7cf3052b39ee72c0307647fc9bd1afddc4c75d8d8b001922f70bf5661a"
+    },
+    {
+      "path": "engine/evaluation/adversarial_runner.py",
+      "bytes": 8025,
+      "sha256": "82feffc303de0e825aa7779102751fc86b5e4d65faa3bd87f17cb2b23be96664"
+    },
+    {
+      "path": "engine/evaluation/answer_relevance_runner.py",
+      "bytes": 16418,
+      "sha256": "37281f5cadd38afcc920f2c46ea47b37b963c5ecdea0b3bfdb3d308482508e8a"
+    },
+    {
+      "path": "engine/evaluation/audit_server.py",
+      "bytes": 706,
+      "sha256": "8458e8d9300dff78e96efa627f4175778bcbc436c1255f82a8fa9851f2e89714"
+    },
+    {
+      "path": "engine/evaluation/cold_http_probe.py",
+      "bytes": 2981,
+      "sha256": "9dc2d8ee030087e4f581c2d7dd1ac9b3e11c0250ac6e58f67992ded540eccf43"
+    },
+    {
+      "path": "engine/evaluation/dataset.py",
+      "bytes": 13800,
+      "sha256": "83a9115aee952c695c43b21f1d075a8618dd910e306256aac077491c2018c4a5"
+    },
+    {
+      "path": "engine/evaluation/discovery_dataset.py",
+      "bytes": 5882,
+      "sha256": "f1e489380dcb14887fdf6ca821875bb7856aa079d814c92b5f509c9b8f1b3f9b"
+    },
+    {
+      "path": "engine/evaluation/discovery_runner.py",
+      "bytes": 12187,
+      "sha256": "e04784d1b37edfc6b6d998897c2d18d939e2a48c5c16b3623128517819db6092"
+    },
+    {
+      "path": "engine/evaluation/holdout_run.py",
+      "bytes": 3077,
+      "sha256": "1744bedee835c89b1fa9e882ae4f8b7bde7874a0dfbececa781f8f531a243c6b"
+    },
+    {
+      "path": "engine/evaluation/http_probe.py",
+      "bytes": 3166,
+      "sha256": "79e8e66ef80dd159bfe8c7c373412d182c5860c426fbccf24fba5544defdd8c5"
+    },
+    {
+      "path": "engine/evaluation/independent_dataset.py",
+      "bytes": 11116,
+      "sha256": "6ae1f03e218ecefbcf33cb58908788f7eb9f0e788290e5f0311b19726f235a4d"
+    },
+    {
+      "path": "engine/evaluation/independent_runner.py",
+      "bytes": 6979,
+      "sha256": "d04c1bc8199ceded8deb5f8315930fc364087ff3df3e6a66d25b4d6a75aa6515"
+    },
+    {
+      "path": "engine/evaluation/metrics.py",
+      "bytes": 1862,
+      "sha256": "e8d8b9a92d147223ffccd1d24280150f3cbc2037d84017a0ba93670acdeed2d5"
+    },
+    {
+      "path": "engine/evaluation/neural_genesis_runner.py",
+      "bytes": 9013,
+      "sha256": "a10035247e6e7cf398e844c89e3678c37c774877a344f2367d9c6eebc1172746"
+    },
+    {
+      "path": "engine/evaluation/performance_runner.py",
+      "bytes": 11555,
+      "sha256": "a045ee8953e370a7182c3fe260ea22f4837b29b5f78e32b386b9e075a53d20c9"
+    },
+    {
+      "path": "engine/evaluation/phase2f_studies.py",
+      "bytes": 10015,
+      "sha256": "8007fd78c3df9f313c3a4748bf2cd3c2b6b4812c35c88d85479ef6e410ebc3c0"
+    },
+    {
+      "path": "engine/evaluation/phase2f_support.py",
+      "bytes": 2879,
+      "sha256": "3ffaa679a82a66ba6377a23d0185e9257563e4c7992c0a5fa08b7994a3116f22"
+    },
+    {
+      "path": "engine/evaluation/prospective_holdout.py",
+      "bytes": 4869,
+      "sha256": "173d95113b566b7c0107bfbba1dded5da04066dff4b85b64df2eba693ee23d8e"
+    },
+    {
+      "path": "engine/evaluation/qa_reader_dataset.py",
+      "bytes": 5968,
+      "sha256": "e75335de1e66650d7902bb3b56fde88228400f22429604aee1b7ca579b3ddefa"
+    },
+    {
+      "path": "engine/evaluation/qa_reader_runner.py",
+      "bytes": 11061,
+      "sha256": "5511e851ae6cbdb45e383fad379637ab00d9551a1fe5bf3ad95db85f7951e7c2"
+    },
+    {
+      "path": "engine/evaluation/qa_v2.py",
+      "bytes": 9105,
+      "sha256": "60fa78da739b0cd49508bd7c556ec3fad15aa27e209479e8409359700a326cc9"
+    },
+    {
+      "path": "engine/evaluation/query_trace.py",
+      "bytes": 4900,
+      "sha256": "ef0419ca33e0c3beef0d6cb7caeeb233bfc5542bec8626e171c72e8d0f8f2482"
+    },
+    {
+      "path": "engine/evaluation/release_hygiene.py",
+      "bytes": 4333,
+      "sha256": "9ca5b867142e35e82d0e5a1869f206dc09579587aaa93d3991fd6983764aec80"
+    },
+    {
+      "path": "engine/evaluation/release_manifest.py",
+      "bytes": 2041,
+      "sha256": "0932c25a9f4452032252af80707e3d7882c9d3bb7113d41740f2517ca32c4f93"
+    },
+    {
+      "path": "engine/evaluation/runner.py",
+      "bytes": 6419,
+      "sha256": "95f2c5cb791b595b206e155c65452c7235f8012ea73ef6549b22f5ec44d62843"
+    },
+    {
+      "path": "engine/evaluation/runtime_audit.py",
+      "bytes": 4160,
+      "sha256": "50dddaefd6c670d4a0723c49680b595ada6f7a8d747c0ce0f762f927ec231dc0"
+    },
+    {
+      "path": "engine/evaluation/semantic_dataset.py",
+      "bytes": 8081,
+      "sha256": "43d27aa8931b98a8cf36ae1598f9b7bd5cef2a68e3a2f42fdcbb2c88ff5b2b5a"
+    },
+    {
+      "path": "engine/evaluation/semantic_runner.py",
+      "bytes": 9499,
+      "sha256": "47444f8a72285bdf7e5b586c353e6c32ebefd20126b0fb2f2265271ae4949bac"
+    },
+    {
+      "path": "engine/evaluation/source_audit.py",
+      "bytes": 4468,
+      "sha256": "aca01436275f2f3f3f8d609e70ffa23c84e61b3f76e27e2924cc8a5e234efa8d"
+    },
+    {
+      "path": "engine/evaluation/spelling_semantic_audit.py",
+      "bytes": 3005,
+      "sha256": "5328ceb81704a77c418c812bb4511401a9b4e5f49b6640aa2fa3f6e894ed71f3"
+    },
+    {
+      "path": "engine/evaluation/structured_authoring_runner.py",
+      "bytes": 10419,
+      "sha256": "216d2a8f4b9c54fa912c8102a25c18ba2a7785a1d2e24ada82cdf480b6ade64c"
+    },
+    {
+      "path": "engine/evaluation/structured_dataset.py",
+      "bytes": 6604,
+      "sha256": "5f9008f77ba8b0f9092ee84f0185f64836275961a7f4d8ccb1c3e7ee77204bba"
+    },
+    {
+      "path": "engine/indexing/__init__.py",
+      "bytes": 384,
+      "sha256": "0646c3644f864692f4fa2bd7b246f7e509077314a0d0cd99698ee1898d194bb5"
+    },
+    {
+      "path": "engine/indexing/document.py",
+      "bytes": 4651,
+      "sha256": "ca9c39da87348a8b8b646084b72169803363614db485acbe2bc18a74cbecb05a"
+    },
+    {
+      "path": "engine/indexing/inverted_index.py",
+      "bytes": 11698,
+      "sha256": "5101796e0de0c62328b96de9317d7bbc7641768bd123ef1848595038b9564245"
+    },
+    {
+      "path": "engine/indexing/passage.py",
+      "bytes": 1706,
+      "sha256": "9be46ca8e6c38a845211aaec42dee60f3b30cd5df19d7cf70a992ac06dfd6970"
+    },
+    {
+      "path": "engine/indexing/snapshot.py",
+      "bytes": 1160,
+      "sha256": "9e26b8e6b5b432b93492f06be3cf2cc29ec204299c7581aeb64f63c874c7ba51"
+    },
+    {
+      "path": "engine/indexing/store.py",
+      "bytes": 6753,
+      "sha256": "4d4ca0b4c1c570caa63840408a8bab6053e7af9a4065f7527d251b870ccb5247"
+    },
+    {
+      "path": "engine/link_graph/__init__.py",
+      "bytes": 274,
+      "sha256": "c25090a5b1af40adb4482d6d4c4cced9293563f5bb2f6b91701848518996f1fc"
+    },
+    {
+      "path": "engine/link_graph/authority.py",
+      "bytes": 3689,
+      "sha256": "e0fde7629d4ab39bb4029f21aecd2927b0db1e0846fcc1c5d01aeb82195f25fb"
+    },
+    {
+      "path": "engine/link_graph/graph.py",
+      "bytes": 2233,
+      "sha256": "153c27cd37673326f3438312d722d1ed3cb86904f30496646ba85678c72328f1"
+    },
+    {
+      "path": "engine/neural/__init__.py",
+      "bytes": 188,
+      "sha256": "22018604184b227f882c37304a9da6f81d49e8dd2d98837632bfa278b012c4d7"
+    },
+    {
+      "path": "engine/neural/configs/__init__.py",
+      "bytes": 171,
+      "sha256": "a4319f91ea92b7f2b465cc36b32c7a8d726fa9ae3408fc65583bf02ca45ede0e"
+    },
+    {
+      "path": "engine/neural/configs/model_config.py",
+      "bytes": 4666,
+      "sha256": "0e91a69c7a818fa0b753023fbf25521fb826cf897a407875b70a9bbaf3327b85"
+    },
+    {
+      "path": "engine/neural/data/__init__.py",
+      "bytes": 929,
+      "sha256": "46f1941edbc88a8a0564d13744cbe66bbe7bfba3e1861d31ec49b7cf1b98ab3d"
+    },
+    {
+      "path": "engine/neural/data/contracts.py",
+      "bytes": 6259,
+      "sha256": "705ff14a2df8f61e1e7e21411269c4ed425df304ce1805b4b7b55220e1f528d9"
+    },
+    {
+      "path": "engine/neural/data/dataset.py",
+      "bytes": 7291,
+      "sha256": "91d4f19dae000f23f2a840cf7bfed6dc8a34685f57a60d7002981d289b69ae7f"
+    },
+    {
+      "path": "engine/neural/data/grouped_split.py",
+      "bytes": 2360,
+      "sha256": "1fd44a33d4abce8ab5382880232afba177e5cd082f2d5db49e3185360424164d"
+    },
+    {
+      "path": "engine/neural/data/qa_dataset.py",
+      "bytes": 31770,
+      "sha256": "37319707fb2f4a72f2838fd46607aa1fd367166f0f62f97ea421a96ad2624389"
+    },
+    {
+      "path": "engine/neural/experiments/__init__.py",
+      "bytes": 290,
+      "sha256": "523261f3d3a0c0f9963eda970c76370a313b0bd094f7a2e50a3a3621daff19fb"
+    },
+    {
+      "path": "engine/neural/experiments/qa_runner.py",
+      "bytes": 11161,
+      "sha256": "c53fe114ae3c9ee7f1f7cd82c5709855556894e1d275e5cca4d3cf5b13830918"
+    },
+    {
+      "path": "engine/neural/experiments/runner.py",
+      "bytes": 9035,
+      "sha256": "274d76ed2e04ac56ce135da8a56ee88d20322e74cfb2b96df089eca340089c2d"
+    },
+    {
+      "path": "engine/neural/inference/__init__.py",
+      "bytes": 212,
+      "sha256": "c4519afdd867361540d414560c5db9a01cb83ffcaaf7a31accb760df1fd3c017"
+    },
+    {
+      "path": "engine/neural/inference/generator.py",
+      "bytes": 2104,
+      "sha256": "3ebf3f42cf78c5dc5421c66d4f1472f9de69253f99fb81a5ecb928f4369fda21"
+    },
+    {
+      "path": "engine/neural/inference/qa_reader.py",
+      "bytes": 23371,
+      "sha256": "c84f1810c2112a860e8fe2be929d832594d97f99a50d03c09ee167eb001bf949"
+    },
+    {
+      "path": "engine/neural/models/__init__.py",
+      "bytes": 620,
+      "sha256": "916c654d245eba95048269953ca19ebb0599e6753c621334a8a2b94c0e269383"
+    },
+    {
+      "path": "engine/neural/models/attention.py",
+      "bytes": 3067,
+      "sha256": "388f45a1dd6bdb159a18862497b906601f4aff17c4f9025d59d356b5e9b93f1a"
+    },
+    {
+      "path": "engine/neural/models/ffn.py",
+      "bytes": 895,
+      "sha256": "d6173b52a4be0f1568bd2e8cb4153452b8f84b7b8800e41e7fe5b9caa6a72d83"
+    },
+    {
+      "path": "engine/neural/models/qa_reader.py",
+      "bytes": 10059,
+      "sha256": "9a7db6d6f93716608eacb52f2517349f46ce8270535aa492fa4b3882286526f4"
+    },
+    {
+      "path": "engine/neural/models/registry.py",
+      "bytes": 4108,
+      "sha256": "11e4a3685795c60d49a7fcbf807063b1637a63028d6b8941b189e0ba5c8f16f0"
+    },
+    {
+      "path": "engine/neural/models/transformer.py",
+      "bytes": 6393,
+      "sha256": "7c68b9003a1c96fc53579bee290a0f35f1c903e75586e974cd2b54c5bfd346a1"
+    },
+    {
+      "path": "engine/neural/models/transformer_block.py",
+      "bytes": 1071,
+      "sha256": "ff290cb76dd452193d70171e9a79d01b20a5ff99df8621945663afe1b5e9e17b"
+    },
+    {
+      "path": "engine/neural/tokenization/__init__.py",
+      "bytes": 176,
+      "sha256": "df77010b053db42877a20ebafb572ee95b109a2baeafd7c380109f5523db7336"
+    },
+    {
+      "path": "engine/neural/tokenization/base.py",
+      "bytes": 1330,
+      "sha256": "ede7e9af344a0ce3ba8291c6eec01b8ea2505b6f4fa3ecea7b45cb059ead4cba"
+    },
+    {
+      "path": "engine/neural/tokenization/bpe_tokenizer.py",
+      "bytes": 7324,
+      "sha256": "9ce612ce504297efdf497266819d4b5ff5c62140fc081fe54c2f8cf95ef92c83"
+    },
+    {
+      "path": "engine/neural/tokenization/char_tokenizer.py",
+      "bytes": 2941,
+      "sha256": "ad4ecdbf3a197a58a4c3bd7f61c4a36797ae90b823d12fd99168e57dd15ab293"
+    },
+    {
+      "path": "engine/neural/training/__init__.py",
+      "bytes": 402,
+      "sha256": "d790740bf0d308b0b6e0ac7c05fe3564a475612f43c1e4e022b598be849baf1d"
+    },
+    {
+      "path": "engine/neural/training/checkpoint.py",
+      "bytes": 4115,
+      "sha256": "1cfb50a2d7a439d7c6dbfd2b990322b96fcb3ce44ab53a0bfaf488fad6ddd911"
+    },
+    {
+      "path": "engine/neural/training/qa_trainer.py",
+      "bytes": 9453,
+      "sha256": "8eac649f4e7676b984a450a6f18242de4f9058d744afe025ec5761ee65d9df36"
+    },
+    {
+      "path": "engine/neural/training/trainer.py",
+      "bytes": 7283,
+      "sha256": "70b7f56ef777711f78efc1c3801a50b5a6c6c06ed887246fc6679309e32e415b"
+    },
+    {
+      "path": "engine/nlp/__init__.py",
+      "bytes": 726,
+      "sha256": "6447c86c5d4d7408e46ef14c09ca40d98a4bf5e54ca722dbf69eb4986fd0812e"
+    },
+    {
+      "path": "engine/nlp/evidence.py",
+      "bytes": 1955,
+      "sha256": "d6a31e820e78afb1cb74ebaaa34173d4962de120b50b8e058f58b3a05fb88287"
+    },
+    {
+      "path": "engine/nlp/local_context.py",
+      "bytes": 2161,
+      "sha256": "2751a7c9be5822db86e3b2613b15a58ec9c3309ed37121b5b835403fdbb4ecaa"
+    },
+    {
+      "path": "engine/nlp/normalizer.py",
+      "bytes": 2100,
+      "sha256": "5b1e53ba695848826e3a8ec7c5a15f935187a9bf76b903d94b5154554eeea097"
+    },
+    {
+      "path": "engine/nlp/stemmer.py",
+      "bytes": 10629,
+      "sha256": "3cf2b279fcd30a3dbeebf7ecb32167a22a72a7af6ce54b2c9d30932951883427"
+    },
+    {
+      "path": "engine/nlp/stopwords.py",
+      "bytes": 2664,
+      "sha256": "cebd51fd699fb9195e8e336e44bda2408573bd83098ca46bf81a439c5444d5aa"
+    },
+    {
+      "path": "engine/nlp/tokenizer.py",
+      "bytes": 4409,
+      "sha256": "26d7adeba53f2d8be6e0b91961b8be87f9a10d6ef3d2b947b34cbe9cc30f9172"
+    },
+    {
+      "path": "engine/passages/__init__.py",
+      "bytes": 515,
+      "sha256": "3614b3daf00cc8059aeb857028fe5de418d249b51c9aef336a20f444873691fe"
+    },
+    {
+      "path": "engine/passages/answer_extractor.py",
+      "bytes": 12274,
+      "sha256": "dddf711b8c00bcfc8a6a639f14caa4afb80925b0e734915ae6f01b3e7999e4fb"
+    },
+    {
+      "path": "engine/passages/answer_relevance.py",
+      "bytes": 39896,
+      "sha256": "03a268ef30b1e2c5180a5b3c8a7f3894a83edc3da78faf28d9025dfbccf09a06"
+    },
+    {
+      "path": "engine/passages/extractor.py",
+      "bytes": 10349,
+      "sha256": "dc19b166ba34ae19f25a639a0e94b4ca5a9847cce41a099d742919a0c6d25379"
+    },
+    {
+      "path": "engine/passages/highlighter.py",
+      "bytes": 5404,
+      "sha256": "a7b0dcf7b00d011ac9d2be382541fcf001f2e2534eaac9b9a01d4e07b5c0da40"
+    },
+    {
+      "path": "engine/passages/scorer.py",
+      "bytes": 8350,
+      "sha256": "2ba2a2c275ce555964b06b087d65a548e44bc241cc7793be4d7490e4d58a57c6"
+    },
+    {
+      "path": "engine/quality/__init__.py",
+      "bytes": 226,
+      "sha256": "4dfb73be5b74596cc6a0cd7607eb8a715eff02a11475e8c0b0065659d2812161"
+    },
+    {
+      "path": "engine/quality/quality_signals.py",
+      "bytes": 2037,
+      "sha256": "925aa7280f7581c18004956b1395d1f41d5799454689d391efe8298c60d353d0"
+    },
+    {
+      "path": "engine/quality/spam_detector.py",
+      "bytes": 5345,
+      "sha256": "6f819a85a92b354e633741701f2d30f649d9f1e962b9598265217929c334eb4c"
+    },
+    {
+      "path": "engine/query_analysis/__init__.py",
+      "bytes": 501,
+      "sha256": "ee79982d2242bc86d0d5b16d49bd59cc10befd642e0999b5189b90c30d833b93"
+    },
+    {
+      "path": "engine/query_analysis/analyzer.py",
+      "bytes": 6394,
+      "sha256": "9ccb1c16924ee120f9251f964adfbea6512802a2602253a10c0c9aa05798d192"
+    },
+    {
+      "path": "engine/query_analysis/intent.py",
+      "bytes": 2339,
+      "sha256": "e56d7d9ba9936cabfb71b0ebfd31d63a342e62cd10affddea82762ba2e69afec"
+    },
+    {
+      "path": "engine/query_analysis/spelling.py",
+      "bytes": 8760,
+      "sha256": "ba0618c14e031b786d0fb210afb56d4d7286682a5a0252217c60d4835d734445"
+    },
+    {
+      "path": "engine/ranking/__init__.py",
+      "bytes": 644,
+      "sha256": "2681735e4463b630b21a0597cdbdf8d717418c4c3f1148b4be7e7b29337c8ae8"
+    },
+    {
+      "path": "engine/ranking/evidence_gate.py",
+      "bytes": 8821,
+      "sha256": "6e5976a9a19f231e3f6727ef0a92c14fda2c09bdaf8a0b465627e0c53f350726"
+    },
+    {
+      "path": "engine/ranking/explain.py",
+      "bytes": 5043,
+      "sha256": "30f18902d6b777072965354cf0f21bae00c8db6bfcd99662bb2166d62d10a231"
+    },
+    {
+      "path": "engine/ranking/scorer.py",
+      "bytes": 41534,
+      "sha256": "307975d80f74592b429a270674c7a808cd0a700b9ba69c886a6a88eab8f5645f"
+    },
+    {
+      "path": "engine/ranking/signals.py",
+      "bytes": 4063,
+      "sha256": "c484f4cbadea27fbf00ec1ed260ce2ea52cadbec979c91f0c113b09b969fcc52"
+    },
+    {
+      "path": "engine/retrieval/__init__.py",
+      "bytes": 297,
+      "sha256": "5ab5e89d8a4f1d39de32acdf943003f52e98b34b45b2338cad515d4dd867d3a8"
+    },
+    {
+      "path": "engine/retrieval/bm25.py",
+      "bytes": 5258,
+      "sha256": "7a32e650364af797c8fea98ae778241c0db41ebd837224fad41124c142c50a54"
+    },
+    {
+      "path": "engine/retrieval/candidate_retriever.py",
+      "bytes": 1854,
+      "sha256": "155702578ad4f8761a08187a44e9c51c8d8845de066a4c42506a9c9403dc3e9a"
+    },
+    {
+      "path": "engine/semantic/__init__.py",
+      "bytes": 890,
+      "sha256": "36e572c598bf789be4ed086bea932259a15c00c558a613318d2a9aa4f8119b9c"
+    },
+    {
+      "path": "engine/semantic/drift.py",
+      "bytes": 4119,
+      "sha256": "7c75fff3b7da00989da2e0f0a70aa078d191482e5ba835f8d54ef3273e4f352a"
+    },
+    {
+      "path": "engine/semantic/fusion.py",
+      "bytes": 4971,
+      "sha256": "2ff4fe319c0a33c09b41f57faca299f8842d36bb6e8f0662b79d906a6f2a88d9"
+    },
+    {
+      "path": "engine/semantic/index.py",
+      "bytes": 12175,
+      "sha256": "68643d65bc3cb352f2cad9ea8e22b8d6387c7869c04faf15c2e7008973166cb6"
+    },
+    {
+      "path": "engine/semantic/models.py",
+      "bytes": 2205,
+      "sha256": "6c1c578d425cfc3bf52c012e30094649dad62a37802cefd47b6dc3e2034855bc"
+    },
+    {
+      "path": "engine/semantic/provider.py",
+      "bytes": 4635,
+      "sha256": "a0cf3895cb3ef0c58ebb25d7ce145f53500910f77b97b6311e9d6ae4eb54883f"
+    },
+    {
+      "path": "engine/semantic/relations.py",
+      "bytes": 1248,
+      "sha256": "ba95a8318877b91a94b25318b721b5079f86da5dad2be9f5e0a68e41f0bef217"
+    },
+    {
+      "path": "engine/semantic/retriever.py",
+      "bytes": 5686,
+      "sha256": "2d0c8d9b3e0bc44554cebcb5a53bb78c46e565e0b2b14e531bdfb840e2c313bd"
+    },
+    {
+      "path": "engine/tests/conftest.py",
+      "bytes": 1774,
+      "sha256": "bf4c251bba69fdd5de1964a101190790052a91dfd6946e966c87b224dee3ce7d"
+    },
+    {
+      "path": "engine/tests/test_answer_extractor.py",
+      "bytes": 3953,
+      "sha256": "f46e5792dc718472a8b1222030337ecb979981f35c18b8e2bd9eec3cc31c38c3"
+    },
+    {
+      "path": "engine/tests/test_autocomplete.py",
+      "bytes": 2772,
+      "sha256": "7623e802208cb80b0f5de086ffdc6f8880b556d354b4e8a91d4a91f5eaacc765"
+    },
+    {
+      "path": "engine/tests/test_evidence_gate.py",
+      "bytes": 8334,
+      "sha256": "7de4fa722b1b15f03947957d6bd0b458038242c3df8b4e9a723f6192295ecdb0"
+    },
+    {
+      "path": "engine/tests/test_history_store.py",
+      "bytes": 2132,
+      "sha256": "4cd2e58240bcd9a9148c03319a8f6fab72c128034a420d9eb7fb1922bb8f23e7"
+    },
+    {
+      "path": "engine/tests/test_independent_invariants.py",
+      "bytes": 5058,
+      "sha256": "69a6b51ece593624dd2d2c89e1b1dc1b109ed40f69e7aff1f3c9b3e9cd8c68a4"
+    },
+    {
+      "path": "engine/tests/test_index_freshness.py",
+      "bytes": 6565,
+      "sha256": "f186f068dcb47304c9dbde1fd02a1fb6fbeea46cb1fdfbefe75769147e3202eb"
+    },
+    {
+      "path": "engine/tests/test_intent.py",
+      "bytes": 2102,
+      "sha256": "951489ef9d3075129c7d25e887d11ba95fef4f1846dc69a54fae010e7a47a456"
+    },
+    {
+      "path": "engine/tests/test_link_graph.py",
+      "bytes": 1732,
+      "sha256": "79b2ce3f2f72918c6c276411feaadd29edb7a0bac82bd95e13733725d6df1d5e"
+    },
+    {
+      "path": "engine/tests/test_neural_genesis.py",
+      "bytes": 6443,
+      "sha256": "41767af40714770bfbdb1232b2e075905a2a6d8d9583aa9274246750598d9652"
+    },
+    {
+      "path": "engine/tests/test_nlp.py",
+      "bytes": 1939,
+      "sha256": "4abcc1eaf769645bdd743621f64cf0a9571313f94b2d51b6367278b91f5b90d2"
+    },
+    {
+      "path": "engine/tests/test_passages.py",
+      "bytes": 2224,
+      "sha256": "d130fb1b57bd524dbe3a855c7acea4cce3bc46fa8daf4e61cecf5a72465f3731"
+    },
+    {
+      "path": "engine/tests/test_performance_runtime.py",
+      "bytes": 8443,
+      "sha256": "adaccbf7ec1f1eeafea7b1ad7e342c47fc643369c95dd7ef653624ef4ad89f79"
+    },
+    {
+      "path": "engine/tests/test_phase2f_closure.py",
+      "bytes": 3749,
+      "sha256": "d719145cbbd4b43b2962a6ea900184c331d610ea97db00869d30d09f57b254cb"
+    },
+    {
+      "path": "engine/tests/test_qa_grouped_split.py",
+      "bytes": 765,
+      "sha256": "dea1d577281557b777302cc548f97db840edc9d8632992d46d9107477c32e391"
+    },
+    {
+      "path": "engine/tests/test_qa_reader.py",
+      "bytes": 8393,
+      "sha256": "17c5a1c677820c2576e0d9a19c6cb67c95255b6ea2c3f6c5d9710aa195545365"
+    },
+    {
+      "path": "engine/tests/test_quality.py",
+      "bytes": 2375,
+      "sha256": "6e4ab53ae3ed14695558bead4e27143c264ce492fb67ba8b649a14eb53ff75ea"
+    },
+    {
+      "path": "engine/tests/test_questions.py",
+      "bytes": 2470,
+      "sha256": "bb5b991e6059b9d2cdac197187ddb65967e17f732bdc1ce97489b9901d165af4"
+    },
+    {
+      "path": "engine/tests/test_ranking.py",
+      "bytes": 1849,
+      "sha256": "e2386a425784cf4d0ac1dfe9828ce2f8c2be4897472f319aec6b9862d70ae241"
+    },
+    {
+      "path": "engine/tests/test_related_searches.py",
+      "bytes": 2348,
+      "sha256": "073e7e345352e38aab50f05c7e2b85a46bf0ebb22d557de07a2bdd8aa4c85d5e"
+    },
+    {
+      "path": "engine/tests/test_retrieval.py",
+      "bytes": 2323,
+      "sha256": "b5ea27b53980d164a5093f65f61d17c550cd77a8618ff95e242f050b60ffe7a7"
+    },
+    {
+      "path": "engine/tests/test_semantic.py",
+      "bytes": 8909,
+      "sha256": "435354b75b7e00038e36a94d0f5a470e1fd38868329a28fc2bdd520ac31976f3"
+    },
+    {
+      "path": "engine/tests/test_sessions.py",
+      "bytes": 2348,
+      "sha256": "387b8961216725b021bb13a24ed241f4abb795a92d9227f1d328df2b718afebd"
+    },
+    {
+      "path": "engine/tests/test_spelling.py",
+      "bytes": 3464,
+      "sha256": "de5316559fffd4cde7169ff6674b0dacebea9323c5a79880293a298f5fe6807a"
+    },
+    {
+      "path": "engine/tests/test_structured_authoring.py",
+      "bytes": 5963,
+      "sha256": "1df25ee954cf266d7a77f71bdf69a3976208ed63b5800751ebcf20afed01f7cb"
+    },
+    {
+      "path": "pytest.ini",
+      "bytes": 49,
+      "sha256": "f0a2bb0d70df5aeee169ab3f94da11fff31111dc5078e83b79484c145eed9a2a"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "bytes": 87,
+      "sha256": "89919b86328556925b663c941946bf7dd2be7c5649f7aeee430c56e9f518f86e"
+    },
+    {
+      "path": "requirements.lock.txt",
+      "bytes": 1455,
+      "sha256": "77da82cb152fab9cb40a02c31d289d24f091cf75e1d561230f830fbb80f6889a"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 93,
+      "sha256": "5be5f0543547775b248a5a9b92c173cacf1b8916f8acad6583696f631013a94d"
+    },
+    {
+      "path": "scripts/build_knowledge_corpus.py",
+      "bytes": 16609,
+      "sha256": "4b38f8bc5fc6a3fd238df976b2187f2a84fe4b9224b31d8dbc57396dcd9adbb3"
+    },
+    {
+      "path": "scripts/build_knowledge_queries.py",
+      "bytes": 5068,
+      "sha256": "1a1c5f6cfa51d8e6267bdf613003d50fb6d95f9959f330c9d4a236eb32a50923"
+    },
+    {
+      "path": "scripts/evaluate_knowledge_corpus.py",
+      "bytes": 7031,
+      "sha256": "c660dea86aaefc1d5197c3a5e7446ebcf4969b3f1a25f13cac6ffa7540718fa4"
+    },
+    {
+      "path": "scripts/run_benchmark.ps1",
+      "bytes": 243,
+      "sha256": "eb5f0dc0e9b49b3a21186f76355ab560874523c7cb883b4411214830a6919e66"
+    },
+    {
+      "path": "scripts/run_discovery_benchmark.ps1",
+      "bytes": 234,
+      "sha256": "0ad051f41fe3762f5a3c6533c3eee57ce81e7946dc34569e5a7db80899d1478d"
+    },
+    {
+      "path": "scripts/start_all.ps1",
+      "bytes": 1158,
+      "sha256": "527414396ec82a54e3396467be51ce99f23a358a6df5ac2aeac86740328125fc"
+    },
+    {
+      "path": "scripts/start_engine.bat",
+      "bytes": 189,
+      "sha256": "8a9b798022d4613eee073d584bd7fc30fc38363215af8607f3955f63f5a33be7"
+    },
+    {
+      "path": "scripts/start_engine.ps1",
+      "bytes": 392,
+      "sha256": "030a15ad0f0b2d1c4a11b26aef510ad0c3a1b3d5886910c2415ccca6f018faff"
+    },
+    {
+      "path": "scripts/start_web.bat",
+      "bytes": 103,
+      "sha256": "b8480e4fd8015a5dea856cf14eab82b5ae78dbe40b6d51ba04efe656bdd05078"
+    },
+    {
+      "path": "scripts/start_web.ps1",
+      "bytes": 277,
+      "sha256": "24f58eb55f60aa2119285a38ab9a6f5a2a5568b6cda35498bc15262b387eb786"
+    },
+    {
+      "path": "web/eslint.config.mjs",
+      "bytes": 465,
+      "sha256": "870f1adccecf3051cbcd9fd307cef51d7633cf510979c181a81f4b1797273493"
+    },
+    {
+      "path": "web/next.config.ts",
+      "bytes": 265,
+      "sha256": "a0354edd3f40bfed6dd90a552c0cb93fb2af1e02bcca033a6d12e8e305b7b3b5"
+    },
+    {
+      "path": "web/package-lock.json",
+      "bytes": 261674,
+      "sha256": "a3cfdafa6001692b6dfe6241d288e3c7aeb34e8bb1ecff75a7aae2b279e01fc5"
+    },
+    {
+      "path": "web/package.json",
+      "bytes": 717,
+      "sha256": "49099414d9a9f8add801b42a62c0fb0e8514d4b67bd39ed620d65f13ddfde38a"
+    },
+    {
+      "path": "web/src/app/admin/edit/[slug]/page.tsx",
+      "bytes": 794,
+      "sha256": "a763d6ddb7e0f30c3cf3fbd0139348a82fa8f5feaf520ddd8902f3beba5b643b"
+    },
+    {
+      "path": "web/src/app/admin/eval/page.tsx",
+      "bytes": 15146,
+      "sha256": "9f2866ccf37bcc7896fc0ab3b6319cdeb3df0d5c0f4383d28606b8b2de23c95d"
+    },
+    {
+      "path": "web/src/app/admin/neural-lab/page.tsx",
+      "bytes": 52538,
+      "sha256": "aba42440e3aa588ea913c4d9408950f417f0e596bc1fcc282be1b43293972d6e"
+    },
+    {
+      "path": "web/src/app/admin/new/page.tsx",
+      "bytes": 406,
+      "sha256": "81a28e2baeb10b3450d348db077a38ef780ace7d879da6c101c26868de961bc7"
+    },
+    {
+      "path": "web/src/app/admin/page.tsx",
+      "bytes": 12386,
+      "sha256": "05b427c15606d7f12206b6992c5ebc7721a8be45a71dc055d82ab8763817ac6b"
+    },
+    {
+      "path": "web/src/app/doc/[slug]/page.tsx",
+      "bytes": 7455,
+      "sha256": "3363b4c85d9296e6cdbaf84b512b87db6107e8a1cf8b973c34b09ebc52715bfc"
+    },
+    {
+      "path": "web/src/app/favicon.ico",
+      "bytes": 15086,
+      "sha256": "c28fdd2a4f31e2dc64f653962286da5c82a4cdfc518b242d32812c624e9a19a4"
+    },
+    {
+      "path": "web/src/app/globals.css",
+      "bytes": 3151,
+      "sha256": "6c2585401b18d3662fef4833c59c4a773a04ed8a64d93d046de1531fda51e0db"
+    },
+    {
+      "path": "web/src/app/layout.tsx",
+      "bytes": 690,
+      "sha256": "ac0a51f726d23d255be241c5f37e47119736c2c3cdf5feac57f85de677686ee5"
+    },
+    {
+      "path": "web/src/app/page.tsx",
+      "bytes": 7531,
+      "sha256": "debfe2d74283da369e6b2415b24a385c7d1e918b31bd8a5296e8c241c93fe19a"
+    },
+    {
+      "path": "web/src/app/search/page.tsx",
+      "bytes": 20244,
+      "sha256": "ade2d280a437a3b7a2bc56a8598d51d3a8e55b148103826082cfea96d26fd258"
+    },
+    {
+      "path": "web/src/components/AnswerTruthfulnessAudit.tsx",
+      "bytes": 17566,
+      "sha256": "b08dd23415600421f1425b3c6125e698883ac8200701a5b355ac8e1387c8c4a3"
+    },
+    {
+      "path": "web/src/components/DiscoveryAudit.tsx",
+      "bytes": 7879,
+      "sha256": "01acab4018467560429dfe2d4ba374983f8e51d40f414461539a049a7c15e6c9"
+    },
+    {
+      "path": "web/src/components/DocumentEditorForm.tsx",
+      "bytes": 24547,
+      "sha256": "167083d86acd1fb667e517b8445a48379f79b60fb75e2f73017bab4679301058"
+    },
+    {
+      "path": "web/src/components/Header.tsx",
+      "bytes": 4385,
+      "sha256": "ae107ba8a1f332ae44bc9ebf4f773ebf1f206c45bf9a61c0d482d4c4ccbfc1b5"
+    },
+    {
+      "path": "web/src/components/HistoryPrivacyModal.tsx",
+      "bytes": 8205,
+      "sha256": "7789ece5f3fc02c76baa975db358dccea579ed4efa6bdc1921fe6ff807aee04e"
+    },
+    {
+      "path": "web/src/components/HybridRetrievalAudit.tsx",
+      "bytes": 3878,
+      "sha256": "44462e9ece57df966327421242844e4289bdaeba5d449df2047b02289b155c61"
+    },
+    {
+      "path": "web/src/components/QueryAnalysisAudit.tsx",
+      "bytes": 9942,
+      "sha256": "dd7c60d724afac999e6382b38995162cc65100c4808d654a8ddd1cf5c18830b4"
+    },
+    {
+      "path": "web/src/components/RankingTraceAudit.tsx",
+      "bytes": 16224,
+      "sha256": "d2822dd86f463b3095622182ed90cd91861822daefc5d0647d74e41b4191b279"
+    },
+    {
+      "path": "web/src/components/RelatedSearches.tsx",
+      "bytes": 2055,
+      "sha256": "b5a2a88e577aefdfe9a83d97947400089ec455ea083c3851f2692b9ddef567c3"
+    },
+    {
+      "path": "web/src/components/SearchAutocomplete.tsx",
+      "bytes": 11050,
+      "sha256": "15519301e9ed88df0006a325b91d50f13a621ae05a48faefaa9c2c2e9010c358"
+    },
+    {
+      "path": "web/src/components/SearchTimingAudit.tsx",
+      "bytes": 10428,
+      "sha256": "53a6895e5053524cb7134ebc56a01d4b2030ca4293ebbd2a0671bd4735e88444"
+    },
+    {
+      "path": "web/src/components/StructuredEditor.tsx",
+      "bytes": 22319,
+      "sha256": "35a16519179ff095dded081e64f80160debb147ef3945e2ab89effcb8245558c"
+    },
+    {
+      "path": "web/src/components/YouMightAlsoAsk.tsx",
+      "bytes": 5621,
+      "sha256": "b48fe8341527701ff1d5ea6e55e5aecd4e81d1b2fa733494e4da6dfd7caedd43"
+    },
+    {
+      "path": "web/src/lib/api.ts",
+      "bytes": 25247,
+      "sha256": "23693f7fbb2df9ae019dac7f4f086961c8a525b73cdfacea686d67f69767c35b"
+    },
+    {
+      "path": "web/src/lib/markdown.tsx",
+      "bytes": 6463,
+      "sha256": "1794b021f7cd8c33572f3f009518dc5fcc10c3dff1c0eba455f5fc4e229db0cb"
+    },
+    {
+      "path": "web/tsconfig.json",
+      "bytes": 670,
+      "sha256": "5c51df4c59f4510d8c7dadf07a5c32132228826a3b331da5e286207b4df7ef9c"
+    }
+  ],
+  "excluded": "Private/runtime stores, histories, environment files, model checkpoints, caches, dependencies, reports and holdout data. Provider/checkpoint identities are recorded separately by evaluations."
+}

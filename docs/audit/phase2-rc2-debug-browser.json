@@ -1,0 +1,8 @@
+{
+  "query_frame_visible": true,
+  "selected_passages_visible": true,
+  "candidates_visible": 12,
+  "all_validation_features_visible": true,
+  "arbitration": "PASS: grounded proposition satisfies all hard contracts",
+  "qa_status": "shadow_only"
+}

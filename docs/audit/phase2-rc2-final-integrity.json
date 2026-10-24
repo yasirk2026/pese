@@ -1,0 +1,18 @@
+{
+  "verified_at": "2026-10-23T06:45:16.846162+00:00",
+  "source_sha256": "699ec98a683500c96665d016a25ddf30b3a99cf6ab7f7a2ef39982ef9aa9a0fd",
+  "source_unchanged_since_freeze": true,
+  "labels_and_output_hashes_unchanged": true,
+  "canonical_document_question_hashes_match": true,
+  "original_rc1_inputs_labels_outputs_preserved": true,
+  "independent_production_runs": 1,
+  "promotions_reviewed": 17,
+  "independent_labels_or_raw_flags_changed": 0,
+  "report_sections": 16,
+  "report_links_valid": true,
+  "tests": {
+    "passed": 158,
+    "warnings": 2
+  },
+  "verdict": "PHASE 2 NOT ACCEPTED"
+}

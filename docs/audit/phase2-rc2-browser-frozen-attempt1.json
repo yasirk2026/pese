@@ -1,0 +1,14 @@
+{
+  "protocol": "Actual rendered Chrome via isolated Playwright fallback. UI actions only for CMS. Existing private pages untouched.",
+  "cms": [],
+  "search": [],
+  "timings": [],
+  "errors": [
+    "page.waitForFunction: Timeout 30000ms exceeded.\n    at search (C:\\Users\\Yasir\\Desktop\\Personal Evil Search Engine\\PESE\\.tmp\\rc2-browser\\acceptance.cjs:20:14)\n    at async C:\\Users\\Yasir\\Desktop\\Personal Evil Search Engine\\PESE\\.tmp\\rc2-browser\\acceptance.cjs:33:3"
+  ],
+  "source_sha256": "b0c0c362de45b94cfa9d39cbd79e0c94d11ca69f07b9b9f0afd3cea68da47e82",
+  "performance": {
+    "samples": 0,
+    "methodology": "Nearest-rank; frontend double-requestAnimationFrame main-visible attribute after fetch. Model-warm, cache-aware full page navigations; includes 24 repeated varied timing probes plus lifecycle/search checks. Navigation wall is recorded separately. Headless installed Chrome at 1440x1000."
+  }
+}

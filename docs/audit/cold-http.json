@@ -1,0 +1,5 @@
+{
+  "status": "historical_artifact_replaced_by_legacy_runner",
+  "phase2f_replacement": "phase2f-cold-http.json",
+  "phase2e_recorded_summary": "See phase-2e-independent-audit.md; original raw file was overwritten by a later invocation of the same runner. Do not interpret Phase 2F measurements as Phase 2E measurements."
+}

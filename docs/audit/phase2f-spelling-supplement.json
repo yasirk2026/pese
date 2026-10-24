@@ -1,0 +1,339 @@
+{
+  "summary": {
+    "cases": 41,
+    "precision": 1.0,
+    "recall": 0.5609756097560976,
+    "wrong_changes": 0
+  },
+  "records": [
+    {
+      "input": "jepan",
+      "expected": "japan",
+      "category": "wrong_vowel",
+      "actual": "japan",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "becycle",
+      "expected": "bicycle",
+      "category": "wrong_vowel",
+      "actual": "bicycle",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "cemera",
+      "expected": "camera",
+      "category": "wrong_vowel",
+      "actual": "camera",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "marcury",
+      "expected": "mercury",
+      "category": "wrong_vowel",
+      "actual": "mercury",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "clenic",
+      "expected": "clinic",
+      "category": "wrong_vowel",
+      "actual": "clinic",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "peyment",
+      "expected": "payment",
+      "category": "wrong_vowel",
+      "actual": "peyment",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "enstallments",
+      "expected": "installments",
+      "category": "wrong_vowel",
+      "actual": "installments",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "reilway",
+      "expected": "railway",
+      "category": "wrong_vowel",
+      "actual": "railway",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "ebservatory",
+      "expected": "observatory",
+      "category": "wrong_vowel",
+      "actual": "ebservatory",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "censtitution",
+      "expected": "constitution",
+      "category": "wrong_vowel",
+      "actual": "censtitution",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "enstructions",
+      "expected": "instructions",
+      "category": "wrong_vowel",
+      "actual": "enstructions",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "talescope",
+      "expected": "telescope",
+      "category": "wrong_vowel",
+      "actual": "talescope",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "machanical",
+      "expected": "mechanical",
+      "category": "wrong_vowel",
+      "actual": "machanical",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "spacifications",
+      "expected": "specifications",
+      "category": "wrong_vowel",
+      "actual": "specifications",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "gaography",
+      "expected": "geography",
+      "category": "wrong_vowel",
+      "actual": "geography",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "lenden",
+      "expected": "linden",
+      "category": "wrong_vowel",
+      "actual": "linden",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "cebalt",
+      "expected": "cobalt",
+      "category": "wrong_vowel",
+      "actual": "cobalt",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "cetrine",
+      "expected": "citrine",
+      "category": "wrong_vowel",
+      "actual": "cetrine",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "eurora",
+      "expected": "aurora",
+      "category": "wrong_vowel",
+      "actual": "eurora",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "kastrel",
+      "expected": "kestrel",
+      "category": "wrong_vowel",
+      "actual": "kastrel",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "fasatpi",
+      "expected": "fastapi",
+      "category": "technical_transposition",
+      "actual": "fastapi",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "pydatnic",
+      "expected": "pydantic",
+      "category": "technical_transposition",
+      "actual": "pydantic",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "nupmy",
+      "expected": "numpy",
+      "category": "technical_transposition",
+      "actual": "numpy",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "onxn",
+      "expected": "onnx",
+      "category": "technical_transposition",
+      "actual": "onxn",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "uviocrn",
+      "expected": "uvicorn",
+      "category": "technical_transposition",
+      "actual": "uvicorn",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "fireabse",
+      "expected": "firebase",
+      "category": "technical_transposition",
+      "actual": "firebase",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "protbouf",
+      "expected": "protobuf",
+      "category": "technical_transposition",
+      "actual": "protobuf",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "tokenziers",
+      "expected": "tokenizers",
+      "category": "technical_transposition",
+      "actual": "tokenizers",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "typesrcipt",
+      "expected": "typescript",
+      "category": "technical_transposition",
+      "actual": "typescript",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "sqltie",
+      "expected": "sqlite",
+      "category": "technical_transposition",
+      "actual": "sqlite",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "grcp",
+      "expected": "grpc",
+      "category": "technical_transposition",
+      "actual": "grcp",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "tocrh",
+      "expected": "torch",
+      "category": "technical_transposition",
+      "actual": "torch",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "linde",
+      "expected": "linden",
+      "category": "proper_noun_missing_letter",
+      "actual": "linden",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "cobal",
+      "expected": "cobalt",
+      "category": "proper_noun_missing_letter",
+      "actual": "cobalt",
+      "changed": true,
+      "correct": true
+    },
+    {
+      "input": "citrin",
+      "expected": "citrine",
+      "category": "proper_noun_missing_letter",
+      "actual": "citrin",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "auror",
+      "expected": "aurora",
+      "category": "proper_noun_missing_letter",
+      "actual": "auror",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "kestre",
+      "expected": "kestrel",
+      "category": "proper_noun_missing_letter",
+      "actual": "kestre",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "cp",
+      "expected": "cpu",
+      "category": "short_ambiguous",
+      "actual": "cp",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "apu",
+      "expected": "api",
+      "category": "short_ambiguous",
+      "actual": "apu",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "q",
+      "expected": "qa",
+      "category": "short_ambiguous",
+      "actual": "q",
+      "changed": false,
+      "correct": false
+    },
+    {
+      "input": "jpa",
+      "expected": "japan",
+      "category": "short_ambiguous",
+      "actual": "jpa",
+      "changed": false,
+      "correct": false
+    }
+  ],
+  "notes": "Supplement to the original 100 mutation cases. Genuine vowel replacements, explicit technical vocabulary, proper nouns and ambiguous short queries. The original runner label wrong_vowel actually meant midpoint substitution; that original raw artifact is preserved, not silently relabeled."
+}

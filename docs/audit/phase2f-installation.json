@@ -1,0 +1,44 @@
+{
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "verified_target": "Windows x64 / CPython 3.12 / Node 24.13.0 / npm 11.10.1",
+  "versions": {
+    "fastapi": "0.157.0",
+    "pydantic": "2.14.1",
+    "numpy": "2.5.4",
+    "fastembed": "0.9.0",
+    "onnxruntime": "1.31.0",
+    "firebase-admin": "7.7.0",
+    "torch": "2.14.1+cpu",
+    "uvicorn": "0.54.0",
+    "httpx": "0.28.1",
+    "pytest": "9.1.1",
+    "setuptools": "84.2.1"
+  },
+  "python_clean_install": true,
+  "pip_check": "passed",
+  "source_only_tests": {
+    "passed": 126,
+    "skipped_optional_checkpoint": 2,
+    "warnings": 2
+  },
+  "installed_checkpoint_tests": {
+    "passed": 128,
+    "warnings": 2
+  },
+  "node_clean_install": true,
+  "clean_production_build": true,
+  "working_checkout_production_build": true,
+  "working_checkout_build_recovery": "locked npm ci, then removal of only generated .next cache",
+  "production_npm_advisories": 0,
+  "development_advisory_paths": 5,
+  "development_advisory": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+  "package_lock_sha256": "a3cfdafa6001692b6dfe6241d288e3c7aeb34e8bb1ecff75a7aae2b279e01fc5",
+  "source_only_export_private_stores_present": false,
+  "source_only_export_checkpoints_present": false,
+  "post_safety_evaluated_source": "51d186b0c06c9077ed34239f3d89be6eb045812215a54fb9408b306fe04368b5",
+  "final_source": "e6098cdbb357835edb545bdb1b3ea15134b726ef3c7e0889b2ff90c5280a321c",
+  "final_cleanup_removed_files": [
+    "engine/data/test_manual_queries.py"
+  ],
+  "final_cleanup_changed_common_files": []
+}

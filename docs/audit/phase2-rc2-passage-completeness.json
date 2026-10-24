@@ -1,0 +1,308 @@
+{
+  "protocol": "Supplemental post-score completeness diagnostic. The primary frozen scorer uses any cited excerpt, unchanged. This stricter diagnostic requires all cited support; labels and raw flags remain unchanged.",
+  "answerable": 60,
+  "all_cited_support_at_1": 57,
+  "all_cited_support_at_3": 60,
+  "records": [
+    {
+      "id": "rc2-q001",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q002",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q003",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q005",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q006",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q007",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q009",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q010",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q011",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q013",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q014",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q015",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q017",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q018",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q019",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q021",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q022",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q023",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q025",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q026",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q027",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q029",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q030",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q031",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q033",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q034",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q035",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q037",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q038",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q039",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q041",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q042",
+      "all_cited_support_at_1": false,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q043",
+      "all_cited_support_at_1": false,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q045",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q046",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q047",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q049",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q050",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q051",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q053",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q054",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q055",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q057",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q058",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q059",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q061",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q062",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q063",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q065",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q066",
+      "all_cited_support_at_1": false,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q067",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q069",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q070",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q071",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q077",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q078",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q079",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q081",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q082",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    },
+    {
+      "id": "rc2-q083",
+      "all_cited_support_at_1": true,
+      "all_cited_support_at_3": true
+    }
+  ]
+}

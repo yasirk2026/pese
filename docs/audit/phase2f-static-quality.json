@@ -1,0 +1,12 @@
+{
+  "python_syntax_files": 151,
+  "syntax_errors": 0,
+  "python_type_checker_configured": false,
+  "python_linter_configured": false,
+  "typescript_no_emit": "passed",
+  "eslint_errors": 0,
+  "eslint_warnings": 29,
+  "source_sha256": "e6098cdbb357835edb545bdb1b3ea15134b726ef3c7e0889b2ff90c5280a321c",
+  "tested_post_safety_source_sha256": "51d186b0c06c9077ed34239f3d89be6eb045812215a54fb9408b306fe04368b5",
+  "production_web_build": "passed in clean copy and restored original checkout after clearing generated Next cache"
+}

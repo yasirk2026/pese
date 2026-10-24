@@ -1,0 +1,45 @@
+{
+  "memory_mb": {
+    "interpreter": 38.47,
+    "lexical_passages": 110.12,
+    "vector_arrays_before_model": 119.73,
+    "embedding_model": 287.21,
+    "qa_model": 453.98,
+    "before_100": 461.96,
+    "after_100_unique": 474.72
+  },
+  "lexical_ready_ms": 1646.36,
+  "startup_ms": 7411.05,
+  "first_queries": [
+    {
+      "label": "first",
+      "ms": 405.15,
+      "cache_hit": 0.0
+    },
+    {
+      "label": "second_repeat",
+      "ms": 5.54,
+      "cache_hit": 1.0
+    },
+    {
+      "label": "third_different",
+      "ms": 123.77,
+      "cache_hit": 0.0
+    },
+    {
+      "label": "fourth_repeat",
+      "ms": 2.35,
+      "cache_hit": 1.0
+    }
+  ],
+  "stress": {
+    "cases": 100,
+    "p50_ms": 215.66,
+    "p95_ms": 281.64
+  },
+  "cache_entries": 32,
+  "torch_threads": 2,
+  "torch_interop_threads": 6,
+  "model_parameters": 884612,
+  "limitations": "Fresh Python process with existing corpus vector cache; NOT a model-download cold start or HTTP/browser startup. RSS includes native allocator retention; 100 queries cannot prove absence of leaks."
+}
