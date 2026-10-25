@@ -4,7 +4,14 @@ import importlib.metadata
 import json
 import re
 import shutil
+import subprocess
 from pathlib import Path
+
+
+def tracked_engine_sources(source):
+    command = ["git", "-c", "safe.directory=" + source.as_posix(), "-C", str(source), "ls-files", "-z", "--", "engine"]
+    names = subprocess.check_output(command).decode("utf-8").split("\0")
+    return [source / name for name in names if name.endswith(".py")]
 
 
 def main():
@@ -37,7 +44,7 @@ def main():
                     ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     (stage / "runtime/python/python312._pth").write_text(
         "python312.zip\n.\nsite-packages\n..\\..\nimport site\n", encoding="utf-8")
-    for path in (source / "engine").rglob("*.py"):
+    for path in tracked_engine_sources(source):
         relative = path.relative_to(source)
         if any(part in (".venv", "tests", "__pycache__", "private", "demo_runtime") for part in relative.parts):
             continue

@@ -546,7 +546,9 @@ internal sealed class MainWindow : Window
     private async Task OpenAsync(string path)
     {
         if (closing) return;
-        Card("Waking up your Brain…", "Loading your notes and preparing neural search indices.");
+        var opening = Card("Waking up your Brain…", "Preparing local search. A Brain without a local cache rebuilds its search index on this device; this can take several minutes.");
+        var readiness = new TextBlock { Foreground = MutedInk, TextWrapping = TextWrapping.Wrap, FontSize = 13 };
+        opening.Children.Add(readiness);
         try
         {
             // Detect the real installed Evergreen runtime before starting the engine.
@@ -554,7 +556,20 @@ internal sealed class MainWindow : Window
             await BrainProcess.CommandAsync("inspect", path);
             lifetime.Token.ThrowIfCancellationRequested();
             brain = new BrainProcess();
-            await brain.StartAsync(path, lifetime.Token);
+            var progress = new Progress<BrainStartupProgress>(state =>
+            {
+                if (closing) return;
+                readiness.Text = state.Stage switch
+                {
+                    "passages" => $"Preparing passages for search: {state.Completed:N0} of {state.Total:N0}",
+                    "documents" => $"Preparing document summaries: {state.Completed:N0} of {state.Total:N0}",
+                    "model" => "Loading the local search model…",
+                    "finalizing" => "Saving the local rebuild cache…",
+                    "ready" => "Checking search readiness…",
+                    _ => "Reading documents and preparing local search…"
+                };
+            });
+            await brain.StartAsync(path, lifetime.Token, progress);
             lifetime.Token.ThrowIfCancellationRequested();
             Card("Opening PESE…", "Your Brain is ready.");
             browser = new WebView2();
@@ -578,7 +593,7 @@ internal sealed class MainWindow : Window
             core.Settings.AreBrowserAcceleratorKeysEnabled = false;
 #endif
             var origin = brain.Origin!;
-            var config = JsonSerializer.Serialize(new { apiBase = origin, token = brain.Token, desktop = true, brainPath = path, version = SoftwareUpdates.Version });
+            var config = JsonSerializer.Serialize(new { apiBase = origin, token = brain.Token, desktop = true, brainPath = path, version = SoftwareUpdates.Version, uiPreferences = DesktopPreferencesStore.Load() });
             // Direct runtime configuration injection and desktop keyboard handlers
             await core.AddScriptToExecuteOnDocumentCreatedAsync(
                 "try { " +
@@ -595,6 +610,11 @@ internal sealed class MainWindow : Window
                 {
                     if (!Internal(e.Source, origin) || !Internal(core.Source, origin) || closing || updateInstalling) return;
                     var msg = e.TryGetWebMessageAsString();
+                    if (msg.StartsWith("prefs:") && msg.Length <= 256)
+                    {
+                        DesktopPreferencesStore.Save(msg[6..]);
+                        return;
+                    }
                     if (msg.Length > 64) return;
                     if (msg == "change_brain" || msg == "new_brain")
                     {

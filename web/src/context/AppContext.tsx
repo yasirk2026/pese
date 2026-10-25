@@ -71,12 +71,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     try {
       const searchParams = new URLSearchParams(window.location.search);
+      const nativePreferences = (window as unknown as { __PESE_CONFIG__?: { uiPreferences?: { theme?: Theme; developerMode?: boolean } } }).__PESE_CONFIG__?.uiPreferences;
       const urlTheme = searchParams.get("theme") as Theme | null;
       if (urlTheme && ["dark", "light", "system"].includes(urlTheme)) {
         setThemeState(urlTheme);
         try { localStorage.setItem(THEME_STORAGE_KEY, urlTheme); } catch {}
       } else {
-        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
+        const savedTheme = nativePreferences?.theme || localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
         if (savedTheme && ["dark", "light", "system"].includes(savedTheme)) {
           setThemeState(savedTheme);
         }
@@ -88,7 +89,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setDeveloperModeState(devVal);
         try { localStorage.setItem(DEV_MODE_STORAGE_KEY, String(devVal)); } catch {}
       } else {
-        const savedDevMode = localStorage.getItem(DEV_MODE_STORAGE_KEY);
+        const savedDevMode = typeof nativePreferences?.developerMode === "boolean"
+          ? String(nativePreferences.developerMode) : localStorage.getItem(DEV_MODE_STORAGE_KEY);
         if (savedDevMode !== null) {
           setDeveloperModeState(savedDevMode === "true");
         }
@@ -113,6 +115,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const host = (window as unknown as { chrome?: { webview?: { postMessage: (msg: string) => void } } }).chrome?.webview;
+    host?.postMessage("prefs:" + JSON.stringify({ theme, developerMode }));
+  }, [mounted, theme, developerMode]);
 
   // Listen to WebView2 native messages from WPF host
   useEffect(() => {

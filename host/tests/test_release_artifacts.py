@@ -6,6 +6,8 @@ from pathlib import Path
 
 import pytest
 from scripts.verify_release import verify
+from scripts.stage_desktop import tracked_engine_sources
+import subprocess
 
 
 def fixture_package(tmp_path, extra=None):
@@ -66,3 +68,13 @@ def test_release_rejects_mismatched_public_notes(tmp_path):
     (args[0] / "release-notes.md").write_text("Wrong release", encoding="utf-8")
     with pytest.raises(ValueError, match="notes"):
         verify(*args)
+
+
+def test_staging_never_includes_ignored_private_python(tmp_path):
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    (tmp_path / "engine").mkdir()
+    (tmp_path / "engine/public.py").write_text("# public fixture", encoding="utf-8")
+    (tmp_path / ".gitignore").write_text("*private_history.py\n", encoding="utf-8")
+    (tmp_path / "engine/private_history.py").write_text("# private fixture must not ship", encoding="utf-8")
+    subprocess.run(["git", "-C", str(tmp_path), "add", "engine/public.py", ".gitignore"], check=True)
+    assert tracked_engine_sources(tmp_path) == [tmp_path / "engine/public.py"]
