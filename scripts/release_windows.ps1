@@ -34,7 +34,9 @@ try {
     $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
     $env:DOTNET_GENERATE_ASPNET_CERTIFICATE = 'false'
     if ($NugetCache) { $env:NUGET_PACKAGES = $NugetCache }
-    if ((& $Vpk --version) -notmatch '0.0.1298') { throw 'Pinned Velopack CLI 0.0.1298 is required' }
+    $vpkHelp = (& $Vpk --help) -join "`n"
+    Assert-Exit 'Velopack CLI preflight'
+    if ($vpkHelp -notmatch 'Velopack CLI 0\.0\.1298,') { throw 'Pinned Velopack CLI 0.0.1298 is required' }
     $stage = Join-Path $BuildRoot 'stage'
     $packages = Join-Path $BuildRoot 'artifacts'
     $logs = Join-Path $BuildRoot 'logs'
