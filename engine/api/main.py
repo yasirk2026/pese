@@ -205,7 +205,7 @@ def serving_snapshot():
 async def lifespan(app: FastAPI):
     # Startup: ensure documents are present, seed if empty
     existing = store.list_documents()
-    if not existing:
+    if not existing and DEMO:
         seed_demo(store)
     reload_search_pipeline()
 
