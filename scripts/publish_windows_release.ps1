@@ -25,11 +25,15 @@ if ($reports.Count -lt 2 -or !($reports | Where-Object { $_.native_ui }) -or !($
     throw 'Real native updates in separate default/custom Unicode fixtures, including WPF UI, are required'
 }
 foreach ($report in $reports) {
+    $outbound = $report.base_version -eq $manifest.version -and $report.base_commit -eq $manifest.commit -and
+        $report.base_package_sha256 -eq $full[0].Value -and
+        [System.Management.Automation.SemanticVersion]$report.target -gt [System.Management.Automation.SemanticVersion]$manifest.version
+    $inbound = $report.target -eq $manifest.version -and $report.target_commit -eq $manifest.commit -and
+        $report.target_package_sha256 -eq $full[0].Value -and $report.target_acceptance_only -eq $false -and
+        [System.Management.Automation.SemanticVersion]$report.base_version -lt [System.Management.Automation.SemanticVersion]$manifest.version
     if (!$report.passed -or !$report.real_native_update -or !$report.real_restart -or !$report.synthetic_data_only -or
         !$report.canonical_and_pointer_preserved -or !$report.account_sentinel_preserved -or
-        $report.base_version -ne $manifest.version -or $report.base_commit -ne $manifest.commit -or
-        $report.base_package_sha256 -ne $full[0].Value -or
-        [System.Management.Automation.SemanticVersion]$report.target -le [System.Management.Automation.SemanticVersion]$manifest.version) {
+        !($outbound -or $inbound)) {
         throw 'Native update evidence does not match this exact release artifact'
     }
 }

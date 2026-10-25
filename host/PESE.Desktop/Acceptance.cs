@@ -32,7 +32,11 @@ internal static class Acceptance
                 var brain = new BrainProcess();
                 var watch = Stopwatch.StartNew();
                 var progress = new List<BrainStartupProgress>();
-                await brain.StartAsync(path, CancellationToken.None, new Progress<BrainStartupProgress>(state => { lock (progress) progress.Add(state); }));
+                var timings = new List<object>();
+                await brain.StartAsync(path, CancellationToken.None, new Progress<BrainStartupProgress>(state =>
+                {
+                    lock (progress) { progress.Add(state); timings.Add(new { state.Stage, seconds = watch.Elapsed.TotalSeconds }); }
+                }));
                 var startupSeconds = watch.Elapsed.TotalSeconds;
                 var pid = brain.ProcessId;
                 long peakWorkingSetBytes;
@@ -60,9 +64,11 @@ internal static class Acceptance
                 using var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 socket.ExclusiveAddressUse = true; socket.Bind(new IPEndPoint(IPAddress.Loopback, port));
                 BrainStartupProgress[] events;
-                lock (progress) events = progress.ToArray();
+                object[] phaseTimes;
+                lock (progress) { events = progress.ToArray(); phaseTimes = timings.ToArray(); }
                 results.Add(new { cycle = i + 1, pid, port, childExited = true, portReleased = true,
                     startupSeconds, peakWorkingSetBytes, readinessEvents = events,
+                    phaseTimings = phaseTimes,
                     health = JsonSerializer.Deserialize<JsonElement>(health) });
             }
             File.WriteAllText(reportPath, JsonSerializer.Serialize(new { passed = true, results }, new JsonSerializerOptions { WriteIndented = true }));

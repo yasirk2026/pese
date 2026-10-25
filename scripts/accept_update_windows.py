@@ -60,6 +60,10 @@ def main():
     targets = [a for a in target_feed["Assets"] if a["Type"] == "Full"]
     if len(targets) != 1:
         raise ValueError("Controlled feed must contain exactly one target")
+    with zipfile.ZipFile(args.target_artifacts / targets[0]["FileName"]) as target_package:
+        target_source = json.loads(target_package.read("lib/app/source-provenance.json"))
+    if target_source["version"] != targets[0]["Version"]:
+        raise ValueError("Target package source stamp differs from feed version")
     shutil.copy2(args.target_artifacts / targets[0]["FileName"], feed)
     shutil.copy2(args.target_artifacts / "releases.win.json", feed)
     profile = root / "LocalAppData"
@@ -194,6 +198,7 @@ def main():
         "target": targets[0]["Version"], "portable_installation": True,
         "synthetic_data_only": True, "unicode_path": args.unicode_path, "native_ui": args.ui,
         "base_version": base_source["version"], "base_commit": base_source["commit"],
+        "target_commit": target_source["commit"], "target_acceptance_only": target_source["acceptance_only"],
         "base_package_sha256": digest(args.base_package),
         "target_package_sha256": digest(args.target_artifacts / targets[0]["FileName"]),
         "canonical_and_pointer_preserved": True, "account_sentinel_preserved": True}

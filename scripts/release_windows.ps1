@@ -73,10 +73,10 @@ try {
     } finally { Pop-Location }
     & $Dotnet publish host/PESE.Desktop/PESE.Desktop.csproj -c Release -r win-x64 --self-contained true "-p:Version=$Version" -o $stage *> (Join-Path $logs 'publish.log'); Assert-Exit 'WPF publish'
     & $python -B scripts/stage_desktop.py $stage --asset-source $AssetSource *> (Join-Path $logs 'stage.log'); Assert-Exit 'Offline runtime staging'
-    & (Join-Path $stage 'runtime/python/python.exe') -B -c 'import engine.api.main' *> (Join-Path $logs 'staged-import.log'); Assert-Exit 'Staged engine dependency import'
     $provenanceArgs = @('scripts/source_provenance.py',$stage,$Version)
     if ($AcceptanceOnly) { $provenanceArgs += '--acceptance-only' }
     & $python -B @provenanceArgs; Assert-Exit 'Source provenance'
+    & (Join-Path $stage 'runtime/python/python.exe') -B -c 'import engine.api.main' *> (Join-Path $logs 'staged-import.log'); Assert-Exit 'Staged engine dependency import'
     & $python -B scripts/audit_desktop_native.py $stage (Join-Path $logs 'native-audit.json'); Assert-Exit 'Native dependencies'
     & $Vpk pack --packId ManiacSoftwares.PESE --packVersion $Version --packDir $stage --mainExe PESE.exe --channel win --icon (Join-Path $stage 'pese.ico') --packTitle PESE --packAuthors 'Maniac Softwares' --runtime win-x64 --framework 'webview2,vcredist143-x64' --shortcuts 'Desktop,StartMenuRoot' --noPortable --delta None --releaseNotes $notes --outputDir $packages *> (Join-Path $logs 'pack.log'); Assert-Exit 'Velopack packaging'
     $setup = @(Get-ChildItem -LiteralPath $packages -Filter '*Setup.exe')

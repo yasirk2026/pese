@@ -24,6 +24,19 @@ internal static class UiAcceptance
             int? enginePid = null;
             try
             {
+                await Task.Delay(10000);
+                if (window.AcceptanceCore is null && window.AcceptanceBrain is { Running: true })
+                {
+                    window.UpdateLayout();
+                    var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap(
+                        (int)window.ActualWidth, (int)window.ActualHeight, 96, 96, System.Windows.Media.PixelFormats.Pbgra32);
+                    bitmap.Render(window);
+                    var encoder = new System.Windows.Media.Imaging.PngBitmapEncoder();
+                    encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));
+                    using var image = File.Create(Path.Combine(output, "native-startup.png"));
+                    encoder.Save(image);
+                    checks.Add(new { nativeStartupBeforeWebView = true });
+                }
                 await Wait(() => Task.FromResult(window.AcceptanceCore is not null && window.AcceptanceBrain is { Running: true }), 900);
                 var core = window.AcceptanceCore!;
                 var brain = window.AcceptanceBrain!;

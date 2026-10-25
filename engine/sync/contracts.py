@@ -7,11 +7,12 @@ from enum import Enum
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from pydantic import BaseModel, Field, ConfigDict, field_validator
+from ..app_version import application_version
 
 
 SYNC_FORMAT_VERSION = 2
 SYNC_MANIFEST_FILENAME = "pese-sync-manifest.json"
-CURRENT_APP_VERSION = "0.1.0-alpha.4"
+CURRENT_APP_VERSION = application_version()
 CURRENT_SCHEMA_VERSION = 1
 
 GOOGLE_DRIVE_APPDATA_SCOPE = "https://www.googleapis.com/auth/drive.appdata"
