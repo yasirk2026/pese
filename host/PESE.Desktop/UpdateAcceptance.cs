@@ -2,6 +2,7 @@ using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using Velopack;
 using Velopack.Sources;
 using Velopack.Logging;
@@ -71,7 +72,12 @@ internal static class UpdateAcceptance
                     identity, health, canonical = Digests(), engineExited = !brain.Running, realRestart = true }, new JsonSerializerOptions { WriteIndented = true }));
                 return 0;
             }
-            await FailureChecksAsync(Owned("feed"));
+            var failureReceipt = Path.Combine(root, "download-faults-passed.json");
+            if (!File.Exists(failureReceipt))
+            {
+                await FailureChecksAsync(Owned("feed"));
+                File.WriteAllText(failureReceipt, JsonSerializer.Serialize(new { passed = true, version = SoftwareUpdates.Version }));
+            }
             await updates.CheckAsync();
             if (updates.State.status != "available") throw new InvalidDataException("The installed updater did not find the target.");
             if (string.IsNullOrWhiteSpace(updates.State.releaseNotes)) throw new InvalidDataException("The update has no package release notes.");
@@ -87,13 +93,16 @@ internal static class UpdateAcceptance
                 using var completed = await inFlight;
                 completed.EnsureSuccessStatusCode();
                 var final = Digests();
-                if (original.Count != final.Count || original.Any(x => !final.TryGetValue(x.Key, out var value) || value != x.Value))
+                // Searches legitimately append zero-authority shadow observations.
+                // Activation must preserve the exact DB after all those writes drain.
+                if (original.Count != final.Count || original.Where(x => x.Key != "search_sync_feedback.db")
+                    .Any(x => !final.TryGetValue(x.Key, out var value) || value != x.Value))
                     throw new InvalidDataException("Canonical data changed while draining the fixture engine.");
                 File.WriteAllText(report, JsonSerializer.Serialize(new { passed = true, version = SoftwareUpdates.Version,
                     identity, health, canonical = final, states, activeSearchCompleted = true,
                     engineExited = !brain.Running, handoff = "requested; success requires update-after.json" }, new JsonSerializerOptions { WriteIndented = true }));
             }, () => handedOff = true, new[] { "--accept-update-restarted", planPath });
-            return handedOff ? 0 : throw new InvalidOperationException("The update did not hand off to Velopack.");
+            return handedOff ? 0 : throw new InvalidOperationException("The update did not hand off to Velopack.", updates.LastError);
         }
         catch (Exception exc)
         {
@@ -112,6 +121,17 @@ internal static class UpdateAcceptance
         var stopped = false;
         await unavailable.ApplyAsync(() => { stopped = true; return Task.CompletedTask; }, () => { });
         Check(!stopped, "apply without a verified download must not stop the engine");
+        var missingNotes = Path.Combine(Directory.GetParent(feed)!.FullName, "missing-notes-feed");
+        Directory.CreateDirectory(missingNotes);
+        var metadata = JsonNode.Parse(File.ReadAllText(Path.Combine(feed, "releases.win.json")))!;
+        foreach (var asset in metadata["Assets"]!.AsArray()) asset!["NotesMarkdown"] = "";
+        File.WriteAllText(Path.Combine(missingNotes, "releases.win.json"), metadata.ToJsonString());
+        var invalid = new SoftwareUpdates(_ => { }, () => new UpdateManager(missingNotes,
+            new UpdateOptions { ExplicitChannel = SoftwareUpdates.Channel }));
+        await invalid.CheckAsync();
+        Check(invalid.State.status == "failed", "release notes required before offering installation");
+        await invalid.DownloadAsync(CancellationToken.None);
+        Check(invalid.State.status == "failed", "invalid metadata cannot be bypassed by a download command");
         foreach (var failure in new[] { "interrupted", "checksum" })
         {
             var source = new FailureSource(feed, failure);

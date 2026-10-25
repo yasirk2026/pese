@@ -122,19 +122,7 @@ function SettingsContent() {
         setLoadingBrain(false);
       })
       .catch(() => {
-        setBrainInfo({
-          brain_id: "local-alpha-001",
-          name: "Local Brain",
-          path:
-            (typeof window !== "undefined" &&
-              (window as unknown as { __PESE_CONFIG__?: { brainPath?: string } })
-                .__PESE_CONFIG__?.brainPath) ||
-            "%LOCALAPPDATA%\\ManiacSoftwares\\PESE\\Brain",
-          status: "active",
-          document_count: 222,
-          schema_version: 1,
-          created_at: new Date().toISOString(),
-        });
+        setBrainInfo(null);
         setLoadingBrain(false);
       });
 
@@ -596,7 +584,7 @@ function SettingsContent() {
                     </div>
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      Active
+                      {brainInfo?.status === "active" ? "Active" : loadingBrain ? "Checking" : "Unavailable"}
                     </span>
                   </div>
 

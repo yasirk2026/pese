@@ -1,3 +1,4 @@
+#requires -Version 7.2
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)][string]$BuildRoot,
@@ -19,6 +20,9 @@ $python = Join-Path $AssetSource 'packaging/runtime-lab/python-embed/python.exe'
 $notes = Join-Path $repo "docs/releases/$Version.md"
 foreach ($file in @($python,$Dotnet,$Vpk,$notes)) { if (!(Test-Path -LiteralPath $file)) { throw "Missing prerequisite: $file" } }
 function Assert-Exit([string]$Step) { if ($LASTEXITCODE -ne 0) { throw "$Step failed ($LASTEXITCODE)" } }
+$mutexId = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($repo)))
+$buildMutex = [Threading.Mutex]::new($false, "Local\PESE.ReleaseBuild.$mutexId")
+if (!$buildMutex.WaitOne(0)) { $buildMutex.Dispose(); throw 'Another release build is using this checkout' }
 Push-Location $repo
 try {
     $commit = (& git -c "safe.directory=$($repo.Replace('\','/'))" rev-parse HEAD).Trim()
@@ -86,4 +90,4 @@ try {
     if ($AcceptanceOnly) { $verifyArgs += '--acceptance-only' }
     & $python -B @verifyArgs; Assert-Exit 'Artifact verification'
     Write-Output "Verified artifacts: $packages"
-} finally { Pop-Location }
+} finally { Pop-Location; $buildMutex.ReleaseMutex(); $buildMutex.Dispose() }

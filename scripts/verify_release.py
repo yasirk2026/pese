@@ -27,15 +27,30 @@ def verify(directory, version, commit, source, acceptance_only=False):
     package = directory / name
     assert package.stat().st_size == asset["Size"], "Package size differs from feed"
     assert sha(package).upper() == asset["SHA256"].upper(), "Package SHA-256 differs from feed"
+    compatibility = (directory / "RELEASES").read_text(encoding="utf-8-sig").split()
+    with package.open("rb") as stream:
+        expected_sha1 = hashlib.file_digest(stream, "sha1").hexdigest()
+    assert len(compatibility) == 3 and compatibility[0].lower() == expected_sha1 and compatibility[1] == name and int(compatibility[2]) == asset["Size"], "Legacy feed differs from package"
+    mapping = json.loads((directory / "assets.win.json").read_text(encoding="utf-8-sig"))
+    assert {a["RelativeFileName"] for a in mapping if a["Type"] == "Installer"} == {"PESE-Setup.exe"}
+    assert {a["RelativeFileName"] for a in mapping if a["Type"] == "Full"} == {name}
     with zipfile.ZipFile(package) as archive:
         names = archive.namelist()
         assert len(names) == len(set(names)), "Duplicate package member"
+        required_payload = {"PESE.exe", "PESE.dll", "PESE.runtimeconfig.json", "runtime/python/python.exe",
+                            "runtime/python/python312.zip", "engine/api/main.py", "engine/desktop/launcher.py",
+                            "engine/evaluation/synthetic_history.py", "ui/index.html", "ui/search/index.html",
+                            "ui/settings/index.html", "engine/neural/checkpoints/peseng0_baseline_final.pt"}
+        assert {"lib/app/" + n for n in required_payload} <= set(names), "Incomplete application payload"
+        assert len([n for n in names if n.startswith("lib/app/models/") and n.endswith("/model_optimized.onnx")]) == 1
         forbidden = {"pese-brain.json", "firestore_documents.json", "behavioural_events.jsonl",
                      "privacy_settings.json", "desktop-settings.json", "google-client-secrets.json",
                      "google-oauth-config.json", "search_sync_feedback.db"}
         for member in names:
+            assert not member.startswith(("/", "\\")) and "\\" not in member and ":" not in member and ".." not in member.split("/"), "Unsafe package path"
             leaf = Path(member).name.lower()
             assert leaf not in forbidden and not leaf.endswith((".db", ".sqlite", ".pese-bundle")), "Private Brain asset in package"
+            assert not (leaf.endswith(".json") and (leaf.startswith("google-client-secrets") or leaf.startswith("google-oauth-config"))), "OAuth configuration in package"
             assert not any(p in member.lower().split("/") for p in (".git", ".env", "node_modules", "semantic_index")), "Development/cache asset in package"
         spec = ET.fromstring(archive.read("ManiacSoftwares.PESE.nuspec"))
         values = {e.tag.rsplit("}", 1)[-1]: e.text for e in spec.iter()}
@@ -46,7 +61,9 @@ def verify(directory, version, commit, source, acceptance_only=False):
         provenance = json.loads(archive.read("lib/app/source-provenance.json"))
         assert provenance["commit"] == commit and provenance["version"] == version
         assert provenance["acceptance_only"] == acceptance_only
-    required = ["PESE-Setup.exe", name, "releases.win.json", "RELEASES", "assets.win.json"]
+    if (directory / "release-notes.md").read_text(encoding="utf-8").strip() != notes.strip():
+        raise ValueError("Published Markdown notes differ from the packaged notes")
+    required = ["PESE-Setup.exe", name, "releases.win.json", "RELEASES", "assets.win.json", "release-notes.md"]
     hashes = {n: sha(directory / n) for n in required}
     (directory / "checksums.sha256").write_text("".join(f"{h}  {n}\n" for n, h in hashes.items()), encoding="utf-8")
     manifest = {"version": version, "tag": "v" + version, "commit": commit,

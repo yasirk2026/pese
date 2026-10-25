@@ -14,7 +14,9 @@ internal static class Program
         if (args.Length > 0 && args[0] == "--capture-screens")
             return Acceptance.CaptureScreenshots(args.Skip(1).ToArray());
         // Installer/update hooks must run before WPF or the single-instance gate.
-        VelopackApp.Build().Run();
+        // A second launch must never activate a cached update before the
+        // single-instance gate or bypass the explicit engine-drain path.
+        VelopackApp.Build().SetAutoApplyOnStartup(false).Run();
         if (args.Length > 0 && args[0] == "--accept-update-ui")
             return UpdateUiAcceptance.Run(args.Skip(1).ToArray());
         if (args.Length > 0 && args[0] is "--accept-updater" or "--accept-update-restarted")

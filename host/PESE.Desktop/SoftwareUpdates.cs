@@ -26,6 +26,7 @@ internal sealed class SoftwareUpdates
     private UpdateManager? manager;
     private UpdateInfo? pending;
     private bool downloaded;
+    internal Exception? LastError { get; private set; }
     internal UpdateState State { get; private set; } = new(currentVersion: Version);
 
     internal SoftwareUpdates(Action<UpdateState> publish, Func<UpdateManager>? acceptanceFactory = null)
@@ -68,12 +69,22 @@ internal sealed class SoftwareUpdates
             pending = await check.WaitAsync(TimeSpan.FromSeconds(35));
             if (pending is not null && pending.TargetFullRelease.PackageId != PackageId)
                 throw new InvalidDataException("Unexpected update package identity.");
+            if (pending is not null && string.IsNullOrWhiteSpace(pending.TargetFullRelease.NotesMarkdown))
+                throw new InvalidDataException("The update package has no release notes.");
+            if (pending is not null && (Path.GetFileName(pending.TargetFullRelease.FileName) != pending.TargetFullRelease.FileName ||
+                pending.TargetFullRelease.FileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0))
+                throw new InvalidDataException("Unsafe update package filename.");
             Set(pending is null ? "up_to_date" : "available");
         }
         catch (Exception exc)
         {
+            LastError = exc;
+            pending = null;
+            downloaded = false;
             Log.Write("update_check_failed", exc.GetType().Name);
-            Set("failed", error: "Could not check for updates. Check your connection and try again. Local search is still available.");
+            Set("failed", error: exc is InvalidDataException
+                ? "The release metadata is incomplete or invalid. Keep using this version and retry later."
+                : "Could not check for updates. Check your connection and try again. Local search is still available.");
         }
         finally { operation.Release(); }
     }
@@ -94,6 +105,7 @@ internal sealed class SoftwareUpdates
         }
         catch (Exception exc)
         {
+            LastError = exc;
             downloaded = false;
             Log.Write("update_download_failed", exc.GetType().Name);
             Set("failed", error: "The update could not be downloaded and verified. Your installed version is unchanged. Try downloading again.");
@@ -117,6 +129,7 @@ internal sealed class SoftwareUpdates
         }
         catch (Exception exc)
         {
+            LastError = exc;
             Log.Write("update_install_failed", exc.GetType().Name);
             Set("failed", error: "The update was not activated. Close and reopen PESE, then retry. Your Brain remains in its selected folder.");
         }

@@ -267,7 +267,7 @@ export const AppShell: React.FC<AppShellProps> = ({
             </div>
 
             <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-5 leading-relaxed">
-              A new release of PESE is available. Your personal Brain and search data remain completely preserved during updates.
+              The update replaces application files. PESE closes the search engine before installation and reuses your selected Brain when it restarts.
             </p>
 
             {updateInfo.releaseNotes && <pre className="whitespace-pre-wrap font-sans text-xs max-h-48 overflow-y-auto mb-5">{updateInfo.releaseNotes}</pre>}

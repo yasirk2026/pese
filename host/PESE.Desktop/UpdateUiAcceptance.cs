@@ -33,6 +33,7 @@ internal static class UpdateUiAcceptance
         var window = new MainWindow(brain, () => new UpdateManager(feed,
             new UpdateOptions { ExplicitChannel = SoftwareUpdates.Channel }), planPath);
         var passed = false;
+        var phase = "engine";
         window.Loaded += async (_, _) =>
         {
             try
@@ -49,6 +50,10 @@ internal static class UpdateUiAcceptance
                 }
                 await Until(() => Task.FromResult(window.UpdateAcceptanceCore is not null));
                 var core = window.UpdateAcceptanceCore!;
+                // Wait for the host's initial navigation, configuration injection
+                // and frontend hydration before navigating away from its root page.
+                await Until(async () => core.Source.StartsWith(window.UpdateAcceptanceBrain!.Origin + "/") &&
+                    await core.ExecuteScriptAsync("document.readyState === 'complete' && !!document.querySelector('input[role=combobox]')") == "true");
                 async Task<string> Body() => JsonSerializer.Deserialize<string>(await core.ExecuteScriptAsync("document.body.innerText")) ?? "";
                 async Task Click(string prefix)
                 {
@@ -56,9 +61,11 @@ internal static class UpdateUiAcceptance
                     var clicked = await core.ExecuteScriptAsync($"(() => {{ const b = [...document.querySelectorAll('button')].reverse().find(b => b.innerText.trim().startsWith({value}) && !b.disabled); if (!b) return false; b.click(); return true; }})()");
                     if (clicked != "true") throw new InvalidOperationException("Required update button unavailable: " + prefix);
                 }
+                phase = "settings";
                 core.Navigate(window.UpdateAcceptanceBrain!.Origin + "/settings/?tab=updates");
                 await Until(async () => core.Source.Contains("tab=updates") && (await Body()).Contains("Check for updates"));
                 await Click("Check for updates");
+                phase = "available";
                 var target = plan.RootElement.GetProperty("targetVersion").GetString()!;
                 await Until(async () => (await Body()).Contains("Download " + target));
                 var notes = await Body();
@@ -68,6 +75,7 @@ internal static class UpdateUiAcceptance
                 using (var shot = File.Create(Path.Combine(root, "update-notes.png")))
                     await core.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, shot);
                 await Click("Download");
+                phase = "download";
                 await Until(async () => (await Body()).Contains("Update and restart"), 300);
                 using (var shot = File.Create(Path.Combine(root, "update-ready.png")))
                     await core.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, shot);
@@ -80,11 +88,13 @@ internal static class UpdateUiAcceptance
                     passed = true, canonical, version = SoftwareUpdates.Version, target,
                     nativeUi = true, packageNotesVisible = true, readyToRestart = true }));
                 passed = true;
+                phase = "restart";
                 await Click("Update and restart");
             }
             catch (Exception exc)
             {
-                File.WriteAllText(Path.Combine(root, "ui-failure.json"), JsonSerializer.Serialize(new { error = exc.ToString() }));
+                File.WriteAllText(Path.Combine(root, "ui-failure.json"), JsonSerializer.Serialize(new {
+                    phase, source = window.UpdateAcceptanceCore?.Source, error = exc.ToString() }));
                 passed = false;
                 window.Close();
             }

@@ -46,6 +46,23 @@ private Brain files and writes checksums plus a public provenance manifest.
 No build command publishes automatically. The historical `build_windows_release`
 script is retained for Alpha.4 history; use `release_windows` for new releases.
 
+After two exact-package native acceptance reports pass (default and custom
+Unicode paths, including the actual WPF Settings controls), publication is a
+separate deliberate command:
+
+```powershell
+./scripts/publish_windows_release.ps1 -Artifacts <verified-artifact-directory> `
+  -Gh <official-gh.exe> -AcceptanceReports <default-acceptance.json>,<ui-acceptance.json>
+# Review the successful gate output, then repeat the same command with -Publish.
+```
+
+It refuses dirty/mismatched source, existing tags/releases, unpublishable test
+packages, changed artifacts or unrelated update evidence. It integrates source
+with a normal fast-forward push, creates an annotated tag and draft prerelease,
+uploads the complete artifacts, downloads and compares all draft bytes, and only
+then makes the prerelease public. Anonymous asset availability is checked and a
+local publication receipt is written. It never force-pushes or replaces assets.
+
 ## Update protocol
 
 Preserve package ID `ManiacSoftwares.PESE`, main executable `PESE.exe`, channel
@@ -59,6 +76,8 @@ through Velopack and rechecks SHA-256 before activation. New engine operations
 are rejected during shutdown; Uvicorn drains existing requests. A clean engine
 exit is mandatory. The updater then waits for a normal host exit and restarts.
 The new launch's native version is the evidence of success.
+Velopack's default startup auto-apply is explicitly disabled: a second launch
+cannot activate a cached update before the single-instance gate or engine drain.
 
 ## Local acceptance and account safety
 
