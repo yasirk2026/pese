@@ -21,7 +21,7 @@ from ..discovery.questions import PAAQuestionEngine
 from ..discovery.history import LocalHistoryStore
 from ..discovery.sessions import SessionManager
 from ..discovery.families import QueryFamilyRegistry
-from ..data.synthetic_history import load_synthetic_history
+from .synthetic_history import load_synthetic_history
 from .discovery_dataset import (
     AUTOCOMPLETE_TEST_CASES,
     RELATED_SEARCHES_TEST_CASES,

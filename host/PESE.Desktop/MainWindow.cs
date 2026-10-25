@@ -33,6 +33,9 @@ internal sealed class MainWindow : Window
     private ResizeMode previousResizeMode = ResizeMode.CanResize;
     private readonly SoftwareUpdates updates;
     private bool updateInstalling;
+    private readonly string? acceptancePlan;
+    internal CoreWebView2? UpdateAcceptanceCore => browser?.CoreWebView2;
+    internal BrainProcess? UpdateAcceptanceBrain => brain;
 
     private static readonly Color DarkBase = Color.FromRgb(9, 13, 22);
     private static readonly Color CardBg = Color.FromRgb(17, 24, 39);
@@ -45,13 +48,14 @@ internal sealed class MainWindow : Window
 
     private static readonly ControlTemplate ButtonTemplate8 = CreateButtonTemplate(new CornerRadius(8));
 
-    public MainWindow()
+    public MainWindow(string? acceptanceBrain = null, Func<Velopack.UpdateManager>? acceptanceUpdates = null, string? acceptancePlan = null)
     {
+        this.acceptancePlan = acceptancePlan;
         updates = new SoftwareUpdates(state => Dispatcher.BeginInvoke(new Action(() =>
         {
             try { browser?.CoreWebView2?.PostWebMessageAsJson(JsonSerializer.Serialize(state)); }
             catch (ObjectDisposedException) { }
-        })));
+        })), acceptanceUpdates);
         var workArea = SystemParameters.WorkArea;
         Title = "PESE — Personal Knowledge Engine";
         Width = Math.Min(1240, workArea.Width); Height = Math.Min(820, workArea.Height);
@@ -79,7 +83,11 @@ internal sealed class MainWindow : Window
             }
         };
         Closing += OnClosing;
-        Loaded += async (_, _) => await BootAsync();
+        Loaded += async (_, _) =>
+        {
+            if (acceptanceBrain is null) await BootAsync();
+            else await OpenAsync(acceptanceBrain);
+        };
         monitor.Tick += async (_, _) =>
         {
             if (brain is not null && !brain.Running && !closing)
@@ -649,7 +657,7 @@ internal sealed class MainWindow : Window
             _ = Task.Run(async () =>
             {
                 await Task.Delay(3000);
-                await updates.CheckAsync();
+                if (acceptancePlan is null) await updates.CheckAsync();
             });
         }
         catch (WebView2RuntimeNotFoundException)
@@ -711,7 +719,7 @@ internal sealed class MainWindow : Window
                 lifetime.Cancel();
                 browser?.Dispose(); browser = null;
                 Close();
-            });
+            }, acceptancePlan is null ? null : new[] { "--accept-update-restarted", acceptancePlan });
         }
         finally
         {

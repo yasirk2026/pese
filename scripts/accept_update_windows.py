@@ -22,6 +22,7 @@ def main():
     parser.add_argument("target_artifacts", type=Path)
     parser.add_argument("updater", type=Path, help="Pinned Velopack 0.0.1298 Update.exe")
     parser.add_argument("--unicode-path", action="store_true")
+    parser.add_argument("--ui", action="store_true", help="Exercise real WPF/WebView2 Settings controls")
     args = parser.parse_args()
     root = args.case.resolve()
     root.mkdir(parents=True, exist_ok=False)
@@ -87,8 +88,10 @@ def main():
     account_digest = hashlib.sha256(account_sentinel.read_bytes()).hexdigest()
     plan = root / "plan.json"
     plan.write_text(json.dumps({"install": str(install), "brain": str(brain), "feed": str(feed),
-        "targetVersion": targets[0]["Version"]}, indent=2), encoding="utf-8")
-    process = subprocess.Popen([str(current / "PESE.exe"), "--accept-updater", str(plan)], cwd=current)
+        "targetVersion": targets[0]["Version"],
+        "expectedNotes": targets[0].get("NotesMarkdown", "").splitlines()[0].lstrip("# ")}, indent=2), encoding="utf-8")
+    command = "--accept-update-ui" if args.ui else "--accept-updater"
+    process = subprocess.Popen([str(current / "PESE.exe"), command, str(plan)], cwd=current)
     code = process.wait(timeout=600)
     if code:
         raise RuntimeError(f"Native update handoff failed ({code}); inspect the private case report")
@@ -107,7 +110,7 @@ def main():
             return hashlib.file_digest(stream, "sha256").hexdigest()
     acceptance = {"passed": True, "real_native_update": True, "real_restart": True,
         "target": targets[0]["Version"], "portable_installation": True,
-        "synthetic_data_only": True, "unicode_path": args.unicode_path,
+        "synthetic_data_only": True, "unicode_path": args.unicode_path, "native_ui": args.ui,
         "base_version": base_source["version"], "base_commit": base_source["commit"],
         "base_package_sha256": digest(args.base_package),
         "target_package_sha256": digest(args.target_artifacts / targets[0]["FileName"]),

@@ -69,6 +69,7 @@ try {
     } finally { Pop-Location }
     & $Dotnet publish host/PESE.Desktop/PESE.Desktop.csproj -c Release -r win-x64 --self-contained true "-p:Version=$Version" -o $stage *> (Join-Path $logs 'publish.log'); Assert-Exit 'WPF publish'
     & $python -B scripts/stage_desktop.py $stage --asset-source $AssetSource *> (Join-Path $logs 'stage.log'); Assert-Exit 'Offline runtime staging'
+    & (Join-Path $stage 'runtime/python/python.exe') -B -c 'import engine.api.main' *> (Join-Path $logs 'staged-import.log'); Assert-Exit 'Staged engine dependency import'
     $provenanceArgs = @('scripts/source_provenance.py',$stage,$Version)
     if ($AcceptanceOnly) { $provenanceArgs += '--acceptance-only' }
     & $python -B @provenanceArgs; Assert-Exit 'Source provenance'
