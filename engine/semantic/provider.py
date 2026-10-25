@@ -57,7 +57,10 @@ class FastembedProvider(EmbeddingProvider):
                 # Development retains its existing cache/download behavior.
                 local_path = os.getenv("PESE_FASTEMBED_MODEL_PATH")
                 desktop_options = {"specific_model_path": local_path, "local_files_only": True} if local_path else {}
+                from ..startup_progress import emit_progress
+                emit_progress("model", 0, 1)
                 self._model = TextEmbedding(model_name=self.model_name, cache_dir=self.cache_dir, threads=2, **desktop_options)
+                emit_progress("model", 1, 1)
             except Exception as e:
                 raise RuntimeError(
                     f"Failed to initialize local Fastembed model '{self.model_name}': {e}"
@@ -89,7 +92,15 @@ class FastembedProvider(EmbeddingProvider):
             return np.empty((0, self._dim), dtype=np.float32)
 
         # Batch embed
-        embs = list(self._model.embed(texts))
+        # Consume the same inference generator, in the same order/batch policy.
+        # Only readiness reporting changes; vectors and normalization are unchanged.
+        from ..startup_progress import embedding_progress
+        embedding_progress(0, len(texts))
+        embs = []
+        for vector in self._model.embed(texts):
+            embs.append(vector)
+            if len(embs) % 32 == 0 or len(embs) == len(texts):
+                embedding_progress(len(embs), len(texts))
         matrix = np.array(embs, dtype=np.float32)
         norms = np.linalg.norm(matrix, axis=1, keepdims=True)
         norms = np.where(norms > 1e-9, norms, 1.0)

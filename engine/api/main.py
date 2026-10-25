@@ -123,6 +123,8 @@ def _reload_search_pipeline() -> None:
     """Reload all published documents, build inverted index, build vector index, and compute graph authority."""
     global index, graph, link_auth, engine, vector_index, autocomplete_engine, related_engine, paa_engine, family_registry, active_snapshot
     docs = store.list_documents(status="published")
+    from ..startup_progress import emit_progress
+    emit_progress("lexical", 0, len(docs))
     publication_state["stage"] = "lexical_passages"
     new_index = InvertedIndex()
     passages_by_doc = {}
@@ -178,6 +180,10 @@ def _reload_search_pipeline() -> None:
     assert set(new_index.documents) == {d.id for d in docs}
     assert set(p.doc_id for p in next_vectors.passage_meta) <= set(new_index.documents)
     assert len(next_vectors.passage_meta) == len(new_index.passages)
+    # This is a rebuildable, content-hashed local cache, never snapshot payload.
+    # Persist only a fully validated generation, without mutating serving arrays.
+    publication_state["cache_persisted"] = next_vectors._save_cache()
+    emit_progress("finalizing", len(docs), len(docs))
     # The only serving publication. Every request captures this pointer once.
     active_snapshot = SearchSnapshot(generation, next_engine, new_index, next_vectors,
                                     new_graph, new_auth, next_autocomplete, next_related, next_paa)
@@ -215,7 +221,7 @@ async def lifespan(app: FastAPI):
         if vector_index and hasattr(vector_index, "provider"):
             vector_index.provider.embed_query("pese startup prewarm query")
     except Exception as e:
-        print(f"Startup prewarm warning: {e}")
+        raise RuntimeError("The local semantic model could not initialize; search is not ready.") from e
 
     # Neural QA is a laboratory opt-in, never a production startup dependency.
     try:
@@ -226,6 +232,8 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         print(f"Startup PESE-QA prewarm warning: {e}")
 
+    from ..startup_progress import emit_progress
+    emit_progress("ready", len(store.list_documents()), len(store.list_documents()))
     yield
 
 
