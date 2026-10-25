@@ -10,7 +10,7 @@
 
 ## Key Highlights
 
-- **100% Local & Offline Privacy**: Your Brain stays strictly on your local disk. Network isolation blocks all external outbound sockets at the runtime layer. No analytics, no telemetry, and no telemetry pings.
+- **Offline-first privacy**: Search and the Brain work locally. The native updater optionally contacts the official GitHub release feed; it does not upload Brain data. There is no hosted search dependency.
 - **Hybrid Retrieval Architecture**: Combines fielded BM25F ranking, dense vector semantics (via local ONNX FastEmbed `bge-small-en-v1.5`), and Reciprocal Rank Fusion (RRF k=60) for robust keyword and conceptual relevance.
 - **Grounded Featured Answers**: Conservative extractive QA pipeline extracts direct answers with exact source document attribution and passage score verification, abstaining safely when confidence thresholds are not met.
 - **Discovery Intelligence & "You Might Also Ask"**: Generates grounded discovery questions and related search topics derived from corpus graph connectivity and passage relationships.
@@ -31,7 +31,7 @@
 └──────────────────────────────┬──────────────────────────────┘
                                │ Loopback IPC (X-PESE-Token Auth)
 ┌──────────────────────────────▼──────────────────────────────┐
-│                  Packaged CPython 3.11 Engine               │
+│                  Packaged CPython 3.12.10 Engine               │
 │  - FastAPI / Uvicorn (Bound strictly to 127.0.0.1:0)        │
 │  - Offline Boundary (Socket Interception)                   │
 │  - Fielded BM25F Lexical Inverted Index                     │
@@ -84,16 +84,16 @@
 ## Development Setup
 
 ### 1. Prerequisites
-- [.NET 9 / 10 SDK](https://dotnet.microsoft.com/)
+- [.NET 10.0.402 SDK](https://dotnet.microsoft.com/)
 - [Node.js 20+ / 24](https://nodejs.org/)
-- [Python 3.11+](https://www.python.org/)
+- [Python 3.12.10](https://www.python.org/)
 
 ### 2. Python Engine Setup
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.lock.txt
-pytest tests/
+pytest engine/tests/
 ```
 
 ### 3. Frontend Setup
@@ -110,9 +110,9 @@ dotnet build -c Release
 ```
 
 ### 5. Full Windows Release Build
-To package the complete self-contained installer (`PESE-Setup.exe`) with embedded CPython and pre-warmed neural models:
+To package the self-contained installer and Velopack update feed with embedded CPython and local neural models, prepare the pinned assets described in [release engineering](docs/release-engineering.md), then run:
 ```powershell
-.\scripts\build_windows_release.ps1 -Version "0.1.0-alpha.4" -BuildRoot "D:\PESE_Build"
+.\scripts\release_windows.ps1 -Version "0.1.0-alpha.5" -BuildRoot <new-build-directory> -AssetSource <offline-assets-directory> -Dotnet <dotnet-10.0.402.exe> -Vpk <vpk-0.0.1298.exe>
 ```
 
 ---
@@ -128,3 +128,7 @@ To package the complete self-contained installer (`PESE-Setup.exe`) with embedde
 ## License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+## Release engineering
+
+See [release engineering](docs/release-engineering.md) for pinned offline assets, exact-source builds, disposable update acceptance, per-user installation safety and deliberate publication gates. Alpha.5 remains a candidate until installed-update acceptance and publication complete.

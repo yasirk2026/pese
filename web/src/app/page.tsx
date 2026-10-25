@@ -6,12 +6,14 @@ import { getEngineStats, EngineStats, sendTelemetryEvent } from "@/lib/api";
 import { SearchAutocomplete } from "@/components/SearchAutocomplete";
 import { AppShell } from "@/components/AppShell";
 import { PeseLogoMark } from "@/components/PeseLogo";
+import { useApp } from "@/context/AppContext";
 import { Compass, ShieldCheck } from "lucide-react";
 
 export default function SearchHomePage() {
   const [stats, setStats] = useState<EngineStats | null>(null);
   const [isReady, setIsReady] = useState(false);
   const router = useRouter();
+  const { updateInfo } = useApp();
 
   useEffect(() => {
     let mounted = true;
@@ -132,7 +134,7 @@ export default function SearchHomePage() {
                 {stats.total_documents} documents · {stats.total_passages} passages
               </span>
             )}
-            <span>v0.1.0-alpha.4</span>
+            <span>{updateInfo.currentVersion}</span>
           </div>
         </footer>
       </div>

@@ -24,6 +24,11 @@ dist/
 service-account*.json
 *serviceAccount*.json
 firebase-adminsdk*.json
+google-client-secrets*.json
+google-oauth-config*.json
+*credentials*.dat
+*tokens*.json
+*.pese-bundle
 *firebase-adminsdk*.json
 *.key
 google-oauth-config*.json

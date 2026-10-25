@@ -7,6 +7,8 @@ using System.Text.Json;
 
 namespace ManiacSoftwares.PESE;
 
+internal sealed record BrainStartupProgress(string Stage, int Completed, int Total);
+
 internal sealed class BrainProcess : IAsyncDisposable
 {
     private Process? process;
@@ -35,6 +37,8 @@ internal sealed class BrainProcess : IAsyncDisposable
         // Isolated CPython ignores PYTHONPATH; remove inherited development flags as well.
         foreach (var key in info.Environment.Keys.Where(k => k.StartsWith("PESE_", StringComparison.OrdinalIgnoreCase)
                      || k.StartsWith("PYTHON", StringComparison.OrdinalIgnoreCase)).ToArray()) info.Environment.Remove(key);
+        if (Paths.AcceptanceProfile is not null)
+            info.Environment["LOCALAPPDATA"] = Directory.GetParent(Directory.GetParent(Paths.AcceptanceProfile)!.FullName)!.FullName;
         return info;
     }
 
@@ -58,7 +62,7 @@ internal sealed class BrainProcess : IAsyncDisposable
         return root;
     }
 
-    public async Task StartAsync(string path, CancellationToken cancellation)
+    public async Task StartAsync(string path, CancellationToken cancellation, IProgress<BrainStartupProgress>? progress = null)
     {
         try
         {
@@ -77,7 +81,7 @@ internal sealed class BrainProcess : IAsyncDisposable
             await process.StandardInput.WriteLineAsync(JsonSerializer.Serialize(new { action = "serve", brainPath = path, token = Token }));
             process.StandardInput.Close();
             using var startup = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
-            startup.CancelAfter(TimeSpan.FromSeconds(120));
+            startup.CancelAfter(TimeSpan.FromMinutes(15));
             string? line;
             while ((line = await process.StandardOutput.ReadLineAsync(startup.Token)) is not null)
             {
@@ -93,15 +97,42 @@ internal sealed class BrainProcess : IAsyncDisposable
                     : "Your Brain could not start. Verify the Brain and installation assets.");
             }
             string? launchError = null;
+            var initialized = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
             outputTask = Task.Run(async () =>
             {
-                while (await process.StandardOutput.ReadLineAsync() is { } next)
-                    if (next.StartsWith("{\"ok\": false"))
+                try
+                {
+                    while (await process.StandardOutput.ReadLineAsync() is { } next)
                     {
-                        try { launchError = JsonDocument.Parse(next).RootElement.GetProperty("message").GetString(); } catch { }
+                        if (next.StartsWith("PESE_STARTUP "))
+                        {
+                            try
+                            {
+                                using var status = JsonDocument.Parse(next[13..]);
+                                var stage = status.RootElement.GetProperty("stage").GetString()!;
+                                var completed = status.RootElement.GetProperty("completed").GetInt32();
+                                var total = status.RootElement.GetProperty("total").GetInt32();
+                                if (new[] { "loading", "model", "lexical", "passages", "documents", "vectors", "finalizing", "ready" }.Contains(stage)
+                                    && completed >= 0 && total >= 0 && completed <= total)
+                                {
+                                    progress?.Report(new(stage, completed, total));
+                                    if (stage == "ready") initialized.TrySetResult(true);
+                                }
+                            }
+                            catch (JsonException) { }
+                        }
+                        else if (next.StartsWith("{\"ok\": false"))
+                        {
+                            try { launchError = JsonDocument.Parse(next).RootElement.GetProperty("message").GetString(); } catch { }
+                        }
                     }
+                }
+                finally { initialized.TrySetException(new InvalidOperationException(launchError ?? "The engine exited before completing its local search rebuild.")); }
             });
             Client.DefaultRequestHeaders.Add("X-PESE-Token", Token);
+            // Uvicorn cannot serve requests until its startup lifecycle finishes.
+            // Wait for that signal before probing health, then verify it over HTTP.
+            await initialized.Task.WaitAsync(startup.Token);
             while (!startup.IsCancellationRequested)
             {
                 if (process.HasExited)
@@ -135,6 +166,22 @@ internal sealed class BrainProcess : IAsyncDisposable
     {
         using var json = JsonDocument.Parse(line);
         throw new InvalidOperationException(json.RootElement.GetProperty("message").GetString());
+    }
+
+    internal async Task StopForUpdateAsync(CancellationToken cancellation)
+    {
+        if (process is not { HasExited: false }) return;
+        if (Origin is null) throw new InvalidOperationException("The engine is not ready to stop safely.");
+        using var requestTimeout = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
+        requestTimeout.CancelAfter(TimeSpan.FromSeconds(5));
+        using var response = await Client.PostAsync(Origin + "/desktop/shutdown", null, requestTimeout.Token);
+        response.EnsureSuccessStatusCode();
+        using var drain = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
+        drain.CancelAfter(TimeSpan.FromMinutes(2));
+        await process.WaitForExitAsync(drain.Token);
+        if (process.ExitCode != 0) throw new InvalidOperationException("The engine did not close cleanly.");
+        job?.Dispose(); job = null;
+        Log.Write("brain_update_shutdown_complete");
     }
 
     public async ValueTask DisposeAsync()

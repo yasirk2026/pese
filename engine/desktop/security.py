@@ -3,8 +3,9 @@ import hmac
 
 
 class DesktopBoundary:
-    def __init__(self, app, token: str, origin: str):
+    def __init__(self, app, token: str, origin: str, is_stopping=None):
         self.app, self.token, self.origin = app, token, origin
+        self.is_stopping = is_stopping or (lambda: False)
 
     async def __call__(self, scope, receive, send):
         if scope["type"] != "http":
@@ -20,6 +21,8 @@ class DesktopBoundary:
             status = 403
         elif private and not hmac.compare_digest(supplied, self.token):
             status = 401
+        elif scope["path"].startswith("/api/") and self.is_stopping():
+            status = 503
         if status:
             await send({"type": "http.response.start", "status": status,
                         "headers": [(b"content-type", b"application/json"), (b"cache-control", b"no-store")]})

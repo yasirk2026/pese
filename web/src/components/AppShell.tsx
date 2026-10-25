@@ -258,7 +258,7 @@ export const AppShell: React.FC<AppShellProps> = ({
               </div>
               <div>
                 <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 text-base">
-                  PESE {updateInfo.targetVersion || "Update"} Ready
+                  PESE {updateInfo.targetVersion || "Update"} available
                 </h3>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">
                   Current version: {updateInfo.currentVersion}
@@ -267,9 +267,10 @@ export const AppShell: React.FC<AppShellProps> = ({
             </div>
 
             <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-5 leading-relaxed">
-              A new release of PESE is available. Your personal Brain and search data remain completely preserved during updates.
+              The update replaces application files. PESE closes the search engine before installation and reuses your selected Brain when it restarts.
             </p>
 
+            {updateInfo.releaseNotes && <pre className="whitespace-pre-wrap font-sans text-xs max-h-48 overflow-y-auto mb-5">{updateInfo.releaseNotes}</pre>}
             {updateInfo.status === "downloading" && (
               <div className="mb-5 space-y-2">
                 <div className="flex justify-between text-xs font-mono text-neutral-500">
@@ -315,7 +316,7 @@ export const AppShell: React.FC<AppShellProps> = ({
                   className="px-4 py-2 rounded-xl text-xs font-medium bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <RotateCw className="w-3.5 h-3.5" />
-                  <span>Restart & Apply</span>
+                  <span>Update and restart</span>
                 </button>
               ) : updateInfo.status === "downloading" ? (
                 <button
@@ -330,6 +331,7 @@ export const AppShell: React.FC<AppShellProps> = ({
                 <button
                   type="button"
                   onClick={downloadUpdate}
+                  disabled={updateInfo.status !== "available" && updateInfo.status !== "failed"}
                   className="px-4 py-2 rounded-xl text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />

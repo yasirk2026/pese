@@ -16,7 +16,13 @@ internal static class Program
         if (args.Length > 0 && args[0] == "--capture-screens")
             return Acceptance.CaptureScreenshots(args.Skip(1).ToArray());
         // Installer/update hooks must run before WPF or the single-instance gate.
-        VelopackApp.Build().Run();
+        // A second launch must never activate a cached update before the
+        // single-instance gate or bypass the explicit engine-drain path.
+        VelopackApp.Build().SetAutoApplyOnStartup(false).Run();
+        if (args.Length > 0 && args[0] == "--accept-update-ui")
+            return UpdateUiAcceptance.Run(args.Skip(1).ToArray());
+        if (args.Length > 0 && args[0] is "--accept-updater" or "--accept-update-restarted")
+            return UpdateAcceptance.RunAsync(args[0], args.Skip(1).ToArray()).GetAwaiter().GetResult();
         if (args.Length > 0 && args[0] == "--self-test")
             return Acceptance.RunAsync(args.Skip(1).ToArray()).GetAwaiter().GetResult();
 
@@ -70,8 +76,9 @@ internal static class Program
 
 internal static class Paths
 {
+    internal static string? AcceptanceProfile;
     public static string Install => AppContext.BaseDirectory;
-    public static string Profile => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ManiacSoftwares", "PESE");
+    public static string Profile => AcceptanceProfile ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ManiacSoftwares", "PESE");
     public static string Settings => Path.Combine(Profile, "desktop-settings.json");
     public static string Recommended => Path.Combine(Profile, "Brain");
     public static string? LoadBrain()
