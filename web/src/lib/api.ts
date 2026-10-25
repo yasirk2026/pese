@@ -8,6 +8,9 @@ export function getApiBase(): string {
   if (typeof window !== "undefined") {
     const injected = (window as unknown as { __PESE_CONFIG__?: { apiBase?: string } }).__PESE_CONFIG__?.apiBase;
     if (injected) return injected;
+    if (window.location && window.location.origin && window.location.origin !== "null") {
+      return window.location.origin;
+    }
   }
   return process.env.NEXT_PUBLIC_ENGINE_API_URL || "http://localhost:8000";
 }

@@ -18,6 +18,7 @@ interface SearchAutocompleteProps {
   onSearchSubmit?: (query: string) => void;
   size?: "large" | "medium";
   className?: string;
+  disabled?: boolean;
 }
 
 export const SearchAutocomplete: React.FC<SearchAutocompleteProps> = ({
@@ -27,6 +28,7 @@ export const SearchAutocomplete: React.FC<SearchAutocompleteProps> = ({
   onSearchSubmit,
   size = "medium",
   className = "",
+  disabled = false,
 }) => {
   const [query, setQuery] = useState(initialQuery);
   const [suggestions, setSuggestions] = useState<AutocompleteSuggestion[]>([]);
@@ -224,8 +226,11 @@ export const SearchAutocomplete: React.FC<SearchAutocompleteProps> = ({
             onFocus={() => {
               if (suggestions.length > 0 && query.trim()) setIsOpen(true);
             }}
+            disabled={disabled}
             placeholder={placeholder}
             className={`w-full bg-white dark:bg-neutral-900/90 border border-neutral-300 dark:border-neutral-700/80 text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all ${
+              disabled ? "opacity-60 cursor-not-allowed " : ""
+            }${
               isLarge
                 ? "py-3.5 pl-12 pr-12 text-base sm:text-lg rounded-2xl shadow-xs hover:border-neutral-400 dark:hover:border-neutral-600 focus:shadow-md"
                 : "py-2 pl-10 pr-10 text-sm rounded-xl shadow-xs"
@@ -235,7 +240,10 @@ export const SearchAutocomplete: React.FC<SearchAutocompleteProps> = ({
           <button
             type="submit"
             aria-label="Search"
-            className="absolute inset-y-0 right-0 pr-4 flex items-center text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors"
+            disabled={disabled}
+            className={`absolute inset-y-0 right-0 pr-4 flex items-center text-neutral-400 transition-colors ${
+              disabled ? "cursor-not-allowed opacity-40" : "hover:text-neutral-700 dark:hover:text-neutral-200 cursor-pointer"
+            }`}
           >
             <CornerDownLeft className={isLarge ? "w-5 h-5" : "w-4 h-4"} />
           </button>

@@ -82,25 +82,6 @@ function SearchQuery({query, forceRaw, debugMode, setDebugMode}: {
     const controller = new AbortController();
     const sid = getOrCreateSessionId();
 
-    searchDocuments(query, debugMode, 20, forceRaw, sid, "hybrid", controller.signal)
-      .then((searchRes) => {
-        if (!active) return;
-        setSearchData(searchRes);
-        setResults(searchRes.results);
-        setTookMs(searchRes.took_ms);
-        setClientTookMs(performance.now() - t0);
-        setLoading(false);
-        loadDiscovery();
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          if (active) setVisibleTookMs(performance.now() - t0);
-        }));
-      })
-      .catch((err) => {
-        if (!active) return;
-        setError(err.message || "Failed to retrieve search results");
-        setLoading(false);
-      });
-
     const loadDiscovery = () => {
       getPAAQuestions(query, sid, 4, debugMode, controller.signal)
         .then((paaRes) => {
@@ -124,6 +105,28 @@ function SearchQuery({query, forceRaw, debugMode, setDebugMode}: {
           setDiscoveryErrors((errors) => [...errors, `Related: ${err.message}`]);
         });
     };
+
+    // Load discovery (You Might Also Ask & Related Searches) in parallel with primary retrieval
+    loadDiscovery();
+
+    searchDocuments(query, debugMode, 20, forceRaw, sid, "hybrid", controller.signal)
+      .then((searchRes) => {
+        if (!active) return;
+        setSearchData(searchRes);
+        setResults(searchRes.results);
+        setTookMs(searchRes.took_ms);
+        setClientTookMs(performance.now() - t0);
+        setLoading(false);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          if (active) setVisibleTookMs(performance.now() - t0);
+        }));
+      })
+      .catch((err) => {
+        if (!active) return;
+        setError(err.message || "Failed to retrieve search results");
+        setLoading(false);
+      });
+
     return () => { active = false; controller.abort(); };
   }, [query, forceRaw, debugMode]);
 

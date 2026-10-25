@@ -50,7 +50,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const THEME_STORAGE_KEY = "pese_theme";
 const DEV_MODE_STORAGE_KEY = "pese_developer_mode";
-const APP_VERSION = "0.1.0-alpha.3";
+const APP_VERSION = "0.1.0-alpha.4";
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>("dark");
@@ -92,24 +92,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (savedDevMode !== null) {
           setDeveloperModeState(savedDevMode === "true");
         }
-      }
-
-      const mockUpdate = searchParams.get("mock_update");
-      if (mockUpdate === "available") {
-        setUpdateInfo({
-          status: "available",
-          currentVersion: APP_VERSION,
-          targetVersion: "0.1.0-alpha.4",
-          releaseNotes: "• Neural Genesis benchmark evaluation engine v2\n• Vector cache acceleration for FastEmbed\n• Local profile synchronization across local Brains",
-        });
-        setShowUpdateModal(true);
-      } else if (mockUpdate === "downloading") {
-        setUpdateInfo({
-          status: "downloading",
-          currentVersion: APP_VERSION,
-          targetVersion: "0.1.0-alpha.4",
-          progress: 68,
-        });
       }
     } catch {}
 

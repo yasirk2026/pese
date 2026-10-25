@@ -90,9 +90,22 @@ internal static class Log
         {
             var dir = Path.Combine(Paths.Profile, "Logs"); Directory.CreateDirectory(dir);
             var file = Path.Combine(dir, "desktop.log");
-            if (File.Exists(file) && new FileInfo(file).Length > 1024 * 1024)
+            if (File.Exists(file) && new FileInfo(file).Length > 2 * 1024 * 1024)
                 File.Move(file, file + ".previous", true);
             File.AppendAllText(file, $"{DateTimeOffset.UtcNow:O} {code} {detail}\n");
+        }
+        catch { }
+    }
+
+    public static void WriteDiagnostic(string section, string message)
+    {
+        try
+        {
+            var dir = Path.Combine(Paths.Profile, "Logs"); Directory.CreateDirectory(dir);
+            var file = Path.Combine(dir, "desktop.log");
+            if (File.Exists(file) && new FileInfo(file).Length > 2 * 1024 * 1024)
+                File.Move(file, file + ".previous", true);
+            File.AppendAllText(file, $"{DateTimeOffset.UtcNow:O} [DIAGNOSTIC:{section}] {message}\n");
         }
         catch { }
     }

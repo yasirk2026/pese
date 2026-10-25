@@ -12,6 +12,7 @@ internal sealed class BrainProcess : IAsyncDisposable
     private Process? process;
     private Job? job;
     private Task? outputTask, errorTask;
+    private readonly System.Collections.Concurrent.ConcurrentQueue<string> stderrBuffer = new();
     public string Token { get; } = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
     public string? Origin { get; private set; }
     public int ProcessId => process?.Id ?? 0;
@@ -64,7 +65,15 @@ internal sealed class BrainProcess : IAsyncDisposable
             job = new Job(); process = new Process { StartInfo = StartInfo(), EnableRaisingEvents = true };
             process.Start(); job.Add(process);
             // Child blocks on stdin before any Brain import or write, until job ownership is established.
-            errorTask = Task.Run(async () => { while (await process.StandardError.ReadLineAsync() is not null) { } });
+            errorTask = Task.Run(async () =>
+            {
+                while (await process.StandardError.ReadLineAsync() is { } errLine)
+                {
+                    stderrBuffer.Enqueue(errLine);
+                    while (stderrBuffer.Count > 100) stderrBuffer.TryDequeue(out _);
+                    Log.WriteDiagnostic("python_stderr", errLine);
+                }
+            });
             await process.StandardInput.WriteLineAsync(JsonSerializer.Serialize(new { action = "serve", brainPath = path, token = Token }));
             process.StandardInput.Close();
             using var startup = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
@@ -76,7 +85,13 @@ internal sealed class BrainProcess : IAsyncDisposable
                 { Origin = $"http://127.0.0.1:{port}"; break; }
                 if (line.StartsWith("{\"ok\": false")) ThrowProtocolError(line);
             }
-            if (Origin is null) throw new InvalidOperationException("Your Brain could not start. Verify the Brain and installation assets.");
+            if (Origin is null)
+            {
+                var recentStderr = string.Join("\n", stderrBuffer.ToArray().TakeLast(8));
+                throw new InvalidOperationException(!string.IsNullOrWhiteSpace(recentStderr)
+                    ? $"Your Brain could not start:\n{recentStderr}"
+                    : "Your Brain could not start. Verify the Brain and installation assets.");
+            }
             string? launchError = null;
             outputTask = Task.Run(async () =>
             {
@@ -92,7 +107,9 @@ internal sealed class BrainProcess : IAsyncDisposable
                 if (process.HasExited)
                 {
                     await outputTask;
-                    throw new InvalidOperationException(launchError ?? "Your Brain stopped during startup. Verify the installation and selected folder.");
+                    var recentStderr = string.Join("\n", stderrBuffer.ToArray().TakeLast(8));
+                    var finalError = launchError ?? (!string.IsNullOrWhiteSpace(recentStderr) ? $"Engine stopped:\n{recentStderr}" : "Your Brain stopped during startup. Verify the installation and selected folder.");
+                    throw new InvalidOperationException(finalError);
                 }
                 try
                 {

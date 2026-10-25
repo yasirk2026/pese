@@ -39,6 +39,7 @@ engine/neural/data/private/
 *.sqlite*
 *.log
 .tmp/
+.tmp_test/
 engine/data/demo_runtime/
 release/
 

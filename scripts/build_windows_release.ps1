@@ -4,10 +4,11 @@ param(
     [string]$Dotnet = '',
     [string]$Vpk = '',
     [string]$NugetCache = '',
-    [string]$Version = '0.1.0-alpha.3',
+    [string]$Version = '0.1.0-alpha.4',
     [switch]$SkipVerifiedChecks
 )
-$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Continue'
+if ($PSVersionTable.PSVersion.Major -ge 7) { $PSNativeCommandUseErrorActionPreference = $false }
 if (!$PSScriptRoot) { $PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Definition }
 $repo = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 if (!$BuildRoot) { $BuildRoot = Join-Path ([IO.Path]::GetTempPath()) 'PESE Desktop Build' }

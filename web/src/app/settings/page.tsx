@@ -129,7 +129,7 @@ function SettingsContent() {
             (typeof window !== "undefined" &&
               (window as unknown as { __PESE_CONFIG__?: { brainPath?: string } })
                 .__PESE_CONFIG__?.brainPath) ||
-            "C:\\Users\\Yasir\\AppData\\Local\\ManiacSoftwares\\PESE\\Brain",
+            "%LOCALAPPDATA%\\ManiacSoftwares\\PESE\\Brain",
           status: "active",
           document_count: 222,
           schema_version: 1,
@@ -353,7 +353,7 @@ function SettingsContent() {
                     <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800/80">
                       <span className="text-xs text-neutral-500 dark:text-neutral-400">Release Version</span>
                       <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mt-0.5">
-                        0.1.0-alpha.3
+                        0.1.0-alpha.4
                       </p>
                     </div>
                     <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800/80">
