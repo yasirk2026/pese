@@ -93,3 +93,25 @@ def test_unusable_semantic_model_never_reaches_readiness(monkeypatch):
             pytest.fail("readiness must not be reached")
     with pytest.raises(RuntimeError, match="search is not ready"):
         asyncio.run(run())
+
+
+def test_private_empty_brain_stays_empty_during_startup(tmp_path, monkeypatch):
+    from engine.api import main as api
+    from engine.indexing.store import DocumentStore
+    for name in ("store", "vector_index", "index", "graph", "link_auth", "engine", "active_snapshot",
+                 "autocomplete_engine", "related_engine", "paa_engine", "family_registry", "publication_state"):
+        monkeypatch.setattr(api, name, getattr(api, name))
+    store = DocumentStore(tmp_path / "documents.json")
+    monkeypatch.setattr(api, "store", store)
+    monkeypatch.setattr(api, "vector_index", VectorIndex(DeterministicMockProvider(), tmp_path / "vectors"))
+    monkeypatch.setattr(api, "publication_state", dict(api.publication_state))
+    monkeypatch.setattr(api, "DEMO", False)
+    def unexpected_seed(*args):
+        pytest.fail("Private Brain contents must not be replaced by demo notes")
+    monkeypatch.setattr(api, "seed_demo", unexpected_seed)
+    async def run():
+        async with api.lifespan(api.app):
+            assert store.list_documents() == []
+            assert api.health_check()["status"] == "healthy"
+            assert api.health_check()["documents_indexed"] == 0
+    asyncio.run(run())

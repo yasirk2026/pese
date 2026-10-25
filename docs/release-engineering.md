@@ -78,6 +78,17 @@ exit is mandatory. The updater then waits for a normal host exit and restarts.
 The new launch's native version is the evidence of success.
 Velopack's default startup auto-apply is explicitly disabled: a second launch
 cannot activate a cached update before the single-instance gate or engine drain.
+Appearance/developer choices live in the user's `ui-preferences.json`, separately
+from `desktop-settings.json`. They no longer depend on the temporary engine port.
+Privacy, profile, feedback and documents remain in the selected Brain. The native
+update UI acceptance chooses a nondefault appearance and verifies the updated
+loader reads the same preference after the origin changes.
+
+Successful validated index generations atomically checkpoint only the local
+content-hashed vector cache. Interrupted writes leave the previous cache intact.
+The host displays progress during a bounded 15-minute cache-free startup and
+waits for both the completed lifecycle signal and a healthy authenticated API.
+No vector cache is part of Google snapshots; G1 transfer/recovery remains separate.
 
 ## Local acceptance and account safety
 

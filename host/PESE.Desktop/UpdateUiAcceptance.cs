@@ -61,6 +61,10 @@ internal static class UpdateUiAcceptance
                     var clicked = await core.ExecuteScriptAsync($"(() => {{ const b = [...document.querySelectorAll('button')].reverse().find(b => b.innerText.trim().startsWith({value}) && !b.disabled); if (!b) return false; b.click(); return true; }})()");
                     if (clicked != "true") throw new InvalidOperationException("Required update button unavailable: " + prefix);
                 }
+                core.Navigate(window.UpdateAcceptanceBrain!.Origin + "/settings/?tab=appearance");
+                await Until(async () => core.Source.Contains("tab=appearance") && (await Body()).Contains("Light"));
+                await Click("Light");
+                await Until(() => Task.FromResult(DesktopPreferencesStore.Load()?.theme == "light"));
                 phase = "settings";
                 core.Navigate(window.UpdateAcceptanceBrain!.Origin + "/settings/?tab=updates");
                 await Until(async () => core.Source.Contains("tab=updates") && (await Body()).Contains("Check for updates"));
@@ -84,6 +88,7 @@ internal static class UpdateUiAcceptance
                         && !Path.GetFileName(p).StartsWith('.') && !p.EndsWith("-shm") && !p.EndsWith("-wal"))
                     .ToDictionary(p => Path.GetRelativePath(brain, p), p => Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(p))));
                 canonical["desktop-pointer"] = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Paths.Settings)));
+                canonical["appearance-preferences"] = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(DesktopPreferencesStore.FilePath)));
                 File.WriteAllText(Path.Combine(root, "update-before.json"), JsonSerializer.Serialize(new {
                     passed = true, canonical, version = SoftwareUpdates.Version, target,
                     nativeUi = true, packageNotesVisible = true, readyToRestart = true }));

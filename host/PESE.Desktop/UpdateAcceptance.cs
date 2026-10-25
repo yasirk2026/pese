@@ -46,6 +46,8 @@ internal static class UpdateAcceptance
                         && !Path.GetFileName(p).StartsWith('.') && !p.EndsWith("-shm") && !p.EndsWith("-wal"))
                     .ToDictionary(p => Path.GetRelativePath(path, p), p => Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(p))));
                 result["desktop-pointer"] = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Paths.Settings)));
+                if (File.Exists(DesktopPreferencesStore.FilePath))
+                    result["appearance-preferences"] = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(DesktopPreferencesStore.FilePath)));
                 return result;
             }
             var states = new List<UpdateState>();
@@ -61,6 +63,9 @@ internal static class UpdateAcceptance
             {
                 var expected = plan.RootElement.GetProperty("targetVersion").GetString();
                 if (SoftwareUpdates.Version != expected) throw new InvalidDataException("The restarted binary is the wrong version.");
+                var preferencesRestored = !plan.RootElement.TryGetProperty("expectedTheme", out var expectedTheme) ||
+                    DesktopPreferencesStore.Load()?.theme == expectedTheme.GetString();
+                if (!preferencesRestored) throw new InvalidDataException("Appearance preferences did not survive the new origin.");
                 using var before = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "update-before.json")));
                 var baseline = before.RootElement.GetProperty("canonical").Deserialize<Dictionary<string, string>>()!;
                 if (baseline.Count != original.Count || baseline.Any(x => !original.TryGetValue(x.Key, out var value) || value != x.Value))
@@ -69,7 +74,7 @@ internal static class UpdateAcceptance
                 result.EnsureSuccessStatusCode();
                 await brain.StopForUpdateAsync(CancellationToken.None);
                 File.WriteAllText(report, JsonSerializer.Serialize(new { passed = true, version = SoftwareUpdates.Version,
-                    identity, health, canonical = Digests(), engineExited = !brain.Running, realRestart = true }, new JsonSerializerOptions { WriteIndented = true }));
+                    identity, health, canonical = Digests(), engineExited = !brain.Running, realRestart = true, preferencesRestored }, new JsonSerializerOptions { WriteIndented = true }));
                 return 0;
             }
             var failureReceipt = Path.Combine(root, "download-faults-passed.json");

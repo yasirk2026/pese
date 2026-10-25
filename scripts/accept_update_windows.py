@@ -101,14 +101,19 @@ def main():
                     for table in ("active_preferences", "feedback_audit_events", "neural_shadow_observations")}
     before_rows = logical_rows()
     plan = root / "plan.json"
-    plan.write_text(json.dumps({"install": str(install), "brain": str(brain), "feed": str(feed),
+    plan_data = {"install": str(install), "brain": str(brain), "feed": str(feed),
         "targetVersion": targets[0]["Version"],
-        "expectedNotes": targets[0].get("NotesMarkdown", "").splitlines()[0].lstrip("# ")}, indent=2), encoding="utf-8")
+        "expectedNotes": targets[0].get("NotesMarkdown", "").splitlines()[0].lstrip("# ")}
+    if args.ui:
+        plan_data["expectedTheme"] = "light"
+    plan.write_text(json.dumps(plan_data, indent=2), encoding="utf-8")
     command = "--accept-update-ui" if args.ui else "--accept-updater"
     process = subprocess.Popen([str(current / "PESE.exe"), command, str(plan)], cwd=current)
     code = process.wait(timeout=600)
     if code:
         raise RuntimeError(f"Native update handoff failed ({code}); inspect the private case report")
+    if json.loads((root / "update-before.json").read_text(encoding="utf-8"))["version"] != base_source["version"]:
+        raise RuntimeError("The installed executable version differs from its source/package metadata")
     interrupted = False
     if args.interrupt_before_activation:
         first_handoff_time = (root / "update-before.json").stat().st_mtime_ns
@@ -146,7 +151,8 @@ def main():
                     raise RuntimeError("The old executable changed before activation")
                 drained = json.loads((root / "update-before.json").read_text(encoding="utf-8"))["canonical"]
                 for name, expected in drained.items():
-                    path = profile / "ManiacSoftwares/PESE/desktop-settings.json" if name == "desktop-pointer" else brain / name
+                    special = {"desktop-pointer": profile / "ManiacSoftwares/PESE/desktop-settings.json", "appearance-preferences": profile / "ManiacSoftwares/PESE/ui-preferences.json"}
+                    path = special.get(name, brain / name)
                     if hashlib.sha256(path.read_bytes()).hexdigest().upper() != expected:
                         raise RuntimeError("Fixture data changed during interrupted update")
                 interrupted = True
@@ -169,6 +175,8 @@ def main():
         time.sleep(0.25)
     if not after.exists() or not json.loads(after.read_text(encoding="utf-8"))["passed"]:
         raise RuntimeError("The restarted target did not pass acceptance")
+    if args.ui and not json.loads(after.read_text(encoding="utf-8")).get("preferencesRestored"):
+        raise RuntimeError("Native preferences did not survive the new engine origin")
     if hashlib.sha256(account_sentinel.read_bytes()).hexdigest() != account_digest:
         raise RuntimeError("The synthetic account sentinel changed during update")
     after_rows = logical_rows()
