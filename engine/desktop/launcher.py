@@ -95,6 +95,7 @@ def serve(command):
 
     os.environ.update(PESE_ENV="production", PESE_BRAIN_PATH=info.path,
                       PESE_DATA_DIR=info.path, PESE_STORAGE_BACKEND="local", PESE_PROFILE="private",
+                      PESE_STARTUP_PROGRESS="1",
                       HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1", HF_HUB_DISABLE_TELEMETRY="1",
                       PESE_PREWARM_QA="0")
     for key in ("PESE_QA_CHECKPOINT", "PESE_REL_CHECKPOINT", "GOOGLE_APPLICATION_CREDENTIALS"):
@@ -121,6 +122,8 @@ def serve(command):
     origin = f"http://127.0.0.1:{port}"
     print("PESE_PORT " + str(port), flush=True)
 
+    from engine.startup_progress import emit_progress
+    emit_progress("loading", 0, 0)
     from engine.api.main import app
     # CORS is for the separate Next development server only. Desktop is same-origin.
     app.user_middleware.clear()

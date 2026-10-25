@@ -7,6 +7,7 @@ and fast local dot-product similarity search.
 import os
 import json
 import hashlib
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Dict, Tuple, Optional, Any
@@ -17,6 +18,7 @@ from .provider import EmbeddingProvider, FastembedProvider
 from ..indexing.document import Document
 from ..indexing.passage import Passage
 from ..config import RUNTIME_ROOT
+from ..startup_progress import embedding_phase
 
 
 DEFAULT_INDEX_DIR = RUNTIME_ROOT / "semantic_index"
@@ -69,18 +71,35 @@ class VectorIndex:
         cache_file = self.index_dir / "cache_store.npz"
         if cache_file.exists():
             try:
-                npz = np.load(cache_file, allow_pickle=False)
-                for k in npz.files:
-                    self._hash_cache[k] = npz[k]
+                with np.load(cache_file, allow_pickle=False) as npz:
+                    dimension = self.provider.get_metadata().get("vector_dimension", 384)
+                    for k in npz.files:
+                        vector = npz[k]
+                        if vector.shape == (dimension,) and np.isfinite(vector).all():
+                            self._hash_cache[k] = vector
             except Exception as e:
                 print(f"[VectorIndex] Warning: Failed to load cache_store.npz: {e}")
 
-    def _save_cache(self) -> None:
+    def _save_cache(self) -> bool:
         cache_file = self.index_dir / "cache_store.npz"
+        temporary = None
         try:
-            np.savez_compressed(cache_file, **self._hash_cache)
+            with tempfile.NamedTemporaryFile(dir=self.index_dir, prefix=".cache-", suffix=".npz", delete=False) as stream:
+                temporary = Path(stream.name)
+                np.savez_compressed(stream, **self._hash_cache)
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.replace(temporary, cache_file)
+            return True
         except Exception as e:
             print(f"[VectorIndex] Warning: Failed to save cache_store.npz: {e}")
+            return False
+        finally:
+            if temporary is not None:
+                try:
+                    temporary.unlink(missing_ok=True)
+                except OSError:
+                    pass
 
     def build_index(
         self,
@@ -132,7 +151,8 @@ class VectorIndex:
         # Embed passage cache misses
         if passages_to_embed:
             texts = [item[1] for item in passages_to_embed]
-            embedded_matrix = self.provider.embed_texts(texts)
+            with embedding_phase("passages"):
+                embedded_matrix = self.provider.embed_texts(texts)
             for idx, (p_idx, text, p) in enumerate(passages_to_embed):
                 vec = embedded_matrix[idx]
                 meta = new_passage_meta[p_idx]
@@ -168,7 +188,8 @@ class VectorIndex:
         # Embed document cache misses
         if docs_to_embed:
             texts = [item[1] for item in docs_to_embed]
-            embedded_matrix = self.provider.embed_texts(texts)
+            with embedding_phase("documents"):
+                embedded_matrix = self.provider.embed_texts(texts)
             for idx, (d_idx, text, doc) in enumerate(docs_to_embed):
                 vec = embedded_matrix[idx]
                 meta = new_doc_meta[d_idx]
