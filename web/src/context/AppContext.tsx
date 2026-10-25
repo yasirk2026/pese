@@ -50,7 +50,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const THEME_STORAGE_KEY = "pese_theme";
 const DEV_MODE_STORAGE_KEY = "pese_developer_mode";
-const APP_VERSION = "0.1.0-alpha.4";
+const APP_VERSION = "Desktop version unavailable";
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>("dark");
@@ -131,11 +131,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               ...prev,
               status: nextStatus,
               currentVersion: data.currentVersion || prev.currentVersion,
-              targetVersion: data.targetVersion || prev.targetVersion,
+              targetVersion: data.targetVersion ?? undefined,
               progress: typeof data.progress === "number" ? data.progress : prev.progress,
               error: data.error,
               lastChecked: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-              releaseNotes: data.releaseNotes || prev.releaseNotes,
+              releaseNotes: data.releaseNotes ?? undefined,
             };
           });
         }
@@ -145,6 +145,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const nav = window as unknown as { chrome?: { webview?: { addEventListener: (t: string, cb: (e: MessageEvent) => void) => void; removeEventListener: (t: string, cb: (e: MessageEvent) => void) => void } } };
     if (nav.chrome?.webview) {
       nav.chrome.webview.addEventListener("message", handleHostMessage);
+      (nav.chrome.webview as unknown as { postMessage: (msg: string) => void }).postMessage("get_update_status");
       return () => nav.chrome?.webview?.removeEventListener("message", handleHostMessage);
     }
   }, [updateDismissed]);
@@ -227,56 +228,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     ? `/api/profile/avatar?t=${avatarTimestamp}`
     : null;
 
-  const checkForUpdates = useCallback(() => {
-    setUpdateInfo((prev) => ({
-      ...prev,
-      status: "checking",
-      error: undefined,
-    }));
-
-    const nav = window as unknown as { chrome?: { webview?: { postMessage: (msg: string) => void } } };
-    if (nav.chrome?.webview) {
-      nav.chrome.webview.postMessage("check_updates");
-    } else {
-      // Browser / dev simulated check
-      setTimeout(() => {
-        setUpdateInfo((prev) => ({
-          ...prev,
-          status: "up_to_date",
-          currentVersion: APP_VERSION,
-          lastChecked: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        }));
-      }, 700);
-    }
+  const sendUpdateCommand = useCallback((command: string) => {
+    const host = (window as unknown as { chrome?: { webview?: { postMessage: (msg: string) => void } } }).chrome?.webview;
+    if (host) host.postMessage(command);
+    else setUpdateInfo((prev) => ({ ...prev, status: "failed", error: "Open the installed Windows application to manage updates." }));
   }, []);
 
-  const downloadUpdate = useCallback(() => {
-    setUpdateInfo((prev) => ({ ...prev, status: "downloading", progress: 0 }));
-    const nav = window as unknown as { chrome?: { webview?: { postMessage: (msg: string) => void } } };
-    if (nav.chrome?.webview) {
-      nav.chrome.webview.postMessage("download_update");
-    } else {
-      // Dev simulated download
-      let p = 0;
-      const interval = setInterval(() => {
-        p += 25;
-        if (p >= 100) {
-          clearInterval(interval);
-          setUpdateInfo((prev) => ({ ...prev, status: "ready", progress: 100 }));
-        } else {
-          setUpdateInfo((prev) => ({ ...prev, progress: p }));
-        }
-      }, 300);
-    }
-  }, []);
-
-  const installAndRestart = useCallback(() => {
-    setUpdateInfo((prev) => ({ ...prev, status: "installing" }));
-    const nav = window as unknown as { chrome?: { webview?: { postMessage: (msg: string) => void } } };
-    if (nav.chrome?.webview) {
-      nav.chrome.webview.postMessage("install_update");
-    }
-  }, []);
+  const checkForUpdates = useCallback(() => sendUpdateCommand("check_updates"), [sendUpdateCommand]);
+  const downloadUpdate = useCallback(() => sendUpdateCommand("download_update"), [sendUpdateCommand]);
+  const installAndRestart = useCallback(() => sendUpdateCommand("install_update"), [sendUpdateCommand]);
 
   const dismissUpdateNotification = () => {
     setShowUpdateModal(false);

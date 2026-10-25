@@ -1,0 +1,2 @@
+# These frozen public datasets are verified by SHA-256 of their exact bytes.
+engine/neural/data/pese_rel_data_0/*.json text eol=lf

@@ -127,8 +127,13 @@ def serve(command):
     server = uvicorn.Server(uvicorn.Config(app, host="127.0.0.1", port=port,
                                            access_log=False, log_level="error"))
 
+    shutdown_state = {"stopping": False}
+
     @app.post("/desktop/shutdown", include_in_schema=False)
     async def shutdown():
+        # Existing ASGI requests finish under Uvicorn's graceful shutdown. Reject
+        # new operations before acknowledging shutdown to the native supervisor.
+        shutdown_state["stopping"] = True
         server.should_exit = True
         return JSONResponse({"stopping": True})
 
@@ -143,7 +148,8 @@ def serve(command):
         return {"external_connections_blocked": False}
 
     app.mount("/", StaticFiles(directory=APP_ROOT / "ui", html=True), name="desktop-ui")
-    app.add_middleware(DesktopBoundary, token=token, origin=origin)
+    app.add_middleware(DesktopBoundary, token=token, origin=origin,
+                       is_stopping=lambda: shutdown_state["stopping"])
     try:
         server.run(sockets=[listener])
     finally:

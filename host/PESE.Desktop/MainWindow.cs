@@ -31,7 +31,8 @@ internal sealed class MainWindow : Window
     private WindowState previousWindowState = WindowState.Normal;
     private WindowStyle previousWindowStyle = WindowStyle.SingleBorderWindow;
     private ResizeMode previousResizeMode = ResizeMode.CanResize;
-    private Velopack.UpdateInfo? pendingUpdate;
+    private readonly SoftwareUpdates updates;
+    private bool updateInstalling;
 
     private static readonly Color DarkBase = Color.FromRgb(9, 13, 22);
     private static readonly Color CardBg = Color.FromRgb(17, 24, 39);
@@ -46,6 +47,11 @@ internal sealed class MainWindow : Window
 
     public MainWindow()
     {
+        updates = new SoftwareUpdates(state => Dispatcher.BeginInvoke(new Action(() =>
+        {
+            try { browser?.CoreWebView2?.PostWebMessageAsJson(JsonSerializer.Serialize(state)); }
+            catch (ObjectDisposedException) { }
+        })));
         var workArea = SystemParameters.WorkArea;
         Title = "PESE — Personal Knowledge Engine";
         Width = Math.Min(1240, workArea.Width); Height = Math.Min(820, workArea.Height);
@@ -192,7 +198,7 @@ internal sealed class MainWindow : Window
         });
         brandHeader.Children.Add(new TextBlock
         {
-            Text = "0.1.0-alpha.4",
+            Text = SoftwareUpdates.Version,
             FontSize = 11,
             FontFamily = new FontFamily("Consolas, Segoe UI"),
             Foreground = SubduedInk,
@@ -564,7 +570,7 @@ internal sealed class MainWindow : Window
             core.Settings.AreBrowserAcceleratorKeysEnabled = false;
 #endif
             var origin = brain.Origin!;
-            var config = JsonSerializer.Serialize(new { apiBase = origin, token = brain.Token, desktop = true, brainPath = path, version = "0.1.0-alpha.4" });
+            var config = JsonSerializer.Serialize(new { apiBase = origin, token = brain.Token, desktop = true, brainPath = path, version = SoftwareUpdates.Version });
             // Direct runtime configuration injection and desktop keyboard handlers
             await core.AddScriptToExecuteOnDocumentCreatedAsync(
                 "try { " +
@@ -579,7 +585,9 @@ internal sealed class MainWindow : Window
             {
                 try
                 {
+                    if (!Internal(e.Source, origin) || !Internal(core.Source, origin) || closing || updateInstalling) return;
                     var msg = e.TryGetWebMessageAsString();
+                    if (msg.Length > 64) return;
                     if (msg == "change_brain" || msg == "new_brain")
                     {
                         await StopBrainAsync();
@@ -598,17 +606,21 @@ internal sealed class MainWindow : Window
                     {
                         ToggleFullscreen();
                     }
+                    else if (msg == "get_update_status")
+                    {
+                        updates.SendState();
+                    }
                     else if (msg == "check_updates")
                     {
-                        _ = Task.Run(async () => await CheckForUpdatesAsync(core));
+                        await updates.CheckAsync();
                     }
                     else if (msg == "download_update")
                     {
-                        _ = Task.Run(async () => await DownloadUpdateAsync(core));
+                        await updates.DownloadAsync(lifetime.Token);
                     }
                     else if (msg == "install_update")
                     {
-                        _ = Task.Run(async () => await ApplyUpdateAndRestartAsync(core));
+                        await ApplyUpdateAsync();
                     }
                 }
                 catch { }
@@ -637,7 +649,7 @@ internal sealed class MainWindow : Window
             _ = Task.Run(async () =>
             {
                 await Task.Delay(3000);
-                await CheckForUpdatesAsync(core);
+                await updates.CheckAsync();
             });
         }
         catch (WebView2RuntimeNotFoundException)
@@ -682,146 +694,31 @@ internal sealed class MainWindow : Window
         }
     }
 
-    private async Task CheckForUpdatesAsync(CoreWebView2 core)
+    private async Task ApplyUpdateAsync()
     {
+        if (updateInstalling || updates.State.status != "ready") return;
+        updateInstalling = true;
+        if (browser is not null) browser.IsEnabled = false;
         try
         {
-            await Dispatcher.InvokeAsync(() =>
-                core.PostWebMessageAsJson(JsonSerializer.Serialize(new { type = "update_status", status = "checking" })));
-
-            var app = Velopack.VelopackApp.Build();
-            var githubSource = new Velopack.Sources.GithubSource("https://github.com/yasirk2026/pese", null, false);
-            var feedDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ManiacSoftwares.PESE", "packages");
-            var devPkgDir = System.IO.Path.Combine(Paths.Install, "..", "..", "dist", "windows", "0.1.0-alpha.4", "packages");
-
-            Velopack.UpdateManager updateManager;
-            if (Directory.Exists(feedDir))
+            await updates.ApplyAsync(async () =>
             {
-                updateManager = new Velopack.UpdateManager(feedDir);
-            }
-            else if (Directory.Exists(devPkgDir))
+                monitor.Stop();
+                if (brain is not null) await brain.StopForUpdateAsync(lifetime.Token);
+            }, () =>
             {
-                updateManager = new Velopack.UpdateManager(devPkgDir);
-            }
-            else
-            {
-                updateManager = new Velopack.UpdateManager(githubSource);
-            }
-
-            pendingUpdate = await updateManager.CheckForUpdatesAsync();
-            if (pendingUpdate != null)
-            {
-                var target = pendingUpdate.TargetFullRelease.Version.ToString();
-                await Dispatcher.InvokeAsync(() =>
-                    core.PostWebMessageAsJson(JsonSerializer.Serialize(new
-                    {
-                        type = "update_status",
-                        status = "available",
-                        currentVersion = updateManager.CurrentVersion?.ToString() ?? "0.1.0-alpha.4",
-                        targetVersion = target
-                    })));
-            }
-            else
-            {
-                await Dispatcher.InvokeAsync(() =>
-                    core.PostWebMessageAsJson(JsonSerializer.Serialize(new
-                    {
-                        type = "update_status",
-                        status = "up_to_date",
-                        currentVersion = updateManager.CurrentVersion?.ToString() ?? "0.1.0-alpha.4"
-                    })));
-            }
-        }
-        catch (Exception exc)
-        {
-            Log.WriteDiagnostic("update_check_failed", exc.Message);
-            await Dispatcher.InvokeAsync(() =>
-                core.PostWebMessageAsJson(JsonSerializer.Serialize(new
-                {
-                    type = "update_status",
-                    status = "failed",
-                    error = "Could not reach update server. You are running offline or the release feed is unavailable."
-                })));
-        }
-    }
-
-    private async Task DownloadUpdateAsync(CoreWebView2 core)
-    {
-        try
-        {
-            if (pendingUpdate == null) return;
-            var githubSource = new Velopack.Sources.GithubSource("https://github.com/yasirk2026/pese", null, false);
-            var feedDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ManiacSoftwares.PESE", "packages");
-            var devPkgDir = System.IO.Path.Combine(Paths.Install, "..", "..", "dist", "windows", "0.1.0-alpha.4", "packages");
-            var updateManager = Directory.Exists(feedDir) ? new Velopack.UpdateManager(feedDir) :
-                                Directory.Exists(devPkgDir) ? new Velopack.UpdateManager(devPkgDir) :
-                                new Velopack.UpdateManager(githubSource);
-
-            await updateManager.DownloadUpdatesAsync(pendingUpdate, progress =>
-            {
-                Dispatcher.Invoke(() =>
-                    core.PostWebMessageAsJson(JsonSerializer.Serialize(new
-                    {
-                        type = "update_status",
-                        status = "downloading",
-                        progress
-                    })));
+                canClose = true;
+                lifetime.Cancel();
+                browser?.Dispose(); browser = null;
+                Close();
             });
-
-            await Dispatcher.InvokeAsync(() =>
-                core.PostWebMessageAsJson(JsonSerializer.Serialize(new
-                {
-                    type = "update_status",
-                    status = "ready",
-                    progress = 100
-                })));
         }
-        catch (Exception exc)
+        finally
         {
-            Log.WriteDiagnostic("update_download_failed", exc.Message);
-            await Dispatcher.InvokeAsync(() =>
-                core.PostWebMessageAsJson(JsonSerializer.Serialize(new
-                {
-                    type = "update_status",
-                    status = "failed",
-                    error = "Download failed: " + exc.Message
-                })));
-        }
-    }
-
-    private async Task ApplyUpdateAndRestartAsync(CoreWebView2 core)
-    {
-        try
-        {
-            if (pendingUpdate == null) return;
-            await Dispatcher.InvokeAsync(() =>
-                core.PostWebMessageAsJson(JsonSerializer.Serialize(new
-                {
-                    type = "update_status",
-                    status = "installing"
-                })));
-
-            await StopBrainAsync();
-
-            var githubSource = new Velopack.Sources.GithubSource("https://github.com/yasirk2026/pese", null, false);
-            var feedDir = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ManiacSoftwares.PESE", "packages");
-            var devPkgDir = System.IO.Path.Combine(Paths.Install, "..", "..", "dist", "windows", "0.1.0-alpha.4", "packages");
-            var updateManager = Directory.Exists(feedDir) ? new Velopack.UpdateManager(feedDir) :
-                                Directory.Exists(devPkgDir) ? new Velopack.UpdateManager(devPkgDir) :
-                                new Velopack.UpdateManager(githubSource);
-
-            updateManager.ApplyUpdatesAndRestart(pendingUpdate);
-        }
-        catch (Exception exc)
-        {
-            Log.WriteDiagnostic("update_install_failed", exc.Message);
-            await Dispatcher.InvokeAsync(() =>
-                core.PostWebMessageAsJson(JsonSerializer.Serialize(new
-                {
-                    type = "update_status",
-                    status = "failed",
-                    error = "Install failed: " + exc.Message
-                })));
+            updateInstalling = false;
+            if (browser is not null) browser.IsEnabled = true;
+            if (!canClose && brain is not null && !brain.Running)
+                Error("Update not activated", "Close and reopen PESE, then retry the update. Your selected Brain is preserved.");
         }
     }
 
@@ -829,7 +726,7 @@ internal sealed class MainWindow : Window
     {
         if (Uri.TryCreate(url, UriKind.Absolute, out var uri))
             return uri.GetLeftPart(UriPartial.Authority) == origin;
-        return true;
+        return false;
     }
 
     private static void OpenExternal(string url)
@@ -849,6 +746,7 @@ internal sealed class MainWindow : Window
     {
         if (canClose) return;
         args.Cancel = true;
+        if (updateInstalling) return;
         if (closing) return;
         closing = true; lifetime.Cancel();
         Card("Closing PESE…", "Finishing your Brain session.");

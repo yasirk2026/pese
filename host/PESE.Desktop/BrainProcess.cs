@@ -35,6 +35,8 @@ internal sealed class BrainProcess : IAsyncDisposable
         // Isolated CPython ignores PYTHONPATH; remove inherited development flags as well.
         foreach (var key in info.Environment.Keys.Where(k => k.StartsWith("PESE_", StringComparison.OrdinalIgnoreCase)
                      || k.StartsWith("PYTHON", StringComparison.OrdinalIgnoreCase)).ToArray()) info.Environment.Remove(key);
+        if (Paths.AcceptanceProfile is not null)
+            info.Environment["LOCALAPPDATA"] = Directory.GetParent(Directory.GetParent(Paths.AcceptanceProfile)!.FullName)!.FullName;
         return info;
     }
 
@@ -135,6 +137,22 @@ internal sealed class BrainProcess : IAsyncDisposable
     {
         using var json = JsonDocument.Parse(line);
         throw new InvalidOperationException(json.RootElement.GetProperty("message").GetString());
+    }
+
+    internal async Task StopForUpdateAsync(CancellationToken cancellation)
+    {
+        if (process is not { HasExited: false }) return;
+        if (Origin is null) throw new InvalidOperationException("The engine is not ready to stop safely.");
+        using var requestTimeout = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
+        requestTimeout.CancelAfter(TimeSpan.FromSeconds(5));
+        using var response = await Client.PostAsync(Origin + "/desktop/shutdown", null, requestTimeout.Token);
+        response.EnsureSuccessStatusCode();
+        using var drain = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
+        drain.CancelAfter(TimeSpan.FromMinutes(2));
+        await process.WaitForExitAsync(drain.Token);
+        if (process.ExitCode != 0) throw new InvalidOperationException("The engine did not close cleanly.");
+        job?.Dispose(); job = null;
+        Log.Write("brain_update_shutdown_complete");
     }
 
     public async ValueTask DisposeAsync()

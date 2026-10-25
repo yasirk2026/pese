@@ -10,10 +10,12 @@ from pathlib import Path
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("stage", type=Path)
+    parser.add_argument("--asset-source", type=Path, help="Prepared offline asset checkout (excluded from Git)")
     args = parser.parse_args()
     source = Path(__file__).resolve().parents[1]
     stage = args.stage.resolve()
-    lab = source / "packaging/runtime-lab"
+    assets = (args.asset_source or source).resolve()
+    lab = assets / "packaging/runtime-lab"
     expected = {}
     for line in (source / "requirements.lock.txt").read_text().splitlines():
         match = re.fullmatch(r"([\w.-]+)==(.+)", line.strip())
@@ -43,14 +45,14 @@ def main():
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(path, target)
     # Preserve existing base-checkpoint paths to avoid changing neural loaders.
-    shutil.copytree(source / "engine/neural/checkpoints", stage / "engine/neural/checkpoints",
+    shutil.copytree(assets / "engine/neural/checkpoints", stage / "engine/neural/checkpoints",
                     ignore=shutil.ignore_patterns("__pycache__"), dirs_exist_ok=True)
     shutil.copytree(source / "engine/neural/data/pese_rel_data_0", stage / "engine/neural/data/pese_rel_data_0")
     shutil.copytree(lab / "models", stage / "models", dirs_exist_ok=True)
     shutil.copytree(source / "web/out", stage / "ui", dirs_exist_ok=True)
     # Product laboratory views read these reports from the application, never the Brain.
     for name in ("neural_genesis_report.json", "qa_experiment_report.json"):
-        shutil.copy2(source / "engine/data" / name, stage / "engine/data" / name)
+        shutil.copy2(assets / "engine/data" / name, stage / "engine/data" / name)
     shutil.copy2(source / "requirements.lock.txt", stage / "requirements.lock.txt")
     (stage / "runtime-manifest.json").write_text(json.dumps({"locked_distributions": expected,
         "python": "3.12.10", "architecture": "win-x64", "brain_included": False}, indent=2), encoding="utf-8")

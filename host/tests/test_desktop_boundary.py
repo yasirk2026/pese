@@ -7,7 +7,7 @@ from engine.desktop.security import DesktopBoundary
 from engine.desktop.launcher import brain_command, validate_brain
 
 
-async def request(path, token=None, origin=None, host="127.0.0.1:12345"):
+async def request(path, token=None, origin=None, host="127.0.0.1:12345", stopping=False):
     output = []
 
     async def app(scope, receive, send):
@@ -22,7 +22,7 @@ async def request(path, token=None, origin=None, host="127.0.0.1:12345"):
         headers.append((b"x-pese-token", token.encode()))
     if origin:
         headers.append((b"origin", origin.encode()))
-    boundary = DesktopBoundary(app, "a" * 64, "http://127.0.0.1:12345")
+    boundary = DesktopBoundary(app, "a" * 64, "http://127.0.0.1:12345", is_stopping=lambda: stopping)
     await boundary({"type": "http", "path": path, "headers": headers}, None, send)
     return output[0]
 
@@ -121,3 +121,11 @@ def test_entire_velopack_install_tree_is_forbidden(tmp_path, monkeypatch):
     assert not unsafe.exists()
     with pytest.raises(ValueError, match="outside the PESE installation"):
         launcher.validate_brain(install)
+
+
+def test_update_shutdown_rejects_new_operations_but_preserves_auth():
+    assert asyncio.run(request("/api/search", "a" * 64, stopping=True))["status"] == 503
+    assert asyncio.run(request("/api/search/feedback", "a" * 64, stopping=True))["status"] == 503
+    assert asyncio.run(request("/api/search", "bad", stopping=True))["status"] == 401
+    assert asyncio.run(request("/desktop/shutdown", "a" * 64, stopping=True))["status"] == 200
+    assert asyncio.run(request("/health", "a" * 64, stopping=True))["status"] == 200

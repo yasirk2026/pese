@@ -353,7 +353,7 @@ function SettingsContent() {
                     <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800/80">
                       <span className="text-xs text-neutral-500 dark:text-neutral-400">Release Version</span>
                       <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mt-0.5">
-                        0.1.0-alpha.4
+                        {updateInfo.currentVersion}
                       </p>
                     </div>
                     <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800/80">
@@ -621,7 +621,7 @@ function SettingsContent() {
                     <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-900/40 border border-neutral-200/80 dark:border-neutral-800/80">
                       <span className="text-[11px] text-neutral-500 dark:text-neutral-400">Total Notes</span>
                       <p className="text-base font-semibold text-neutral-900 dark:text-neutral-100 mt-0.5">
-                        {brainInfo?.document_count ?? 222}
+                        {brainInfo?.document_count ?? 0}
                       </p>
                     </div>
                     <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-900/40 border border-neutral-200/80 dark:border-neutral-800/80">
@@ -633,7 +633,7 @@ function SettingsContent() {
                     <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-900/40 border border-neutral-200/80 dark:border-neutral-800/80 col-span-2 sm:col-span-1">
                       <span className="text-[11px] text-neutral-500 dark:text-neutral-400">Brain ID</span>
                       <p className="text-xs font-mono font-medium text-neutral-900 dark:text-neutral-100 mt-1 truncate">
-                        {brainInfo?.brain_id || "6240cfe03892406092bc191d2acf7a27"}
+                        {brainInfo?.brain_id || "Unavailable"}
                       </p>
                     </div>
                   </div>
@@ -803,12 +803,18 @@ function SettingsContent() {
                     )}
                   </div>
 
+                  {updateInfo.targetVersion && (
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-semibold">What&apos;s new in {updateInfo.targetVersion}</h4>
+                      <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed max-h-64 overflow-y-auto text-neutral-600 dark:text-neutral-300">{updateInfo.releaseNotes || "This package did not include release notes."}</pre>
+                    </div>
+                  )}
                   {/* Update Actions */}
                   <div className="flex flex-wrap items-center gap-3">
                     <button
                       type="button"
                       onClick={checkForUpdates}
-                      disabled={updateInfo.status === "checking" || updateInfo.status === "downloading"}
+                      disabled={["checking", "downloading", "installing", "restarting"].includes(updateInfo.status)}
                       className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium shadow-xs transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
                     >
                       <RotateCw className={`w-3.5 h-3.5 ${updateInfo.status === "checking" ? "animate-spin" : ""}`} />
@@ -833,7 +839,7 @@ function SettingsContent() {
                         className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
                       >
                         <RotateCw className="w-3.5 h-3.5" />
-                        <span>Restart PESE to Apply</span>
+                        <span>Update and restart</span>
                       </button>
                     )}
 
@@ -850,7 +856,7 @@ function SettingsContent() {
                     Brain Safety During Updates
                   </h4>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                    Updates replace application binaries only. Your selected Brain path, identity, documents, and Search Sync feedback database reside in user storage and are never touched during installation or rollback.
+                    Updates replace application binaries only. Your Brain and account settings live separately from the application. PESE waits for the engine to close before applying an update. Keep an independent backup of your Brain.
                   </p>
                 </div>
               </div>
