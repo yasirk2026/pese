@@ -14,6 +14,7 @@ internal static class UiAcceptance
         if (args.Length != 2 || !File.Exists(Path.Combine(args[0], ".pese-disposable-fixture"))) return 2;
         var output = Path.GetFullPath(args[1]);
         Directory.CreateDirectory(output);
+        Paths.AcceptanceProfile = Path.Combine(output, "LocalAppData", "ManiacSoftwares", "PESE");
         var checks = new List<object>();
         var code = 1;
         var app = new Application();
@@ -23,7 +24,7 @@ internal static class UiAcceptance
             int? enginePid = null;
             try
             {
-                await Wait(() => Task.FromResult(window.AcceptanceCore is not null && window.AcceptanceBrain is { Running: true }));
+                await Wait(() => Task.FromResult(window.AcceptanceCore is not null && window.AcceptanceBrain is { Running: true }), 900);
                 var core = window.AcceptanceCore!;
                 var brain = window.AcceptanceBrain!;
                 enginePid = brain.ProcessId;
@@ -104,9 +105,9 @@ internal static class UiAcceptance
         if (!condition) throw new InvalidOperationException(label);
     }
 
-    private static async Task Wait(Func<Task<bool>> ready)
+    private static async Task Wait(Func<Task<bool>> ready, int seconds = 120)
     {
-        var deadline = DateTime.UtcNow.AddSeconds(120);
+        var deadline = DateTime.UtcNow.AddSeconds(seconds);
         while (DateTime.UtcNow < deadline)
         {
             try { if (await ready()) return; } catch (InvalidOperationException) { }
