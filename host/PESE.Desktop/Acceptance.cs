@@ -19,6 +19,9 @@ internal static class Acceptance
         try
         {
             var path = Path.GetFullPath(args[0]);
+            if (!File.Exists(Path.Combine(path, ".pese-disposable-fixture")))
+                throw new InvalidOperationException("A marked disposable Brain is required.");
+            Paths.AcceptanceProfile = Path.Combine(Path.GetDirectoryName(reportPath)!, "LocalAppData", "ManiacSoftwares", "PESE");
             var cycles = args.Length > 2 ? int.Parse(args[2]) : 10;
             Check(MainWindow.Internal("http://127.0.0.1:1234/search/?q=x", "http://127.0.0.1:1234"), "internal URL");
             Check(!MainWindow.Internal("https://example.com/", "http://127.0.0.1:1234"), "external blocked");
@@ -27,8 +30,13 @@ internal static class Acceptance
             for (var i = 0; i < cycles; i++)
             {
                 var brain = new BrainProcess();
-                await brain.StartAsync(path, CancellationToken.None);
+                var watch = Stopwatch.StartNew();
+                var progress = new List<BrainStartupProgress>();
+                await brain.StartAsync(path, CancellationToken.None, new Progress<BrainStartupProgress>(state => { lock (progress) progress.Add(state); }));
+                var startupSeconds = watch.Elapsed.TotalSeconds;
                 var pid = brain.ProcessId;
+                long peakWorkingSetBytes;
+                using (var running = Process.GetProcessById(pid)) peakWorkingSetBytes = running.PeakWorkingSet64;
                 var port = new Uri(brain.Origin!).Port;
                 using var publicClient = new HttpClient();
                 Check((await publicClient.GetAsync(brain.Origin + "/api/stats")).StatusCode == HttpStatusCode.Unauthorized, "private API auth");
@@ -51,7 +59,11 @@ internal static class Acceptance
                 Check(!alive, "child exited");
                 using var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 socket.ExclusiveAddressUse = true; socket.Bind(new IPEndPoint(IPAddress.Loopback, port));
-                results.Add(new { cycle = i + 1, pid, port, childExited = true, portReleased = true, health = JsonSerializer.Deserialize<JsonElement>(health) });
+                BrainStartupProgress[] events;
+                lock (progress) events = progress.ToArray();
+                results.Add(new { cycle = i + 1, pid, port, childExited = true, portReleased = true,
+                    startupSeconds, peakWorkingSetBytes, readinessEvents = events,
+                    health = JsonSerializer.Deserialize<JsonElement>(health) });
             }
             File.WriteAllText(reportPath, JsonSerializer.Serialize(new { passed = true, results }, new JsonSerializerOptions { WriteIndented = true }));
             return 0;
