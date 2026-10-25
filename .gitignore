@@ -26,6 +26,15 @@ service-account*.json
 firebase-adminsdk*.json
 *firebase-adminsdk*.json
 *.key
+google-oauth-config*.json
+google-client-secrets*.json
+*credentials*.dat
+*tokens*.json
+*.enc
+*.dat
+pese-snapshot-*.zip
+*.pese-bundle
+Brain_Backups/
 
 # Local private content, search history and derived reports
 engine/data/firestore_documents.json

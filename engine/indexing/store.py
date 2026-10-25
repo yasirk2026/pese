@@ -5,6 +5,8 @@ Provides identical CRUD semantics whether running against Google Cloud Firestore
 the local Firestore Emulator, or local JSON document storage.
 """
 
+from ..brain.coordination import canonical_write
+
 import os
 import json
 import logging
@@ -133,6 +135,7 @@ class DocumentStore:
                 results.append(Document.from_dict(d))
         return results
 
+    @canonical_write
     def save_document(self, doc: Document) -> Document:
         """Save or update a document."""
         data = doc.to_dict()
@@ -146,6 +149,7 @@ class DocumentStore:
             self._write_local_docs(docs)
         return doc
 
+    @canonical_write
     def delete_document(self, doc_id: str) -> bool:
         with self._lock:
             return self._delete_document(doc_id)

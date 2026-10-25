@@ -639,7 +639,8 @@ export async function getRelatedSearches(
   sessionId?: string,
   limit: number = 5,
   debug: boolean = false,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  searchId?: string
 ): Promise<RelatedSearchesResponse> {
   const sid = sessionId || (typeof window !== "undefined" ? getOrCreateSessionId() : undefined);
   const params = new URLSearchParams({
@@ -648,6 +649,7 @@ export async function getRelatedSearches(
     debug: String(debug),
   });
   if (sid) params.set("session_id", sid);
+  if (searchId) params.set("search_id", searchId);
 
   const res = await apiFetch(`${API_BASE}/api/related?${params.toString()}`, {
     cache: "no-store", signal,
@@ -663,7 +665,8 @@ export async function getPAAQuestions(
   sessionId?: string,
   limit: number = 4,
   debug: boolean = false,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  searchId?: string
 ): Promise<QuestionsResponse> {
   const sid = sessionId || (typeof window !== "undefined" ? getOrCreateSessionId() : undefined);
   const params = new URLSearchParams({
@@ -672,6 +675,7 @@ export async function getPAAQuestions(
     debug: String(debug),
   });
   if (sid) params.set("session_id", sid);
+  if (searchId) params.set("search_id", searchId);
 
   const res = await apiFetch(`${API_BASE}/api/questions?${params.toString()}`, {
     cache: "no-store", signal,
@@ -1102,4 +1106,82 @@ export async function deleteUserAvatar(): Promise<UserProfileData> {
 
 export function getUserAvatarUrl(): string {
   return `${getApiBase()}/api/profile/avatar`;
+}
+
+// ==================== GOOGLE DRIVE SYNC ====================
+
+export type SyncStatusType = "not_configured" | "not_connected" | "connecting" | "connected" | "syncing" | "error";
+
+export interface SyncStatusData {
+  configured: boolean;
+  connected: boolean;
+  status: SyncStatusType;
+  account_email?: string | null;
+  last_synced_at?: string | null;
+  latest_snapshot_id?: string | null;
+  latest_snapshot_time?: string | null;
+  restore_enabled: boolean;
+  restore_disabled_reason: string;
+  message?: string | null;
+}
+
+export interface SyncSnapshotItem {
+  id: string;
+  name: string;
+  created_time: string;
+  size_bytes?: number | null;
+  brain_id?: string | null;
+  snapshot_id?: string | null;
+  compatible?: boolean;
+  local_changes?: boolean;
+  archive_sha256?: string | null;
+}
+
+export async function getSyncStatus(): Promise<SyncStatusData> {
+  const res = await apiFetch(`${API_BASE}/api/sync/status`);
+  if (!res.ok) throw new Error("Failed to fetch Google Drive sync status");
+  return res.json();
+}
+
+export async function startSyncConnect(): Promise<{ status: string; auth_url?: string; port?: number; message?: string }> {
+  const res = await apiFetch(`${API_BASE}/api/sync/connect`, { method: "POST" });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || "Failed to start Google Drive connection");
+  }
+  return res.json();
+}
+
+export async function disconnectSync(): Promise<{ ok: boolean; message: string }> {
+  const res = await apiFetch(`${API_BASE}/api/sync/disconnect`, { method: "POST" });
+  if (!res.ok) throw new Error("Failed to disconnect Google Drive");
+  return res.json();
+}
+
+export async function syncNow(): Promise<{ ok: boolean; snapshot_id: string; drive_file_id: string; last_synced_at: string; message: string }> {
+  const res = await apiFetch(`${API_BASE}/api/sync/now`, { method: "POST" });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || "Google Drive sync failed");
+  }
+  return res.json();
+}
+
+export async function restoreFromSync(snapshotId?: string): Promise<{ success: boolean; brain_id: string; snapshot_id: string; restored_at: string; backup_path?: string; files_restored: number; message: string }> {
+  const res = await apiFetch(`${API_BASE}/api/sync/restore`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ snapshot_id: snapshotId || null }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || "Restore from Google Drive failed");
+  }
+  return res.json();
+}
+
+export async function getSyncSnapshots(): Promise<{ snapshots: SyncSnapshotItem[] }> {
+  const res = await apiFetch(`${API_BASE}/api/sync/snapshots`);
+  if (!res.ok) throw new Error("Failed to list Google Drive snapshots");
+  return res.json();
 }

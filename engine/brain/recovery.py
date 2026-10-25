@@ -13,10 +13,12 @@ from typing import Dict, Any, List, Optional, Tuple
 
 from ..indexing.document import Document
 from ..brain.resolver import resolve_brain_path
+from .coordination import canonical_write, ensure_capture_process
 
 logger = logging.getLogger(__name__)
 
 
+@canonical_write
 def recover_knowledge_corpus(
     brain_path: Optional[Path] = None,
     source_documents_path: Optional[Path] = None,
@@ -119,6 +121,7 @@ def recover_knowledge_corpus(
             imported_count += 1
 
     if not dry_run:
+        ensure_capture_process(target_brain)
         # Atomic write
         temp_file = target_docs_file.with_suffix(".tmp")
         with open(temp_file, "w", encoding="utf-8") as f:

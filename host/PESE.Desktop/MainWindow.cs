@@ -32,6 +32,9 @@ internal sealed class MainWindow : Window
     private WindowStyle previousWindowStyle = WindowStyle.SingleBorderWindow;
     private ResizeMode previousResizeMode = ResizeMode.CanResize;
     private Velopack.UpdateInfo? pendingUpdate;
+    private readonly bool acceptanceMode;
+    internal CoreWebView2? AcceptanceCore => browser?.CoreWebView2;
+    internal BrainProcess? AcceptanceBrain => brain;
 
     private static readonly Color DarkBase = Color.FromRgb(9, 13, 22);
     private static readonly Color CardBg = Color.FromRgb(17, 24, 39);
@@ -44,8 +47,9 @@ internal sealed class MainWindow : Window
 
     private static readonly ControlTemplate ButtonTemplate8 = CreateButtonTemplate(new CornerRadius(8));
 
-    public MainWindow()
+    public MainWindow(string? acceptanceBrain = null)
     {
+        acceptanceMode = acceptanceBrain is not null;
         var workArea = SystemParameters.WorkArea;
         Title = "PESE — Personal Knowledge Engine";
         Width = Math.Min(1240, workArea.Width); Height = Math.Min(820, workArea.Height);
@@ -73,7 +77,11 @@ internal sealed class MainWindow : Window
             }
         };
         Closing += OnClosing;
-        Loaded += async (_, _) => await BootAsync();
+        Loaded += async (_, _) =>
+        {
+            if (acceptanceBrain is null) await BootAsync();
+            else await OpenAsync(acceptanceBrain);
+        };
         monitor.Tick += async (_, _) =>
         {
             if (brain is not null && !brain.Running && !closing)
@@ -637,7 +645,7 @@ internal sealed class MainWindow : Window
             _ = Task.Run(async () =>
             {
                 await Task.Delay(3000);
-                await CheckForUpdatesAsync(core);
+                if (!acceptanceMode) await CheckForUpdatesAsync(core);
             });
         }
         catch (WebView2RuntimeNotFoundException)
@@ -844,6 +852,8 @@ internal sealed class MainWindow : Window
         var previous = brain; brain = null;
         if (previous is not null) await previous.DisposeAsync();
     }
+
+    internal Task AcceptanceStopAsync() => StopBrainAsync();
 
     private async void OnClosing(object? sender, CancelEventArgs args)
     {

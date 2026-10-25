@@ -5,6 +5,8 @@ Decoupled through an abstract base class to support Local JSON/JSONL
 and future Firebase/Firestore private cloud backends.
 """
 
+from ..brain.coordination import canonical_write
+
 import json
 import time
 from abc import ABC, abstractmethod
@@ -102,6 +104,7 @@ class LocalHistoryStore(SearchHistoryStore):
         except Exception:
             return True
 
+    @canonical_write
     def set_history_enabled(self, enabled: bool) -> None:
         settings = {
             "history_enabled": enabled,
@@ -114,6 +117,7 @@ class LocalHistoryStore(SearchHistoryStore):
         except Exception:
             pass
 
+    @canonical_write
     def record_event(self, event: QuerySessionEvent) -> None:
         if not self.is_history_enabled():
             return
@@ -208,6 +212,7 @@ class LocalHistoryStore(SearchHistoryStore):
 
         return [(pair[0], pair[1], count) for pair, count in pair_counts.items()]
 
+    @canonical_write
     def clear_history(self) -> None:
         try:
             if self.events_path.exists():

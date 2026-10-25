@@ -27,3 +27,29 @@ def local_inference_thread_budget():
     torch.set_num_threads(2)
     yield
     torch.set_num_threads(previous)
+
+
+@pytest.fixture(autouse=True)
+def no_external_test_network(monkeypatch):
+    """Regression tests must never contact Google or transmit fixture data."""
+    import socket
+    import ipaddress
+    original_resolve = socket.getaddrinfo
+    original_connect = socket.socket.connect
+    def loopback(host):
+        if host in (None, "localhost", b"localhost"):
+            return True
+        try:
+            return ipaddress.ip_address(host).is_loopback
+        except ValueError:
+            return False
+    def resolve(host, *args, **kwargs):
+        if not loopback(host):
+            raise OSError("External networking forbidden in tests")
+        return original_resolve(host, *args, **kwargs)
+    def connect(self, address):
+        if self.family in (socket.AF_INET, socket.AF_INET6) and not loopback(address[0]):
+            raise OSError("External networking forbidden in tests")
+        return original_connect(self, address)
+    monkeypatch.setattr(socket, "getaddrinfo", resolve)
+    monkeypatch.setattr(socket.socket, "connect", connect)

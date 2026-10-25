@@ -145,12 +145,15 @@ def test_open_corrupted_or_invalid_brain(tmp_path):
     assert "Unsupported schemaVersion" in str(exc_info.value)
 
 
-def test_missing_drive_safety(tmp_path):
+def test_missing_drive_safety(tmp_path, monkeypatch):
     """
     CRITICAL: If a configured Brain path disappears (e.g. D: drive disconnected),
     PESE must raise BrainMissingError and NEVER silently create a replacement Brain
     or fall back to another location.
     """
+    # Explicit test pointer must not be shadowed by the suite's disposable runtime.
+    monkeypatch.delenv("PESE_BRAIN_PATH", raising=False)
+    monkeypatch.delenv("PESE_DATA_DIR", raising=False)
     settings_file = tmp_path / "settings.json"
     unmounted_drive_path = Path("Z:\\PESE_Disconnected_SSD_Brain")
 

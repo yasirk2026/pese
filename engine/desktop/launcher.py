@@ -7,6 +7,7 @@ import json
 import os
 import socket
 import sys
+from contextlib import closing
 from pathlib import Path
 
 APP_ROOT = Path(__file__).resolve().parents[2]
@@ -39,7 +40,7 @@ def validate_brain(path):
         if not isinstance(docs, dict) or not isinstance(settings, dict):
             raise ValueError("Brain documents and privacy settings must be JSON objects")
         import sqlite3
-        with sqlite3.connect((root / required[2]).as_uri() + "?mode=ro", uri=True) as db:
+        with closing(sqlite3.connect((root / required[2]).as_uri() + "?mode=ro", uri=True)) as db:
             if db.execute("PRAGMA quick_check").fetchone()[0] != "ok":
                 raise ValueError("Search Sync database integrity check failed")
             # Reject the obsolete D0-C laboratory schema, without silent migration.
@@ -89,6 +90,8 @@ def serve(command):
         msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
     except OSError as exc:
         raise RuntimeError("This Brain is already open in another PESE process.") from exc
+    from engine.brain.coordination import register_desktop_writer, unregister_desktop_writer
+    register_desktop_writer(info.path)
 
     os.environ.update(PESE_ENV="production", PESE_BRAIN_PATH=info.path,
                       PESE_DATA_DIR=info.path, PESE_STORAGE_BACKEND="local", PESE_PROFILE="private",
@@ -149,6 +152,7 @@ def serve(command):
     finally:
         listener.close()
         lock.close()
+        unregister_desktop_writer(info.path)
 
 
 def main():

@@ -52,6 +52,7 @@ function SearchQuery({query, forceRaw, debugMode, setDebugMode}: {
   const [clientTookMs, setClientTookMs] = useState<number>(0);
   const [visibleTookMs, setVisibleTookMs] = useState<number>(0);
   const [discoveryErrors, setDiscoveryErrors] = useState<string[]>([]);
+  const [discoveryLoading, setDiscoveryLoading] = useState(false);
 
   useEffect(() => {
     if (!loading) {
@@ -82,8 +83,9 @@ function SearchQuery({query, forceRaw, debugMode, setDebugMode}: {
     const controller = new AbortController();
     const sid = getOrCreateSessionId();
 
-    const loadDiscovery = () => {
-      getPAAQuestions(query, sid, 4, debugMode, controller.signal)
+    const loadDiscovery = (searchId?: string) => {
+      setDiscoveryLoading(true);
+      const paa = getPAAQuestions(query, sid, 4, debugMode, controller.signal, searchId)
         .then((paaRes) => {
           if (!active) return;
           setPaaQuestions(paaRes.questions || []);
@@ -94,7 +96,7 @@ function SearchQuery({query, forceRaw, debugMode, setDebugMode}: {
           setDiscoveryErrors((errors) => [...errors, `PAA: ${err.message}`]);
         });
 
-      getRelatedSearches(query, sid, 5, debugMode, controller.signal)
+      const related = getRelatedSearches(query, sid, 5, debugMode, controller.signal, searchId)
         .then((relRes) => {
           if (!active) return;
           setRelatedSearches(relRes.related_searches || []);
@@ -104,10 +106,10 @@ function SearchQuery({query, forceRaw, debugMode, setDebugMode}: {
           setRelatedSearches([]);
           setDiscoveryErrors((errors) => [...errors, `Related: ${err.message}`]);
         });
+      void Promise.allSettled([paa, related]).then(() => {
+        if (active) setDiscoveryLoading(false);
+      });
     };
-
-    // Load discovery (You Might Also Ask & Related Searches) in parallel with primary retrieval
-    loadDiscovery();
 
     searchDocuments(query, debugMode, 20, forceRaw, sid, "hybrid", controller.signal)
       .then((searchRes) => {
@@ -117,6 +119,7 @@ function SearchQuery({query, forceRaw, debugMode, setDebugMode}: {
         setTookMs(searchRes.took_ms);
         setClientTookMs(performance.now() - t0);
         setLoading(false);
+        loadDiscovery(searchRes.search_id);
         requestAnimationFrame(() => requestAnimationFrame(() => {
           if (active) setVisibleTookMs(performance.now() - t0);
         }));
@@ -282,6 +285,9 @@ function SearchQuery({query, forceRaw, debugMode, setDebugMode}: {
             </div>
           </div>
         )}
+
+        {!loading && discoveryLoading && <p role="status" className="text-xs text-neutral-500 mb-4">Checking grounded discovery suggestions…</p>}
+        {discoveryErrors.length > 0 && <p role="status" className="text-xs text-amber-600 mb-4">Some discovery suggestions could not load. Your search results are available.</p>}
 
         {/* No Results State */}
         {!loading && !error && results.length === 0 && (

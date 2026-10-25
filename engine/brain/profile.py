@@ -9,6 +9,8 @@ All paths in profile.json are relative and platform-independent to guarantee por
 across Local Sync, Google Drive Sync, and future platforms.
 """
 
+from .coordination import canonical_write
+
 import os
 import json
 import shutil
@@ -58,6 +60,7 @@ def load_profile(brain_path: Optional[Path] = None) -> UserProfile:
         return UserProfile()
 
 
+@canonical_write
 def save_profile(
     display_name: str,
     about: str,
@@ -77,6 +80,7 @@ def save_profile(
     return updated
 
 
+@canonical_write
 def import_avatar(
     image_bytes: bytes,
     original_filename: str,
@@ -118,6 +122,7 @@ def import_avatar(
     return updated
 
 
+@canonical_write
 def remove_avatar(brain_path: Optional[Path] = None) -> UserProfile:
     """Delete avatar image from Brain and clear reference."""
     pdir = _get_profile_dir(brain_path)

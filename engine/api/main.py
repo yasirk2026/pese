@@ -9,6 +9,7 @@ import hashlib
 import logging
 import os
 from threading import RLock
+from collections import OrderedDict
 from uuid import uuid4
 from pathlib import Path
 from typing import List, Optional, Dict, Any
@@ -27,6 +28,14 @@ from ..brain.profile import (
     UserProfile
 )
 
+from ..sync import (
+    GoogleDriveSyncService,
+    SyncStatus,
+    SyncConfigurationError,
+    SyncAuthenticationError,
+    SyncNetworkError,
+    RestoreFailedError,
+)
 from ..indexing.document import Document
 from ..indexing.store import DocumentStore
 from ..indexing.snapshot import SearchSnapshot, SnapshotStore, document_generation
@@ -95,6 +104,24 @@ pipeline_lock = RLock()
 active_snapshot: Optional[SearchSnapshot] = None
 publication_state = {"dirty": False, "stage": "startup", "last_error": None}
 BOOT_ID = uuid4().hex
+discovery_contexts = OrderedDict()
+discovery_lock = RLock()
+
+
+def discovery_context(query, search_id=None):
+    if search_id:
+        with discovery_lock:
+            context = discovery_contexts.get(search_id)
+        if not context or context[0] != query:
+            raise HTTPException(409, detail="Search context expired; repeat the primary search.")
+        return context[1], context[2]
+    # Standalone API callers still use real retrieval, never fabricated suggestions.
+    snapshot = serving_snapshot()
+    slugs = snapshot.engine.cached_primary_slugs(query)
+    if not slugs:
+        slugs = [result.slug for result in snapshot.engine.search(query, limit=5, skip_qa=True)]
+    return snapshot, slugs
+
 
 # Global Discovery Instances
 history_store = LocalHistoryStore()
@@ -397,9 +424,14 @@ def search_documents(
 
     start_time = time.perf_counter()
     search_id = uuid4().hex
-    active_engine = serving_snapshot().engine
+    snapshot = serving_snapshot()
+    active_engine = snapshot.engine
     with primary_request():
         ranked_results = active_engine.search(q, limit=limit, force_raw=force_raw, retrieval_mode=mode, skip_qa=not debug, search_context_id=search_id)
+    with discovery_lock:
+        discovery_contexts[search_id] = (q, snapshot, [result.slug for result in ranked_results[:5]])
+        while len(discovery_contexts) > 64:
+            discovery_contexts.popitem(last=False)
     elapsed_ms = round((time.perf_counter() - start_time) * 1000.0, 2)
 
     qa = getattr(ranked_results, "query_analysis", None)
@@ -599,6 +631,7 @@ def get_autocomplete_suggestions(
 def get_related_searches(
     q: str = Query(..., description="Query string"),
     session_id: Optional[str] = Query(None, description="Optional search session ID"),
+    search_id: Optional[str] = Query(None, description="Primary search generation context"),
     limit: int = Query(5, ge=1, le=10),
     debug: bool = Query(False, description="Include scoring traces"),
 ):
@@ -610,8 +643,7 @@ def get_related_searches(
         raise HTTPException(status_code=503, detail="Related searches engine initializing")
 
     # Evaluate search to extract top candidate slugs for link neighborhood (skip heavy QA on discovery auxiliary endpoints)
-    snapshot = serving_snapshot()
-    top_slugs = snapshot.engine.cached_primary_slugs(q)
+    snapshot, top_slugs = discovery_context(q, search_id)
     if not top_slugs:
         return RelatedSearchesResponse(query=q, related_searches=[], took_ms=0.0)
 
@@ -627,6 +659,7 @@ def get_related_searches(
 def get_you_might_also_ask(
     q: str = Query(..., description="Query string"),
     session_id: Optional[str] = Query(None, description="Optional search session ID"),
+    search_id: Optional[str] = Query(None, description="Primary search generation context"),
     limit: int = Query(4, ge=1, le=10),
     debug: bool = Query(False, description="Include answerability traces"),
 ):
@@ -637,8 +670,7 @@ def get_you_might_also_ask(
     if not paa_engine or not engine:
         raise HTTPException(status_code=503, detail="PAA questions engine initializing")
 
-    snapshot = serving_snapshot()
-    top_slugs = snapshot.engine.cached_primary_slugs(q)
+    snapshot, top_slugs = discovery_context(q, search_id)
     if not top_slugs:
         return QuestionsResponse(query=q, questions=[], took_ms=0.0, total_candidates_evaluated=0, total_passed_gate=0)
 
@@ -979,3 +1011,84 @@ def qa_read_passage(payload: QAReadRequest):
     res = qa_reader.read_passage(payload.question, payload.passage)
     return res.model_dump()
 
+
+# ==================== GOOGLE DRIVE SYNC ENDPOINTS ====================
+
+_sync_service: Optional[GoogleDriveSyncService] = None
+_sync_service_lock = RLock()
+
+
+def get_sync_service() -> GoogleDriveSyncService:
+    global _sync_service
+    with _sync_service_lock:
+        if _sync_service is None:
+            _sync_service = GoogleDriveSyncService(brain_path=RUNTIME_ROOT)
+        return _sync_service
+
+
+class RestoreRequestBody(BaseModel):
+    snapshot_id: Optional[str] = None
+
+
+@app.get("/api/sync/status", response_model=SyncStatus)
+def api_get_sync_status():
+    """Get current Google Drive synchronization status."""
+    service = get_sync_service()
+    return service.get_status()
+
+
+@app.post("/api/sync/connect")
+def api_sync_connect():
+    """Initiate desktop Google OAuth PKCE authorization flow."""
+    service = get_sync_service()
+    try:
+        return service.start_oauth_flow(open_browser=True)
+    except SyncConfigurationError as cfg_err:
+        raise HTTPException(status_code=400, detail=str(cfg_err))
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to start Google OAuth flow: {exc}")
+
+
+@app.post("/api/sync/disconnect")
+def api_sync_disconnect():
+    """Disconnect Google Drive and clear local credentials while preserving Brain."""
+    service = get_sync_service()
+    try:
+        return service.disconnect()
+    except SyncAuthenticationError as exc:
+        raise HTTPException(409, detail=str(exc))
+
+
+@app.post("/api/sync/now")
+def api_sync_now():
+    """Create a safe snapshot of the local Brain and upload to Google Drive."""
+    service = get_sync_service()
+    try:
+        return service.sync_now()
+    except SyncAuthenticationError as auth_err:
+        raise HTTPException(status_code=401, detail=str(auth_err))
+    except SyncNetworkError as net_err:
+        raise HTTPException(status_code=503, detail=str(net_err))
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Sync failed: {exc}")
+
+
+@app.post("/api/sync/restore")
+def api_sync_restore(body: Optional[RestoreRequestBody] = None):
+    from ..sync.service import RESTORE_DISABLED_REASON
+    raise HTTPException(409, detail=RESTORE_DISABLED_REASON)
+
+
+@app.get("/api/sync/snapshots")
+def api_get_sync_snapshots():
+    """List available PESE snapshots stored in Google Drive appDataFolder."""
+    service = get_sync_service()
+    try:
+        snapshots = service.list_remote_snapshots()
+        return {"snapshots": snapshots}
+    except SyncAuthenticationError as auth_err:
+        raise HTTPException(status_code=401, detail=str(auth_err))
+    except SyncNetworkError as net_err:
+        raise HTTPException(status_code=503, detail=str(net_err))
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))

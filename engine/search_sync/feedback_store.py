@@ -6,6 +6,8 @@ Stores user preference evidence (LIKE / DISLIKE) locally and provides sub-millis
 indexed lookup for active query preferences during MAAE candidate ranking.
 """
 
+from ..brain.coordination import canonical_write
+
 import json
 import logging
 import sqlite3
@@ -52,6 +54,7 @@ class SearchSyncFeedbackStore:
         conn.row_factory = sqlite3.Row
         return conn
 
+    @canonical_write
     def _init_db(self):
         """Initializes database schema with required tables and indexes."""
         with self._lock:
@@ -63,6 +66,7 @@ class SearchSyncFeedbackStore:
             if str(self.db_path) != ":memory:":
                 conn.close()
 
+    @canonical_write
     def record_feedback(self, event: FeedbackEvent) -> FeedbackEvent:
         """
         Records a feedback event.
@@ -275,6 +279,7 @@ class SearchSyncFeedbackStore:
 
     # ==================== PHASE N3-B: NEURAL SHADOW OBSERVATIONS ====================
 
+    @canonical_write
     def record_neural_observations(self, observations: List[NeuralShadowObservation]) -> None:
         """
         Persists a batch of neural shadow observations.
@@ -526,6 +531,7 @@ class SearchSyncFeedbackStore:
                 "model_authority": "NONE",
             }
 
+    @canonical_write
     def clear_all(self):
         """Clears all stored preferences, audit events, and neural observations."""
         with self._lock:

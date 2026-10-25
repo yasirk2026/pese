@@ -13,6 +13,13 @@ import {
   getSearchHistory,
   uploadUserAvatar,
   deleteUserAvatar,
+  getSyncStatus,
+  startSyncConnect,
+  disconnectSync,
+  syncNow,
+  getSyncSnapshots,
+  SyncSnapshotItem,
+  SyncStatusData,
 } from "@/lib/api";
 import {
   Settings as SettingsIcon,
@@ -42,6 +49,7 @@ import {
   RotateCw,
   Download,
   AlertCircle,
+  Cloud,
 } from "lucide-react";
 
 type SettingsTab =
@@ -80,6 +88,19 @@ function SettingsContent() {
   const [historySaved, setHistorySaved] = useState(false);
   const [historyCleared, setHistoryCleared] = useState(false);
   const [saveQueries, setSaveQueries] = useState(true);
+
+  // Google Drive Sync State
+  const [syncStatus, setSyncStatus] = useState<SyncStatusData | null>(null);
+  const [syncActionLoading, setSyncActionLoading] = useState<string | null>(null);
+  const [syncNotice, setSyncNotice] = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
+  const [snapshots, setSnapshots] = useState<SyncSnapshotItem[]>([]);
+  const [selectedSnapshot, setSelectedSnapshot] = useState("");
+  const syncPollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const syncPollGeneration = useRef(0);
+  useEffect(() => () => {
+    syncPollGeneration.current += 1;
+    if (syncPollTimer.current) clearTimeout(syncPollTimer.current);
+  }, []);
 
   // Profile Form State
   const [displayName, setDisplayName] = useState(profile?.display_name || "");
@@ -122,26 +143,106 @@ function SettingsContent() {
         setLoadingBrain(false);
       })
       .catch(() => {
-        setBrainInfo({
-          brain_id: "local-alpha-001",
-          name: "Local Brain",
-          path:
-            (typeof window !== "undefined" &&
-              (window as unknown as { __PESE_CONFIG__?: { brainPath?: string } })
-                .__PESE_CONFIG__?.brainPath) ||
-            "%LOCALAPPDATA%\\ManiacSoftwares\\PESE\\Brain",
-          status: "active",
-          document_count: 222,
-          schema_version: 1,
-          created_at: new Date().toISOString(),
-        });
+        setBrainInfo(null);
         setLoadingBrain(false);
       });
 
     getSearchHistory(1)
       .then((s) => setSaveQueries(s.history_enabled))
       .catch(() => {});
+
+    getSyncStatus()
+      .then(setSyncStatus)
+      .catch(() => {});
   }, []);
+
+  const handleConnectDrive = async () => {
+    const generation = ++syncPollGeneration.current;
+    setSyncActionLoading("connecting");
+    setSyncNotice(null);
+    try {
+      const res = await startSyncConnect();
+      if (generation !== syncPollGeneration.current) return;
+      setSyncNotice({ type: "info", text: res.message || "Authorization started. Complete login in your browser." });
+      const deadline = Date.now() + 155000; // callback wait plus bounded token/account requests
+      const poll = async () => {
+        try {
+          const status = await getSyncStatus();
+          if (generation !== syncPollGeneration.current) return;
+          setSyncStatus(status);
+          if (status.connected || status.status === "error" || Date.now() >= deadline) {
+            setSyncActionLoading(null);
+            setSyncNotice({ type: status.connected ? "success" : "error",
+              text: status.connected ? "Google Drive connected successfully." : status.message || "Authorization timed out. Retry connection." });
+            return;
+          }
+        } catch {
+          if (Date.now() >= deadline) {
+            setSyncActionLoading(null);
+            setSyncNotice({ type: "error", text: "Could not confirm authorization. Retry connection." });
+            return;
+          }
+        }
+        if (generation === syncPollGeneration.current) syncPollTimer.current = setTimeout(poll, 2000);
+      };
+      syncPollTimer.current = setTimeout(poll, 500);
+    } catch (err: unknown) {
+      setSyncActionLoading(null);
+      const msg = err instanceof Error ? err.message : "Failed to connect to Google Drive";
+      setSyncNotice({ type: "error", text: msg });
+    }
+  };
+
+  const handleSyncNow = async () => {
+    setSyncActionLoading("syncing");
+    setSyncNotice(null);
+    try {
+      const res = await syncNow();
+      const updated = await getSyncStatus();
+      setSyncStatus(updated);
+      setSyncNotice({ type: "success", text: res.message || "Snapshot synced to Google Drive successfully." });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Sync failed";
+      setSyncNotice({ type: "error", text: msg });
+    } finally {
+      setSyncActionLoading(null);
+    }
+  };
+
+  const handleListSnapshots = async () => {
+    setSyncActionLoading("listing");
+    setSyncNotice(null);
+    try {
+      const response = await getSyncSnapshots();
+      setSnapshots(response.snapshots);
+      setSelectedSnapshot("");
+      if (!response.snapshots.length) setSyncNotice({ type: "info", text: "No snapshots for this Brain were found." });
+    } catch (error) {
+      setSyncNotice({ type: "error", text: error instanceof Error ? error.message : "Could not list snapshots." });
+    } finally {
+      setSyncActionLoading(null);
+    }
+  };
+
+  const handleDisconnectDrive = async () => {
+    syncPollGeneration.current += 1;
+    if (syncPollTimer.current) clearTimeout(syncPollTimer.current);
+    setSyncActionLoading("disconnecting");
+    setSyncNotice(null);
+    try {
+      const res = await disconnectSync();
+      const updated = await getSyncStatus();
+      setSyncStatus(updated);
+      setSnapshots([]);
+      setSelectedSnapshot("");
+      setSyncNotice({ type: "info", text: res.message || "Google Drive disconnected. Local Brain is preserved." });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to disconnect";
+      setSyncNotice({ type: "error", text: msg });
+    } finally {
+      setSyncActionLoading(null);
+    }
+  };
 
   const handleCopyPath = () => {
     if (brainInfo?.path) {
@@ -500,7 +601,7 @@ function SettingsContent() {
                     Portability Guarantee
                   </h4>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                    Your profile schema is versioned and platform-independent. In future cloud backups or syncing to other devices, your profile restores identically with your Brain.
+                    Your versioned profile and avatar are included in manual Brain backups. Recovery preserves the current Brain and creates a separate copy.
                   </p>
                 </div>
               </div>
@@ -633,7 +734,7 @@ function SettingsContent() {
                     <div className="p-3.5 rounded-xl bg-neutral-50 dark:bg-neutral-900/40 border border-neutral-200/80 dark:border-neutral-800/80 col-span-2 sm:col-span-1">
                       <span className="text-[11px] text-neutral-500 dark:text-neutral-400">Brain ID</span>
                       <p className="text-xs font-mono font-medium text-neutral-900 dark:text-neutral-100 mt-1 truncate">
-                        {brainInfo?.brain_id || "6240cfe03892406092bc191d2acf7a27"}
+                        {brainInfo?.brain_id || "Unavailable"}
                       </p>
                     </div>
                   </div>
@@ -658,6 +759,174 @@ function SettingsContent() {
                     </button>
                   </div>
                 </div>
+
+                {/* ==================== GOOGLE DRIVE SYNC CARD ==================== */}
+                <div className="p-6 rounded-2xl bg-surface border border-surface-border shadow-xs space-y-5">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+                        <Cloud className="w-4 h-4 text-blue-500" />
+                        <span>Google Drive Sync</span>
+                      </h3>
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+                        Create manual backups in your private Google Drive app storage. Recovery creates a separate inactive Brain.
+                      </p>
+                    </div>
+                    <span
+                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium ${
+                        syncStatus?.status === "error"
+                          ? "text-rose-700 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800"
+                          : syncStatus?.connected
+                          ? "text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800"
+                          : syncStatus?.configured === false
+                          ? "text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800"
+                          : "text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+                      }`}
+                    >
+                      <span
+                        className={`w-2 h-2 rounded-full ${
+                          syncStatus?.status === "error"
+                            ? "bg-rose-500"
+                            : syncStatus?.connected
+                            ? "bg-emerald-500 animate-pulse"
+                            : syncStatus?.configured === false
+                            ? "bg-amber-500"
+                            : "bg-neutral-400"
+                        }`}
+                      />
+                      {syncStatus?.status === "connecting" ? "Connecting…" : syncStatus?.status === "error" ? "Connection error" :
+                        syncStatus?.connected ? "Connected" : syncStatus?.configured === false ? "Not configured" : "Not connected"}
+                    </span>
+                  </div>
+
+                  {/* Status & Information */}
+                  <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800/80 space-y-3 text-xs">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <span className="text-neutral-500 dark:text-neutral-400">Account:</span>{" "}
+                        <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                          {syncStatus?.account_email || (syncStatus?.connected ? "Google Account" : "None")}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-neutral-500 dark:text-neutral-400">Last synced:</span>{" "}
+                        <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                          {syncStatus?.last_synced_at ? new Date(syncStatus.last_synced_at).toLocaleString() : "Never"}
+                        </span>
+                      </div>
+                    </div>
+                    {syncStatus?.latest_snapshot_id && (
+                      <div className="pt-2 border-t border-neutral-200/60 dark:border-neutral-800/60 font-mono text-[11px] text-neutral-600 dark:text-neutral-400 truncate">
+                        Last uploaded snapshot: {syncStatus.latest_snapshot_id}
+                      </div>
+                    )}
+                    {syncStatus?.message && (!syncStatus.connected || syncStatus.status === "error") && (
+                      <p className="text-neutral-500 dark:text-neutral-400 text-[11px] italic">
+                        {syncStatus.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Notifications */}
+                  {syncNotice && (
+                    <div
+                      className={`p-3 rounded-xl text-xs flex items-center justify-between ${
+                        syncNotice.type === "success"
+                          ? "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+                          : syncNotice.type === "error"
+                          ? "bg-red-50 dark:bg-red-950/40 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800"
+                          : "bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800"
+                      }`}
+                    >
+                      <span>{syncNotice.text}</span>
+                      <button
+                        type="button"
+                        onClick={() => setSyncNotice(null)}
+                        className="text-[10px] underline ml-2 cursor-pointer"
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Action Buttons */}
+                  <div className="pt-2 flex flex-wrap items-center gap-2.5">
+                    {!syncStatus?.connected ? (
+                      <button
+                        type="button"
+                        onClick={handleConnectDrive}
+                        disabled={syncActionLoading !== null || !syncStatus?.configured}
+                        className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium shadow-xs transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                      >
+                        {syncActionLoading === "connecting" ? (
+                          <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                        ) : (
+                          <Cloud className="w-3.5 h-3.5" />
+                        )}
+                        <span>{syncActionLoading === "connecting" ? "Connecting in browser…" : "Connect Google Drive"}</span>
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={handleSyncNow}
+                          disabled={syncActionLoading !== null}
+                          className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium shadow-xs transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                        >
+                          <RotateCw className={`w-3.5 h-3.5 ${syncActionLoading === "syncing" ? "animate-spin" : ""}`} />
+                          <span>{syncActionLoading === "syncing" ? "Syncing snapshot…" : "Sync now"}</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleListSnapshots}
+                          disabled={syncActionLoading !== null}
+                          className="px-4 py-2 rounded-xl bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-medium border border-neutral-300 dark:border-neutral-700 shadow-2xs transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                        >
+                          <Download className="w-3.5 h-3.5 text-neutral-500" />
+                          <span>Browse snapshots</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleDisconnectDrive}
+                          disabled={syncActionLoading !== null}
+                          className="px-3 py-2 rounded-xl text-neutral-500 hover:text-red-600 dark:hover:text-red-400 text-xs font-medium transition-colors ml-auto cursor-pointer"
+                        >
+                          <span>Disconnect</span>
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                <div className="text-xs text-neutral-500 space-y-3">
+                  <p>Backups use your private Drive app storage. They are not end-to-end encrypted by PESE.</p>
+                  {snapshots.length > 0 && (
+                    <label className="block space-y-2">
+                      <span>Snapshots for this Brain</span>
+                      <select aria-label="Recovery snapshot" value={selectedSnapshot}
+                        onChange={(event) => setSelectedSnapshot(event.target.value)}
+                        className="block w-full p-2 rounded-lg border border-surface-border bg-surface">
+                        <option value="">Select a specific snapshot</option>
+                        {snapshots.map((item) => <option key={item.id} value={item.id}>
+                          {item.snapshot_id || item.name} · {item.created_time}
+                        </option>)}
+                      </select>
+                    </label>
+                  )}
+                  {snapshots.filter((item) => item.id === selectedSnapshot).map((item) => (
+                    <div key={item.id} className="space-y-1">
+                      <p>Brain: {item.brain_id} · Snapshot: {item.snapshot_id}</p>
+                      <p>{item.compatible ? "Supported backup format." : "Legacy or unsupported backup; recovery is refused."}</p>
+                      {item.local_changes && <p className="text-amber-600">Local state differs from this snapshot. Histories are not merged; the current Brain must be preserved.</p>}
+                    </div>
+                  ))}
+                  <button type="button" disabled className="px-3 py-2 rounded-lg border border-surface-border opacity-50 cursor-not-allowed">
+                    Restore unavailable
+                  </button>
+                  <p>{syncStatus?.restore_disabled_reason || "Desktop recovery activation is not yet verified. In-place Restore is disabled. Offline recovery only creates a new Brain."}</p>
+                </div>
               </div>
             )}
 
@@ -670,7 +939,7 @@ function SettingsContent() {
                       Search History & Data Retention
                     </h3>
                     <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
-                      PESE is 100% offline. No query data or documents are ever transmitted across the internet.
+                      Search runs locally. Manual Google Drive backup actions transfer the canonical Brain snapshot, including saved history and feedback.
                     </p>
                   </div>
 

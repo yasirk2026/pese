@@ -4,7 +4,6 @@ PESE Indexing package: Document model, Passage model, Document Store, and Invert
 
 from .document import Document
 from .passage import Passage
-from .store import DocumentStore
 from .inverted_index import InvertedIndex, Posting, PassagePosting
 
 __all__ = [
@@ -15,3 +14,11 @@ __all__ = [
     "Posting",
     "PassagePosting",
 ]
+
+
+def __getattr__(name):
+    # Portable validators can import Document without resolving/initializing a runtime.
+    if name == "DocumentStore":
+        from .store import DocumentStore
+        return DocumentStore
+    raise AttributeError(name)

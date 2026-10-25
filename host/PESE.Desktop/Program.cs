@@ -11,6 +11,8 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (args.Length > 0 && args[0] == "--accept-ui")
+            return UiAcceptance.Run(args.Skip(1).ToArray());
         if (args.Length > 0 && args[0] == "--capture-screens")
             return Acceptance.CaptureScreenshots(args.Skip(1).ToArray());
         // Installer/update hooks must run before WPF or the single-instance gate.
