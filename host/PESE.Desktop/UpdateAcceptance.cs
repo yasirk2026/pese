@@ -93,7 +93,13 @@ internal static class UpdateAcceptance
             var handedOff = false;
             await updates.ApplyAsync(async () =>
             {
-                var inFlight = brain.Client.GetAsync(brain.Origin + "/api/search?q=PESE&debug=true");
+                var query = string.Concat(Enumerable.Repeat("PESE is a local personal search engine that keeps documents in a separate Brain folder. ", 16));
+                var inFlight = brain.Client.GetAsync(brain.Origin + "/api/search?q=" + Uri.EscapeDataString(query) + "&debug=true");
+                // Give the loopback request an admission window. A simultaneous
+                // send/stop can correctly reject the late request with 503.
+                await Task.Delay(25);
+                var searchPendingAtShutdown = !inFlight.IsCompleted;
+                if (!searchPendingAtShutdown) throw new InvalidOperationException("The synthetic search completed before the overlap checkpoint.");
                 await brain.StopForUpdateAsync(CancellationToken.None);
                 using var completed = await inFlight;
                 completed.EnsureSuccessStatusCode();
@@ -104,7 +110,7 @@ internal static class UpdateAcceptance
                     .Any(x => !final.TryGetValue(x.Key, out var value) || value != x.Value))
                     throw new InvalidDataException("Canonical data changed while draining the fixture engine.");
                 File.WriteAllText(report, JsonSerializer.Serialize(new { passed = true, version = SoftwareUpdates.Version,
-                    identity, health, canonical = final, states, activeSearchCompleted = true,
+                    identity, health, canonical = final, states, activeSearchCompleted = true, searchPendingAtShutdown,
                     engineExited = !brain.Running, handoff = "requested; success requires update-after.json" }, new JsonSerializerOptions { WriteIndented = true }));
             }, () => handedOff = true, new[] { "--accept-update-restarted", planPath });
             return handedOff ? 0 : throw new InvalidOperationException("The update did not hand off to Velopack.", updates.LastError);
