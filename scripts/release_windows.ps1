@@ -6,7 +6,7 @@ param(
     [Parameter(Mandatory)][string]$Dotnet,
     [Parameter(Mandatory)][string]$Vpk,
     [string]$NugetCache,
-    [string]$Version = '0.1.0-alpha.5',
+    [Parameter(Mandatory)][string]$Version,
     [switch]$AcceptanceOnly
 )
 $ErrorActionPreference = 'Stop'
@@ -16,6 +16,10 @@ $BuildRoot = [IO.Path]::GetFullPath($BuildRoot)
 $AssetSource = [IO.Path]::GetFullPath($AssetSource)
 if ($Version -notmatch '^\d+\.\d+\.\d+-alpha\.\d+$') { throw 'A valid alpha SemVer is required' }
 if (Test-Path -LiteralPath $BuildRoot) { throw 'BuildRoot must be a new directory; earlier release artifacts are immutable' }
+if ($BuildRoot.Equals($repo, [StringComparison]::OrdinalIgnoreCase) -or
+    $BuildRoot.StartsWith($repo + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+    throw 'BuildRoot must be outside the source checkout'
+}
 $python = Join-Path $AssetSource 'packaging/runtime-lab/python-embed/python.exe'
 $notes = Join-Path $repo "docs/releases/$Version.md"
 foreach ($file in @($python,$Dotnet,$Vpk,$notes)) { if (!(Test-Path -LiteralPath $file)) { throw "Missing prerequisite: $file" } }
@@ -23,6 +27,12 @@ function Assert-Exit([string]$Step) { if ($LASTEXITCODE -ne 0) { throw "$Step fa
 $mutexId = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($repo)))
 $buildMutex = [Threading.Mutex]::new($false, "Local\PESE.ReleaseBuild.$mutexId")
 if (!$buildMutex.WaitOne(0)) { $buildMutex.Dispose(); throw 'Another release build is using this checkout' }
+$buildEnvironmentNames = @('DOTNET_ROOT','DOTNET_ROLL_FORWARD','DOTNET_CLI_HOME','DOTNET_CLI_TELEMETRY_OPTOUT',
+    'DOTNET_GENERATE_ASPNET_CERTIFICATE','NUGET_PACKAGES','LOCALAPPDATA','PESE_DATA_DIR','PESE_BRAIN_PATH',
+    'HF_HUB_OFFLINE','TRANSFORMERS_OFFLINE','PESE_FASTEMBED_CACHE','PESE_FASTEMBED_MODEL_PATH',
+    'NEXT_TELEMETRY_DISABLED','TEMP','TMP')
+$previousBuildEnvironment = @{}
+foreach ($name in $buildEnvironmentNames) { $previousBuildEnvironment[$name] = [Environment]::GetEnvironmentVariable($name, 'Process') }
 Push-Location $repo
 try {
     $commit = (& git -c "safe.directory=$($repo.Replace('\','/'))" rev-parse HEAD).Trim()
@@ -31,13 +41,16 @@ try {
     if ($status -and !$AcceptanceOnly) { throw 'Production build requires clean, committed source' }
     [xml]$project = Get-Content -LiteralPath host/PESE.Desktop/PESE.Desktop.csproj
     if ($project.Project.PropertyGroup.Version -ne $Version -and !$AcceptanceOnly) { throw 'Host source version differs from release version' }
-    if ((& $Dotnet --version) -ne '10.0.402') { throw 'Pinned .NET SDK 10.0.402 is required' }
+    $env:TEMP = Join-Path $BuildRoot 'temp'
+    $env:TMP = $env:TEMP
+    New-Item -ItemType Directory -Path $env:TEMP | Out-Null
     $env:DOTNET_ROOT = Split-Path $Dotnet
     $env:DOTNET_ROLL_FORWARD = 'LatestMajor'
     $env:DOTNET_CLI_HOME = Join-Path $BuildRoot 'dotnet-home'
     $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
     $env:DOTNET_GENERATE_ASPNET_CERTIFICATE = 'false'
     if ($NugetCache) { $env:NUGET_PACKAGES = $NugetCache }
+    if ((& $Dotnet --version) -ne '10.0.402') { throw 'Pinned .NET SDK 10.0.402 is required' }
     $vpkHelp = (& $Vpk --help) -join "`n"
     Assert-Exit 'Velopack CLI preflight'
     if ($vpkHelp -notmatch 'Velopack CLI 0\.0\.1298,') { throw 'Pinned Velopack CLI 0.0.1298 is required' }
@@ -90,4 +103,11 @@ try {
     if ($AcceptanceOnly) { $verifyArgs += '--acceptance-only' }
     & $python -B @verifyArgs; Assert-Exit 'Artifact verification'
     Write-Output "Verified artifacts: $packages"
-} finally { Pop-Location; $buildMutex.ReleaseMutex(); $buildMutex.Dispose() }
+} finally {
+    Pop-Location
+    $buildMutex.ReleaseMutex(); $buildMutex.Dispose()
+    foreach ($name in $buildEnvironmentNames) {
+        if ($null -eq $previousBuildEnvironment[$name]) { Remove-Item -LiteralPath "Env:$name" -ErrorAction SilentlyContinue }
+        else { [Environment]::SetEnvironmentVariable($name, $previousBuildEnvironment[$name], 'Process') }
+    }
+}

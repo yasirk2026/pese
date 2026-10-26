@@ -47,6 +47,7 @@ foreach ($name in $files) {
         throw "Artifact changed after verification: $name"
     }
 }
+$previousPublisherPath = $env:PATH
 Push-Location $repo
 try {
     $git = @('-c',"safe.directory=$($repo.Replace('\','/'))",'-c','credential.helper=','-c','credential.helper=!gh auth git-credential')
@@ -89,4 +90,4 @@ try {
         all_asset_hashes_verified=$true; anonymous_asset_availability_verified=$true; signed=$false }
     $receipt | ConvertTo-Json | Set-Content -LiteralPath (Join-Path (Split-Path $Artifacts) 'publication-receipt.json') -Encoding utf8
     Write-Output $release.html_url
-} finally { Pop-Location }
+} finally { Pop-Location; $env:PATH = $previousPublisherPath }

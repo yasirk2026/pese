@@ -9,6 +9,7 @@ import os
 import secrets
 import subprocess
 import threading
+import tempfile
 import time
 import urllib.error
 import urllib.parse
@@ -29,9 +30,14 @@ def main():
     if not (args.brain / ".pese-disposable-fixture").is_file():
         parser.error("A marked disposable Brain is required.")
     args.install, args.brain = args.install.resolve(), args.brain.resolve()
+    if args.report.resolve().is_relative_to(args.brain) or args.report.resolve().is_relative_to(args.install):
+        parser.error("Acceptance reports must be outside the Brain and installation.")
+    args.report.parent.mkdir(parents=True, exist_ok=True)
+    temporary_profile = tempfile.TemporaryDirectory(prefix=".pese-http-profile-", dir=args.report.parent.resolve())
     results = {"passed": False, "queries": [], "legacy_comparison": args.legacy}
     environment = {k:v for k,v in os.environ.items() if not k.startswith(("PESE_", "PYTHON"))}
     environment["PATH"] = str(Path(os.environ["SystemRoot"]) / "System32")
+    environment["LOCALAPPDATA"] = str(Path(temporary_profile.name) / "LocalAppData")
     token = secrets.token_hex(32)
     child = subprocess.Popen([str(args.install / "runtime/python/python.exe"), "-B", "-u", "-m", "engine.desktop.launcher"],
                              cwd=args.install, env=environment, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
@@ -114,6 +120,9 @@ def main():
             child.kill()
             child.wait(timeout=5)
         results["engine_exited"] = child.poll() is not None
+        if not Path(temporary_profile.name).resolve().is_relative_to(args.report.parent.resolve()):
+            raise RuntimeError("Unexpected temporary profile location; cleanup refused")
+        temporary_profile.cleanup()
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(json.dumps(results, indent=2), encoding="utf-8")
     return 0 if results["passed"] else 1
