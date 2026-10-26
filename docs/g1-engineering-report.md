@@ -1,5 +1,7 @@
 # G1 recovery, Drive hardening and discovery engineering report
 
+> Historical report from the preceding G1 mission. Its release-blocked verdict describes that earlier candidate. See the [Alpha.5 / Alpha.6 engineering report](alpha5-alpha6-engineering-report.md) for committed release source, packaged acceptance, publication and account-specific results.
+
 ## Verdict
 
 **CONDITIONAL implementation; release blocked pending final acceptance.** Unsafe desktop Restore is disabled. The supported recovery boundary creates a new inactive Brain and never overwrites the current Brain. Active-Brain preservation must be checked in its owning Windows user context; this execution context was denied access and did not bypass permissions. Google browser authorization and real transfer results are recorded separately from local and mocked tests.

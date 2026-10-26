@@ -1,7 +1,7 @@
 # Windows release engineering
 
 PESE is offline first. Search and the Brain work locally; native update checks use
-GitHub when requested/available. Later Google backup builds have their own explicit
+GitHub when requested/available. Alpha.6 Google backup has separate explicit
 opt-in networking. Neither path makes the Brain an installation asset.
 
 ## Pinned toolchain and offline assets
@@ -33,7 +33,7 @@ Commit reviewed source first. Use a **new** build directory outside the checkout
 so disposable regression Brains are separate from application source. Run:
 
 ```powershell
-./scripts/release_windows.ps1 -Version 0.1.0-alpha.5 `
+pwsh -NoProfile -File ./scripts/release_windows.ps1 -Version 0.1.0-alpha.6 `
   -BuildRoot <new-build-directory> -AssetSource <offline-assets-directory> `
   -Dotnet <dotnet-10.0.402.exe> -Vpk <vpk-0.0.1298.exe> -NugetCache <optional-cache>
 ```
@@ -45,6 +45,15 @@ private Brain files and writes checksums plus a public provenance manifest.
 `-AcceptanceOnly` permits experimental source but marks the package unpublishable.
 No build command publishes automatically. The historical `build_windows_release`
 script is retained for Alpha.4 history; use `release_windows` for new releases.
+
+Use a build volume with space for the stage, compressed artifacts, temporary
+payload copies, verification downloads and native fixtures. The release process
+exhausted C: temporary space during concurrent packaging; packaging was retried
+from the same tested stages using isolated D: temporary directories. Current
+tooling puts `TEMP`/`TMP` under the new build root and restores all caller
+environment variables in `finally`, including on failure. It requires an explicit
+version and refuses a build root inside the source checkout. These tooling
+follow-ups do not change the already published Alpha.5/Alpha.6 payloads or tags.
 
 After two exact-package native acceptance reports pass (default and custom
 Unicode paths, including the actual WPF Settings controls), publication is a
@@ -62,6 +71,10 @@ with a normal fast-forward push, creates an annotated tag and draft prerelease,
 uploads the complete artifacts, downloads and compares all draft bytes, and only
 then makes the prerelease public. Anonymous asset availability is checked and a
 local publication receipt is written. It never force-pushes or replaces assets.
+The native reports must match either this release as the exact tested base
+(bootstrap validation) or this release as the exact target of an older client
+(subsequent validation). Alpha.6's draft transfer was staged in parallel, with an
+additional verified-public-Alpha.5 prerequisite before Alpha.6 publication.
 
 ## Update protocol
 
@@ -91,6 +104,14 @@ waits for both the completed lifecycle signal and a healthy authenticated API.
 No vector cache is part of Google snapshots; G1 transfer/recovery remains separate.
 
 ## Local acceptance and account safety
+
+`scripts/accept_g1_runtime.py` creates and removes its own temporary account
+profile outside the fixture Brain and installation, so an operator's existing
+Google credentials cannot turn a rejection test into an unintended upload.
+Use `scripts/accept_cold_recovery.py <stage> <marked-source-fixture> <new-case>`
+for inactive V2 recovery, fixture-only rebuild interruption, native cold/warm
+startup, cache persistence, counts and grounded search. See the engineering report
+for the separate native WPF and real Google evidence.
 
 Use a new marked disposable case containing `install/`, `feed/`, a separate Brain
 and `LocalAppData/`. A Windows Velopack portable installation has a root

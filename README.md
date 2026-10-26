@@ -2,20 +2,22 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows_x64-0078D6.svg)](https://github.com/yasirk2026/pese)
-[![Release: 0.1.0-alpha.4](https://img.shields.io/badge/Release-v0.1.0--alpha.4-green.svg)](https://github.com/yasirk2026/pese/releases)
+[![Release: 0.1.0-alpha.6](https://img.shields.io/badge/Release-v0.1.0--alpha.6-green.svg)](https://github.com/yasirk2026/pese/releases/tag/v0.1.0-alpha.6)
 
-**PESE** is a private, local-first personal knowledge search engine running entirely on your own computer. It indexes your markdown notes, research documents, and personal logs into a dual-engine index—fielded BM25F lexical search alongside local dense neural vector embeddings—delivering sub-millisecond keyword precision, semantic concept retrieval, and grounded extractive answers without cloud dependencies.
+**PESE** searches your personal knowledge locally using fielded BM25F, local dense embeddings and grounded extractive answers. Search has no hosted dependency. Optional native updates contact GitHub; optional Google Drive backup sends an explicitly requested canonical snapshot to the app's private Drive storage.
+
+See the [Alpha.5 / Alpha.6 engineering report](docs/alpha5-alpha6-engineering-report.md), [release procedure](docs/release-engineering.md) and [G1 backup/recovery contract](docs/g1-hardening.md). Existing Alpha.4 clients require a one-time installer transition; Alpha.5 establishes the in-app update path.
 
 ---
 
 ## Key Highlights
 
-- **Offline-first privacy**: Search and the Brain work locally. The native updater optionally contacts the official GitHub release feed; it does not upload Brain data. There is no hosted search dependency.
+- **Offline-first privacy**: Search and the Brain work locally. Updates contact the official GitHub feed. Drive backup requires separate configuration and authorization; it does not own local search.
 - **Hybrid Retrieval Architecture**: Combines fielded BM25F ranking, dense vector semantics (via local ONNX FastEmbed `bge-small-en-v1.5`), and Reciprocal Rank Fusion (RRF k=60) for robust keyword and conceptual relevance.
 - **Grounded Featured Answers**: Conservative extractive QA pipeline extracts direct answers with exact source document attribution and passage score verification, abstaining safely when confidence thresholds are not met.
 - **Discovery Intelligence & "You Might Also Ask"**: Generates grounded discovery questions and related search topics derived from corpus graph connectivity and passage relationships.
 - **Native Windows Host**: Packaged as a single-instance Windows WPF application with Microsoft Edge WebView2, managing the background Python engine supervisor, lifecycle synchronization, and IPC security.
-- **Zero Cloud Brain Custody**: Application updates (via Velopack) replace application binaries while preserving your separate Brain folder and local settings intact.
+- **Local Brain authority**: Velopack updates replace application files while preserving the separate Brain and settings. G1 provides optional backup and inactive-directory recovery; it does not merge devices or restore over a running Brain.
 
 ---
 
@@ -25,9 +27,9 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                      PESE.exe (WPF Host)                    │
 │  - Single Instance Gate (Named Pipe & Mutex)                │
-│  - Microsoft Edge WebView2 (Isolated Origin Virtual Host)   │
+│  - Microsoft Edge WebView2 (Authenticated Loopback Origin) │
 │  - Brain Process Supervisor & Job Object Ownership          │
-│  - Velopack Automatic Update Hook Integration               │
+│  - Velopack Hooks and Explicit Update Activation           │
 └──────────────────────────────┬──────────────────────────────┘
                                │ Loopback IPC (X-PESE-Token Auth)
 ┌──────────────────────────────▼──────────────────────────────┐
@@ -35,7 +37,7 @@
 │  - FastAPI / Uvicorn (Bound strictly to 127.0.0.1:0)        │
 │  - Offline Boundary (Socket Interception)                   │
 │  - Fielded BM25F Lexical Inverted Index                     │
-│  - Local ONNX FastEmbed Dense Semantic Index (1331 chunks)  │
+│  - Local ONNX FastEmbed Dense Semantic Index               │
 │  - SQLite Search Sync Feedback & Behavioural Signals        │
 │  - Conservative Grounded Extractive QA Engine               │
 └──────────────────────────────┬──────────────────────────────┘
@@ -57,8 +59,8 @@
 
 - **Operating System**: Windows 10 / 11 (x64)
 - **Runtime**: Microsoft Edge WebView2 Evergreen Runtime (preinstalled on modern Windows)
-- **Memory**: 4 GB RAM minimum (8 GB recommended for simultaneous dense embeddings)
-- **Disk Space**: ~1.5 GB for full standalone packaged installation (including isolated Python runtime, ONNX neural models, and static assets)
+- **Memory**: Acceptance ran on a 16 GB host. A 212-document cold rebuild peaked at about 2.83 GB for Python alone; allow additional memory for Windows and WebView2. Lower-memory minimums are not certified.
+- **Disk Space**: About 1.1 GB of application payload, plus the separate Brain, derived caches and update packages. Full updates need space for a replacement payload and its approximately 457 MB compressed package.
 
 ---
 
@@ -112,7 +114,7 @@ dotnet build -c Release
 ### 5. Full Windows Release Build
 To package the self-contained installer and Velopack update feed with embedded CPython and local neural models, prepare the pinned assets described in [release engineering](docs/release-engineering.md), then run:
 ```powershell
-.\scripts\release_windows.ps1 -Version "0.1.0-alpha.5" -BuildRoot <new-build-directory> -AssetSource <offline-assets-directory> -Dotnet <dotnet-10.0.402.exe> -Vpk <vpk-0.0.1298.exe>
+pwsh -NoProfile -File .\scripts\release_windows.ps1 -Version "0.1.0-alpha.6" -BuildRoot <new-build-directory> -AssetSource <offline-assets-directory> -Dotnet <dotnet-10.0.402.exe> -Vpk <vpk-0.0.1298.exe>
 ```
 
 ---
