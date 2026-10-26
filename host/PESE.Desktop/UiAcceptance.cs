@@ -28,9 +28,10 @@ internal static class UiAcceptance
                 if (window.AcceptanceCore is null && window.AcceptanceBrain is { Running: true })
                 {
                     window.UpdateLayout();
+                    var content = (FrameworkElement)window.Content;
                     var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap(
-                        (int)window.ActualWidth, (int)window.ActualHeight, 96, 96, System.Windows.Media.PixelFormats.Pbgra32);
-                    bitmap.Render(window);
+                        (int)content.ActualWidth, (int)content.ActualHeight, 96, 96, System.Windows.Media.PixelFormats.Pbgra32);
+                    bitmap.Render(content);
                     var encoder = new System.Windows.Media.Imaging.PngBitmapEncoder();
                     encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));
                     using var image = File.Create(Path.Combine(output, "native-startup.png"));
