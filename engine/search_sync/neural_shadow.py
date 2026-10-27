@@ -52,17 +52,20 @@ class PESERelationShadowAdapter:
         tokenizer_path: Path = DEFAULT_TOKENIZER_PATH,
         diagnostic_threshold: float = DEFAULT_DIAGNOSTIC_THRESHOLD,
         max_candidate_budget: int = DEFAULT_MAX_CANDIDATE_BUDGET,
+        _inference_worker: bool = False,
     ):
         self.checkpoint_path = Path(checkpoint_path)
         self.tokenizer_path = Path(tokenizer_path)
         self.diagnostic_threshold = diagnostic_threshold
         self.max_candidate_budget = max_candidate_budget
+        self._inference_worker = _inference_worker
 
         self._lock = RLock()
         self._model: Optional[PESERelationClassifier] = None
         self._tokenizer: Optional[RelationTokenizer] = None
         self._checkpoint_hash: Optional[str] = None
         self._init_error: Optional[str] = None
+        self._isolated_error = False
 
         # Verify registry invariants at instantiation
         self._verify_registry_invariants()
@@ -135,7 +138,10 @@ class PESERelationShadowAdapter:
 
     def is_enabled(self) -> bool:
         """Checks the global disable switch."""
-        env_val = os.getenv("PESE_REL_SHADOW_ENABLED", "true").strip().lower()
+        # The unvalidated observer is opt-in in the release profile. Development
+        # regression tools retain their historical shadow default.
+        default = "false" if os.getenv("PESE_ENV") == "production" else "true"
+        env_val = os.getenv("PESE_REL_SHADOW_ENABLED", default).strip().lower()
         return env_val in ("true", "1", "yes", "on")
 
     def observe_candidates(
@@ -162,6 +168,12 @@ class PESERelationShadowAdapter:
 
         if not candidate_items:
             return {}, []
+
+        # Desktop native inference must be killable. The research/test adapter
+        # retains direct execution for reproducible diagnostics; production uses
+        # a separate process and never relies on catching a native hang.
+        if os.getenv("PESE_ENV") == "production" and not self._inference_worker:
+            return self._observe_isolated(query, normalized_query, search_context_id, candidate_items)
 
         # 1. Enforce candidate budget cap
         budgeted_items = candidate_items[: self.max_candidate_budget]
@@ -264,8 +276,8 @@ class PESERelationShadowAdapter:
             return summaries, observations
 
         except Exception as exc:
-            logger.warning("Neural shadow inference failed open: %s", exc, exc_info=True)
-            return self._build_error_fallback(candidate_items, reason=str(exc))
+            logger.warning("Neural shadow inference failed open (%s)", type(exc).__name__)
+            return self._build_error_fallback(candidate_items, reason=type(exc).__name__)
 
     def _build_disabled_fallback(
         self, candidate_items: List[Dict[str, Any]]
@@ -280,6 +292,28 @@ class PESERelationShadowAdapter:
                     status="DISABLED",
                 )
         return summaries, []
+
+    def _observe_isolated(self, query, normalized_query, context_id, candidate_items):
+        import sys
+        from ..intelligence.isolation import infer_process
+        if self._isolated_error:
+            return self._build_error_fallback(candidate_items, "worker_circuit_open_until_restart")
+        if not self._lock.acquire(blocking=False):
+            return self._build_error_fallback(candidate_items, "worker_busy")
+        try:
+            result, _ = infer_process([sys.executable, str(Path(__file__).with_name("shadow_worker.py"))],
+                {"query": query[:500], "normalized_query": normalized_query, "context_id": context_id,
+                 "items": candidate_items[:self.max_candidate_budget]}, timeout_seconds=2.0)
+            observations = [NeuralShadowObservation.model_validate(o) for o in result["observations"]]
+            summaries = {key: SearchResultNeuralSummary.model_validate(value) for key,value in result["summaries"].items()}
+            if observations:
+                self._checkpoint_hash = observations[0].checkpoint_hash
+            return summaries, observations
+        except Exception:
+            self._isolated_error = True
+            return self._build_error_fallback(candidate_items, "worker_failure_or_budget")
+        finally:
+            self._lock.release()
 
     def _build_error_fallback(
         self, candidate_items: List[Dict[str, Any]], reason: str

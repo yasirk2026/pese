@@ -14,15 +14,19 @@ from .contracts import (
     SearchResultNeuralSummary,
     classify_diagnostic_alignment,
 )
-from .feedback_store import SearchSyncFeedbackStore, feedback_store
-from .preference_signal import (
-    SearchSyncPreferenceSignal,
-    preference_signal,
-    normalize_sync_query,
-    DEFAULT_DISLIKE_PENALTY,
-    DEFAULT_LIKE_BONUS,
-)
-from .neural_shadow import PESERelationShadowAdapter, shadow_adapter
+import os as _os
+# Inference workers must never initialize a feedback store or resolve a Brain.
+# The desktop/research public API retains its existing imports and behavior.
+if _os.getenv("PESE_REL_SHADOW_WORKER") != "1":
+    from .feedback_store import SearchSyncFeedbackStore, feedback_store
+    from .preference_signal import (
+        SearchSyncPreferenceSignal,
+        preference_signal,
+        normalize_sync_query,
+        DEFAULT_DISLIKE_PENALTY,
+        DEFAULT_LIKE_BONUS,
+    )
+    from .neural_shadow import PESERelationShadowAdapter, shadow_adapter
 
 __all__ = [
     "FeedbackType",

@@ -57,6 +57,8 @@ class RankingTrace(BaseModel):
     doc_id: str
     slug: str
     title: str
+    neural_adjustment: float = 0.0
+    neural_model_version: Optional[str] = None
 
     # Retrieval mode & Hybrid signals
     retrieval_mode: str = "hybrid"
@@ -164,6 +166,8 @@ class RankingTrace(BaseModel):
             lines.append(f"MAAE Base Score: {self.base_score:.4f}")
         if self.search_sync_adjustment != 0.0 or self.search_sync_feedback is not None:
             lines.append(f"Search Sync Preference: {self.search_sync_feedback or 'NONE'} ({self.search_sync_adjustment:+.4f})")
+        if self.neural_model_version is not None:
+            lines.append(f"Neural ranking: {self.neural_model_version} ({self.neural_adjustment:+.4f}; bounded ranking only)")
         if self.rel_shadow_answers_prob is not None:
             not_ans = self.rel_shadow_does_not_answer_prob if self.rel_shadow_does_not_answer_prob is not None else (1.0 - self.rel_shadow_answers_prob)
             lines.extend([
@@ -199,6 +203,7 @@ class SearchResult(BaseModel):
     in_links_count: int = 0
     base_score: Optional[float] = None
     search_sync_adjustment: float = 0.0
+    neural_adjustment: float = 0.0
     search_sync_feedback: Optional[str] = None
     final_score: float
     is_semantic_rescue: bool = False
@@ -263,12 +268,15 @@ class RankingEngine:
         doc_store: Optional[DocumentStore] = None,
         search_sync: Optional[SearchSyncPreferenceSignal] = None,
         shadow_adapter: Optional[PESERelationShadowAdapter] = None,
+        neural_ranker=None,
     ):
         self.index = index
         self.link_authority = link_authority
         self.doc_store = doc_store
         self.search_sync = search_sync or default_preference_signal
         self.shadow_adapter = shadow_adapter or default_shadow_adapter
+        from ..intelligence.reranking import NeuralReranker
+        self.neural_ranker = neural_ranker or NeuralReranker()
         self.retriever = CandidateRetriever(index)
         self.passage_scorer = PassageScorer(index)
         self.snippet_gen = SnippetGenerator()
@@ -387,6 +395,10 @@ class RankingEngine:
                     item.evidence_provenance["context_id"] = context_id
                     item.neural_shadow = None
                     item.answer_audit.pop("neural_shadow_observation", None)
+                    for field in ("rel_shadow_answers_prob", "rel_shadow_does_not_answer_prob", "rel_shadow_label",
+                                  "rel_shadow_evidence_id", "rel_shadow_alignment"):
+                        setattr(item.trace, field, None)
+                    item.trace.rel_shadow_evidence_count = 0
                     item.trace.rel_shadow_status = "CACHED_NOT_OBSERVED"
                 result.neural_shadow_trace = {"authority": "NONE", "status": "CACHED_NOT_OBSERVED",
                                               "search_context_id": context_id}
@@ -791,6 +803,11 @@ class RankingEngine:
         passage_scoring_ms = round(passage_scoring_accum * 1000.0, 2)
         ranking_scoring_ms = round(max(0.0, scoring_total_ms - (passage_scoring_accum * 1000.0)), 2)
 
+        # Neural influence is unavailable until a signed, independently accepted
+        # relevance model is installed. Existing Rel-0 cannot pass that gate.
+        neural_ranking_trace = self.neural_ranker.adjust(scored_candidates, analyzed_query.effective_query or query,
+                                                       enabled=self._neural_search_enabled())
+        hybrid_trace["neural_ranking"] = neural_ranking_trace
         # 6. Sort descending by Final Score
         scored_candidates.sort(key=lambda x: x["final_score"], reverse=True)
 
@@ -976,6 +993,7 @@ class RankingEngine:
                             "target_type": "SERP_RESULT",
                             "evidence_id": p.passage_id,
                             "evidence_text": p_text,
+                            "source_text": p.text,
                         })
                 elif cand.get("passage_text"):
                     shadow_candidate_items.append({
@@ -989,7 +1007,7 @@ class RankingEngine:
             # Also budget Featured Answer candidate evidence if present
             if featured_answer and scored_candidates:
                 top_cand = scored_candidates[0]
-                fa_ev_text = top_cand.get("passage_text", "")
+                fa_ev_text = featured_answer
                 if fa_ev_text:
                     shadow_candidate_items.append({
                         "target_id": top_cand["doc_id"],
@@ -1004,7 +1022,8 @@ class RankingEngine:
             candidate = next(c for c in scored_candidates if c["doc_id"] == evidence["target_id"])
             receipt = self._evidence_receipt(candidate, search_ctx_id, analyzed_query.effective_query or query)
             receipt.update(target_type=evidence["target_type"], evidence_id=evidence["evidence_id"],
-                           evidence_hash=digest(evidence["evidence_text"]))
+                           evidence_hash=digest(evidence.get("source_text", evidence["evidence_text"])),
+                           model_input_hash=digest(evidence["evidence_text"]))
             evidence["provenance"] = receipt
         shadow_summaries, shadow_observations = self.shadow_adapter.observe_candidates(
             query=analyzed_query.effective_query or query,
@@ -1057,6 +1076,7 @@ class RankingEngine:
                     in_links_count=item["in_links_count"],
                     base_score=item.get("base_score", item["final_score"]),
                     search_sync_adjustment=item.get("search_sync_adjustment", 0.0),
+                    neural_adjustment=item.get("neural_adjustment", 0.0),
                     search_sync_feedback=item.get("search_sync_feedback"),
                     final_score=item["final_score"],
                     is_semantic_rescue=item["is_semantic_rescue"],
@@ -1120,3 +1140,10 @@ class RankingEngine:
                 "evidence_hash": digest(item["passage_text"]), "ranking_version": RANKING_VERSION,
                 "generation": str(self.index_versions.get("document_version") or digest(sorted(self._documents))),
                 "model_versions": {"relation": "PESE-Rel-0:shadow:" + self.shadow_adapter.checkpoint_hash}}
+
+    def _neural_search_enabled(self):
+        # A settings flag cannot install a model or bypass release acceptance.
+        if not self.neural_ranker.available:
+            return False
+        from ..intelligence.settings import intelligence_settings
+        return intelligence_settings.read().neural_search
