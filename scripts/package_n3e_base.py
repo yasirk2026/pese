@@ -27,9 +27,13 @@ if __name__=="__main__":
     shutil.copyfile(experiment/"dataset/validation.json",target/"regression.json")
     shutil.copyfile(experiment/"dataset/manifest.json",target/"dataset-manifest.json")
     from engine.intelligence.beta.artifacts import write_manifest
+    from engine.intelligence.beta.data import load
+    from engine.intelligence.beta.train import flatten
+    from engine.intelligence.beta.lifecycle import lineage
     manifest=write_manifest(target,identity="PESE-English-Beta-1:a300",origin="public_synthetic_base",evaluation={
         "initial_gate_passed":True,"independent_human_acceptance":False,"protocol_sha256":report["protocol_sha256"],
-        "validation":selected["validation"],"integration_delta":report["integration"]["paired"]["mean_ndcg10_delta"]},training=selected["training"])
+        "validation":selected["validation"],"integration_delta":report["integration"]["paired"]["mean_ndcg10_delta"]},training=selected["training"],
+        lineage=lineage(flatten(load(experiment/"dataset","train")+load(experiment/"dataset","validation"))))
     (ROOT/"engine/intelligence/beta/base_lock.py").write_text('"""Application pin for the original synthetic BETA base; no production signing key."""\nBASE_FILES = '+repr(manifest["files"])+"\n",encoding="utf-8")
     shutil.copyfile(experiment/"experiment.json",ROOT/"docs/neural/n3e-english-experiment-v1.json")
     print(json.dumps(manifest,indent=2))

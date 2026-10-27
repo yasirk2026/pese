@@ -234,7 +234,7 @@ class PESERelationShadowAdapter:
                     latency_ms=per_candidate_ms,
                     metadata={
                         **item.get("provenance", {}),
-                        "model_versions": {"relation": "PESE-Rel-0:shadow:" + ckpt_hash},
+                        "model_versions": {**item.get("provenance", {}).get("model_versions", {}), "relation": "PESE-Rel-0:shadow:" + ckpt_hash},
                         "seq_len": int(attention_mask[idx].sum().item()),
                         "batch_size": len(budgeted_items),
                         "total_inference_ms": elapsed_ms,

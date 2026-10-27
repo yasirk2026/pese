@@ -34,8 +34,9 @@ def bounded_adjustments(base_scores, neural_scores, *, relative_cap, gap_cap):
 
 
 class NeuralReranker:
-    def __init__(self, approved_model=None):
+    def __init__(self, approved_model=None, predictor=None):
         self.approved = approved_model
+        self._predictor = predictor
         self._busy = Lock()
 
     @property
@@ -55,7 +56,8 @@ class NeuralReranker:
                 raise ValueError("Candidate was not admitted by the hard evidence gate")
             model = self.approved  # immutable request lease during model replacement
             command = [sys.executable, str(Path(__file__).with_name("worker.py"))]
-            scores, metrics = infer_process(command, {"directory": str(model.directory), "query": query[:500],
+            runner = self._predictor or infer_process
+            scores, metrics = runner(command, {"directory": str(model.directory), "query": query[:500],
                       "evidence": [c["passage_text"][:8000] for c in budget],
                       "checkpoint_hash": model.checkpoint_hash, "tokenizer_hash": model.tokenizer_hash})
             changes = bounded_adjustments([c["base_score"] for c in budget], scores,

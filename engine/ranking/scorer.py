@@ -213,6 +213,7 @@ class SearchResult(BaseModel):
     answer_audit: Dict[str, Any] = Field(default_factory=dict)
     neural_shadow: Optional[Dict[str, Any]] = None
     evidence_provenance: Dict[str, Any] = Field(default_factory=dict)
+    learning_evidence_text: Optional[str] = Field(default=None, exclude=True)
 
 
 class SearchResultsList(list):
@@ -277,6 +278,10 @@ class RankingEngine:
         self.shadow_adapter = shadow_adapter or default_shadow_adapter
         from ..intelligence.reranking import NeuralReranker
         self.neural_ranker = neural_ranker or NeuralReranker()
+        if neural_ranker is None:
+            from ..intelligence.beta.runtime import beta_channel, runtime
+            if beta_channel():
+                self.neural_ranker = runtime().ranker
         self.retriever = CandidateRetriever(index)
         self.passage_scorer = PassageScorer(index)
         self.snippet_gen = SnippetGenerator()
@@ -383,7 +388,7 @@ class RankingEngine:
         if not skip_qa:
             return self._search_uncached(query, limit, force_raw, retrieval_mode, False, search_context_id=search_context_id)
         start = time.perf_counter()
-        key = (query, force_raw, retrieval_mode)
+        key = self._cache_key(query, force_raw, retrieval_mode)
         with self._search_cache_lock:
             cached = self._search_cache.get(key)
             if cached is not None:
@@ -427,8 +432,13 @@ class RankingEngine:
 
     def cached_primary_slugs(self, query):
         with self._search_cache_lock:
-            cached = self._search_cache.get((query, False, "hybrid"))
+            cached = self._search_cache.get(self._cache_key(query, False, "hybrid"))
             return [r.slug for r in cached[:5]] if cached is not None else []
+
+    def _cache_key(self,query,force_raw,retrieval_mode):
+        key=(query,force_raw,retrieval_mode)
+        identity=getattr(self.neural_ranker,"cache_identity",None)
+        return (*key,identity) if identity is not None else key
 
     def _search_uncached(
         self,
@@ -1098,6 +1108,7 @@ class RankingEngine:
                     } if idx == 0 else {},
                     neural_shadow=item_shadow_summary.model_dump() if item_shadow_summary else None,
                     evidence_provenance=self._evidence_receipt(item, search_ctx_id, analyzed_query.effective_query or query),
+                    learning_evidence_text=item["passage_text"],
                 )
             )
 
@@ -1139,7 +1150,8 @@ class RankingEngine:
                 "evidence_id": item["top_passage"].passage_id if item["top_passage"] else item["slug"] + "#document",
                 "evidence_hash": digest(item["passage_text"]), "ranking_version": RANKING_VERSION,
                 "generation": str(self.index_versions.get("document_version") or digest(sorted(self._documents))),
-                "model_versions": {"relation": "PESE-Rel-0:shadow:" + self.shadow_adapter.checkpoint_hash}}
+                "model_versions": {"relation": "PESE-Rel-0:shadow:" + self.shadow_adapter.checkpoint_hash,
+                    "ranking": item["trace"].neural_model_version or "deterministic_maae"}}
 
     def _neural_search_enabled(self):
         # A settings flag cannot install a model or bypass release acceptance.

@@ -29,12 +29,13 @@ def bundle(directory,*,brain_binding=None,base_pin=None):
     return ApprovedModel(root,manifest["model_id"],manifest["files"]["weights.pt"],manifest["files"]["tokenizer.json"],.03,.75)
 
 
-def write_manifest(directory,*,identity,origin,brain_binding=None,evaluation=None,training=None):
+def write_manifest(directory,*,identity,origin,brain_binding=None,evaluation=None,training=None,lineage=None):
     root=Path(directory)
     manifest={"format":"pese-owner-local-beta","version":1,"policy":"aggressive_learning_beta",
        "objective":"retrieval_relevance","model_id":identity,"origin":origin,"created":time.time(),
        "brain_binding":brain_binding,"files":{name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in ("weights.pt","tokenizer.json")},
-       "evaluation_hash":digest(evaluation) if evaluation else None,"training_hash":digest(training) if training else None}
+       "evaluation_hash":digest(evaluation) if evaluation else None,"training_hash":digest(training) if training else None,
+       "training_lineage":sorted(set(lineage or []))}
     atomic_write_json(root/"beta-model.json",manifest)
     return manifest
 
@@ -57,6 +58,9 @@ class LocalModels:
         if evaluation.get("decision")!="promote":raise ValueError("Candidate has not passed local promotion gates")
         candidate=Path(candidate)
         model=bundle(candidate,brain_binding=self.binding)
+        manifest=json.loads((candidate/"beta-model.json").read_text(encoding="utf-8"))
+        if manifest.get("evaluation_hash")!=digest(evaluation) or evaluation.get("candidate_checkpoint")!=model.checkpoint_hash:
+            raise ValueError("Promotion evaluation does not bind this exact candidate")
         if not healthcheck(model):raise ValueError("Candidate health check failed")
         name=hashlib.sha256((candidate/"beta-model.json").read_bytes()).hexdigest()
         destination=self.root/"models"/name
@@ -65,6 +69,7 @@ class LocalModels:
         bundle(destination,brain_binding=self.binding)
         pointer=self.root/"active.json"
         previous=json.loads(pointer.read_text())["current"] if pointer.exists() else "base"
+        if previous==name:return self.current()
         atomic_write_json(pointer,{"version":1,"current":name,"previous":previous,"evaluation_hash":digest(evaluation)})
         return self.current()
 

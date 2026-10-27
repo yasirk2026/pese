@@ -70,6 +70,11 @@ def brain_command(command):
 
 
 def serve(command):
+    channel=command.get("intelligenceChannel","stable")
+    if channel not in ("stable","aggressive_learning_beta"):
+        raise ValueError("Unsupported intelligence channel")
+    # The native build passes this after clearing inherited PESE_* flags.
+    os.environ["PESE_INTELLIGENCE_CHANNEL"]=channel
     from engine.desktop.offline import install_offline_boundary
     install_offline_boundary()
     import msvcrt

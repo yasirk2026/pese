@@ -267,6 +267,8 @@ async def lifespan(app: FastAPI):
     from ..startup_progress import emit_progress
     emit_progress("ready", len(store.list_documents()), len(store.list_documents()))
     yield
+    from ..intelligence.beta.runtime import beta_channel, runtime
+    if beta_channel():runtime().close()
 
 
 app = FastAPI(
@@ -275,6 +277,8 @@ app = FastAPI(
     description="Local Python information retrieval, fielded BM25F, passage indexing, and explainable ranking engine.",
     lifespan=lifespan,
 )
+from ..intelligence.beta.api import router as beta_router
+app.include_router(beta_router)
 
 # CORS configured for Next.js local development
 app.add_middleware(
@@ -445,7 +449,15 @@ def search_documents(
         discovery_contexts[search_id] = (q, snapshot, [result.slug for result in ranked_results[:5]])
         while len(discovery_contexts) > 64:
             discovery_contexts.popitem(last=False)
-    feedback_contexts.remember(search_id, q, ranked_results)
+    from ..intelligence.beta.runtime import beta_channel, runtime
+    beta = runtime() if beta_channel() else None
+    if beta:beta.document_reader=store.get_document
+    feedback_contexts.remember(search_id, q, ranked_results, learning=bool(beta and beta.collecting()))
+    if beta and beta.collecting():
+        for row in ranked_results[:3]:
+            beta.record({"receipt":row.evidence_provenance,"original_query":q,"evidence_text":row.learning_evidence_text,
+                         "rank":row.rank,"maae_score":row.base_score,"neural_adjustment":row.neural_adjustment,
+                         "preference_adjustment":row.search_sync_adjustment,"model":row.trace.neural_model_version},source="search_presentation")
     elapsed_ms = round((time.perf_counter() - start_time) * 1000.0, 2)
 
     qa = getattr(ranked_results, "query_analysis", None)
@@ -586,6 +598,8 @@ def save_document(doc_data: dict = Body(...)):
 def delete_document(doc_id: str):
     """Delete document by ID or slug."""
     with pipeline_lock:
+        from ..intelligence.beta.runtime import beta_channel, runtime
+        if beta_channel() and runtime().accepted():runtime().forget([doc_id])
         success = store.delete_document(doc_id)
         if not success:
             raise HTTPException(status_code=404, detail="Document not found")
@@ -759,9 +773,13 @@ def record_event(payload: EventPayload):
 @app.get("/api/intelligence/settings")
 def get_intelligence_settings():
     from ..intelligence.settings import intelligence_settings
-    return {"settings": intelligence_settings.read().model_dump(), "neural_available": False,
-            "neural_status": "No independently accepted relevance release installed",
-            "parameter_training_available": False, "upload_available": False,
+    from ..intelligence.beta.runtime import beta_channel, runtime
+    beta = runtime() if beta_channel() else None
+    if beta:beta.document_reader=store.get_document
+    available=bool(beta and beta.accepted())
+    return {"settings": intelligence_settings.read().model_dump(), "neural_available": available,
+            "neural_status": "Closed BETA: experimental synthetic model, no public independent acceptance" if available else "No independently accepted relevance release installed",
+            "parameter_training_available": available, "upload_available": False,
             "storage": "local_per_brain_excluded_from_backups"}
 
 
@@ -769,9 +787,14 @@ def get_intelligence_settings():
 def update_intelligence_settings(changes: Dict[str, Any] = Body(...)):
     from ..intelligence.settings import intelligence_settings
     try:
-        if changes.get("collect_research_feedback") is True:
+        from ..intelligence.beta.runtime import beta_channel, runtime
+        beta=runtime() if beta_channel() else None
+        available=bool(beta and beta.accepted())
+        if changes.get("collect_research_feedback") is True and not available:
             raise ValueError("Research collection is unavailable in this release")
-        settings = intelligence_settings.update(changes, neural_available=False)
+        settings = intelligence_settings.update(changes, neural_available=available)
+        if available and (changes.get("collect_research_feedback") is False or changes.get("learn_from_feedback") is False):beta.cancel.set()
+        if available and "excluded_document_ids" in changes:beta.forget(changes["excluded_document_ids"])
     except ValueError as exc:
         raise HTTPException(400, detail="Invalid permissions or neural model unavailable") from exc
     for active_engine in (active_snapshot.engine if active_snapshot else None, engine):
@@ -857,6 +880,11 @@ def submit_search_feedback(submission: FeedbackSubmission):
                   "readiness": "eligible_for_human_adjudication" if verified else "preference_only"},
     )
     recorded = feedback_store.record_feedback(event)
+    from ..intelligence.beta.runtime import beta_channel, runtime
+    learning = None
+    if beta_channel():
+        owner=runtime();owner.document_reader=store.get_document
+        learning=owner.record(feedback_contexts.learning_target(submission),feedback=submission.feedback.value,reason=submission.reason)
 
     # Invalidate cache for this query in serving engine so next search immediately reflects feedback
     if active_snapshot and active_snapshot.engine:
@@ -882,6 +910,7 @@ def submit_search_feedback(submission: FeedbackSubmission):
         "reason": recorded.reason,
         "search_sync_adjustment": pref_adj.adjustment,
         "created_at": recorded.created_at,
+        "learning_evidence": learning,
     }
 
 
