@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "date": "2026-10-27",
+  "baseline_commit": "5b210ae",
+  "implementation_commit": "4d724be",
+  "full_offline_engine_and_host_python_suite": {
+    "passed": 464,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "duration_seconds": 51.86
+  },
+  "post_suite_strict_contribution_verification": {"passed": 13, "failed": 0},
+  "post_suite_signed_packaging_verification": {"passed": 3, "failed": 0},
+  "frontend": {"build": "passed", "typescript": "passed", "static_pages": 12},
+  "dotnet_host_build": {"status": "blocked", "reason": "Existing bundled SDK lacks dotnet.runtimeconfig.json/hostpolicy support; system SDK is unavailable"},
+  "paired_exposed_replay": {
+    "cases": 64,
+    "timestamps_frozen": true,
+    "feedback_store": "independent_in_memory",
+    "same_top3_order": 64,
+    "same_answer": 64,
+    "baseline_p50_ms": 4.73,
+    "baseline_p95_ms": 16.12,
+    "current_p50_ms": 4.19,
+    "current_p95_ms": 8.76,
+    "quality_status": "regression_not_blind_acceptance",
+    "wrong_promotion_flags_each": 1,
+    "flag_limitation": "Existing evaluator compares markdown-rendered answer against raw markdown; this flag is not a confirmed wrong answer"
+  },
+  "loopback_source_smoke": {
+    "api_ready": true,
+    "search_top_slug": "clock",
+    "synthetic_answer": "Nadia",
+    "neural_ranking": "DISABLED",
+    "settings_page_http": 200,
+    "journal_default": false,
+    "community_default": false,
+    "feedback_default": true,
+    "contribution_preview_contains_text": false,
+    "preview_reviewed_before_confirmation": false,
+    "upload_available": false,
+    "server_stopped": true
+  },
+  "native_desktop": "not_verified",
+  "visual_browser_inspection": "unavailable_browser_runtime_kernel_assets_failed",
+  "independent_rel1_acceptance": "blocked_no_reviewed_relevance_holdout",
+  "production_model_keys_installed": 0,
+  "external_intake_deployed": false,
+  "new_runtime_dependencies": 0,
+  "real_brains_used": false
+}
