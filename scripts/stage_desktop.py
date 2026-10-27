@@ -55,6 +55,16 @@ def main():
     shutil.copytree(assets / "engine/neural/checkpoints", stage / "engine/neural/checkpoints",
                     ignore=shutil.ignore_patterns("__pycache__"), dirs_exist_ok=True)
     shutil.copytree(source / "engine/neural/data/pese_rel_data_0", stage / "engine/neural/data/pese_rel_data_0")
+    # Fixed original synthetic BETA assets only; never copy a Brain adaptation.
+    beta_source=source/"engine/neural/assets/basic_english_beta_v1"
+    from engine.intelligence.beta.artifacts import bundle
+    from engine.intelligence.beta.base_lock import BASE_FILES
+    bundle(beta_source,base_pin=BASE_FILES)
+    for name in ("weights.pt","tokenizer.json","beta-model.json","regression.json","dataset-manifest.json"):
+        destination=stage/"engine/neural/assets/basic_english_beta_v1"/name
+        destination.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copy2(beta_source/name,destination)
+    shutil.copy2(source/"engine/neural/assets/feedback_judge_beta_v1.json",stage/"engine/neural/assets/feedback_judge_beta_v1.json")
     shutil.copytree(lab / "models", stage / "models", dirs_exist_ok=True)
     shutil.copytree(source / "web/out", stage / "ui", dirs_exist_ok=True)
     # Product laboratory views read these reports from the application, never the Brain.

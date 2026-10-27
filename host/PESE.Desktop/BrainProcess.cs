@@ -78,7 +78,9 @@ internal sealed class BrainProcess : IAsyncDisposable
                     Log.WriteDiagnostic("python_stderr", errLine);
                 }
             });
-            await process.StandardInput.WriteLineAsync(JsonSerializer.Serialize(new { action = "serve", brainPath = path, token = Token }));
+            var channel = typeof(BrainProcess).Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyMetadataAttribute), false)
+                .Cast<System.Reflection.AssemblyMetadataAttribute>().Single(a => a.Key == "PESE.IntelligenceChannel").Value;
+            await process.StandardInput.WriteLineAsync(JsonSerializer.Serialize(new { action = "serve", brainPath = path, token = Token, intelligenceChannel = channel }));
             process.StandardInput.Close();
             using var startup = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
             startup.CancelAfter(TimeSpan.FromMinutes(15));

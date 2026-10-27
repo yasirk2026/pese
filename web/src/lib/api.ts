@@ -61,6 +61,28 @@ export const previewIntelligenceContribution = () => intelligenceRequest<Contrib
 export const exportIntelligenceContribution = (preview: ContributionPreview) => intelligenceRequest<Record<string, unknown>>("contributions/export", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({preview_id: preview.preview_id, sha256: preview.sha256, reviewed: true})});
 export const cancelIntelligenceContribution = (preview: ContributionPreview) => intelligenceRequest(`contributions/preview/${preview.preview_id}`, {method: "DELETE"});
 
+export interface BetaStatus {
+  supported: boolean; channel: string; agreement_hash: string;
+  agreement: { title: string; statements: string[] };
+  participation: { accepted: boolean; paused?: boolean; neural?: boolean; feedback_scope?: string[]; journal_scope?: string[]; retention_days?: number };
+  learning_active: boolean; ranking_mode: string; model: { version?: string; checkpoint?: string; trust?: string; status?: string } | null;
+  inference: { status: string; latency_ms?: number; peak_bytes?: number; cold?: boolean; authority?: string };
+  fallback_events: number; rejected_events: number; evidence: Record<string, number>; training_running: boolean;
+  last_job: { job_id?: string; status: string; training_examples?: number; seconds?: number; evaluation?: Record<string, unknown> } | null;
+  privacy: Partial<IntelligenceSettings>; rollback_available: boolean; external_uploads: boolean;
+}
+export interface BetaExample {
+  id: string; quality: string; role: string | null; receipt_hash: string;
+  payload: { original_query?: string; evidence_text?: string; feedback?: string; reason?: string; source_kind?: string;
+    receipt: { effective_query: string; target_id: string; document_revision: string } };
+}
+export async function betaRequest<T = BetaStatus>(path: string, method = "GET", body?: unknown): Promise<T> {
+  const response = await apiFetch(`${API_BASE}/api/intelligence/beta/${path}`, {method,
+    headers: body === undefined ? undefined : {"Content-Type": "application/json"}, body: body === undefined ? undefined : JSON.stringify(body)});
+  if (!response.ok) { const error = await response.json().catch(() => ({})); throw new Error(typeof error.detail === "string" ? error.detail : "The local BETA operation was refused."); }
+  return response.json();
+}
+
 export interface RankingTrace {
   doc_id: string;
   slug: string;

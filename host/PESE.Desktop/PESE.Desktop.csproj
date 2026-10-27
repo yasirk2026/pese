@@ -17,8 +17,10 @@
     <SelfContained>true</SelfContained>
     <PublishSingleFile>false</PublishSingleFile>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <NeuralChannel Condition="'$(NeuralChannel)' == ''">stable</NeuralChannel>
   </PropertyGroup>
   <ItemGroup>
+    <AssemblyMetadata Include="PESE.IntelligenceChannel" Value="$(NeuralChannel)" />
     <Content Include="pese.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -27,4 +29,7 @@
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
     <PackageReference Include="Velopack" Version="0.0.1298" />
   </ItemGroup>
+  <Target Name="ValidateNeuralChannel" BeforeTargets="BeforeBuild">
+    <Error Condition="'$(NeuralChannel)' != 'stable' and '$(NeuralChannel)' != 'aggressive_learning_beta'" Text="Unsupported intelligence channel" />
+  </Target>
 </Project>

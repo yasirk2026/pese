@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { getIntelligenceSettings, saveIntelligenceSettings, resetIntelligencePersonalization,
   previewIntelligenceContribution, exportIntelligenceContribution, cancelIntelligenceContribution,
   type IntelligenceSettings, type ContributionPreview } from "@/lib/api";
@@ -58,16 +59,17 @@ export function PrivacyIntelligence() {
   }
   const controls: {key: "neural_search" | "learn_from_feedback" | "allow_journal_learning" | "community_contributions"; label: string; detail: string; disabled?: boolean}[] = [
     {key: "neural_search", label: "Enable neural search", disabled: !available,
-      detail: available ? "An accepted local relevance model may adjust eligible result order." : "Unavailable: no independently accepted relevance model is installed. Deterministic search remains active."},
+      detail: available ? "A local model may adjust eligible result order. In the closed BETA this remains experimental; it is not public validation." : "Unavailable: no accepted model is active in this channel. Deterministic search remains active."},
     {key: "learn_from_feedback", label: "Learn from my search feedback",
       detail: "Existing Search Sync uses explicit likes and dislikes as bounded, exact-query preferences. It does not update neural parameters. Turning this off pauses new feedback and ignores saved preferences; saved records remain until reset."},
     {key: "allow_journal_learning", label: "Allow journal content for local learning",
-      detail: "Off by default. This records permission for future local learning only. This release has no journal text trainer. Indexing and retrieval work independently of this permission."},
+      detail: "Off by default. Closed BETA also requires explicit document scope in Neural Genesis Lab. Generated question/passage pairs require review before private candidate training. Stable releases do not train journals. Indexing is independent."},
     {key: "community_contributions", label: "Help improve PESE for everyone",
       detail: "Off by default. Enables a preview and local export of coarse diagnostic categories. No upload service is configured. Every export needs a separate review; no queries, journal text, passages, embeddings or model deltas are included."},
   ];
   return <section className="p-6 rounded-2xl bg-surface border border-surface-border space-y-5" aria-label="Privacy and Intelligence">
     <div><h3 className="text-base font-semibold">Privacy &amp; Intelligence</h3>
+      <Link href="/neural-genesis/" className="text-xs text-blue-600">Open Neural Genesis Lab</Link>
       <p className="text-xs text-neutral-500 mt-1">Permissions apply to this Brain and stay on this device. They are excluded from Drive backups and must be chosen again after recovery. Manual Brain backups still include saved search history and feedback.</p></div>
     {controls.map(control => <label key={control.key} className="flex items-start justify-between gap-4 p-4 rounded-xl border border-surface-border">
       <span><span className="text-sm font-medium">{control.label}</span><span className="block text-xs text-neutral-500 mt-1">{control.detail}</span></span>
@@ -77,7 +79,7 @@ export function PrivacyIntelligence() {
     <div className="text-xs space-y-2"><label htmlFor="intelligence-exclusions">Exclude document IDs from future research learning (comma separated)</label>
       <input id="intelligence-exclusions" value={exclusions} onChange={event => setExclusions(event.target.value)} disabled={!settings || busy} className="block w-full border border-surface-border rounded p-2 bg-transparent" />
       <button disabled={!settings || busy} onClick={() => update({excluded_document_ids: exclusions.split(",").map(s => s.trim()).filter(Boolean)})} className="text-blue-600 disabled:opacity-50">Save exclusions</button>
-      <p className="text-neutral-500">Research collection and parameter training are unavailable in this release. Exclusions do not remove documents from ordinary search.</p></div>
+      <p className="text-neutral-500">Neural Genesis Lab shows closed-BETA collection, training and document scope. Exclusions do not remove documents from ordinary search.</p></div>
     <div className="flex gap-4 text-xs"><button disabled={!settings?.community_contributions || busy} onClick={prepare} className="text-blue-600 disabled:opacity-50">Preview diagnostic export</button>
       <button disabled={!settings || busy} onClick={() => setResetReview(true)} className="text-red-600 disabled:opacity-50">Reset local personalization</button></div>
     {resetReview && <div className="border border-red-300 rounded-xl p-4 text-xs space-y-3"><p>This deletes local preference votes, feedback audit and neural shadow observations. Documents and saved search history remain. Neural parameters have not been trained.</p>

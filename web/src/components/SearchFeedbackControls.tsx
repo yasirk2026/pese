@@ -10,6 +10,8 @@ const REASONS = [
   "Outdated",
   "Wrong source",
   "Didn't answer my query",
+  "Wrong information",
+  "Duplicate",
   "Other",
 ];
 
