@@ -5,8 +5,9 @@
   "torch": "2.14.1+cpu",
   "threads": 2,
   "parameters": 892290,
-  "cold_load_ms": 65.75100000009115,
+  "cold_load_ms": 66.93619999987277,
   "weight_bytes": 3569160,
+  "whole_audit_process_peak_bytes": 244711424,
   "checkpoint_sha256": "1dd87075cfbf23c09fed5e90be948c6c7af005e9e909ab47e5df6c374b56ff70",
   "tokenizer_sha256": "e2023f42797473452a4a702ddb0894b6540277b85f5bdcc7436ecd1587ea03ec",
   "tokenizer_vocab_size": 512,
@@ -82,8 +83,8 @@
       },
       "saturated_ge_099": 0,
       "input_fingerprint": "a33e172f63fb9df643eb396c9571e80ed81c0ba444ff39c72671bca972e9b21c",
-      "warm_batch1_p50_ms": 6.935949999956392,
-      "warm_batch1_p95_ms": 7.2505000000546715
+      "warm_batch1_p50_ms": 6.790599999931146,
+      "warm_batch1_p95_ms": 7.694699999774457
     },
     "exposed_prospective": {
       "count": 48,
@@ -159,8 +160,8 @@
       },
       "saturated_ge_099": 0,
       "input_fingerprint": "fff8b9f74c9b086a810a04876a1ddb957273f7aabea58fd67784dea344fa26a6",
-      "warm_batch1_p50_ms": 7.056950000105644,
-      "warm_batch1_p95_ms": 7.185299999946437
+      "warm_batch1_p50_ms": 7.128299999976662,
+      "warm_batch1_p95_ms": 7.681499999762309
     }
   }
 }

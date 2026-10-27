@@ -99,6 +99,6 @@ def test_metrics_require_judgments_and_paired_uncertainty():
     assert ranking_metrics(["a","b"],{"a":1,"b":0})["mrr"] == 1
     with pytest.raises(ValueError):
         ranking_metrics(["a","unclicked"],{"a":1})
-    report = paired_report([{"baseline":["b","a"],"candidate":["a","b"],"judgments":{"a":1,"b":0},"category":"fixture"}])
+    report = paired_report([{"baseline":["b","a"],"candidate":["a","b"],"judgments":{"a":1,"b":0},"category":"fixture","group":"fixture"}])
     assert report["paired_lower95"] > 0
     assert calibration([0,1],[0,1])["ece"] == 0

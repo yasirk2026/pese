@@ -12,6 +12,7 @@ import platform
 import statistics
 import sys
 import time
+from types import SimpleNamespace
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 
@@ -47,10 +48,13 @@ def run(output):
     # templates. Report overlap in predicate/contrast vocabulary separately.
     train_rel = {e.relation_family for e in splits["train"]}
     test_rel = {e.relation_family for e in splits["test"]}
+    from engine.intelligence.isolation import working_set
+    runtime_peak = working_set(SimpleNamespace(_handle=-1)) if sys.platform=="win32" else None
     report = {"version": 1, "status": "EXPOSED_REGRESSION_NOT_BLIND_ACCEPTANCE",
               "python": platform.python_version(), "torch": torch.__version__, "threads": torch.get_num_threads(),
               "parameters": sum(p.numel() for p in evaluator.model.parameters()), "cold_load_ms": load_ms,
               "weight_bytes": sum(p.numel()*p.element_size() for p in evaluator.model.parameters()),
+              "whole_audit_process_peak_bytes": runtime_peak,
               "checkpoint_sha256": hashlib.sha256(evaluator.checkpoint_path.read_bytes()).hexdigest(),
               "tokenizer_sha256": hashlib.sha256(evaluator.tokenizer_path.read_bytes()).hexdigest(),
               "tokenizer_vocab_size": evaluator.tokenizer.vocab_size,

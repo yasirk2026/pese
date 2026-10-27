@@ -18,6 +18,7 @@ MAX_MODEL_BYTES = 16 * 1024 * 1024
 # Must be populated by an independently approved application release. A key in a
 # downloaded bundle, environment variable or contribution is never trusted.
 TRUSTED_RELEASE_KEYS = {}
+_MODEL_STORE_LOCK = RLock()
 
 
 def canonical(value):
@@ -67,7 +68,7 @@ def verify_bundle(directory, *, trusted_keys=None, app_version="0.1.0-alpha.6"):
     if manifest["model_id"] == "PESE-Rel-0":
         raise ValueError("Answer-support Rel-0 has no relevance ranking authority")
     a = manifest["acceptance"]
-    if not (a.get("independent") is True and a.get("queries", 0) >= 300 and
+    if not (a.get("independent") is True and a.get("queries", 0) >= 300 and a.get("query_families",0) >= 30 and
             a.get("ndcg10_delta", -1) >= .02 and a.get("paired_lower95", -1) > 0 and
             a.get("critical_regression", 1) <= .02 and a.get("new_wrong_promotions") == 0 and
             a.get("gate_violations") == 0 and 0 <= a.get("warm_added_p95_ms", -1) <= 50 and
@@ -102,7 +103,7 @@ class ModelStore:
     def __init__(self, root, trusted_keys=None):
         self.root = Path(root)
         self.trusted_keys = trusted_keys
-        self._lock = RLock()
+        self._lock = _MODEL_STORE_LOCK
 
     def activate(self, source, healthcheck):
         with self._lock:

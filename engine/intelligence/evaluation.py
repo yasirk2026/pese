@@ -12,10 +12,12 @@ def ranking_metrics(order, judgments, k=10):
     dcg = lambda grades: sum((2**g-1)/math.log2(i+2) for i, g in enumerate(grades))
     ideal = dcg(sorted(judgments.values(), reverse=True)[:k])
     relevant = {d for d, grade in judgments.items() if grade > 0}
+    pairs = [(a,b) for i,a in enumerate(order) for b in order[i+1:] if judgments[a] != judgments[b]]
     return {"ndcg10": dcg([judgments[d] for d in order[:k]])/ideal if ideal else 1.0,
             "mrr": next((1/(i+1) for i, d in enumerate(order) if d in relevant), 0.0),
             "recall": len(relevant & set(order[:k]))/len(relevant) if relevant else 1.0,
-            "precision": len(relevant & set(order[:k]))/k}
+            "precision": len(relevant & set(order[:k]))/k,
+            "pairwise_accuracy": sum(judgments[a] > judgments[b] for a,b in pairs)/len(pairs) if pairs else 1.0}
 
 
 def paired_report(cases, *, seed=20261027, samples=2000):
@@ -23,14 +25,18 @@ def paired_report(cases, *, seed=20261027, samples=2000):
         raise ValueError("No judged queries")
     rows = []
     for c in cases:
+        if not isinstance(c.get("group"),str) or not c["group"]:
+            raise ValueError("Independent query-family group required for uncertainty estimates")
         b = ranking_metrics(c["baseline"], c["judgments"])
         n = ranking_metrics(c["candidate"], c["judgments"])
-        rows.append({"category": c["category"], "baseline": b, "candidate": n,
+        rows.append({"category": c["category"], "group": c["group"], "baseline": b, "candidate": n,
                      "delta": n["ndcg10"]-b["ndcg10"]})
     delta = [r["delta"] for r in rows]
     rng = random.Random(seed)
-    boots = sorted(statistics.mean(rng.choices(delta, k=len(delta))) for _ in range(samples))
-    return {"version": 1, "queries": len(rows), "mean_ndcg10_delta": statistics.mean(delta),
+    clusters = {g:[r["delta"] for r in rows if r["group"]==g] for g in {r["group"] for r in rows}}
+    boots = sorted(statistics.mean(d for g in rng.choices(sorted(clusters), k=len(clusters)) for d in clusters[g]) for _ in range(samples))
+    return {"version": 1, "queries": len(rows), "query_families": len(clusters), "bootstrap_unit": "query_family",
+            "mean_ndcg10_delta": statistics.mean(delta),
             "paired_lower95": boots[int(samples*.025)], "paired_upper95": boots[int(samples*.975)],
             "categories": {cat: statistics.mean(r["delta"] for r in rows if r["category"] == cat)
                            for cat in sorted({r["category"] for r in rows})}, "rows": rows}

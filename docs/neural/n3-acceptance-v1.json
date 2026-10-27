@@ -3,6 +3,7 @@
   "registered_date": "2026-10-27",
   "objective": "retrieval_relevance",
   "independent_reviewed_queries_min": 300,
+  "independent_query_families_min": 30,
   "required_splits": ["train", "validation", "calibration", "test"],
   "group_isolation": ["query_family", "source_family", "document_lineage", "template_family"],
   "minimum_ndcg10_delta": 0.02,

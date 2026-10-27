@@ -8,6 +8,8 @@ import hashlib
 import json
 from pathlib import Path
 import random
+import time
+import platform
 from types import SimpleNamespace
 
 
@@ -29,8 +31,11 @@ def train_candidate(dataset, output, *, seed=20261027, epochs=10):
         if hashlib.sha256(data).hexdigest() != manifest["files"][f"{split}.json"]:
             raise ValueError("Dataset changed after curation")
         splits[split] = json.loads(data)
-        if not splits[split] or any(not r.get("question") or not r.get("evidence") for r in splits[split]):
+        if not splits[split] or any(not r.get("question") or not r.get("evidence") or
+                                   r.get("source_kind") not in ("public", "synthetic") for r in splits[split]):
             raise ValueError("Explicitly reviewed example text required")
+        if {r["adjudication"]["label"] for r in splits[split]} != {0,1}:
+            raise ValueError("Both reviewed classes are required")
     random.seed(seed)
     torch.manual_seed(seed)
     torch.set_num_threads(2)
@@ -54,11 +59,16 @@ def train_candidate(dataset, output, *, seed=20261027, epochs=10):
     target.mkdir(parents=True, exist_ok=False)
     tokenizer.save(str(target / "tokenizer.json"))
     best, history = float("inf"), []
+    started = time.monotonic()
+    steps = 0
     for epoch in range(epochs):
         model.train()
         rows = list(splits["train"])
         random.shuffle(rows)
         for inputs, labels in batches(rows):
+            if steps >= 300 or time.monotonic()-started > 120:
+                raise RuntimeError("CPU development training budget exhausted; incomplete experiment retained")
+            steps += 1
             optimizer.zero_grad(set_to_none=True)
             loss = torch.nn.functional.cross_entropy(model(*inputs), labels)
             loss.backward()
@@ -74,13 +84,15 @@ def train_candidate(dataset, output, *, seed=20261027, epochs=10):
         history.append({"epoch": epoch+1, "validation_loss": validation_loss})
         if validation_loss < best:
             best = validation_loss
-            torch.save({"config": config.__dict__, "model_state_dict": model.state_dict(),
+            torch.save({"config": config.model_dump(), "model_state_dict": model.state_dict(),
                         "objective": "retrieval_relevance"}, target / "weights.pt")
     receipt = {"version": 1, "status": "development_candidate_no_ranking_authority", "seed": seed,
                "epochs": epochs, "batch_size": 16, "learning_rate": .0003, "optimizer": "AdamW",
                "dataset_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
                "training_code_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                "torch": torch.__version__, "history": history,
+               "environment_sha256": hashlib.sha256(json.dumps({"python":platform.python_version(),
+                  "torch":torch.__version__,"platform":platform.platform(),"threads":2},sort_keys=True).encode()).hexdigest(),
                "checkpoint_sha256": hashlib.sha256((target / "weights.pt").read_bytes()).hexdigest(),
                "test_opened": False, "calibration_opened": False}
     (target / "training-receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")

@@ -26,8 +26,9 @@ def curate(records, *, trusted_reviewers, verified_contexts):
         if (r.get("question") != r["provenance"]["effective_query"] or
                 not isinstance(r.get("evidence"), str) or digest(r["evidence"]) != r["provenance"]["evidence_hash"]):
             raise ValueError("Reviewed example text does not match receipt")
-        identity = digest({k: r["provenance"][k] for k in
-                          ("effective_query", "target_id", "document_revision", "evidence_id", "evidence_hash")})
+        if r.get("source_kind") not in ("public", "synthetic"):
+            raise ValueError("Central text training accepts explicitly reviewed public/synthetic sources only")
+        identity = digest((r["question"].strip().casefold(), r["evidence"].strip()))
         label = r["adjudication"]["label"]
         if identity in seen:
             if seen[identity]["adjudication"]["label"] != label:
@@ -39,6 +40,11 @@ def curate(records, *, trusted_reviewers, verified_contexts):
             key = (group, r[group])
             if key in groups and groups[key] != r["split"]:
                 raise ValueError(f"Cross-split leakage in {group}")
+            groups[key] = r["split"]
+        for kind, content in (("exact_query",r["question"].strip().casefold()), ("exact_evidence",r["evidence"].strip())):
+            key = (kind,digest(content))
+            if key in groups and groups[key] != r["split"]:
+                raise ValueError(f"Cross-split leakage in {kind}")
             groups[key] = r["split"]
         seen[identity] = r
         accepted.append(r)
