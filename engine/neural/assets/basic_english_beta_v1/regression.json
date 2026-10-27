@@ -1,0 +1,3074 @@
+[
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:0:specific",
+        "text": "a decision by iris: update neural search. the reason was that keyword matches were misleading."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:0:paraphrase",
+        "text": "to find useful passages, iris chose a different approach to learned ranking; keyword matches were misleading."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:iris:0:wrong_relation",
+        "text": "iris read about neural search. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:0:wrong_entity",
+        "text": "juniper changed neural search because keyword matches were misleading. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:0:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 1,
+        "id": "validation:iris:0:temporal_conflict",
+        "text": "iris's neural search notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:iris:0",
+    "group": "validation:iris:0",
+    "id": "validation:iris:0:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made iris revise neural search?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:0:specific",
+        "text": "a decision by iris: update neural search. the reason was that keyword matches were misleading."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:0:paraphrase",
+        "text": "to find useful passages, iris chose a different approach to learned ranking; keyword matches were misleading."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:iris:0:wrong_relation",
+        "text": "iris read about neural search. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:0:wrong_entity",
+        "text": "juniper changed neural search because keyword matches were misleading. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:0:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 2,
+        "id": "validation:iris:0:temporal_conflict",
+        "text": "iris's neural search notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:iris:0",
+    "group": "validation:iris:0",
+    "id": "validation:iris:0:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writng on neural search by iris",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:1:specific",
+        "text": "a decision by iris: update drive backup. the reason was that the old disk could fail."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:1:paraphrase",
+        "text": "to recover saved documents, iris chose a different approach to cloud copies; the old disk could fail."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:iris:1:wrong_relation",
+        "text": "iris read about drive backup. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:1:wrong_entity",
+        "text": "juniper changed drive backup because the old disk could fail. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:1:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:iris:1:missing",
+        "text": "iris's drive backup record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:iris:1",
+    "group": "validation:iris:1",
+    "id": "validation:iris:1:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made iris revise drive backup?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:1:specific",
+        "text": "a decision by iris: update drive backup. the reason was that the old disk could fail."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:1:paraphrase",
+        "text": "to recover saved documents, iris chose a different approach to cloud copies; the old disk could fail."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:iris:1:wrong_relation",
+        "text": "iris read about drive backup. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:1:wrong_entity",
+        "text": "juniper changed drive backup because the old disk could fail. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:1:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:iris:1:missing",
+        "text": "iris's drive backup record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:iris:1",
+    "group": "validation:iris:1",
+    "id": "validation:iris:1:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on drive backup by iris",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:2:specific",
+        "text": "a decision by iris: update journal notes. the reason was that important details were forgotten."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:2:paraphrase",
+        "text": "to remember past decisions, iris chose a different approach to daily writing; important details were forgotten."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:iris:2:wrong_relation",
+        "text": "iris read about journal notes. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:2:wrong_entity",
+        "text": "juniper changed journal notes because important details were forgotten. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:2:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:iris:2:missing",
+        "text": "iris's journal notes record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:iris:2",
+    "group": "validation:iris:2",
+    "id": "validation:iris:2:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made iris revise journal notes?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:2:specific",
+        "text": "a decision by iris: update journal notes. the reason was that important details were forgotten."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:2:paraphrase",
+        "text": "to remember past decisions, iris chose a different approach to daily writing; important details were forgotten."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:iris:2:wrong_relation",
+        "text": "iris read about journal notes. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:2:wrong_entity",
+        "text": "juniper changed journal notes because important details were forgotten. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:2:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:iris:2:missing",
+        "text": "iris's journal notes record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:iris:2",
+    "group": "validation:iris:2",
+    "id": "validation:iris:2:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on journal notes by iris",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:3:specific",
+        "text": "a decision by iris: update website ideas. the reason was that the earlier layout was confusing."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:3:paraphrase",
+        "text": "to plan a small site, iris chose a different approach to page designs; the earlier layout was confusing."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:iris:3:wrong_relation",
+        "text": "iris read about website ideas. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:3:wrong_entity",
+        "text": "juniper changed website ideas because the earlier layout was confusing. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:3:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:iris:3:missing",
+        "text": "iris's website ideas record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:iris:3",
+    "group": "validation:iris:3",
+    "id": "validation:iris:3:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made iris revise website ideas?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:3:specific",
+        "text": "a decision by iris: update website ideas. the reason was that the earlier layout was confusing."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:3:paraphrase",
+        "text": "to plan a small site, iris chose a different approach to page designs; the earlier layout was confusing."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:iris:3:wrong_relation",
+        "text": "iris read about website ideas. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:3:wrong_entity",
+        "text": "juniper changed website ideas because the earlier layout was confusing. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:3:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:iris:3:missing",
+        "text": "iris's website ideas record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:iris:3",
+    "group": "validation:iris:3",
+    "id": "validation:iris:3:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on website ideas by iris",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:4:specific",
+        "text": "a decision by iris: update brain storage. the reason was that application updates replace program files."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:4:paraphrase",
+        "text": "to keep documents portable, iris chose a different approach to knowledge folders; application updates replace program files."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:iris:4:wrong_relation",
+        "text": "iris read about brain storage. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:4:wrong_entity",
+        "text": "juniper changed brain storage because application updates replace program files. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:4:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 1,
+        "id": "validation:iris:4:temporal_conflict",
+        "text": "iris's brain storage notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:iris:4",
+    "group": "validation:iris:4",
+    "id": "validation:iris:4:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made iris revise brain storage?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:4:specific",
+        "text": "a decision by iris: update brain storage. the reason was that application updates replace program files."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:4:paraphrase",
+        "text": "to keep documents portable, iris chose a different approach to knowledge folders; application updates replace program files."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:iris:4:wrong_relation",
+        "text": "iris read about brain storage. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:4:wrong_entity",
+        "text": "juniper changed brain storage because application updates replace program files. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:4:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 2,
+        "id": "validation:iris:4:temporal_conflict",
+        "text": "iris's brain storage notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:iris:4",
+    "group": "validation:iris:4",
+    "id": "validation:iris:4:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on brain storage by iris",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:5:specific",
+        "text": "a decision by iris: update failed experiments. the reason was that the test results were unreliable."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:5:paraphrase",
+        "text": "to record what went wrong, iris chose a different approach to unsuccessful trials; the test results were unreliable."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:iris:5:wrong_relation",
+        "text": "iris read about failed experiments. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:5:wrong_entity",
+        "text": "juniper changed failed experiments because the test results were unreliable. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:5:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:iris:5:missing",
+        "text": "iris's failed experiments record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:iris:5",
+    "group": "validation:iris:5",
+    "id": "validation:iris:5:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made iris revise failed experiments?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:5:specific",
+        "text": "a decision by iris: update failed experiments. the reason was that the test results were unreliable."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:5:paraphrase",
+        "text": "to record what went wrong, iris chose a different approach to unsuccessful trials; the test results were unreliable."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:iris:5:wrong_relation",
+        "text": "iris read about failed experiments. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:5:wrong_entity",
+        "text": "juniper changed failed experiments because the test results were unreliable. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:5:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:iris:5:missing",
+        "text": "iris's failed experiments record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:iris:5",
+    "group": "validation:iris:5",
+    "id": "validation:iris:5:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writng on failed experiments by iris",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:6:specific",
+        "text": "a decision by iris: update search feedback. the reason was that some useful pages were ranked too low."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:6:paraphrase",
+        "text": "to remember explicit preferences, iris chose a different approach to result ratings; some useful pages were ranked too low."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:iris:6:wrong_relation",
+        "text": "iris read about search feedback. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:6:wrong_entity",
+        "text": "juniper changed search feedback because some useful pages were ranked too low. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:6:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:iris:6:missing",
+        "text": "iris's search feedback record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:iris:6",
+    "group": "validation:iris:6",
+    "id": "validation:iris:6:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made iris revise search feedback?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:6:specific",
+        "text": "a decision by iris: update search feedback. the reason was that some useful pages were ranked too low."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:6:paraphrase",
+        "text": "to remember explicit preferences, iris chose a different approach to result ratings; some useful pages were ranked too low."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:iris:6:wrong_relation",
+        "text": "iris read about search feedback. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:6:wrong_entity",
+        "text": "juniper changed search feedback because some useful pages were ranked too low. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:6:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:iris:6:missing",
+        "text": "iris's search feedback record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:iris:6",
+    "group": "validation:iris:6",
+    "id": "validation:iris:6:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on search feedback by iris",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:7:specific",
+        "text": "a decision by iris: update document indexing. the reason was that the previous index was stale."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:7:paraphrase",
+        "text": "to find recently edited notes, iris chose a different approach to searchable records; the previous index was stale."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:iris:7:wrong_relation",
+        "text": "iris read about document indexing. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:7:wrong_entity",
+        "text": "juniper changed document indexing because the previous index was stale. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:7:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:iris:7:missing",
+        "text": "iris's document indexing record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:iris:7",
+    "group": "validation:iris:7",
+    "id": "validation:iris:7:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made iris revise document indexing?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:iris:7:specific",
+        "text": "a decision by iris: update document indexing. the reason was that the previous index was stale."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:iris:7:paraphrase",
+        "text": "to find recently edited notes, iris chose a different approach to searchable records; the previous index was stale."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:iris:7:wrong_relation",
+        "text": "iris read about document indexing. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:iris:7:wrong_entity",
+        "text": "juniper changed document indexing because the previous index was stale. this entry is only about juniper."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:iris:7:unrelated",
+        "text": "iris watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:iris:7:missing",
+        "text": "iris's document indexing record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:iris:7",
+    "group": "validation:iris:7",
+    "id": "validation:iris:7:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on document indexing by iris",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:0:specific",
+        "text": "a decision by juniper: update neural search. the reason was that keyword matches were misleading."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:0:paraphrase",
+        "text": "to find useful passages, juniper chose a different approach to learned ranking; keyword matches were misleading."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:juniper:0:wrong_relation",
+        "text": "juniper read about neural search. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:0:wrong_entity",
+        "text": "kestrel changed neural search because keyword matches were misleading. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:0:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:juniper:0:missing",
+        "text": "juniper's neural search record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:juniper:0",
+    "group": "validation:juniper:0",
+    "id": "validation:juniper:0:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made juniper revise neural search?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:0:specific",
+        "text": "a decision by juniper: update neural search. the reason was that keyword matches were misleading."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:0:paraphrase",
+        "text": "to find useful passages, juniper chose a different approach to learned ranking; keyword matches were misleading."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:juniper:0:wrong_relation",
+        "text": "juniper read about neural search. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:0:wrong_entity",
+        "text": "kestrel changed neural search because keyword matches were misleading. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:0:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:juniper:0:missing",
+        "text": "juniper's neural search record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:juniper:0",
+    "group": "validation:juniper:0",
+    "id": "validation:juniper:0:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on neural search by juniper",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:1:specific",
+        "text": "a decision by juniper: update drive backup. the reason was that the old disk could fail."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:1:paraphrase",
+        "text": "to recover saved documents, juniper chose a different approach to cloud copies; the old disk could fail."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:juniper:1:wrong_relation",
+        "text": "juniper read about drive backup. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:1:wrong_entity",
+        "text": "kestrel changed drive backup because the old disk could fail. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:1:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:juniper:1:missing",
+        "text": "juniper's drive backup record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:juniper:1",
+    "group": "validation:juniper:1",
+    "id": "validation:juniper:1:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made juniper revise drive backup?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:1:specific",
+        "text": "a decision by juniper: update drive backup. the reason was that the old disk could fail."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:1:paraphrase",
+        "text": "to recover saved documents, juniper chose a different approach to cloud copies; the old disk could fail."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:juniper:1:wrong_relation",
+        "text": "juniper read about drive backup. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:1:wrong_entity",
+        "text": "kestrel changed drive backup because the old disk could fail. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:1:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:juniper:1:missing",
+        "text": "juniper's drive backup record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:juniper:1",
+    "group": "validation:juniper:1",
+    "id": "validation:juniper:1:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on drive backup by juniper",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:2:specific",
+        "text": "a decision by juniper: update journal notes. the reason was that important details were forgotten."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:2:paraphrase",
+        "text": "to remember past decisions, juniper chose a different approach to daily writing; important details were forgotten."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:juniper:2:wrong_relation",
+        "text": "juniper read about journal notes. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:2:wrong_entity",
+        "text": "kestrel changed journal notes because important details were forgotten. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:2:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:juniper:2:missing",
+        "text": "juniper's journal notes record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:juniper:2",
+    "group": "validation:juniper:2",
+    "id": "validation:juniper:2:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made juniper revise journal notes?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:2:specific",
+        "text": "a decision by juniper: update journal notes. the reason was that important details were forgotten."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:2:paraphrase",
+        "text": "to remember past decisions, juniper chose a different approach to daily writing; important details were forgotten."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:juniper:2:wrong_relation",
+        "text": "juniper read about journal notes. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:2:wrong_entity",
+        "text": "kestrel changed journal notes because important details were forgotten. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:2:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:juniper:2:missing",
+        "text": "juniper's journal notes record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:juniper:2",
+    "group": "validation:juniper:2",
+    "id": "validation:juniper:2:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on journal notes by juniper",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:3:specific",
+        "text": "a decision by juniper: update website ideas. the reason was that the earlier layout was confusing."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:3:paraphrase",
+        "text": "to plan a small site, juniper chose a different approach to page designs; the earlier layout was confusing."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:juniper:3:wrong_relation",
+        "text": "juniper read about website ideas. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:3:wrong_entity",
+        "text": "kestrel changed website ideas because the earlier layout was confusing. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:3:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 1,
+        "id": "validation:juniper:3:temporal_conflict",
+        "text": "juniper's website ideas notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:juniper:3",
+    "group": "validation:juniper:3",
+    "id": "validation:juniper:3:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made juniper revise website ideas?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:3:specific",
+        "text": "a decision by juniper: update website ideas. the reason was that the earlier layout was confusing."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:3:paraphrase",
+        "text": "to plan a small site, juniper chose a different approach to page designs; the earlier layout was confusing."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:juniper:3:wrong_relation",
+        "text": "juniper read about website ideas. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:3:wrong_entity",
+        "text": "kestrel changed website ideas because the earlier layout was confusing. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:3:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 2,
+        "id": "validation:juniper:3:temporal_conflict",
+        "text": "juniper's website ideas notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:juniper:3",
+    "group": "validation:juniper:3",
+    "id": "validation:juniper:3:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on website ideas by juniper",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:4:specific",
+        "text": "a decision by juniper: update brain storage. the reason was that application updates replace program files."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:4:paraphrase",
+        "text": "to keep documents portable, juniper chose a different approach to knowledge folders; application updates replace program files."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:juniper:4:wrong_relation",
+        "text": "juniper read about brain storage. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:4:wrong_entity",
+        "text": "kestrel changed brain storage because application updates replace program files. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:4:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:juniper:4:missing",
+        "text": "juniper's brain storage record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:juniper:4",
+    "group": "validation:juniper:4",
+    "id": "validation:juniper:4:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made juniper revise brain storage?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:4:specific",
+        "text": "a decision by juniper: update brain storage. the reason was that application updates replace program files."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:4:paraphrase",
+        "text": "to keep documents portable, juniper chose a different approach to knowledge folders; application updates replace program files."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:juniper:4:wrong_relation",
+        "text": "juniper read about brain storage. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:4:wrong_entity",
+        "text": "kestrel changed brain storage because application updates replace program files. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:4:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:juniper:4:missing",
+        "text": "juniper's brain storage record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:juniper:4",
+    "group": "validation:juniper:4",
+    "id": "validation:juniper:4:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writng on brain storage by juniper",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:5:specific",
+        "text": "a decision by juniper: update failed experiments. the reason was that the test results were unreliable."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:5:paraphrase",
+        "text": "to record what went wrong, juniper chose a different approach to unsuccessful trials; the test results were unreliable."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:juniper:5:wrong_relation",
+        "text": "juniper read about failed experiments. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:5:wrong_entity",
+        "text": "kestrel changed failed experiments because the test results were unreliable. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:5:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:juniper:5:missing",
+        "text": "juniper's failed experiments record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:juniper:5",
+    "group": "validation:juniper:5",
+    "id": "validation:juniper:5:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made juniper revise failed experiments?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:5:specific",
+        "text": "a decision by juniper: update failed experiments. the reason was that the test results were unreliable."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:5:paraphrase",
+        "text": "to record what went wrong, juniper chose a different approach to unsuccessful trials; the test results were unreliable."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:juniper:5:wrong_relation",
+        "text": "juniper read about failed experiments. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:5:wrong_entity",
+        "text": "kestrel changed failed experiments because the test results were unreliable. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:5:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:juniper:5:missing",
+        "text": "juniper's failed experiments record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:juniper:5",
+    "group": "validation:juniper:5",
+    "id": "validation:juniper:5:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on failed experiments by juniper",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:6:specific",
+        "text": "a decision by juniper: update search feedback. the reason was that some useful pages were ranked too low."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:6:paraphrase",
+        "text": "to remember explicit preferences, juniper chose a different approach to result ratings; some useful pages were ranked too low."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:juniper:6:wrong_relation",
+        "text": "juniper read about search feedback. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:6:wrong_entity",
+        "text": "kestrel changed search feedback because some useful pages were ranked too low. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:6:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:juniper:6:missing",
+        "text": "juniper's search feedback record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:juniper:6",
+    "group": "validation:juniper:6",
+    "id": "validation:juniper:6:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made juniper revise search feedback?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:6:specific",
+        "text": "a decision by juniper: update search feedback. the reason was that some useful pages were ranked too low."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:6:paraphrase",
+        "text": "to remember explicit preferences, juniper chose a different approach to result ratings; some useful pages were ranked too low."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:juniper:6:wrong_relation",
+        "text": "juniper read about search feedback. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:6:wrong_entity",
+        "text": "kestrel changed search feedback because some useful pages were ranked too low. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:6:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:juniper:6:missing",
+        "text": "juniper's search feedback record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:juniper:6",
+    "group": "validation:juniper:6",
+    "id": "validation:juniper:6:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on search feedback by juniper",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:7:specific",
+        "text": "a decision by juniper: update document indexing. the reason was that the previous index was stale."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:7:paraphrase",
+        "text": "to find recently edited notes, juniper chose a different approach to searchable records; the previous index was stale."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:juniper:7:wrong_relation",
+        "text": "juniper read about document indexing. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:7:wrong_entity",
+        "text": "kestrel changed document indexing because the previous index was stale. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:7:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 1,
+        "id": "validation:juniper:7:temporal_conflict",
+        "text": "juniper's document indexing notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:juniper:7",
+    "group": "validation:juniper:7",
+    "id": "validation:juniper:7:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made juniper revise document indexing?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:juniper:7:specific",
+        "text": "a decision by juniper: update document indexing. the reason was that the previous index was stale."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:juniper:7:paraphrase",
+        "text": "to find recently edited notes, juniper chose a different approach to searchable records; the previous index was stale."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:juniper:7:wrong_relation",
+        "text": "juniper read about document indexing. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:juniper:7:wrong_entity",
+        "text": "kestrel changed document indexing because the previous index was stale. this entry is only about kestrel."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:juniper:7:unrelated",
+        "text": "juniper watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 2,
+        "id": "validation:juniper:7:temporal_conflict",
+        "text": "juniper's document indexing notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:juniper:7",
+    "group": "validation:juniper:7",
+    "id": "validation:juniper:7:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on document indexing by juniper",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:0:specific",
+        "text": "a decision by kestrel: update neural search. the reason was that keyword matches were misleading."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:0:paraphrase",
+        "text": "to find useful passages, kestrel chose a different approach to learned ranking; keyword matches were misleading."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:kestrel:0:wrong_relation",
+        "text": "kestrel read about neural search. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:0:wrong_entity",
+        "text": "linden changed neural search because keyword matches were misleading. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:0:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:kestrel:0:missing",
+        "text": "kestrel's neural search record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:kestrel:0",
+    "group": "validation:kestrel:0",
+    "id": "validation:kestrel:0:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made kestrel revise neural search?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:0:specific",
+        "text": "a decision by kestrel: update neural search. the reason was that keyword matches were misleading."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:0:paraphrase",
+        "text": "to find useful passages, kestrel chose a different approach to learned ranking; keyword matches were misleading."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:kestrel:0:wrong_relation",
+        "text": "kestrel read about neural search. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:0:wrong_entity",
+        "text": "linden changed neural search because keyword matches were misleading. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:0:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:kestrel:0:missing",
+        "text": "kestrel's neural search record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:kestrel:0",
+    "group": "validation:kestrel:0",
+    "id": "validation:kestrel:0:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on neural search by kestrel",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:1:specific",
+        "text": "a decision by kestrel: update drive backup. the reason was that the old disk could fail."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:1:paraphrase",
+        "text": "to recover saved documents, kestrel chose a different approach to cloud copies; the old disk could fail."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:kestrel:1:wrong_relation",
+        "text": "kestrel read about drive backup. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:1:wrong_entity",
+        "text": "linden changed drive backup because the old disk could fail. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:1:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:kestrel:1:missing",
+        "text": "kestrel's drive backup record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:kestrel:1",
+    "group": "validation:kestrel:1",
+    "id": "validation:kestrel:1:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made kestrel revise drive backup?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:1:specific",
+        "text": "a decision by kestrel: update drive backup. the reason was that the old disk could fail."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:1:paraphrase",
+        "text": "to recover saved documents, kestrel chose a different approach to cloud copies; the old disk could fail."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:kestrel:1:wrong_relation",
+        "text": "kestrel read about drive backup. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:1:wrong_entity",
+        "text": "linden changed drive backup because the old disk could fail. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:1:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:kestrel:1:missing",
+        "text": "kestrel's drive backup record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:kestrel:1",
+    "group": "validation:kestrel:1",
+    "id": "validation:kestrel:1:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on drive backup by kestrel",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:2:specific",
+        "text": "a decision by kestrel: update journal notes. the reason was that important details were forgotten."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:2:paraphrase",
+        "text": "to remember past decisions, kestrel chose a different approach to daily writing; important details were forgotten."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:kestrel:2:wrong_relation",
+        "text": "kestrel read about journal notes. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:2:wrong_entity",
+        "text": "linden changed journal notes because important details were forgotten. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:2:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 1,
+        "id": "validation:kestrel:2:temporal_conflict",
+        "text": "kestrel's journal notes notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:kestrel:2",
+    "group": "validation:kestrel:2",
+    "id": "validation:kestrel:2:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made kestrel revise journal notes?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:2:specific",
+        "text": "a decision by kestrel: update journal notes. the reason was that important details were forgotten."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:2:paraphrase",
+        "text": "to remember past decisions, kestrel chose a different approach to daily writing; important details were forgotten."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:kestrel:2:wrong_relation",
+        "text": "kestrel read about journal notes. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:2:wrong_entity",
+        "text": "linden changed journal notes because important details were forgotten. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:2:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 2,
+        "id": "validation:kestrel:2:temporal_conflict",
+        "text": "kestrel's journal notes notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:kestrel:2",
+    "group": "validation:kestrel:2",
+    "id": "validation:kestrel:2:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on journal notes by kestrel",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:3:specific",
+        "text": "a decision by kestrel: update website ideas. the reason was that the earlier layout was confusing."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:3:paraphrase",
+        "text": "to plan a small site, kestrel chose a different approach to page designs; the earlier layout was confusing."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:kestrel:3:wrong_relation",
+        "text": "kestrel read about website ideas. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:3:wrong_entity",
+        "text": "linden changed website ideas because the earlier layout was confusing. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:3:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:kestrel:3:missing",
+        "text": "kestrel's website ideas record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:kestrel:3",
+    "group": "validation:kestrel:3",
+    "id": "validation:kestrel:3:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made kestrel revise website ideas?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:3:specific",
+        "text": "a decision by kestrel: update website ideas. the reason was that the earlier layout was confusing."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:3:paraphrase",
+        "text": "to plan a small site, kestrel chose a different approach to page designs; the earlier layout was confusing."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:kestrel:3:wrong_relation",
+        "text": "kestrel read about website ideas. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:3:wrong_entity",
+        "text": "linden changed website ideas because the earlier layout was confusing. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:3:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:kestrel:3:missing",
+        "text": "kestrel's website ideas record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:kestrel:3",
+    "group": "validation:kestrel:3",
+    "id": "validation:kestrel:3:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writng on website ideas by kestrel",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:4:specific",
+        "text": "a decision by kestrel: update brain storage. the reason was that application updates replace program files."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:4:paraphrase",
+        "text": "to keep documents portable, kestrel chose a different approach to knowledge folders; application updates replace program files."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:kestrel:4:wrong_relation",
+        "text": "kestrel read about brain storage. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:4:wrong_entity",
+        "text": "linden changed brain storage because application updates replace program files. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:4:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:kestrel:4:missing",
+        "text": "kestrel's brain storage record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:kestrel:4",
+    "group": "validation:kestrel:4",
+    "id": "validation:kestrel:4:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made kestrel revise brain storage?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:4:specific",
+        "text": "a decision by kestrel: update brain storage. the reason was that application updates replace program files."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:4:paraphrase",
+        "text": "to keep documents portable, kestrel chose a different approach to knowledge folders; application updates replace program files."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:kestrel:4:wrong_relation",
+        "text": "kestrel read about brain storage. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:4:wrong_entity",
+        "text": "linden changed brain storage because application updates replace program files. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:4:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:kestrel:4:missing",
+        "text": "kestrel's brain storage record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:kestrel:4",
+    "group": "validation:kestrel:4",
+    "id": "validation:kestrel:4:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on brain storage by kestrel",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:5:specific",
+        "text": "a decision by kestrel: update failed experiments. the reason was that the test results were unreliable."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:5:paraphrase",
+        "text": "to record what went wrong, kestrel chose a different approach to unsuccessful trials; the test results were unreliable."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:kestrel:5:wrong_relation",
+        "text": "kestrel read about failed experiments. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:5:wrong_entity",
+        "text": "linden changed failed experiments because the test results were unreliable. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:5:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:kestrel:5:missing",
+        "text": "kestrel's failed experiments record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:kestrel:5",
+    "group": "validation:kestrel:5",
+    "id": "validation:kestrel:5:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made kestrel revise failed experiments?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:5:specific",
+        "text": "a decision by kestrel: update failed experiments. the reason was that the test results were unreliable."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:5:paraphrase",
+        "text": "to record what went wrong, kestrel chose a different approach to unsuccessful trials; the test results were unreliable."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:kestrel:5:wrong_relation",
+        "text": "kestrel read about failed experiments. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:5:wrong_entity",
+        "text": "linden changed failed experiments because the test results were unreliable. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:5:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:kestrel:5:missing",
+        "text": "kestrel's failed experiments record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:kestrel:5",
+    "group": "validation:kestrel:5",
+    "id": "validation:kestrel:5:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on failed experiments by kestrel",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:6:specific",
+        "text": "a decision by kestrel: update search feedback. the reason was that some useful pages were ranked too low."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:6:paraphrase",
+        "text": "to remember explicit preferences, kestrel chose a different approach to result ratings; some useful pages were ranked too low."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:kestrel:6:wrong_relation",
+        "text": "kestrel read about search feedback. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:6:wrong_entity",
+        "text": "linden changed search feedback because some useful pages were ranked too low. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:6:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 1,
+        "id": "validation:kestrel:6:temporal_conflict",
+        "text": "kestrel's search feedback notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:kestrel:6",
+    "group": "validation:kestrel:6",
+    "id": "validation:kestrel:6:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made kestrel revise search feedback?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:6:specific",
+        "text": "a decision by kestrel: update search feedback. the reason was that some useful pages were ranked too low."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:6:paraphrase",
+        "text": "to remember explicit preferences, kestrel chose a different approach to result ratings; some useful pages were ranked too low."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:kestrel:6:wrong_relation",
+        "text": "kestrel read about search feedback. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:6:wrong_entity",
+        "text": "linden changed search feedback because some useful pages were ranked too low. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:6:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 2,
+        "id": "validation:kestrel:6:temporal_conflict",
+        "text": "kestrel's search feedback notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:kestrel:6",
+    "group": "validation:kestrel:6",
+    "id": "validation:kestrel:6:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on search feedback by kestrel",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:7:specific",
+        "text": "a decision by kestrel: update document indexing. the reason was that the previous index was stale."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:7:paraphrase",
+        "text": "to find recently edited notes, kestrel chose a different approach to searchable records; the previous index was stale."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:kestrel:7:wrong_relation",
+        "text": "kestrel read about document indexing. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:7:wrong_entity",
+        "text": "linden changed document indexing because the previous index was stale. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:7:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:kestrel:7:missing",
+        "text": "kestrel's document indexing record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:kestrel:7",
+    "group": "validation:kestrel:7",
+    "id": "validation:kestrel:7:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made kestrel revise document indexing?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:kestrel:7:specific",
+        "text": "a decision by kestrel: update document indexing. the reason was that the previous index was stale."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:kestrel:7:paraphrase",
+        "text": "to find recently edited notes, kestrel chose a different approach to searchable records; the previous index was stale."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:kestrel:7:wrong_relation",
+        "text": "kestrel read about document indexing. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:kestrel:7:wrong_entity",
+        "text": "linden changed document indexing because the previous index was stale. this entry is only about linden."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:kestrel:7:unrelated",
+        "text": "kestrel watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:kestrel:7:missing",
+        "text": "kestrel's document indexing record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:kestrel:7",
+    "group": "validation:kestrel:7",
+    "id": "validation:kestrel:7:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on document indexing by kestrel",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:0:specific",
+        "text": "a decision by linden: update neural search. the reason was that keyword matches were misleading."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:0:paraphrase",
+        "text": "to find useful passages, linden chose a different approach to learned ranking; keyword matches were misleading."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:linden:0:wrong_relation",
+        "text": "linden read about neural search. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:0:wrong_entity",
+        "text": "iris changed neural search because keyword matches were misleading. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:0:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:linden:0:missing",
+        "text": "linden's neural search record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:linden:0",
+    "group": "validation:linden:0",
+    "id": "validation:linden:0:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made linden revise neural search?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:0:specific",
+        "text": "a decision by linden: update neural search. the reason was that keyword matches were misleading."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:0:paraphrase",
+        "text": "to find useful passages, linden chose a different approach to learned ranking; keyword matches were misleading."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:linden:0:wrong_relation",
+        "text": "linden read about neural search. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:0:wrong_entity",
+        "text": "iris changed neural search because keyword matches were misleading. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:0:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:linden:0:missing",
+        "text": "linden's neural search record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:linden:0",
+    "group": "validation:linden:0",
+    "id": "validation:linden:0:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on neural search by linden",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:1:specific",
+        "text": "a decision by linden: update drive backup. the reason was that the old disk could fail."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:1:paraphrase",
+        "text": "to recover saved documents, linden chose a different approach to cloud copies; the old disk could fail."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:linden:1:wrong_relation",
+        "text": "linden read about drive backup. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:1:wrong_entity",
+        "text": "iris changed drive backup because the old disk could fail. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:1:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 1,
+        "id": "validation:linden:1:temporal_conflict",
+        "text": "linden's drive backup notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:linden:1",
+    "group": "validation:linden:1",
+    "id": "validation:linden:1:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made linden revise drive backup?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:1:specific",
+        "text": "a decision by linden: update drive backup. the reason was that the old disk could fail."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:1:paraphrase",
+        "text": "to recover saved documents, linden chose a different approach to cloud copies; the old disk could fail."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:linden:1:wrong_relation",
+        "text": "linden read about drive backup. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:1:wrong_entity",
+        "text": "iris changed drive backup because the old disk could fail. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:1:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 2,
+        "id": "validation:linden:1:temporal_conflict",
+        "text": "linden's drive backup notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:linden:1",
+    "group": "validation:linden:1",
+    "id": "validation:linden:1:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on drive backup by linden",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:2:specific",
+        "text": "a decision by linden: update journal notes. the reason was that important details were forgotten."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:2:paraphrase",
+        "text": "to remember past decisions, linden chose a different approach to daily writing; important details were forgotten."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:linden:2:wrong_relation",
+        "text": "linden read about journal notes. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:2:wrong_entity",
+        "text": "iris changed journal notes because important details were forgotten. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:2:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:linden:2:missing",
+        "text": "linden's journal notes record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:linden:2",
+    "group": "validation:linden:2",
+    "id": "validation:linden:2:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made linden revise journal notes?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:2:specific",
+        "text": "a decision by linden: update journal notes. the reason was that important details were forgotten."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:2:paraphrase",
+        "text": "to remember past decisions, linden chose a different approach to daily writing; important details were forgotten."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:linden:2:wrong_relation",
+        "text": "linden read about journal notes. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:2:wrong_entity",
+        "text": "iris changed journal notes because important details were forgotten. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:2:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:linden:2:missing",
+        "text": "linden's journal notes record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:linden:2",
+    "group": "validation:linden:2",
+    "id": "validation:linden:2:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writng on journal ntoes by linden",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:3:specific",
+        "text": "a decision by linden: update website ideas. the reason was that the earlier layout was confusing."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:3:paraphrase",
+        "text": "to plan a small site, linden chose a different approach to page designs; the earlier layout was confusing."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:linden:3:wrong_relation",
+        "text": "linden read about website ideas. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:3:wrong_entity",
+        "text": "iris changed website ideas because the earlier layout was confusing. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:3:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:linden:3:missing",
+        "text": "linden's website ideas record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:linden:3",
+    "group": "validation:linden:3",
+    "id": "validation:linden:3:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made linden revise website ideas?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:3:specific",
+        "text": "a decision by linden: update website ideas. the reason was that the earlier layout was confusing."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:3:paraphrase",
+        "text": "to plan a small site, linden chose a different approach to page designs; the earlier layout was confusing."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:linden:3:wrong_relation",
+        "text": "linden read about website ideas. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:3:wrong_entity",
+        "text": "iris changed website ideas because the earlier layout was confusing. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:3:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:linden:3:missing",
+        "text": "linden's website ideas record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:linden:3",
+    "group": "validation:linden:3",
+    "id": "validation:linden:3:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on website ideas by linden",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:4:specific",
+        "text": "a decision by linden: update brain storage. the reason was that application updates replace program files."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:4:paraphrase",
+        "text": "to keep documents portable, linden chose a different approach to knowledge folders; application updates replace program files."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:linden:4:wrong_relation",
+        "text": "linden read about brain storage. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:4:wrong_entity",
+        "text": "iris changed brain storage because application updates replace program files. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:4:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:linden:4:missing",
+        "text": "linden's brain storage record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:linden:4",
+    "group": "validation:linden:4",
+    "id": "validation:linden:4:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made linden revise brain storage?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:4:specific",
+        "text": "a decision by linden: update brain storage. the reason was that application updates replace program files."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:4:paraphrase",
+        "text": "to keep documents portable, linden chose a different approach to knowledge folders; application updates replace program files."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:linden:4:wrong_relation",
+        "text": "linden read about brain storage. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:4:wrong_entity",
+        "text": "iris changed brain storage because application updates replace program files. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:4:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:linden:4:missing",
+        "text": "linden's brain storage record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:linden:4",
+    "group": "validation:linden:4",
+    "id": "validation:linden:4:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on brain storage by linden",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:5:specific",
+        "text": "a decision by linden: update failed experiments. the reason was that the test results were unreliable."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:5:paraphrase",
+        "text": "to record what went wrong, linden chose a different approach to unsuccessful trials; the test results were unreliable."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:linden:5:wrong_relation",
+        "text": "linden read about failed experiments. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:5:wrong_entity",
+        "text": "iris changed failed experiments because the test results were unreliable. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:5:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 1,
+        "id": "validation:linden:5:temporal_conflict",
+        "text": "linden's failed experiments notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:linden:5",
+    "group": "validation:linden:5",
+    "id": "validation:linden:5:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made linden revise failed experiments?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:5:specific",
+        "text": "a decision by linden: update failed experiments. the reason was that the test results were unreliable."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:5:paraphrase",
+        "text": "to record what went wrong, linden chose a different approach to unsuccessful trials; the test results were unreliable."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:linden:5:wrong_relation",
+        "text": "linden read about failed experiments. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:5:wrong_entity",
+        "text": "iris changed failed experiments because the test results were unreliable. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:5:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "temporal_conflict",
+        "grade": 2,
+        "id": "validation:linden:5:temporal_conflict",
+        "text": "linden's failed experiments notes list both 2023 and 2024 for the change. the dates conflict and no reason is given."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:linden:5",
+    "group": "validation:linden:5",
+    "id": "validation:linden:5:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on failed experiments by linden",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:6:specific",
+        "text": "a decision by linden: update search feedback. the reason was that some useful pages were ranked too low."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:6:paraphrase",
+        "text": "to remember explicit preferences, linden chose a different approach to result ratings; some useful pages were ranked too low."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:linden:6:wrong_relation",
+        "text": "linden read about search feedback. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:6:wrong_entity",
+        "text": "iris changed search feedback because some useful pages were ranked too low. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:6:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:linden:6:missing",
+        "text": "linden's search feedback record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:linden:6",
+    "group": "validation:linden:6",
+    "id": "validation:linden:6:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made linden revise search feedback?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:6:specific",
+        "text": "a decision by linden: update search feedback. the reason was that some useful pages were ranked too low."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:6:paraphrase",
+        "text": "to remember explicit preferences, linden chose a different approach to result ratings; some useful pages were ranked too low."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:linden:6:wrong_relation",
+        "text": "linden read about search feedback. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:6:wrong_entity",
+        "text": "iris changed search feedback because some useful pages were ranked too low. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:6:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:linden:6:missing",
+        "text": "linden's search feedback record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:linden:6",
+    "group": "validation:linden:6",
+    "id": "validation:linden:6:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writing on search feedback by linden",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:7:specific",
+        "text": "a decision by linden: update document indexing. the reason was that the previous index was stale."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:7:paraphrase",
+        "text": "to find recently edited notes, linden chose a different approach to searchable records; the previous index was stale."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 1,
+        "id": "validation:linden:7:wrong_relation",
+        "text": "linden read about document indexing. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:7:wrong_entity",
+        "text": "iris changed document indexing because the previous index was stale. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:7:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 1,
+        "id": "validation:linden:7:missing",
+        "text": "linden's document indexing record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "causal_cross_sentence",
+    "document_family": "validation:linden:7",
+    "group": "validation:linden:7",
+    "id": "validation:linden:7:q0",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "what made linden revise document indexing?",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:0"
+  },
+  {
+    "candidates": [
+      {
+        "category": "specific",
+        "grade": 2,
+        "id": "validation:linden:7:specific",
+        "text": "a decision by linden: update document indexing. the reason was that the previous index was stale."
+      },
+      {
+        "category": "paraphrase",
+        "grade": 2,
+        "id": "validation:linden:7:paraphrase",
+        "text": "to find recently edited notes, linden chose a different approach to searchable records; the previous index was stale."
+      },
+      {
+        "category": "wrong_relation",
+        "grade": 2,
+        "id": "validation:linden:7:wrong_relation",
+        "text": "linden read about document indexing. the meeting was held on monday, but no reason for a change was recorded."
+      },
+      {
+        "category": "wrong_entity",
+        "grade": 0,
+        "id": "validation:linden:7:wrong_entity",
+        "text": "iris changed document indexing because the previous index was stale. this entry is only about iris."
+      },
+      {
+        "category": "unrelated",
+        "grade": 0,
+        "id": "validation:linden:7:unrelated",
+        "text": "linden watered the garden and repaired a bicycle. these records contain no project discussion."
+      },
+      {
+        "category": "missing",
+        "grade": 2,
+        "id": "validation:linden:7:missing",
+        "text": "linden's document indexing record is incomplete. the cause of the decision is unknown."
+      }
+    ],
+    "category": "natural_document_search",
+    "document_family": "validation:linden:7",
+    "group": "validation:linden:7",
+    "id": "validation:linden:7:q1",
+    "label_trust": "rule_checked_not_independent_human_review",
+    "question": "show the writng on documnt indexing by linden",
+    "source_kind": "synthetic_specification",
+    "template_family": "validation:prose:1"
+  }
+]

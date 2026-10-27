@@ -1,0 +1,16 @@
+{
+  "format": "pese-owner-local-beta",
+  "version": 1,
+  "policy": "aggressive_learning_beta",
+  "objective": "retrieval_relevance",
+  "model_id": "PESE-English-Beta-1:a300",
+  "origin": "public_synthetic_base",
+  "created": 1793077076.2883668,
+  "brain_binding": null,
+  "files": {
+    "weights.pt": "4100367d3b0c9e60d40da204e85174a67aabe3d9c32ea160b721aefcb51dcb5e",
+    "tokenizer.json": "a0d09cd0f4c9deee928da01392f7e2d69cb2ff0a819dd4c67f9bce589ffa8b32"
+  },
+  "evaluation_hash": "d024b8e5a930280e0172b8c804ebaf7516f1f9c5b30af38b58e9ab4f3649e094",
+  "training_hash": "9e27c15183714ccd452d95bb9a4d85932bb4bd3c79d5569d5599fca2b9141694"
+}

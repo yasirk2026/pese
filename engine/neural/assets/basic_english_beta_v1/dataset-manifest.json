@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "dataset": "PESE-BASIC-ENGLISH-BETA-1",
+  "license": "CC0-1.0",
+  "objective": "retrieval_relevance",
+  "provenance": "Original synthetic specification; no scraped or private material",
+  "label_trust": "specification_derived_not_independent_human_acceptance",
+  "files": {
+    "train.json": {
+      "sha256": "a5c97e8d5ababe924b332f76bfeb968b4553601b1b12d7a62ef8ef448bbda183",
+      "queries": 128,
+      "pairs": 768
+    },
+    "validation.json": {
+      "sha256": "8a0551028c34d6108d764fad32009b2ee98b27c53c45d4c3a7f6b96a6fe3dc16",
+      "queries": 64,
+      "pairs": 384
+    },
+    "calibration.json": {
+      "sha256": "d7bea785776d58ebfe9175d7466f314230f419aa4d2b867e65200d8d494171aa",
+      "queries": 48,
+      "pairs": 288
+    },
+    "acceptance.json": {
+      "sha256": "33f54193e7d9b6d15f8c0527da88779db75420560cadb4acca6416905eed56d8",
+      "queries": 64,
+      "pairs": 384
+    }
+  },
+  "generator_sha256": "5b55a3f07745e2eb793278f8c503b31c3979e51cd5d10e51ed5087dcafed49a1",
+  "independent_acceptance": false
+}
