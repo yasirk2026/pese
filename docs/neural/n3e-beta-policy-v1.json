@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "policy": "aggressive_learning_beta",
+  "registered": "2026-10-27",
+  "production_policy_changed": false,
+  "development_label_trust": "synthetic_specification_not_independent_human_acceptance",
+  "initial_candidate": {
+    "minimum_validation_balanced_accuracy": 0.60,
+    "minimum_validation_ndcg10": 0.65,
+    "minimum_mean_integrated_ndcg10_delta": -0.05,
+    "maximum_new_wrong_answers": 0,
+    "maximum_evidence_gate_violations": 0,
+    "required_distinct_validation_families": 8
+  },
+  "automatic_local_promotion": {
+    "requires_human_reviewed_heldout_queries": 12,
+    "requires_disjoint_heldout_document_families": 3,
+    "minimum_ndcg10_delta_over_current": 0.01,
+    "minimum_ndcg10_delta_over_maae": -0.02,
+    "minimum_ndcg10_delta_over_base": -0.02,
+    "maximum_category_regression": 0.05,
+    "maximum_new_wrong_answers": 0,
+    "maximum_evidence_gate_violations": 0,
+    "training_examples_are_not_evaluation_examples": true
+  },
+  "runtime": {"candidate_budget": 6, "relative_score_cap": 0.03, "gap_cap": 0.75,
+    "cpu_threads": 2, "cold_timeout_seconds": 5, "warm_timeout_seconds": 0.15,
+    "sampled_worker_memory_mib": 384},
+  "training": {"max_steps": 600, "max_wall_seconds": 180, "max_records": 2000,
+    "max_concurrent_jobs": 1, "minimum_reviewed_train_examples": 12},
+  "queue": {"max_events": 2000, "max_bytes": 16777216, "default_retention_days": 30},
+  "owner_private_activation": "separate_installed_acceptance_and_recoverable_backup_required"
+}
