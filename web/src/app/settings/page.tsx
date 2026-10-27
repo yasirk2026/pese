@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { AppShell } from "@/components/AppShell";
+import { PrivacyIntelligence } from "@/components/PrivacyIntelligence";
 import { useApp, Theme } from "@/context/AppContext";
 import {
   getBrainInfo,
@@ -411,7 +412,7 @@ function SettingsContent() {
               }`}
             >
               <Shield className="w-4 h-4 shrink-0" />
-              <span>Privacy & Local</span>
+              <span>Privacy & Intelligence</span>
             </button>
 
             <button
@@ -933,6 +934,7 @@ function SettingsContent() {
             {/* ==================== PRIVACY TAB ==================== */}
             {activeTab === "privacy" && (
               <div className="space-y-6">
+                <PrivacyIntelligence />
                 <div className="p-6 rounded-2xl bg-surface border border-surface-border shadow-xs space-y-5">
                   <div>
                     <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">

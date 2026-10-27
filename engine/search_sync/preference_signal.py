@@ -70,7 +70,13 @@ class SearchSyncPreferenceSignal:
         target_type: Optional[TargetType] = TargetType.SERP_RESULT,
     ) -> Dict[str, FeedbackEvent]:
         """Fetches all active preferences for this normalized query in one batch."""
+        if not self.learning_enabled():
+            return {}
         return self.store.get_active_preferences_for_query(normalized_query, target_type=target_type)
+
+    def learning_enabled(self):
+        from ..intelligence.settings import SettingsStore
+        return SettingsStore(self.store.db_path.parent).read().learn_from_feedback
 
     def calculate_adjustment(
         self,
@@ -109,6 +115,9 @@ class SearchSyncPreferenceSignal:
         Supports optional pre-fetched active_map for batch efficiency.
         """
         if active_map is None:
+            if not self.learning_enabled():
+                return SearchSyncPreferenceAdjustment(normalized_query=normalized_query, target_id=target_id,
+                                                      target_type=target_type)
             active_map = self.store.get_active_preferences_for_query(normalized_query, target_type=target_type)
 
         # Look up by target_id or target_slug
@@ -140,6 +149,8 @@ class SearchSyncPreferenceSignal:
         Checks if the Featured Answer should be suppressed for this query.
         Returns (is_suppressed, feedback_event).
         """
+        if not self.learning_enabled():
+            return False, None
         event = self.store.get_featured_answer_preference(normalized_query, target_id=doc_id)
         if event and event.feedback == FeedbackType.DISLIKE:
             return True, event

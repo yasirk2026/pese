@@ -30,6 +30,37 @@ function apiFetch(input: string, init: RequestInit = {}): Promise<Response> {
   return fetch(input, { ...init, headers });
 }
 
+export interface IntelligenceSettings {
+  version: number;
+  neural_search: boolean;
+  learn_from_feedback: boolean;
+  collect_research_feedback: boolean;
+  allow_journal_learning: boolean;
+  community_contributions: boolean;
+  consent_revision: number;
+  excluded_document_ids: string[];
+}
+export interface ContributionPreview {
+  preview_id: string;
+  sha256: string;
+  package: Record<string, unknown>;
+  destination: string;
+  retention: string;
+  revocation: string;
+  privacy: string;
+}
+async function intelligenceRequest<T>(path: string, init?: RequestInit): Promise<T> {
+  const response = await apiFetch(`${API_BASE}/api/intelligence/${path}`, init);
+  if (!response.ok) throw new Error("The local intelligence action could not be completed. Your saved choices remain in effect.");
+  return response.json();
+}
+export const getIntelligenceSettings = () => intelligenceRequest<{settings: IntelligenceSettings; neural_available: boolean; neural_status: string}>("settings");
+export const saveIntelligenceSettings = (changes: Partial<IntelligenceSettings>) => intelligenceRequest<{settings: IntelligenceSettings}>("settings", {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(changes)});
+export const resetIntelligencePersonalization = () => intelligenceRequest("personalization", {method: "DELETE"});
+export const previewIntelligenceContribution = () => intelligenceRequest<ContributionPreview>("contributions/preview", {method: "POST"});
+export const exportIntelligenceContribution = (preview: ContributionPreview) => intelligenceRequest<Record<string, unknown>>("contributions/export", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({preview_id: preview.preview_id, sha256: preview.sha256, reviewed: true})});
+export const cancelIntelligenceContribution = (preview: ContributionPreview) => intelligenceRequest(`contributions/preview/${preview.preview_id}`, {method: "DELETE"});
+
 export interface RankingTrace {
   doc_id: string;
   slug: string;

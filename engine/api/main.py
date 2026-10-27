@@ -17,7 +17,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Query, HTTPException, Body, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StrictBool
 
 from ..brain.profile import (
     load_profile,
@@ -108,6 +108,9 @@ discovery_contexts = OrderedDict()
 discovery_lock = RLock()
 from ..intelligence.contexts import SearchContexts
 feedback_contexts = SearchContexts()
+from ..intelligence.contributions import ExportReview
+from ..intelligence.settings import intelligence_settings
+contribution_reviews = ExportReview(intelligence_settings, feedback_store)
 
 
 def discovery_context(query, search_id=None):
@@ -753,6 +756,67 @@ def record_event(payload: EventPayload):
 
 # ==================== SEARCH SYNC FEEDBACK ENDPOINTS (Phase N3-A) ====================
 
+@app.get("/api/intelligence/settings")
+def get_intelligence_settings():
+    from ..intelligence.settings import intelligence_settings
+    return {"settings": intelligence_settings.read().model_dump(), "neural_available": False,
+            "neural_status": "No independently accepted relevance release installed",
+            "parameter_training_available": False, "upload_available": False,
+            "storage": "local_per_brain_excluded_from_backups"}
+
+
+@app.put("/api/intelligence/settings")
+def update_intelligence_settings(changes: Dict[str, Any] = Body(...)):
+    from ..intelligence.settings import intelligence_settings
+    try:
+        if changes.get("collect_research_feedback") is True:
+            raise ValueError("Research collection is unavailable in this release")
+        settings = intelligence_settings.update(changes, neural_available=False)
+    except ValueError as exc:
+        raise HTTPException(400, detail="Invalid permissions or neural model unavailable") from exc
+    for active_engine in (active_snapshot.engine if active_snapshot else None, engine):
+        if active_engine:
+            active_engine.invalidate_query_cache()
+    return {"settings": settings.model_dump()}
+
+
+@app.delete("/api/intelligence/personalization")
+def reset_intelligence_personalization():
+    feedback_store.clear_all()
+    for active_engine in (active_snapshot.engine if active_snapshot else None, engine):
+        if active_engine:
+            active_engine.invalidate_query_cache()
+    return {"status": "reset", "deleted": "Local preferences, feedback audit and shadow observations",
+            "parameters_updated": False}
+
+
+@app.post("/api/intelligence/contributions/preview")
+def preview_intelligence_contribution():
+    try:
+        return contribution_reviews.preview()
+    except ValueError as exc:
+        raise HTTPException(409, detail=str(exc)) from exc
+
+
+class ContributionExportRequest(BaseModel):
+    preview_id: str = Field(max_length=64)
+    sha256: str = Field(min_length=64, max_length=64)
+    reviewed: StrictBool = False
+
+
+@app.post("/api/intelligence/contributions/export")
+def export_intelligence_contribution(payload: ContributionExportRequest):
+    try:
+        return contribution_reviews.export(payload.preview_id, payload.sha256, payload.reviewed)
+    except ValueError as exc:
+        raise HTTPException(409, detail=str(exc)) from exc
+
+
+@app.delete("/api/intelligence/contributions/preview/{preview_id}")
+def cancel_intelligence_contribution(preview_id: str):
+    contribution_reviews.cancel(preview_id)
+    return {"status": "cancelled"}
+
 @app.post("/api/search/feedback")
 def submit_search_feedback(submission: FeedbackSubmission):
     """
@@ -760,6 +824,9 @@ def submit_search_feedback(submission: FeedbackSubmission):
     or a Featured Answer. Bounded preference signal is saved locally and immediately
     influences next search for the same query.
     """
+    from ..intelligence.settings import intelligence_settings
+    if not intelligence_settings.read().learn_from_feedback:
+        raise HTTPException(409, detail="Search feedback personalization is paused")
     normalized_q = preference_signal.normalize_query(submission.query)
     if not normalized_q:
         raise HTTPException(status_code=400, detail="Query cannot be empty")
