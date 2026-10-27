@@ -34,10 +34,16 @@ def main():
              ("not about what i asked",0),("beautiful styling",1),("unclear",2)]
     hx=torch.tensor([advisory_features({"reason":reason,"feedback":"DISLIKE"}) for reason,label in heldout])
     with torch.inference_mode():prob=torch.softmax(model(hx),dim=-1);pred=prob.argmax(-1).tolist()
+    confidence=prob.max(-1).values.tolist();correct=[int(p==label) for p,(_,label) in zip(pred,heldout)]
+    ece=0.0
+    for index in range(10):
+        bucket=[i for i,c in enumerate(confidence) if min(int(c*10),9)==index]
+        if bucket:ece+=abs(sum(confidence[i] for i in bucket)/len(bucket)-sum(correct[i] for i in bucket)/len(bucket))*len(bucket)/len(heldout)
     report={"version":1,"architecture":"15-feature three-class learned linear softmax","seed":42,"steps":250,
             "labels":"explicit_synthetic_reason_semantics_not_human_independent_review","admission_authority":"NONE",
             "train_examples":len(rows),"unseen_wording_examples":len(heldout),
             "unseen_wording_accuracy":sum(p==label for p,(_,label) in zip(pred,heldout))/len(heldout),
+            "unseen_wording_ece":ece,"calibration_status":"not_reliable_for_trusted_admission",
             "errors":[{"reason":reason,"expected":label,"predicted":p} for p,(reason,label) in zip(pred,heldout) if p!=label],
             "trusted_label_false_acceptances":0,"false_acceptance_scope":"structural admission guard; classifier cannot grant labels",
             "independent_human_evaluation":False,"weights":model.weight.detach().tolist(),"bias":model.bias.detach().tolist(),

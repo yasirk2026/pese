@@ -24,6 +24,7 @@ def snapshot(queue,document_reader,allowed):
         from .runtime import document_revision
         if document_revision(doc)!=p["document_revision"]:continue
         item={"question":p["effective_query"],"text":e["evidence_text"],"grade":row["review"]["grade"],
+              "document_revision":p["document_revision"],
               "group":p["target_id"],"document_family":p["target_id"],"id":row["id"],"document_id":p["target_id"],
               "source_kind":e.get("source_kind"),"receipt_hash":digest(e),"review":row["review"]}
         (evaluation if row["role"]=="evaluation" else train).append(item)

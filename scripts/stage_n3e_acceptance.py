@@ -13,7 +13,7 @@ if __name__=="__main__":
     stage.mkdir(parents=True,exist_ok=False)
     for name in ("runtime","models"):
         shutil.copytree(reference/name,stage/name,ignore=shutil.ignore_patterns("__pycache__","*.pyc"))
-    from stage_desktop import tracked_engine_sources
+    from scripts.stage_desktop import tracked_engine_sources
     for source in tracked_engine_sources(ROOT):
         relative=source.relative_to(ROOT)
         if any(part in ("tests",".venv","__pycache__","private") for part in relative.parts):continue

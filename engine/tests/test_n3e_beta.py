@@ -127,6 +127,25 @@ def test_closed_beta_cannot_change_production_trust(owner):
     assert not stable.enabled()
 
 
+def test_stale_job_snapshot_and_backup_exclusion(owner,tmp_path):
+    beta,docs=owner;beta.accept(AGREEMENT_HASH,affirmative=True,feedback_scope=["d0"])
+    row={"document_id":"d0","document_revision":document_revision(docs["d0"])}
+    data={"train":[row],"validation":[],"evaluation":[]}
+    beta._snapshot_current(data)
+    docs["d0"].content="changed after training started"
+    with pytest.raises(ValueError):beta._snapshot_current(data)
+    beta.record(presentation(docs["d0"]),feedback="LIKE")
+    from engine.sync.snapshot import create_snapshot
+    from engine.sync.restore import restore_snapshot
+    import zipfile
+    archive=create_snapshot(beta.brain,tmp_path/"backups")
+    with zipfile.ZipFile(archive.zip_path) as z:
+        assert not any("intelligence" in name or "learning.db" in name or "weights.pt" in name for name in z.namelist())
+    recovered=tmp_path/"inactive-recovery"
+    restore_snapshot(archive.zip_path,recovered,expected_brain_id=archive.brain_id,expected_snapshot_id=archive.snapshot_id,expected_zip_sha256=archive.zip_sha256)
+    assert not (recovered/".pese-intelligence-v1").exists()
+
+
 def test_local_promotion_policy_preserves_all_gates():
     passing={"reviewed_queries":12,"heldout_document_families":3,"independent_of_training":True,
        "delta_current":.02,"delta_maae":0,"delta_base":0,"category_regression":0,

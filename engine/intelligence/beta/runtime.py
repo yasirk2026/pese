@@ -296,6 +296,7 @@ class BetaRuntime:
     def _evaluate_job(self,job_id,job,data,current):
         from .lifecycle import evaluate_local,decide
         from .neural import predict,load_model
+        self._snapshot_current(data)
         decision=run_training({"operation":"evaluation","dataset":str(job/"dataset.json"),"candidate":str(job/"candidate"),
                               "current":str(current.directory),"base":str(self.base_path)},self.cancel,timeout=60)
         # Real isolated health checks are independent of training loss.
@@ -321,9 +322,16 @@ class BetaRuntime:
         write_manifest(job/"candidate",identity="PESE-local:"+job_id,origin="local_adaptation",brain_binding=self.models.binding,evaluation=decision,training=training,lineage=provenance)
         with self.lock:
             if self.cancel.is_set() or not self.collecting():raise InterruptedError()
+            self._snapshot_current(data)
             if decision["decision"]=="promote":
                 self.ranker.worker.close();self.models.promote(job/"candidate",decision,lambda _:True)
         return decision
+
+    def _snapshot_current(self,data):
+        for row in data["train"]+data["validation"]+data["evaluation"]:
+            doc=self.document_reader(row["document_id"]) if self.document_reader else None
+            if doc is None or not self.allowed(row["document_id"]) or document_revision(doc)!=row.get("document_revision"):
+                raise ValueError("A training/evaluation source revision or permission changed; candidate cannot be promoted")
 
     def evaluate_latest(self):
         if not self.collecting():raise ValueError("BETA learning is paused or inactive")

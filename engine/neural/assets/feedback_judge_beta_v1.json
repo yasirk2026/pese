@@ -8,6 +8,8 @@
   "train_examples": 28,
   "unseen_wording_examples": 12,
   "unseen_wording_accuracy": 0.75,
+  "unseen_wording_ece": 0.05612212916215262,
+  "calibration_status": "not_reliable_for_trusted_admission",
   "errors": [
     {
       "reason": "interesting despite no answer",
@@ -86,5 +88,5 @@
     -1.6692665815353394,
     3.2560248374938965
   ],
-  "code_sha256": "a356617b91da622128b4c091a3d10aac3cb0e7c4c1b2680740903bd397764bbf"
+  "code_sha256": "615e127e274a9e80422f23c65e97b19cbeff1912830758824642c3fe36956477"
 }
