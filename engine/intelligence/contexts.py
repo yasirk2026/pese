@@ -19,7 +19,8 @@ class SearchContexts:
             receipt = deepcopy(r.evidence_provenance)
             targets[("SERP_RESULT", r.doc_id)] = (receipt, r.rank, r.slug, r.base_score)
             if r.is_featured and r.featured_answer:
-                fa = {**receipt, "target_type": "FEATURED_ANSWER", "evidence_hash": digest(r.featured_answer)}
+                fa = {**receipt, "target_type": "FEATURED_ANSWER", "evidence_id": r.slug + "#fa",
+                      "evidence_hash": digest(r.featured_answer)}
                 targets[("FEATURED_ANSWER", r.doc_id)] = (fa, r.rank, r.slug, r.base_score)
         with self._lock:
             self._items[context_id] = (raw_query, targets)

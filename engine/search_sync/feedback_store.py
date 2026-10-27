@@ -243,6 +243,7 @@ class SearchSyncFeedbackStore:
                 created_at=row["updated_at"],
                 search_context_id=row["search_context_id"],
                 maae_base_score=row["maae_base_score"],
+                model_versions=meta.get("model_versions", {}),
                 metadata=meta,
             )
             if str(self.db_path) != ":memory:":
@@ -272,6 +273,7 @@ class SearchSyncFeedbackStore:
                     created_at=row["updated_at"],
                     search_context_id=row["search_context_id"],
                     maae_base_score=row["maae_base_score"],
+                    model_versions=meta.get("model_versions", {}),
                     metadata=meta,
                 ))
             if str(self.db_path) != ":memory:":
@@ -433,7 +435,7 @@ class SearchSyncFeedbackStore:
                 cursor.execute("""
                     SELECT a.*, o.evidence_id, o.evidence_summary, o.answers_probability,
                            o.does_not_answer_probability, o.predicted_label, o.threshold_used,
-                           o.model_id, o.checkpoint_hash, o.authority
+                           o.model_id, o.checkpoint_hash, o.authority, o.metadata_json AS observation_metadata
                     FROM active_preferences a
                     LEFT JOIN neural_shadow_observations o
                       ON a.search_context_id = o.search_context_id AND a.target_id = o.target_id
@@ -445,7 +447,7 @@ class SearchSyncFeedbackStore:
                 cursor.execute("""
                     SELECT a.*, o.evidence_id, o.evidence_summary, o.answers_probability,
                            o.does_not_answer_probability, o.predicted_label, o.threshold_used,
-                           o.model_id, o.checkpoint_hash, o.authority
+                           o.model_id, o.checkpoint_hash, o.authority, o.metadata_json AS observation_metadata
                     FROM active_preferences a
                     LEFT JOIN neural_shadow_observations o
                       ON a.search_context_id = o.search_context_id AND a.target_id = o.target_id
@@ -465,10 +467,27 @@ class SearchSyncFeedbackStore:
                 matches = [row for row in rows if
                            (row["normalized_query"], row["target_type"], row["target_id"], row["search_context_id"]) == key
                            and row["answers_probability"] is not None]
+                feedback_meta = json.loads(r["metadata_json"] or "{}")
+                receipt = feedback_meta.get("provenance")
+                verified = feedback_meta.get("context_verified") is True and bool(receipt)
+                if verified:
+                    # Match a particular revision/passage/model receipt, never
+                    # the highest score or first observation of that document.
+                    precise = []
+                    for row in matches:
+                        observed = json.loads(row["observation_metadata"] or "{}")
+                        if (row["evidence_id"] == receipt.get("evidence_id") and
+                                all(observed.get(k) == receipt.get(k) for k in
+                                    ("document_revision", "evidence_hash", "ranking_version", "generation", "model_versions"))):
+                            precise.append(row)
+                    matches = precise
                 # Multiple passages/models are separate observations, not a vote.
                 # Never choose an arbitrary first row as evidence for feedback.
                 ambiguous = len(matches) > 1
-                ans_prob = None if ambiguous else r["answers_probability"]
+                selected = matches[0] if len(matches) == 1 else None
+                ans_prob = selected["answers_probability"] if selected is not None else None
+                if selected is not None:
+                    r = selected
                 fb_type = FeedbackType(r["feedback"]) if r["feedback"] else None
                 alignment = classify_diagnostic_alignment(ans_prob, fb_type, r["threshold_used"] or 0.85)
 
@@ -486,11 +505,11 @@ class SearchSyncFeedbackStore:
                     "updated_at": r["updated_at"],
                     "neural_model": r["model_id"] or "PESE-Rel-0",
                     "checkpoint_hash": r["checkpoint_hash"] or "",
-                    "evidence_id": r["evidence_id"],
-                    "evidence_summary": r["evidence_summary"],
+                    "evidence_id": r["evidence_id"] if selected is not None else None,
+                    "evidence_summary": r["evidence_summary"] if selected is not None else None,
                     "answers_probability": ans_prob,
-                    "provenance_status": "AMBIGUOUS" if ambiguous else "LEGACY_DIAGNOSTIC_ONLY",
-                    "predicted_label": r["predicted_label"],
+                    "provenance_status": "AMBIGUOUS" if ambiguous else "VERIFIED" if verified and selected is not None else "INCOMPLETE" if verified else "LEGACY_DIAGNOSTIC_ONLY",
+                    "predicted_label": r["predicted_label"] if selected is not None else None,
                     "neural_authority": r["authority"] or "NONE",
                     "diagnostic_alignment": alignment or "NO_OBSERVATION" if ans_prob is None else alignment,
                 })

@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from enum import Enum
 import hashlib
 import json
+from datetime import datetime
 
 VERSION = 1
 RANKING_VERSION = "maae-alpha6-n3-contract1"
@@ -38,9 +39,13 @@ def validate(record, *, trusted_reviewers=frozenset(), verified_contexts=None):
     A local UI vote never becomes a relevance/support label. A reviewed label is
     bound to a content fingerprint; changing evidence invalidates the review.
     """
+    if not isinstance(record, dict):
+        return Verdict(Readiness.INCOMPLETE, "Record must be an object")
     p = record.get("provenance")
     if not p:
         return Verdict(Readiness.PREFERENCE_ONLY, "No verified search receipt; vote is preference only")
+    if not isinstance(p, dict):
+        return Verdict(Readiness.INCOMPLETE, "Receipt must be an object")
     required = ("context_id", "effective_query", "target_type", "target_id", "document_revision",
                 "evidence_id", "evidence_hash", "ranking_version", "generation", "model_versions")
     if p.get("version") != VERSION or any(not p.get(k) for k in required):
@@ -49,12 +54,23 @@ def validate(record, *, trusted_reviewers=frozenset(), verified_contexts=None):
         return Verdict(Readiness.INCOMPLETE, "Invalid target type")
     if record.get("ambiguous") or record.get("context_verified") is not True:
         return Verdict(Readiness.INCOMPLETE, "Unverified or ambiguous search context")
-    fingerprint = digest(p)
+    try:
+        fingerprint = digest(p)
+    except (ValueError, TypeError):
+        return Verdict(Readiness.INCOMPLETE, "Invalid receipt encoding")
     if verified_contexts is None or fingerprint not in verified_contexts:
         return Verdict(Readiness.INCOMPLETE, "Receipt not in independently verified context registry")
     a = record.get("adjudication")
     if not a:
         return Verdict(Readiness.ADJUDICATION, "Verified context; human relevance review still required")
+    if not isinstance(a, dict) or not isinstance(a.get("reviewer"), str):
+        return Verdict(Readiness.INCOMPLETE, "Adjudication must name a trusted reviewer")
+    try:
+        reviewed_at = datetime.fromisoformat(a.get("reviewed_at", "").replace("Z", "+00:00"))
+        if reviewed_at.tzinfo is None:
+            raise ValueError()
+    except (ValueError, TypeError, AttributeError):
+        return Verdict(Readiness.INCOMPLETE, "Review requires a timezone-aware timestamp")
     if (a.get("reviewer") not in trusted_reviewers or a.get("receipt_hash") != fingerprint
             or a.get("objective") not in ("retrieval_relevance", "answer_support")
             or type(a.get("label")) is not int or a["label"] not in (0, 1)

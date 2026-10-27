@@ -67,6 +67,27 @@ def test_disabled_observability_never_loads(monkeypatch):
         load.assert_not_called()
 
 
+def test_release_profile_observer_is_opt_in(monkeypatch):
+    monkeypatch.setenv("PESE_ENV","production")
+    monkeypatch.delenv("PESE_REL_SHADOW_ENABLED",raising=False)
+    assert not PESERelationShadowAdapter().is_enabled()
+
+
+def test_concurrent_cached_presentations_keep_separate_receipts(synthetic_shadow_engine,monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    monkeypatch.setenv("PESE_REL_SHADOW_ENABLED","false")
+    engine,*_=synthetic_shadow_engine
+    query="Who repaired the station clock?"
+    engine.search(query,skip_qa=True,search_context_id="warm")
+    def search(number):
+        context=f"parallel-{number}"
+        result=engine.search(query,skip_qa=True,search_context_id=context)
+        return context,result
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results=list(pool.map(search,range(24)))
+    assert all(all(r.evidence_provenance["context_id"]==context for r in rows) for context,rows in results)
+
+
 def test_cache_receipts_and_context_verification(synthetic_shadow_engine, monkeypatch):
     monkeypatch.setenv("PESE_REL_SHADOW_ENABLED", "false")
     engine, *_ = synthetic_shadow_engine

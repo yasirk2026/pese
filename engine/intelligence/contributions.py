@@ -61,6 +61,13 @@ def parse_package(raw):
             value[k] = v
         return value
     data = json.loads(raw, object_pairs_hook=unique, parse_constant=lambda _: (_ for _ in ()).throw(ValueError("Non-finite JSON")))
+    if not isinstance(data,dict) or set(data) != set(Contribution.model_fields) or type(data.get("version")) is not int:
+        raise ValueError("Explicit complete versioned envelope required")
+    consent=data.get("consent")
+    if (not isinstance(consent,dict) or set(consent) != set(ExportConsent.model_fields) or
+            type(consent.get("version")) is not int or type(consent.get("includes_text")) is not bool or
+            type(consent.get("upload_authorized")) is not bool):
+        raise ValueError("Explicit typed review consent required")
     package = Contribution.model_validate(data)
     if not package.consent.reviewed:
         raise ValueError("Per-export review consent missing")

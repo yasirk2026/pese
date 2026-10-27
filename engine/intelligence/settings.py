@@ -8,6 +8,8 @@ from threading import RLock
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from ..brain.atomic import atomic_write_json
 
+_PERMISSION_LOCK = RLock()
+
 
 class IntelligenceSettings(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -29,7 +31,7 @@ class SettingsStore:
     def __init__(self, brain_root):
         self.root = Path(brain_root) / ".pese-intelligence-v1"
         self.path = self.root / "permissions.json"
-        self._lock = RLock()
+        self._lock = _PERMISSION_LOCK
 
     def read(self):
         with self._lock:
