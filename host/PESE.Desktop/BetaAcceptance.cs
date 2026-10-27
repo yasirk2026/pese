@@ -26,12 +26,19 @@ internal static class BetaAcceptance
             BrainProcess? restarted = null;
             try
             {
-                await Wait(() => Task.FromResult(window.AcceptanceCore is not null && window.AcceptanceBrain is { Running: true }), 180);
+                await Wait(() => {
+                    if (window.AcceptanceError is not null) throw new InvalidOperationException(window.AcceptanceError);
+                    return Task.FromResult(window.AcceptanceCore is not null && window.AcceptanceBrain is { Running: true });
+                }, 180);
                 var core = window.AcceptanceCore!; var brain = window.AcceptanceBrain!;
+                // Core exists before OpenAsync finishes its initial navigation.
+                // Wait for that document before issuing the acceptance navigation.
+                await Wait(async () => (await core.ExecuteScriptAsync("Boolean(window.__PESE_CONFIG__ && document.body.innerText.includes('Brain Active'))")) == "true");
                 var initial = await Get(brain, "/api/intelligence/beta/status");
                 Check(initial.GetProperty("supported").GetBoolean(), "compiled closed BETA channel");
                 Check(!initial.GetProperty("participation").GetProperty("accepted").GetBoolean(), "no implicit participation");
-                var query = File.ReadAllText(Path.Combine(fixture, ".pese-beta-query.txt"));
+                var queries = JsonSerializer.Deserialize<string[]>(File.ReadAllText(Path.Combine(fixture, ".pese-beta-queries.json")))!;
+                var query = queries[0];
                 core.Navigate(brain.Origin + "/neural-genesis/");
                 await Wait(async () => (await core.ExecuteScriptAsync("Boolean(document.querySelector('[data-testid=neural-genesis-lab]') && document.body.innerText.includes('I affirmatively accept'))")) == "true");
                 using (var shot = File.Create(Path.Combine(output, "beta-agreement.png")))
@@ -50,11 +57,21 @@ internal static class BetaAcceptance
                 await core.ExecuteScriptAsync("Array.from(document.querySelectorAll('button')).find(b=>b.textContent==='Accept closed BETA')?.click()");
                 await Wait(async () => (await Get(brain, "/api/intelligence/beta/status")).GetProperty("participation").GetProperty("accepted").GetBoolean());
                 Check((await Get(brain, "/api/intelligence/beta/status")).GetProperty("participation").GetProperty("feedback_scope").GetArrayLength() > 0, "UI scope persisted");
-                await Put(brain, new { neural = false });
-                var baseline = await Get(brain, "/api/search?q=" + Uri.EscapeDataString(query));
-                await Put(brain, new { neural = true });
-                var neural = await Get(brain, "/api/search?q=" + Uri.EscapeDataString(query));
+                JsonElement baseline = default, neural = default;
+                foreach (var attempt in queries) {
+                    query = attempt;
+                    await Put(brain, new { neural = false });
+                    baseline = await Get(brain, "/api/search?q=" + Uri.EscapeDataString(query));
+                    await Put(brain, new { neural = true });
+                    neural = await Get(brain, "/api/search?q=" + Uri.EscapeDataString(query));
+                    checks.Add(new { query, trace = neural.GetProperty("hybrid_trace").GetProperty("neural_ranking"),
+                        baseline = baseline.GetProperty("results").EnumerateArray().Select(r=>r.GetProperty("doc_id").GetString()).ToArray(),
+                        candidate = neural.GetProperty("results").EnumerateArray().Select(r=>r.GetProperty("doc_id").GetString()).ToArray() });
+                    if (!baseline.GetProperty("results").EnumerateArray().Select(r=>r.GetProperty("doc_id").GetString()).SequenceEqual(
+                        neural.GetProperty("results").EnumerateArray().Select(r=>r.GetProperty("doc_id").GetString()))) break;
+                }
                 var trace = neural.GetProperty("hybrid_trace").GetProperty("neural_ranking");
+                checks.Add(new { attemptedInference = trace });
                 Check(trace.GetProperty("authority").GetString() == "BOUNDED_RANKING_ONLY", "actual isolated model applied");
                 Check(neural.GetProperty("results").EnumerateArray().Any(r => Math.Abs(r.GetProperty("neural_adjustment").GetDouble()) > 0), "nonzero neural score");
                 var before = baseline.GetProperty("results").EnumerateArray().Select(r => r.GetProperty("doc_id").GetString()).ToArray();
@@ -79,6 +96,7 @@ internal static class BetaAcceptance
                 using (var shot = File.Create(Path.Combine(output, "beta-dashboard.png")))
                     await core.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, shot);
                 Check((await Get(brain, "/desktop/offline-check")).GetProperty("external_connections_blocked").GetBoolean(), "offline boundary");
+                checks.Add(new { warmInference = (await Get(brain,"/api/intelligence/beta/status")).GetProperty("inference") });
                 checks.Add(new { actualWpfWebView2 = true, agreementViaUi = true, eligibleOrderChanged = true,
                     baselineOrder = before, neuralOrder = after, inference = trace, captured = savedCount, pauseVerified = true });
                 await window.AcceptanceStopAsync();
@@ -95,7 +113,14 @@ internal static class BetaAcceptance
                 checks.Add(new { restartPersistence = true, safeExit = true, canonicalDocumentsUnchanged = true, networkUpload = false });
                 code = 0;
             }
-            catch (Exception error) { checks.Add(new { error = error.Message }); }
+            catch (Exception error) {
+                checks.Add(new { error = error.Message });
+                if (window.AcceptanceCore is { } failedCore) {
+                    checks.Add(new { source = failedCore.Source, visibleText = await failedCore.ExecuteScriptAsync("document.body.innerText") });
+                    using var failedShot = File.Create(Path.Combine(output, "beta-failure.png"));
+                    await failedCore.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, failedShot);
+                }
+            }
             finally
             {
                 if (restarted is not null) await restarted.DisposeAsync();

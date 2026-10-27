@@ -1,2 +1,4 @@
 # These frozen public datasets are verified by SHA-256 of their exact bytes.
 engine/neural/data/pese_rel_data_0/*.json text eol=lf
+# BETA artifacts are pinned by exact bytes, including tokenizer serialization.
+engine/neural/assets/basic_english_beta_v1/* -text

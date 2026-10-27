@@ -30,7 +30,7 @@ class LearningQueue:
     def prune(self,db):
         db.execute("DELETE FROM events WHERE created < ?",(time.time()-self.retention_days*86400,))
         while True:
-            count,size=db.execute("SELECT COUNT(*),COALESCE(SUM(length(payload)),0) FROM events").fetchone()
+            count,size=db.execute("SELECT COUNT(*),COALESCE(SUM(length(CAST(payload AS BLOB))),0) FROM events").fetchone()
             if count<self.max_events and size<self.max_bytes:break
             db.execute("DELETE FROM events WHERE id=(SELECT id FROM events ORDER BY created,id LIMIT 1)")
 
@@ -51,10 +51,10 @@ class LearningQueue:
                 judgment={"quality":Quality.CANDIDATE.value,"action":"review_generated_example","reason":"Synthetic question is not a label"}
             if judgment["quality"]==Quality.INVALID.value:return {**judgment,"stored":False}
             if contradictory:
-                db.execute("UPDATE events SET quality=?,action='quarantine',review=NULL,role=NULL WHERE identity=?",(Quality.CONTRADICTORY.value,identity))
+                db.execute("UPDATE events SET quality=?,action='quarantine',review=NULL WHERE identity=?",(Quality.CONTRADICTORY.value,identity))
             self.prune(db)
             # Make space for this record without exceeding the payload budget.
-            while db.execute("SELECT COALESCE(SUM(length(payload)),0) FROM events").fetchone()[0]+len(raw.encode())>self.max_bytes:
+            while db.execute("SELECT COALESCE(SUM(length(CAST(payload AS BLOB))),0) FROM events").fetchone()[0]+len(raw.encode())>self.max_bytes:
                 db.execute("DELETE FROM events WHERE id=(SELECT id FROM events ORDER BY created,id LIMIT 1)")
             event_id=uuid4().hex
             db.execute("INSERT INTO events VALUES (?,?,?,?,?,?,?,?,?,?,?)",(event_id,dedupe,identity,receipt.get("target_id",""),

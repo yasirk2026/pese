@@ -106,7 +106,8 @@ def evaluate_local(candidate,current,base,data):
     metrics={"reviewed_queries":len(cases),"heldout_document_families":len({r["document_family"] for r in data["evaluation"]}),
        "independent_of_training":True,"delta_current":average("candidate")-average("current"),
        "delta_maae":average("candidate")-maae,"delta_base":average("candidate")-average("base"),
-       "category_regression":max(0,broad_current["ndcg10"]-broad_candidate["ndcg10"]),
+       "category_regression":max([0]+[value-broad_candidate["category_ndcg10"][key]
+           for key,value in broad_current["category_ndcg10"].items()]),
        "new_wrong_answers":new_wrong,"gate_violations":runs["candidate"]["gate_violations"],"inference_health":False}
     return {**decide(metrics),"comparisons":{k:{f:v for f,v in run.items() if f!="records"} for k,run in runs.items()},
             "protected_regression":{"candidate_ndcg10":broad_candidate["ndcg10"],"current_ndcg10":broad_current["ndcg10"]}}

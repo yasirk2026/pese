@@ -22,15 +22,17 @@ def evaluate_pairs(directory,cases,temperature=1.0):
     decisive=[(p,int(g==2)) for p,g in zip(probabilities,grades) if g!=1]
     positives=[int(p>=.5)==bool(y) for p,y in decisive if y]
     negatives=[int(p>=.5)==bool(y) for p,y in decisive if not y]
-    scores={}; offset=0; metrics=[]
+    scores={}; offset=0; metrics=[];categories={}
     for c in cases:
         n=len(c["candidates"]); values=probabilities[offset:offset+n]; offset+=n
         scores[c["id"]]={p["id"]:s for p,s in zip(c["candidates"],values)}
         order=sorted(scores[c["id"]],key=scores[c["id"]].get,reverse=True)
         metrics.append(ranking_metrics(order,{p["id"]:p["grade"] for p in c["candidates"]}))
+        categories.setdefault(c["category"],[]).append(metrics[-1]["ndcg10"])
     return {"version":1,"queries":len(cases),"families":len({c["group"] for c in cases}),
             "balanced_accuracy":(statistics.mean(positives)+statistics.mean(negatives))/2,
             "ndcg10":statistics.mean(m["ndcg10"] for m in metrics),
+            "category_ndcg10":{key:statistics.mean(values) for key,values in categories.items()},
             "mrr":statistics.mean(m["mrr"] for m in metrics),
             "pairwise_accuracy":statistics.mean(m["pairwise_accuracy"] for m in metrics),
             "calibration":calibration([p for p,y in decisive],[y for p,y in decisive]),

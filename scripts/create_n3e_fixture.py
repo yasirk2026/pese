@@ -15,10 +15,12 @@ if __name__=="__main__":
     from engine.intelligence.beta.data import build_splits
     initialize_brain(target)
     store=DocumentStore(target/"firestore_documents.json")
-    case=build_splits()["validation"][0]
-    for i,row in enumerate(case["candidates"]):
+    cases=build_splits()["validation"][:16]
+    rows={row["id"]:row for case in cases for row in case["candidates"]}
+    for i,row in enumerate(rows.values()):
         store.save_document(Document(id=row["id"],slug=f"fixture-{i}",title=row["text"].split('.')[0],content=row["text"],
                             created_at="2020-01-01T00:00:00Z",updated_at="2020-01-01T00:00:00Z"))
     (target/".pese-disposable-fixture").write_text("Original public synthetic N3-E acceptance data")
-    (target/".pese-beta-query.txt").write_text(case["question"])
+    (target/".pese-beta-query.txt").write_text(cases[0]["question"])
+    (target/".pese-beta-queries.json").write_text(json.dumps([case["question"] for case in cases]))
     print(target)

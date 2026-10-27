@@ -74,6 +74,19 @@ def test_selective_judge_never_promotes_votes_or_own_confidence(owner):
     assert assess(event,verified=True,review=fake)["quality"]==Quality.INVALID.value
 
 
+def test_reentry_scope_reduction_forgets_private_adaptations(owner):
+    beta,docs=owner
+    beta.accept(AGREEMENT_HASH,affirmative=True,feedback_scope=["d0","d1"])
+    beta.record(presentation(docs["d0"]),feedback="LIKE")
+    (beta.root/"models"/"old-private").mkdir(parents=True)
+    (beta.root/"models"/"old-private"/"marker").write_text("synthetic")
+    beta.exit()
+    beta.accept(AGREEMENT_HASH,affirmative=True,feedback_scope=["d1"])
+    assert not (beta.root/"models").exists()
+    assert not beta.queue().list()
+    assert beta.enabled()
+
+
 def test_dedup_contradiction_stale_revision_and_review_roles(owner):
     beta,docs=owner;beta.accept(AGREEMENT_HASH,affirmative=True,feedback_scope=list(docs))
     event=presentation(docs["d0"])
@@ -165,6 +178,16 @@ def test_queue_limits_and_legacy_schema_rejection(owner,tmp_path):
     import sqlite3
     with sqlite3.connect(tmp_path/"wrong.db") as db:db.execute("PRAGMA user_version=99")
     with pytest.raises(ValueError):LearningQueue(tmp_path/"wrong.db")
+
+
+def test_learning_queue_failure_never_breaks_search_capture(owner,monkeypatch):
+    beta,docs=owner;beta.accept(AGREEMENT_HASH,affirmative=True,feedback_scope=["d0"])
+    event=presentation(docs["d0"],text="x"*9000)
+    result=beta.record(event,feedback="LIKE")
+    assert result.get("stored") and beta.queue().list()[0]["payload"]["evidence_text"] is None
+    def broken_queue():raise OSError("synthetic queue failure")
+    monkeypatch.setattr(beta,"queue",broken_queue)
+    assert beta.record(presentation(docs["d0"]),feedback="LIKE")["status"]=="research_queue_failure_not_collected"
 
 
 def test_beta_api_agreement_and_control_boundary(owner,monkeypatch):

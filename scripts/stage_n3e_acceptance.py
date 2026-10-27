@@ -2,6 +2,7 @@
 import argparse
 from pathlib import Path
 import shutil
+import subprocess
 import sys
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 
@@ -27,5 +28,7 @@ if __name__=="__main__":
     shutil.copytree(ROOT/"web/out",stage/"ui")
     shutil.copy2(ROOT/"requirements.lock.txt",stage/"requirements.lock.txt")
     shutil.copy2(reference/"runtime-manifest.json",stage/"runtime-manifest.json")
+    from engine.app_version import application_version
+    subprocess.check_call([sys.executable,str(ROOT/"scripts/source_provenance.py"),str(stage),application_version(ROOT),"--acceptance-only"])
     if list(stage.rglob("pese-brain.json")):raise RuntimeError("Stage unexpectedly contains a Brain")
     print(stage)

@@ -97,6 +97,9 @@ class BetaRuntime:
         self.owned_root()
         self.root.mkdir(parents=True,exist_ok=True)
         with self.lock:
+            old=self.state()
+            removed=(set(old.get("feedback_scope",[]))|set(old.get("journal_scope",[])))-(set(feedback_scope)|set(journal_scope))
+            if removed:self.forget(removed)
             state={"version":1,"accepted":True,"agreement_hash":AGREEMENT_HASH,"accepted_at":datetime.now(timezone.utc).isoformat(),
                    "paused":False,"neural":True,"feedback_scope":sorted(set(feedback_scope)),"journal_scope":sorted(set(journal_scope)),"retention_days":30}
             atomic_write_json(self.root/"participation.json",state)
@@ -144,13 +147,19 @@ class BetaRuntime:
         event=deepcopy(presentation);receipt=event.get("receipt",{});identity=receipt.get("target_id")
         if identity in self.settings.read().excluded_document_ids:return {"status":"excluded"}
         if not self.allowed(identity):event["evidence_text"]=None
+        if event.get("evidence_text") and len(event["evidence_text"].encode("utf-8"))>8000:
+            event["evidence_text"]=None
+            event["collection_note"]="oversized_passage_not_retained_for_learning"
         if event.get("evidence_text") and digest(event["evidence_text"])!=receipt.get("evidence_hash"):
             self.rejections+=1;return {"status":"rejected_evidence_hash"}
         event.update(feedback=feedback,reason=reason,source_kind=source,timestamp=datetime.now(timezone.utc).isoformat())
         current=self.document_reader(identity) if self.document_reader else None
         if current is None:
             self.rejections+=1;return {"status":"rejected_missing_document"}
-        result=self.queue().append(event,verified=True,current_revision=document_revision(current),source=source)
+        try:result=self.queue().append(event,verified=True,current_revision=document_revision(current),source=source)
+        except Exception:
+            self.rejections+=1
+            return {"status":"research_queue_failure_not_collected","search_authority":"NONE"}
         if result.get("stored") is False:self.rejections+=1
         result["advisory"]=advisory(event)
         return result

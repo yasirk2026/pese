@@ -34,6 +34,7 @@ internal sealed class MainWindow : Window
     private readonly bool acceptanceMode;
     internal CoreWebView2? AcceptanceCore => browser?.CoreWebView2;
     internal BrainProcess? AcceptanceBrain => brain;
+    internal string? AcceptanceError { get; private set; }
     private readonly SoftwareUpdates updates;
     private bool updateInstalling;
     private readonly string? acceptancePlan;
@@ -529,6 +530,7 @@ internal sealed class MainWindow : Window
 
     private void Error(string title, string message)
     {
+        if (acceptanceMode) AcceptanceError = title + ": " + message;
         Log.Write("native_recovery");
         var panel = Card(title, message);
         AddButton(panel, "Try Again", BootAsync, ButtonKind.Primary);
@@ -686,6 +688,7 @@ internal sealed class MainWindow : Window
         }
         catch (WebView2RuntimeNotFoundException)
         {
+            if (acceptanceMode) AcceptanceError = "Microsoft WebView2 Runtime is unavailable";
             await StopBrainAsync();
             var panel = Card("Microsoft Edge WebView2 Runtime is required", "Install the Microsoft WebView2 Evergreen Runtime, then reopen PESE. For offline computers, use Microsoft's standalone x64 installer. Your Brain is preserved.");
             AddButton(panel, "Open Microsoft WebView2 Download", () => Done(() => OpenExternal("https://developer.microsoft.com/microsoft-edge/webview2/#download-section")), ButtonKind.Primary);
