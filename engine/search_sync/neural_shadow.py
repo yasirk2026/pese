@@ -33,6 +33,8 @@ logger = logging.getLogger(__name__)
 RELATION_CKPT_DIR = Path(__file__).resolve().parent.parent / "neural" / "checkpoints" / "relation"
 DEFAULT_CHECKPOINT_PATH = RELATION_CKPT_DIR / "peserel0_best.pt"
 DEFAULT_TOKENIZER_PATH = RELATION_CKPT_DIR / "peserel0_tokenizer.json"
+FROZEN_CHECKPOINT_HASH = "1dd87075cfbf23c09fed5e90be948c6c7af005e9e909ab47e5df6c374b56ff70"
+FROZEN_TOKENIZER_HASH = "e2023f42797473452a4a702ddb0894b6540277b85f5bdcc7436ecd1587ea03ec"
 
 DEFAULT_DIAGNOSTIC_THRESHOLD = 0.85
 DEFAULT_MAX_CANDIDATE_BUDGET = 6
@@ -99,12 +101,17 @@ class PESERelationShadowAdapter:
             # Compute and store frozen checkpoint SHA-256
             ckpt_bytes = self.checkpoint_path.read_bytes()
             self._checkpoint_hash = hashlib.sha256(ckpt_bytes).hexdigest()
+            if (self._checkpoint_hash != FROZEN_CHECKPOINT_HASH or
+                    hashlib.sha256(self.tokenizer_path.read_bytes()).hexdigest() != FROZEN_TOKENIZER_HASH):
+                self._checkpoint_hash = None
+                self._init_error = "Frozen model/tokenizer integrity check failed"
+                raise ValueError(self._init_error)
 
             # Load Tokenizer
             self._tokenizer = RelationTokenizer.load(str(self.tokenizer_path))
 
             # Load Checkpoint weights
-            ckpt = torch.load(self.checkpoint_path, map_location="cpu")
+            ckpt = torch.load(self.checkpoint_path, map_location="cpu", weights_only=True)
             config = RelationConfig(**ckpt["config"])
             self._model = PESERelationClassifier(config)
             self._model.load_state_dict(ckpt["model_state_dict"])
@@ -123,12 +130,7 @@ class PESERelationShadowAdapter:
 
     @property
     def checkpoint_hash(self) -> str:
-        """Returns the SHA-256 hash of the resident checkpoint."""
-        if self._checkpoint_hash is None:
-            try:
-                self._load_model_and_tokenizer()
-            except Exception:
-                return "UNAVAILABLE"
+        """Observability must never initialize inference, including when disabled."""
         return self._checkpoint_hash or "UNAVAILABLE"
 
     def is_enabled(self) -> bool:
@@ -219,6 +221,8 @@ class PESERelationShadowAdapter:
                     authority="NONE",
                     latency_ms=per_candidate_ms,
                     metadata={
+                        **item.get("provenance", {}),
+                        "model_versions": {"relation": "PESE-Rel-0:shadow:" + ckpt_hash},
                         "seq_len": int(attention_mask[idx].sum().item()),
                         "batch_size": len(budgeted_items),
                         "total_inference_ms": elapsed_ms,
@@ -233,7 +237,7 @@ class PESERelationShadowAdapter:
                 if tid in summaries:
                     continue
 
-                target_obs = [o for o in observations if o.target_id == tid]
+                target_obs = [o for o in observations if o.target_id == tid and o.target_type == "SERP_RESULT"]
                 if not target_obs:
                     continue
 

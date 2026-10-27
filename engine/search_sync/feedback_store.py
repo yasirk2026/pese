@@ -77,7 +77,7 @@ class SearchSyncFeedbackStore:
             conn = self._get_connection()
             cursor = conn.cursor()
             now_iso = datetime.now(timezone.utc).isoformat()
-            meta_json = json.dumps(event.metadata)
+            meta_json = json.dumps({**event.metadata, "model_versions": event.model_versions})
 
             # 1. Upsert active preference
             cursor.execute("""
@@ -91,7 +91,7 @@ class SearchSyncFeedbackStore:
                     reason = COALESCE(excluded.reason, active_preferences.reason),
                     target_slug = COALESCE(excluded.target_slug, active_preferences.target_slug),
                     rank_position = COALESCE(excluded.rank_position, active_preferences.rank_position),
-                    search_context_id = COALESCE(excluded.search_context_id, active_preferences.search_context_id),
+                    search_context_id = excluded.search_context_id,
                     maae_base_score = COALESCE(excluded.maae_base_score, active_preferences.maae_base_score),
                     updated_at = excluded.updated_at,
                     last_event_id = excluded.last_event_id,
@@ -185,6 +185,7 @@ class SearchSyncFeedbackStore:
                     created_at=row["updated_at"],
                     search_context_id=row["search_context_id"],
                     maae_base_score=row["maae_base_score"],
+                    model_versions=meta.get("model_versions", {}),
                     metadata=meta,
                 )
                 results[row["target_id"]] = event
@@ -435,8 +436,8 @@ class SearchSyncFeedbackStore:
                            o.model_id, o.checkpoint_hash, o.authority
                     FROM active_preferences a
                     LEFT JOIN neural_shadow_observations o
-                      ON (a.search_context_id = o.search_context_id AND a.target_id = o.target_id)
-                         OR (a.normalized_query = o.normalized_query AND a.target_id = o.target_id)
+                      ON a.search_context_id = o.search_context_id AND a.target_id = o.target_id
+                         AND a.target_type = o.target_type AND a.normalized_query = o.normalized_query
                     WHERE a.normalized_query = ?
                     ORDER BY a.updated_at DESC
                 """, (norm_q,))
@@ -447,8 +448,8 @@ class SearchSyncFeedbackStore:
                            o.model_id, o.checkpoint_hash, o.authority
                     FROM active_preferences a
                     LEFT JOIN neural_shadow_observations o
-                      ON (a.search_context_id = o.search_context_id AND a.target_id = o.target_id)
-                         OR (a.normalized_query = o.normalized_query AND a.target_id = o.target_id)
+                      ON a.search_context_id = o.search_context_id AND a.target_id = o.target_id
+                         AND a.target_type = o.target_type AND a.normalized_query = o.normalized_query
                     ORDER BY a.updated_at DESC
                 """)
 
@@ -456,14 +457,20 @@ class SearchSyncFeedbackStore:
             joined = []
             seen_keys = set()
             for r in rows:
-                key = (r["normalized_query"], r["target_id"], r["search_context_id"])
+                key = (r["normalized_query"], r["target_type"], r["target_id"], r["search_context_id"])
                 if key in seen_keys:
                     continue
                 seen_keys.add(key)
 
-                ans_prob = r["answers_probability"]
+                matches = [row for row in rows if
+                           (row["normalized_query"], row["target_type"], row["target_id"], row["search_context_id"]) == key
+                           and row["answers_probability"] is not None]
+                # Multiple passages/models are separate observations, not a vote.
+                # Never choose an arbitrary first row as evidence for feedback.
+                ambiguous = len(matches) > 1
+                ans_prob = None if ambiguous else r["answers_probability"]
                 fb_type = FeedbackType(r["feedback"]) if r["feedback"] else None
-                alignment = classify_diagnostic_alignment(ans_prob, fb_type)
+                alignment = classify_diagnostic_alignment(ans_prob, fb_type, r["threshold_used"] or 0.85)
 
                 joined.append({
                     "search_context_id": r["search_context_id"],
@@ -482,6 +489,7 @@ class SearchSyncFeedbackStore:
                     "evidence_id": r["evidence_id"],
                     "evidence_summary": r["evidence_summary"],
                     "answers_probability": ans_prob,
+                    "provenance_status": "AMBIGUOUS" if ambiguous else "LEGACY_DIAGNOSTIC_ONLY",
                     "predicted_label": r["predicted_label"],
                     "neural_authority": r["authority"] or "NONE",
                     "diagnostic_alignment": alignment or "NO_OBSERVATION" if ans_prob is None else alignment,
@@ -517,8 +525,8 @@ class SearchSyncFeedbackStore:
             # Join with active feedback to calculate alignment
             feedback_joins = self.get_feedback_with_neural_observations()
             linked_count = sum(1 for item in feedback_joins if item["answers_probability"] is not None)
-            agreements = sum(1 for item in feedback_joins if "LIKE" in (item["diagnostic_alignment"] or "") and "HIGH" in (item["diagnostic_alignment"] or "") or "DISLIKE" in (item["diagnostic_alignment"] or "") and "LOW" in (item["diagnostic_alignment"] or ""))
-            disagreements = sum(1 for item in feedback_joins if "DISLIKE" in (item["diagnostic_alignment"] or "") and "HIGH" in (item["diagnostic_alignment"] or "") or "LIKE" in (item["diagnostic_alignment"] or "") and "LOW" in (item["diagnostic_alignment"] or ""))
+            agreements = sum(item["diagnostic_alignment"] in {"NEURAL HIGH / HUMAN LIKE", "NEURAL LOW / HUMAN DISLIKE"} for item in feedback_joins)
+            disagreements = sum(item["diagnostic_alignment"] in {"NEURAL HIGH / HUMAN DISLIKE", "NEURAL LOW / HUMAN LIKE"} for item in feedback_joins)
 
             return {
                 "total_observations": total_obs,

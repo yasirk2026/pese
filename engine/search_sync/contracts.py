@@ -145,7 +145,7 @@ def classify_diagnostic_alignment(
         else:
             return "NEURAL LOW / HUMAN DISLIKE"
     elif feedback == FeedbackType.LIKE:
-        if answers_prob >= 0.50:
+        if answers_prob >= diagnostic_threshold:
             return "NEURAL HIGH / HUMAN LIKE"
         else:
             return "NEURAL LOW / HUMAN LIKE"

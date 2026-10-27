@@ -106,6 +106,8 @@ publication_state = {"dirty": False, "stage": "startup", "last_error": None}
 BOOT_ID = uuid4().hex
 discovery_contexts = OrderedDict()
 discovery_lock = RLock()
+from ..intelligence.contexts import SearchContexts
+feedback_contexts = SearchContexts()
 
 
 def discovery_context(query, search_id=None):
@@ -440,6 +442,7 @@ def search_documents(
         discovery_contexts[search_id] = (q, snapshot, [result.slug for result in ranked_results[:5]])
         while len(discovery_contexts) > 64:
             discovery_contexts.popitem(last=False)
+    feedback_contexts.remember(search_id, q, ranked_results)
     elapsed_ms = round((time.perf_counter() - start_time) * 1000.0, 2)
 
     qa = getattr(ranked_results, "query_analysis", None)
@@ -763,6 +766,14 @@ def submit_search_feedback(submission: FeedbackSubmission):
     if not submission.target_id.strip():
         raise HTTPException(status_code=400, detail="Target ID cannot be empty")
 
+    try:
+        verified = feedback_contexts.resolve(submission)
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    # Never accept client metadata as provenance or a relevance label.
+    receipt, base_score = verified if verified else (None, None)
+    if receipt:
+        normalized_q = normalize_sync_query(receipt["effective_query"])
     event = FeedbackEvent(
         query=submission.query,
         normalized_query=normalized_q,
@@ -772,8 +783,11 @@ def submit_search_feedback(submission: FeedbackSubmission):
         rank_position=submission.rank_position,
         feedback=submission.feedback,
         reason=submission.reason,
-        search_context_id=submission.search_context_id,
-        metadata=submission.metadata,
+        search_context_id=submission.search_context_id if verified else None,
+        maae_base_score=base_score,
+        model_versions=receipt["model_versions"] if receipt else {},
+        metadata={"provenance": receipt, "context_verified": bool(verified),
+                  "readiness": "eligible_for_human_adjudication" if verified else "preference_only"},
     )
     recorded = feedback_store.record_feedback(event)
 

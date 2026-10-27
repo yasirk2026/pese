@@ -207,6 +207,7 @@ class SearchResult(BaseModel):
     trace: RankingTrace
     answer_audit: Dict[str, Any] = Field(default_factory=dict)
     neural_shadow: Optional[Dict[str, Any]] = None
+    evidence_provenance: Dict[str, Any] = Field(default_factory=dict)
 
 
 class SearchResultsList(list):
@@ -380,6 +381,15 @@ class RankingEngine:
             if cached is not None:
                 self._search_cache.move_to_end(key)
                 result = deepcopy(cached)
+                # A cache hit is a new presentation, not fresh neural inference.
+                context_id = search_context_id or f"sc_{uuid4().hex}"
+                for item in result:
+                    item.evidence_provenance["context_id"] = context_id
+                    item.neural_shadow = None
+                    item.answer_audit.pop("neural_shadow_observation", None)
+                    item.trace.rel_shadow_status = "CACHED_NOT_OBSERVED"
+                result.neural_shadow_trace = {"authority": "NONE", "status": "CACHED_NOT_OBSERVED",
+                                              "search_context_id": context_id}
                 del result[limit:]
                 result.timing = {name:0.0 for name in result.timing}
                 result.timing.update(cache_hit=1.0,server_total_ms=round((time.perf_counter()-start)*1000,2))
@@ -989,6 +999,13 @@ class RankingEngine:
                         "evidence_text": fa_ev_text,
                     })
 
+        for evidence in shadow_candidate_items:
+            from ..intelligence.evidence import digest
+            candidate = next(c for c in scored_candidates if c["doc_id"] == evidence["target_id"])
+            receipt = self._evidence_receipt(candidate, search_ctx_id, analyzed_query.effective_query or query)
+            receipt.update(target_type=evidence["target_type"], evidence_id=evidence["evidence_id"],
+                           evidence_hash=digest(evidence["evidence_text"]))
+            evidence["provenance"] = receipt
         shadow_summaries, shadow_observations = self.shadow_adapter.observe_candidates(
             query=analyzed_query.effective_query or query,
             normalized_query=normalized_sync_q,
@@ -1060,6 +1077,7 @@ class RankingEngine:
                         "neural_shadow_observation": next((o.model_dump() for o in shadow_observations if o.target_type == "FEATURED_ANSWER"), None),
                     } if idx == 0 else {},
                     neural_shadow=item_shadow_summary.model_dump() if item_shadow_summary else None,
+                    evidence_provenance=self._evidence_receipt(item, search_ctx_id, analyzed_query.effective_query or query),
                 )
             )
 
@@ -1090,3 +1108,15 @@ class RankingEngine:
         }
 
         return SearchResultsList(results, analyzed_query, gate_decisions, hybrid_trace, timing=timing, qa_trace=qa_trace, neural_shadow_trace=neural_shadow_trace)
+
+    def _evidence_receipt(self, item, context_id, effective_query):
+        from ..intelligence.evidence import digest, RANKING_VERSION
+        document = self._documents[item["doc_id"]].model_dump()
+        document.pop("indexed_at", None)
+        return {"version": 1, "context_id": context_id, "effective_query": effective_query,
+                "target_type": "SERP_RESULT", "target_id": item["doc_id"],
+                "document_revision": digest(document),
+                "evidence_id": item["top_passage"].passage_id if item["top_passage"] else item["slug"] + "#document",
+                "evidence_hash": digest(item["passage_text"]), "ranking_version": RANKING_VERSION,
+                "generation": str(self.index_versions.get("document_version") or digest(sorted(self._documents))),
+                "model_versions": {"relation": "PESE-Rel-0:shadow:" + self.shadow_adapter.checkpoint_hash}}
