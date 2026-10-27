@@ -452,7 +452,8 @@ def search_documents(
     from ..intelligence.beta.runtime import beta_channel, runtime
     beta = runtime() if beta_channel() else None
     if beta:beta.document_reader=store.get_document
-    feedback_contexts.remember(search_id, q, ranked_results, learning=bool(beta and beta.collecting()))
+    feedback_contexts.remember(search_id, q, ranked_results, learning=bool(beta and beta.collecting()),
+                              learning_allowed=beta.in_scope if beta else None)
     if beta and beta.collecting():
         for row in ranked_results[:3]:
             beta.record({"receipt":row.evidence_provenance,"original_query":q,"evidence_text":row.learning_evidence_text,
@@ -776,7 +777,7 @@ def get_intelligence_settings():
     from ..intelligence.beta.runtime import beta_channel, runtime
     beta = runtime() if beta_channel() else None
     if beta:beta.document_reader=store.get_document
-    available=bool(beta and beta.accepted())
+    available=bool(beta and beta.accepted() and beta.model_valid())
     return {"settings": intelligence_settings.read().model_dump(), "neural_available": available,
             "neural_status": "Closed BETA: experimental synthetic model, no public independent acceptance" if available else "No independently accepted relevance release installed",
             "parameter_training_available": available, "upload_available": False,
@@ -789,8 +790,9 @@ def update_intelligence_settings(changes: Dict[str, Any] = Body(...)):
     try:
         from ..intelligence.beta.runtime import beta_channel, runtime
         beta=runtime() if beta_channel() else None
-        available=bool(beta and beta.accepted())
-        if changes.get("collect_research_feedback") is True and not available:
+        accepted=bool(beta and beta.accepted())
+        available=bool(accepted and beta.model_valid())
+        if changes.get("collect_research_feedback") is True and not accepted:
             raise ValueError("Research collection is unavailable in this release")
         settings = intelligence_settings.update(changes, neural_available=available)
         if available and (changes.get("collect_research_feedback") is False or changes.get("learn_from_feedback") is False):beta.cancel.set()

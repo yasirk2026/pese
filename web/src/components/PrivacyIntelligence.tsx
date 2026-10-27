@@ -2,13 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getIntelligenceSettings, saveIntelligenceSettings, resetIntelligencePersonalization,
+import { betaRequest, type BetaStatus, getIntelligenceSettings, saveIntelligenceSettings, resetIntelligencePersonalization,
   previewIntelligenceContribution, exportIntelligenceContribution, cancelIntelligenceContribution,
   type IntelligenceSettings, type ContributionPreview } from "@/lib/api";
+import { BetaDisclosure } from "./BetaDisclosure";
 
 export function PrivacyIntelligence() {
   const [settings, setSettings] = useState<IntelligenceSettings | null>(null);
   const [available, setAvailable] = useState(false);
+  const [beta, setBeta] = useState<BetaStatus|null>(null);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   const [preview, setPreview] = useState<ContributionPreview | null>(null);
@@ -17,6 +19,7 @@ export function PrivacyIntelligence() {
   const [exclusions, setExclusions] = useState("");
   useEffect(() => {
     let active = true;
+    betaRequest<BetaStatus>("status").then(data=>{if(active)setBeta(data);}).catch(()=>{});
     getIntelligenceSettings().then(data => {
       if (active) { setSettings(data.settings); setAvailable(data.neural_available); setExclusions(data.settings.excluded_document_ids.join(", ")); }
     }).catch(() => { if (active) setNotice("Local intelligence settings are unavailable. No new permission has been granted."); });
@@ -70,7 +73,8 @@ export function PrivacyIntelligence() {
   return <section className="p-6 rounded-2xl bg-surface border border-surface-border space-y-5" aria-label="Privacy and Intelligence">
     <div><h3 className="text-base font-semibold">Privacy &amp; Intelligence</h3>
       <Link href="/neural-genesis/" className="text-xs text-blue-600">Open Neural Genesis Lab</Link>
-      <p className="text-xs text-neutral-500 mt-1">Permissions apply to this Brain and stay on this device. They are excluded from Drive backups and must be chosen again after recovery. Manual Brain backups still include saved search history and feedback.</p></div>
+      <p className="text-xs text-neutral-500 mt-1">BETA permissions apply to this Brain and Windows account. They are excluded from Drive backups and must be chosen again after recovery or in another account. Manual Brain backups still include saved search history and feedback.</p></div>
+    <BetaDisclosure agreement={beta?.agreement}/>
     {controls.map(control => <label key={control.key} className="flex items-start justify-between gap-4 p-4 rounded-xl border border-surface-border">
       <span><span className="text-sm font-medium">{control.label}</span><span className="block text-xs text-neutral-500 mt-1">{control.detail}</span></span>
       <input type="checkbox" aria-label={control.label} checked={settings?.[control.key] ?? false} disabled={!settings || busy || control.disabled}

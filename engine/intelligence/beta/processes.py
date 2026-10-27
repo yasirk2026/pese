@@ -28,7 +28,7 @@ class ResidentInference:
 
     def _start(self,key):
         self.close();self.responses=Queue(maxsize=2);self.monitor_stop=Event();self.peak=0
-        process=subprocess.Popen([sys.executable,"-u",str(Path(__file__).with_name("process_worker.py")),"inference"],
+        process=subprocess.Popen([sys.executable,"-B","-u",str(Path(__file__).with_name("process_worker.py")),"inference"],
             stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,
             creationflags=getattr(subprocess,"CREATE_NO_WINDOW",0))
         self.process=process;self.key=key
@@ -75,7 +75,7 @@ class ResidentInference:
 def run_training(payload,cancel,timeout=180):
     operation=payload.get("operation","training")
     if operation not in ("training","evaluation"):raise ValueError("Unsupported local job operation")
-    process=subprocess.Popen([sys.executable,"-u",str(Path(__file__).with_name("process_worker.py")),operation],
+    process=subprocess.Popen([sys.executable,"-B","-u",str(Path(__file__).with_name("process_worker.py")),operation],
         stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,
         creationflags=getattr(subprocess,"CREATE_NO_WINDOW",0))
     result=Queue(maxsize=1)

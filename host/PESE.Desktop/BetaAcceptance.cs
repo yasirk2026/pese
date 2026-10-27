@@ -16,7 +16,7 @@ internal static class BetaAcceptance
         if (args.Length != 2 || !File.Exists(Path.Combine(args[0], ".pese-disposable-fixture"))) return 2;
         var fixture = Path.GetFullPath(args[0]); var output = Path.GetFullPath(args[1]);
         Directory.CreateDirectory(output);
-        Paths.AcceptanceProfile = Path.Combine(output, "LocalAppData", "ManiacSoftwares", "PESE");
+        Paths.AcceptanceProfile = Path.Combine(output, "LocalAppData", "ManiacSoftwares", Paths.ProfileName);
         var originalDocuments = SHA256.HashData(File.ReadAllBytes(Path.Combine(fixture, "firestore_documents.json")));
         var checks = new List<object>(); var code = 1;
         var app = new Application();
@@ -31,6 +31,28 @@ internal static class BetaAcceptance
                     return Task.FromResult(window.AcceptanceCore is not null && window.AcceptanceBrain is { Running: true });
                 }, 180);
                 var core = window.AcceptanceCore!; var brain = window.AcceptanceBrain!;
+                var stablePointer = Path.Combine(output, "LocalAppData", "ManiacSoftwares", "PESE", "desktop-settings.json");
+                Directory.CreateDirectory(Path.GetDirectoryName(stablePointer)!);
+                File.WriteAllText(stablePointer, JsonSerializer.Serialize(new { brainPath = Paths.IsOwnerBeta ? "synthetic-stable-pointer-sentinel" : fixture }));
+                var stablePointerHash = SHA256.HashData(File.ReadAllBytes(stablePointer));
+                if (Paths.IsOwnerBeta) await BrainProcess.CommandAsync("connect", fixture);
+                Check(stablePointerHash.SequenceEqual(SHA256.HashData(File.ReadAllBytes(stablePointer))), "BETA selection preserves stable pointer");
+                Check(JsonDocument.Parse(File.ReadAllText(Paths.Settings)).RootElement.GetProperty("brainPath").GetString() == fixture, "BETA selection writes its own pointer");
+                checks.Add(new { betaSelectionPreservesStablePointer = true, betaProfile = Paths.Profile });
+                var installation = new Velopack.UpdateManager(output,
+                    new Velopack.UpdateOptions { ExplicitChannel = SoftwareUpdates.Channel });
+                checks.Add(new { installed = installation.IsInstalled, appId = installation.AppId,
+                    packageId = SoftwareUpdates.PackageId, channel = SoftwareUpdates.Channel,
+                    version = SoftwareUpdates.Version, ownerBeta = Paths.IsOwnerBeta,
+                    application = Paths.Install, profile = Paths.Profile });
+                if (File.Exists(Path.Combine(fixture, ".pese-require-installed")))
+                    Check(installation.IsInstalled && installation.AppId == SoftwareUpdates.PackageId,
+                        "actual installed package identity");
+                if (Paths.IsOwnerBeta) {
+                    var publicUpdates = new SoftwareUpdates(_ => { });
+                    await publicUpdates.CheckAsync();
+                    Check(publicUpdates.State.status == "manual", "Owner BETA public feed disabled");
+                }
                 // Core exists before OpenAsync finishes its initial navigation.
                 // Wait for that document before issuing the acceptance navigation.
                 await Wait(async () => (await core.ExecuteScriptAsync("Boolean(window.__PESE_CONFIG__ && document.body.innerText.includes('Brain Active'))")) == "true");
@@ -46,7 +68,7 @@ internal static class BetaAcceptance
                 using var docs = JsonDocument.Parse(File.ReadAllText(Path.Combine(fixture, "firestore_documents.json")));
                 var ids = string.Join(", ", docs.RootElement.EnumerateObject().Select(p => p.Value.GetProperty("id").GetString()));
                 await core.ExecuteScriptAsync("""
-                    (() => { const field=Array.from(document.querySelectorAll('label')).find(e=>e.textContent.includes('Document IDs eligible'))?.querySelector('input');
+                    (() => { const field=document.querySelector('[data-testid=beta-feedback-scope]');
                     if(!field) throw new Error('scope field missing');
                     Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(field,
                     """ + JsonSerializer.Serialize(ids) + """
@@ -105,6 +127,27 @@ internal static class BetaAcceptance
                 var persisted = await Get(restarted, "/api/intelligence/beta/status");
                 Check(persisted.GetProperty("participation").GetProperty("accepted").GetBoolean(), "agreement persists across real engine restart");
                 Check(persisted.GetProperty("model").GetProperty("checkpoint").GetString() == status.GetProperty("model").GetProperty("checkpoint").GetString(), "checkpoint restart identity");
+                // The earlier explicit DISLIKE changed canonical preferences.
+                // Compare fallback to a fresh deterministic run with those same
+                // preferences, rather than the order before the reaction.
+                await Put(restarted, new { neural = false });
+                var currentMaae = await Get(restarted, "/api/search?q=" + Uri.EscapeDataString(query));
+                var fallbackExpected = currentMaae.GetProperty("results").EnumerateArray().Select(r => r.GetProperty("doc_id").GetString()).ToArray();
+                await Put(restarted, new { neural = true });
+                // An explicitly labelled damaged POINTER fixture, never a trained
+                // candidate or a quality-earned promotion. Exercise real fallback
+                // and rollback through the installed engine without changing weights.
+                var account = persisted.GetProperty("storage_namespace").GetString()!;
+                var pointer = Path.Combine(fixture, ".pese-intelligence-v1", "accounts", account, "beta", "active.json");
+                File.WriteAllText(pointer, "{\"version\":1,\"current\":\"damaged-pointer-fixture\",\"previous\":\"base\"}");
+                var fallback = await Get(restarted, "/api/search?q=" + Uri.EscapeDataString(query));
+                Check(fallback.GetProperty("hybrid_trace").GetProperty("neural_ranking").GetProperty("authority").GetString() == "NONE", "damaged artifact falls back");
+                Check(fallbackExpected.SequenceEqual(fallback.GetProperty("results").EnumerateArray().Select(r => r.GetProperty("doc_id").GetString())), "fallback equals MAAE order");
+                using (var rolledBack = await restarted.Client.PostAsync(restarted.Origin + "/api/intelligence/beta/rollback", null))
+                    Check(rolledBack.IsSuccessStatusCode, "explicit rollback API");
+                Check((await Get(restarted, "/api/intelligence/beta/status")).GetProperty("model").GetProperty("checkpoint").GetString() == status.GetProperty("model").GetProperty("checkpoint").GetString(), "rollback restores exact base checkpoint");
+                checks.Add(new { artifactFallback = true, fallbackEqualsMaae = true, exactBaseRollback = true,
+                    rollbackFixture = "damaged_pointer_only_no_training_or_promotion" });
                 await restarted.Client.PostAsync(restarted.Origin + "/api/intelligence/beta/exit", null);
                 Check((await Get(restarted, "/api/intelligence/beta/status")).GetProperty("ranking_mode").GetString() == "deterministic_maae", "safe BETA exit");
                 await restarted.DisposeAsync(); restarted = null;

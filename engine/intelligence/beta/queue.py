@@ -25,6 +25,7 @@ class LearningQueue:
 
     def connect(self):
         db=sqlite3.connect(self.path,timeout=5);db.row_factory=sqlite3.Row
+        db.execute("PRAGMA secure_delete=ON")
         return db
 
     def prune(self,db):

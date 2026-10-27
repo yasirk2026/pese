@@ -8,7 +8,7 @@
     <AssemblyName>PESE</AssemblyName>
     <RootNamespace>ManiacSoftwares.PESE</RootNamespace>
     <StartupObject>ManiacSoftwares.PESE.Program</StartupObject>
-    <Version>0.1.0-alpha.6</Version>
+    <Version>0.1.0-alpha.7</Version>
     <Company>Maniac Softwares</Company>
     <Product>PESE</Product>
     <Description>PESE Desktop — Local Brain</Description>
@@ -18,6 +18,11 @@
     <PublishSingleFile>false</PublishSingleFile>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <NeuralChannel Condition="'$(NeuralChannel)' == ''">stable</NeuralChannel>
+    <AppDistribution Condition="'$(AppDistribution)' == '' and '$(NeuralChannel)' == 'aggressive_learning_beta'">owner_beta</AppDistribution>
+    <AppDistribution Condition="'$(AppDistribution)' == ''">standard</AppDistribution>
+    <DefineConstants Condition="'$(AppDistribution)' == 'owner_beta'">$(DefineConstants);OWNER_BETA</DefineConstants>
+    <DefineConstants Condition="'$(NeuralChannel)' == 'aggressive_learning_beta'">$(DefineConstants);TRAINING_UPDATE</DefineConstants>
+    <Product Condition="'$(AppDistribution)' == 'owner_beta'">PESE Owner BETA</Product>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyMetadata Include="PESE.IntelligenceChannel" Value="$(NeuralChannel)" />
@@ -31,5 +36,7 @@
   </ItemGroup>
   <Target Name="ValidateNeuralChannel" BeforeTargets="BeforeBuild">
     <Error Condition="'$(NeuralChannel)' != 'stable' and '$(NeuralChannel)' != 'aggressive_learning_beta'" Text="Unsupported intelligence channel" />
+    <Error Condition="'$(AppDistribution)' != 'standard' and '$(AppDistribution)' != 'owner_beta' and '$(AppDistribution)' != 'standard_update_beta'" Text="Unsupported distribution identity" />
+    <Error Condition="'$(AppDistribution)' == 'standard_update_beta' and '$(NeuralChannel)' != 'aggressive_learning_beta'" Text="The explicit opt-in update build requires BETA capability; it never enrolls a Brain automatically" />
   </Target>
 </Project>

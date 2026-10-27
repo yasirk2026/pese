@@ -28,7 +28,10 @@ def fixture_package(tmp_path, extra=None):
                          "models/synthetic/model_optimized.onnx"):
             z.writestr("lib/app/" + relative, b"synthetic")
         z.writestr("ManiacSoftwares.PESE.nuspec", f"<package><metadata><id>ManiacSoftwares.PESE</id><version>{version}</version><channel>win</channel><mainExe>PESE.exe</mainExe><releaseNotes>{notes}</releaseNotes></metadata></package>")
-        z.writestr("lib/app/source-provenance.json", json.dumps({"commit": commit, "version": version, "acceptance_only": False}))
+        source_hashes = {n.removeprefix("lib/app/"): hashlib.sha256(z.read(n)).hexdigest()
+                         for n in z.namelist() if n.startswith("lib/app/engine/") and n.endswith(".py")}
+        z.writestr("lib/app/source-provenance.json", json.dumps({"commit": commit, "version": version,
+            "acceptance_only": False, "source_clean": True, "tracked_files_sha256": source_hashes}))
         if extra:
             z.writestr(extra, b"synthetic forbidden content")
     digest = hashlib.sha256(package.read_bytes()).hexdigest()
@@ -42,7 +45,9 @@ def fixture_package(tmp_path, extra=None):
 
 @pytest.mark.parametrize("member", ["lib/app/firestore_documents.json", "lib/app/search_sync_feedback.db",
                                    "lib/app/google-client-secrets-other.json", "lib/app/.env",
-                                   "lib/app/semantic_index/cache_store.npz", "../escape.txt"])
+                                   "lib/app/semantic_index/cache_store.npz", "../escape.txt",
+                                   "lib/app/permissions.json", "lib/app/participation.json",
+                                   "lib/app/.pese-intelligence-v1/raw.jsonl"])
 def test_release_rejects_private_or_unsafe_payload(tmp_path, member):
     with pytest.raises(AssertionError):
         verify(*fixture_package(tmp_path, member))

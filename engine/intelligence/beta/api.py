@@ -22,8 +22,20 @@ def invoke(function):
 class AgreementRequest(BaseModel):
     accepted: StrictBool
     agreement_hash: str=Field(min_length=64,max_length=64)
-    feedback_scope: list[str]=Field(default_factory=list,max_length=1000)
-    journal_scope: list[str]=Field(default_factory=list,max_length=1000)
+    feedback_scope: list[str]=Field(default_factory=list,max_length=10000)
+    journal_scope: list[str]=Field(default_factory=list,max_length=10000)
+    approve_all_current:StrictBool=False
+    scope_snapshot_hash:str|None=Field(default=None,min_length=64,max_length=64)
+    retention_days:StrictInt=Field(default=7,ge=1,le=90)
+
+
+def current_document_ids():
+    from ...api.main import store
+    return [doc.id for doc in store.list_documents()]
+
+
+@router.get("/scope")
+def scope():return invoke(lambda:runtime().scope_snapshot(current_document_ids()))
 
 
 @router.get("/status")
@@ -33,7 +45,17 @@ def status():return runtime().status()
 @router.post("/agreement")
 def agreement(body:AgreementRequest):
     if body.accepted is not True:return runtime().exit()
-    return invoke(lambda:runtime().accept(body.agreement_hash,affirmative=body.accepted,feedback_scope=body.feedback_scope,journal_scope=body.journal_scope))
+    def accept():
+        owner=runtime();ids=body.feedback_scope
+        if body.approve_all_current:
+            snapshot=owner.scope_snapshot(current_document_ids())
+            if body.scope_snapshot_hash!=snapshot["snapshot_hash"]:
+                raise ValueError("Current documents or exclusions changed; review the scope again")
+            ids=snapshot["document_ids"]
+        return owner.accept(body.agreement_hash,affirmative=body.accepted,feedback_scope=ids,
+                            journal_scope=body.journal_scope,retention_days=body.retention_days,
+                            scope_mode="all_current_snapshot" if body.approve_all_current else "selected_ids")
+    return invoke(accept)
 
 
 @router.put("/settings")
@@ -43,7 +65,7 @@ def settings(changes:dict=Body(...)):return invoke(lambda:runtime().configure(ch
 @router.get("/examples")
 def examples():
     owner=runtime()
-    if not owner.channel:raise HTTPException(409,"Closed BETA channel required")
+    if not owner.channel:raise HTTPException(409,"BETA capability required")
     rows=owner.queue().list() if (owner.root/"learning.db").exists() else []
     return {"examples":[{**row,"receipt_hash":digest(row["payload"])} for row in rows]}
 

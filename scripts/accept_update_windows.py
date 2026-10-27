@@ -28,8 +28,13 @@ def main():
     parser.add_argument("updater", type=Path, help="Pinned Velopack 0.0.1298 Update.exe")
     parser.add_argument("--unicode-path", action="store_true")
     parser.add_argument("--ui", action="store_true", help="Exercise real WPF/WebView2 Settings controls")
+    parser.add_argument("--owner-beta", action="store_true", help="Separate Owner BETA identity and local feed")
+    parser.add_argument("--documents", type=int, default=1, choices=(1, 200, 400), help="Synthetic preservation collection size")
     parser.add_argument("--interrupt-before-activation", action="store_true", help="Stop only the fixture updater during staging, verify the old installation, then retry")
     args = parser.parse_args()
+    package_id = "ManiacSoftwares.PESE.OwnerBeta" if args.owner_beta else "ManiacSoftwares.PESE"
+    channel = "win-owner-beta" if args.owner_beta else "win"
+    feed_name = "releases." + channel + ".json"
     root = args.case.resolve()
     root.mkdir(parents=True, exist_ok=False)
     (root / ".pese-disposable-fixture").write_text("Synthetic updater acceptance only\n", encoding="utf-8")
@@ -50,13 +55,13 @@ def main():
             target.parent.mkdir(parents=True, exist_ok=True)
             with package.open(entry) as source, target.open("xb") as output:
                 shutil.copyfileobj(source, output)
-        (current / "sq.version").write_bytes(package.read("ManiacSoftwares.PESE.nuspec"))
+        (current / "sq.version").write_bytes(package.read(package_id + ".nuspec"))
     packages = install / "packages"
     packages.mkdir()
     shutil.copy2(args.base_package, packages / args.base_package.name)
     feed = root / "feed"
     feed.mkdir()
-    target_feed = json.loads((args.target_artifacts / "releases.win.json").read_text(encoding="utf-8-sig"))
+    target_feed = json.loads((args.target_artifacts / feed_name).read_text(encoding="utf-8-sig"))
     targets = [a for a in target_feed["Assets"] if a["Type"] == "Full"]
     if len(targets) != 1:
         raise ValueError("Controlled feed must contain exactly one target")
@@ -65,7 +70,7 @@ def main():
     if target_source["version"] != targets[0]["Version"]:
         raise ValueError("Target package source stamp differs from feed version")
     shutil.copy2(args.target_artifacts / targets[0]["FileName"], feed)
-    shutil.copy2(args.target_artifacts / "releases.win.json", feed)
+    shutil.copy2(args.target_artifacts / feed_name, feed)
     profile = root / "LocalAppData"
     brain = (root / "Custom drive — علم" / "My PESE Brain") if args.unicode_path else profile / "ManiacSoftwares/PESE/Brain"
     os.environ.update(LOCALAPPDATA=str(profile), PESE_DATA_DIR=str(brain), PESE_BRAIN_PATH=str(brain))
@@ -78,6 +83,11 @@ def main():
     store.save_document(Document(id="pese", slug="pese", title="What is PESE?",
         content="PESE is a local personal search engine. PESE keeps documents in a separate Brain folder.",
         keywords=["PESE", "search"], status="published"))
+    for number in range(1, args.documents):
+        store.save_document(Document(id=f"update-study-{number}", slug=f"update-study-{number}",
+            title=f"Synthetic study material {number}", content="\n\n".join(
+                f"## Study section {section}\nPublic fictional classroom note {number}. A student measures a sample, records its units and compares the result with a control. Repeated observations help identify errors. This synthetic document contains no personal information."
+                for section in range(1, 6)), status="published"))
     from engine.search_sync.feedback_store import SearchSyncFeedbackStore
     from engine.search_sync.contracts import FeedbackEvent
     feedback = SearchSyncFeedbackStore(brain / "search_sync_feedback.db")
@@ -94,10 +104,19 @@ def main():
     (profile / "ManiacSoftwares/PESE/desktop-settings.json").write_text(
         json.dumps({"brainPath": str(brain)}), encoding="utf-8")
     (profile / "ManiacSoftwares/PESE/credential-preservation.fixture").write_bytes(b"synthetic non-credential sentinel")
+    from engine.sync.credentials import WindowsDPAPICredentialStorage
+    fixture_profile = profile / "ManiacSoftwares/PESE"
+    # Real DPAPI storage, containing only a synthetic non-token marker. Never
+    # copy, decrypt or contact a real Google account for acceptance.
+    WindowsDPAPICredentialStorage(fixture_profile).save_credentials({"fixture": True})
+    (fixture_profile / "google-oauth-config.json").write_text(json.dumps({"installed": {
+        "client_id": "synthetic-update-fixture.invalid", "client_secret": "not-a-real-secret"}}), encoding="utf-8")
     del store, feedback
     gc.collect()
     account_sentinel = profile / "ManiacSoftwares/PESE/credential-preservation.fixture"
     account_digest = hashlib.sha256(account_sentinel.read_bytes()).hexdigest()
+    drive_files = {name: hashlib.sha256((fixture_profile / name).read_bytes()).hexdigest()
+                   for name in ("google_drive_credentials.dat", "google-oauth-config.json")}
     def logical_rows():
         with closing(sqlite3.connect((brain / "search_sync_feedback.db").as_uri() + "?mode=ro", uri=True)) as db:
             db.row_factory = sqlite3.Row
@@ -183,6 +202,8 @@ def main():
         raise RuntimeError("Native preferences did not survive the new engine origin")
     if hashlib.sha256(account_sentinel.read_bytes()).hexdigest() != account_digest:
         raise RuntimeError("The synthetic account sentinel changed during update")
+    if any(hashlib.sha256((fixture_profile / name).read_bytes()).hexdigest() != expected for name, expected in drive_files.items()):
+        raise RuntimeError("Synthetic Drive settings or DPAPI storage changed during update")
     after_rows = logical_rows()
     for table in ("active_preferences", "feedback_audit_events"):
         if before_rows[table] != after_rows[table]:
@@ -208,6 +229,14 @@ def main():
     acceptance["interrupted_update_recovered"] = interrupted
     acceptance["download_faults_checked"] = (root / "download-faults-passed.json").is_file()
     acceptance["explicit_retry_after_interruption"] = interrupted
+    acceptance["synthetic_document_count"] = args.documents
+    acceptance["synthetic_drive_configuration_and_dpapi_preserved"] = True
+    # Updating the program never consents for a Brain or account. These fixtures
+    # deliberately exercise the updater before the first-start agreement.
+    participation = list((brain / ".pese-intelligence-v1").glob("**/participation.json"))
+    acceptance["no_automatic_enrollment"] = not any(json.loads(p.read_text(encoding="utf-8")).get("accepted") for p in participation)
+    if not acceptance["no_automatic_enrollment"]:
+        raise RuntimeError("Updating enrolled the synthetic Brain without affirmative agreement")
     (root / "acceptance.json").write_text(json.dumps(acceptance, indent=2), encoding="utf-8")
     print(json.dumps(acceptance))
 

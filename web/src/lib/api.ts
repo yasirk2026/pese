@@ -65,6 +65,7 @@ export interface BetaStatus {
   supported: boolean; channel: string; agreement_hash: string;
   agreement: { title: string; statements: string[] };
   participation: { accepted: boolean; paused?: boolean; neural?: boolean; feedback_scope?: string[]; journal_scope?: string[]; retention_days?: number };
+  storage_namespace?: string; brain_id?: string;
   learning_active: boolean; ranking_mode: string; model: { version?: string; checkpoint?: string; trust?: string; status?: string } | null;
   inference: { status: string; latency_ms?: number; peak_bytes?: number; cold?: boolean; authority?: string };
   fallback_events: number; rejected_events: number; evidence: Record<string, number>; training_running: boolean;

@@ -13,14 +13,16 @@ internal static class Program
     {
         if (args.Length > 0 && args[0] == "--accept-ui")
             return UiAcceptance.Run(args.Skip(1).ToArray());
-        if (args.Length > 0 && args[0] == "--accept-neural-beta")
-            return BetaAcceptance.Run(args.Skip(1).ToArray());
         if (args.Length > 0 && args[0] == "--capture-screens")
             return Acceptance.CaptureScreenshots(args.Skip(1).ToArray());
         // Installer/update hooks must run before WPF or the single-instance gate.
         // A second launch must never activate a cached update before the
         // single-instance gate or bypass the explicit engine-drain path.
         VelopackApp.Build().SetAutoApplyOnStartup(false).Run();
+        if (args.Length > 0 && args[0] == "--accept-training-startup")
+            return TrainingUpdateAcceptance.Run(args.Skip(1).ToArray());
+        if (args.Length > 0 && args[0] == "--accept-neural-beta")
+            return BetaAcceptance.Run(args.Skip(1).ToArray());
         if (args.Length > 0 && args[0] == "--accept-update-ui")
             return UpdateUiAcceptance.Run(args.Skip(1).ToArray());
         if (args.Length > 0 && args[0] is "--accept-updater" or "--accept-update-restarted")
@@ -29,7 +31,7 @@ internal static class Program
             return Acceptance.RunAsync(args.Skip(1).ToArray()).GetAwaiter().GetResult();
 
         var sid = WindowsIdentity.GetCurrent().User!.Value;
-        var instanceName = "ManiacSoftwares.PESE." + sid;
+        var instanceName = SoftwareUpdates.PackageId + "." + sid;
         using var mutex = new Mutex(true, @"Local\" + instanceName, out var first);
         if (!first)
         {
@@ -78,9 +80,21 @@ internal static class Program
 
 internal static class Paths
 {
+#if TRAINING_UPDATE
+    internal static bool RequiresTrainingAgreement => true;
+#else
+    internal static bool RequiresTrainingAgreement => false;
+#endif
+#if OWNER_BETA
+    internal static bool IsOwnerBeta => true;
+    internal const string ProfileName = "PESE Owner BETA";
+#else
+    internal static bool IsOwnerBeta => false;
+    internal const string ProfileName = "PESE";
+#endif
     internal static string? AcceptanceProfile;
     public static string Install => AppContext.BaseDirectory;
-    public static string Profile => AcceptanceProfile ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ManiacSoftwares", "PESE");
+    public static string Profile => AcceptanceProfile ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ManiacSoftwares", ProfileName);
     public static string Settings => Path.Combine(Profile, "desktop-settings.json");
     public static string Recommended => Path.Combine(Profile, "Brain");
     public static string? LoadBrain()

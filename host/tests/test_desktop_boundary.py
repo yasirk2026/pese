@@ -95,6 +95,26 @@ def test_fresh_brain_uses_runtime_search_sync_schema(tmp_path):
         assert db.execute("SELECT count(*) FROM feedback_audit_events").fetchone()[0] == 0
 
 
+def test_beta_selection_preserves_stable_pointer_and_rejects_other_targets(tmp_path, monkeypatch):
+    monkeypatch.setenv("LOCALAPPDATA", str(tmp_path / "profile"))
+    stable = tmp_path / "profile/ManiacSoftwares/PESE/desktop-settings.json"
+    beta = tmp_path / "profile/ManiacSoftwares/PESE Owner BETA/desktop-settings.json"
+    stable_brain = tmp_path / "stable-Brain"
+    beta_brain = tmp_path / "beta-Brain"
+    brain_command({"action": "create", "brainPath": str(stable_brain)})
+    preserved = stable.read_bytes()
+    brain_command({"action": "create", "brainPath": str(beta_brain), "settingsPath": str(beta)})
+    assert stable.read_bytes() == preserved
+    assert json.loads(beta.read_text())["brainPath"] == str(beta_brain.resolve())
+    beta.unlink()
+    brain_command({"action": "connect", "brainPath": str(beta_brain), "settingsPath": str(beta)})
+    assert stable.read_bytes() == preserved and beta.is_file()
+    rejected = tmp_path / "not-created-Brain"
+    with pytest.raises(ValueError, match="application profile pointer"):
+        brain_command({"action": "create", "brainPath": str(rejected), "settingsPath": str(tmp_path / "other.json")})
+    assert not rejected.exists()
+
+
 def test_external_python_connections_are_blocked(monkeypatch):
     import socket
     from engine.desktop.offline import install_offline_boundary

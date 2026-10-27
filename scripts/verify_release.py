@@ -14,7 +14,7 @@ def sha(path):
         return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
-def verify(directory, version, commit, source, acceptance_only=False):
+def verify(directory, version, commit, source, acceptance_only=False, training_update=False):
     feed_path = directory / "releases.win.json"
     feed = json.loads(feed_path.read_text(encoding="utf-8-sig"))
     assets = feed["Assets"]
@@ -45,13 +45,13 @@ def verify(directory, version, commit, source, acceptance_only=False):
         assert len([n for n in names if n.startswith("lib/app/models/") and n.endswith("/model_optimized.onnx")]) == 1
         forbidden = {"pese-brain.json", "firestore_documents.json", "behavioural_events.jsonl",
                      "privacy_settings.json", "desktop-settings.json", "google-client-secrets.json",
-                     "google-oauth-config.json", "search_sync_feedback.db"}
+                     "google-oauth-config.json", "search_sync_feedback.db", "permissions.json", "participation.json"}
         for member in names:
             assert not member.startswith(("/", "\\")) and "\\" not in member and ":" not in member and ".." not in member.split("/"), "Unsafe package path"
             leaf = Path(member).name.lower()
             assert leaf not in forbidden and not leaf.endswith((".db", ".sqlite", ".pese-bundle")), "Private Brain asset in package"
             assert not (leaf.endswith(".json") and (leaf.startswith("google-client-secrets") or leaf.startswith("google-oauth-config"))), "OAuth configuration in package"
-            assert not any(p in member.lower().split("/") for p in (".git", ".env", "node_modules", "semantic_index")), "Development/cache asset in package"
+            assert not any(p in member.lower().split("/") for p in (".git", ".env", "node_modules", "semantic_index", ".pese-intelligence-v1")), "Development/cache asset in package"
         spec = ET.fromstring(archive.read("ManiacSoftwares.PESE.nuspec"))
         values = {e.tag.rsplit("}", 1)[-1]: e.text for e in spec.iter()}
         assert values["id"] == "ManiacSoftwares.PESE" and values["version"] == version
@@ -61,6 +61,19 @@ def verify(directory, version, commit, source, acceptance_only=False):
         provenance = json.loads(archive.read("lib/app/source-provenance.json"))
         assert provenance["commit"] == commit and provenance["version"] == version
         assert provenance["acceptance_only"] == acceptance_only
+        if not acceptance_only:
+            assert provenance["source_clean"], "Release provenance must be clean"
+        for member in names:
+            if member.startswith("lib/app/engine/") and member.endswith(".py"):
+                relative = member.removeprefix("lib/app/")
+                assert hashlib.sha256(archive.read(member)).hexdigest() == provenance["tracked_files_sha256"].get(relative), "Packaged source differs from provenance"
+        if training_update:
+            import sys
+            sys.path.insert(0, str(source))
+            from engine.intelligence.beta.base_lock import BASE_FILES
+            for file, expected in BASE_FILES.items():
+                assert hashlib.sha256(archive.read("lib/app/engine/neural/assets/basic_english_beta_v1/" + file)).hexdigest() == expected, "Frozen base changed"
+            assert {"lib/app/engine/desktop/training_update.py", "lib/app/engine/intelligence/beta/account.py", "lib/app/ui/neural-genesis/index.html"} <= set(names)
     if (directory / "release-notes.md").read_text(encoding="utf-8").strip() != notes.strip():
         raise ValueError("Published Markdown notes differ from the packaged notes")
     required = ["PESE-Setup.exe", name, "releases.win.json", "RELEASES", "assets.win.json", "release-notes.md"]
@@ -81,10 +94,11 @@ def main():
     parser.add_argument("version")
     parser.add_argument("commit")
     parser.add_argument("--acceptance-only", action="store_true")
+    parser.add_argument("--training-update", action="store_true")
     args = parser.parse_args()
     assert re.fullmatch(r"\d+\.\d+\.\d+-alpha\.\d+", args.version), "Invalid alpha SemVer"
     assert re.fullmatch(r"[a-f0-9]{40}", args.commit), "Expected an exact source commit"
-    verify(args.directory, args.version, args.commit, Path(__file__).resolve().parents[1], args.acceptance_only)
+    verify(args.directory, args.version, args.commit, Path(__file__).resolve().parents[1], args.acceptance_only, args.training_update)
 
 
 if __name__ == "__main__":

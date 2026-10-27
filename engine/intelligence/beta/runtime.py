@@ -50,33 +50,45 @@ class BetaReranker(NeuralReranker):
         self.owner.expire()
         try:self.approved=self.owner.models.current()
         except Exception:
+            self.owner.fallbacks+=1
             self.owner.last_inference={"status":"ARTIFACT_FAILURE_FALLBACK","authority":"NONE"};return self.owner.last_inference
-        result=super().adjust(candidates,query,enabled=enabled)
+        approved_candidates=[c for c in candidates if self.owner.in_scope(c.get("doc_id"))]
+        result=super().adjust(approved_candidates,query,enabled=enabled)
         self.owner.last_inference=result
         if result["authority"]=="NONE" and result["status"]!="DISABLED":self.owner.fallbacks+=1
         return result
 
 
 class BetaRuntime:
-    def __init__(self,brain_root,*,channel=None,base_path=None,base_pin=None,document_reader=None):
-        self.brain=Path(brain_root);self.root=self.brain/".pese-intelligence-v1/beta"
+    def __init__(self,brain_root,*,channel=None,base_path=None,base_pin=None,document_reader=None,account=None):
+        from .account import account_binding
+        self.account = account_binding() if account is None else account
+        self.brain=Path(brain_root)
+        self.settings=SettingsStore(self.brain,account=self.account)
+        self.root=self.settings.root/"beta"
+        self.brain_id=json.loads((self.brain/"pese-brain.json").read_text(encoding="utf-8"))["brainId"]
         self.channel=beta_channel() if channel is None else channel
-        self.settings=SettingsStore(self.brain);self.lock=RLock();self.cancel=Event();self.thread=None
+        self.lock=RLock();self.cancel=Event();self.thread=None
         self.document_reader=document_reader
         self.base_path=Path(base_path) if base_path else Path(__file__).resolve().parents[2]/"neural/assets/basic_english_beta_v1"
-        self.models=LocalModels(self.root,digest(str(self.brain.resolve())),self.base_path,BASE_FILES if base_pin is None else base_pin)
+        self.models=LocalModels(self.root,digest({"path":str(self.brain.resolve()),"brain_id":self.brain_id,"account":self.account}),self.base_path,BASE_FILES if base_pin is None else base_pin)
         self.ranker=BetaReranker(self);self.last_inference={"status":"NOT_RUN","authority":"NONE"};self.fallbacks=0;self.rejections=0
         self._last_expire=0.0
 
     def state(self):
         try:return json.loads((self.root/"participation.json").read_text(encoding="utf-8"))
-        except (OSError,ValueError):return {"version":1,"accepted":False,"paused":True,"neural":False,"feedback_scope":[],"journal_scope":[],"retention_days":30}
+        except (OSError,ValueError):return {"version":2,"accepted":False,"paused":True,"neural":False,"feedback_scope":[],"journal_scope":[],"retention_days":7}
 
     def accepted(self):
         state=self.state()
-        return self.channel and state.get("accepted") is True and state.get("agreement_hash")==AGREEMENT_HASH
+        return (self.channel and state.get("accepted") is True and state.get("agreement_hash")==AGREEMENT_HASH
+                and state.get("account_binding")==self.account and state.get("brain_id")==self.brain_id)
 
     def enabled(self):return self.accepted() and self.state().get("neural") is True and self.settings.read().neural_search
+
+    def model_valid(self):
+        try:self.models.current();return True
+        except (OSError,ValueError):return False
 
     def collecting(self):
         settings=self.settings.read()
@@ -88,34 +100,54 @@ class BetaRuntime:
 
     def queue(self):
         self.owned_root()
-        return LearningQueue(self.root/"learning.db",retention_days=self.state().get("retention_days",30))
+        return LearningQueue(self.root/"learning.db",retention_days=self.state().get("retention_days",7))
 
-    def accept(self,agreement_hash,*,affirmative,feedback_scope=(),journal_scope=()):
+    def scope_snapshot(self,document_ids):
+        if not self.channel:raise ValueError("Experimental BETA capability is unavailable")
+        ids=sorted(set(document_ids))
+        if any(not isinstance(v,str) or not v or len(v)>200 for v in ids):
+            raise ValueError("Valid explicit document IDs are required")
+        excluded=set(self.settings.read().excluded_document_ids)
+        eligible=[v for v in ids if v not in excluded]
+        return {"brain_id":self.brain_id,"current_document_count":len(ids),"document_ids":eligible,
+                "excluded_current_count":len(ids)-len(eligible),"future_documents_authorized":False,
+                "snapshot_hash":digest({"brain":self.brain_id,"account":self.account,"ids":eligible})}
+
+    def accept(self,agreement_hash,*,affirmative,feedback_scope=(),journal_scope=(),retention_days=7,scope_mode="selected_ids"):
         if not self.channel:raise ValueError("This application is not the closed BETA channel")
         if affirmative is not True or agreement_hash!=AGREEMENT_HASH:raise ValueError("Affirmative acceptance of the current disclosure is required")
-        self.models.base()  # integrity/known objective contract before activation
+        if type(retention_days) is not int or not 1<=retention_days<=90:raise ValueError("Retention must be 1..90 days")
+        if scope_mode not in ("selected_ids","all_current_snapshot"):raise ValueError("Explicit current scope required")
+        # Agreement remains valid when an artifact is missing: serve MAAE.
+        # Experimental ranking is enabled only for an application-pinned model.
+        try:self.models.base();model_available=True
+        except (OSError,ValueError):model_available=False
         self.owned_root()
         self.root.mkdir(parents=True,exist_ok=True)
         with self.lock:
             old=self.state()
             removed=(set(old.get("feedback_scope",[]))|set(old.get("journal_scope",[])))-(set(feedback_scope)|set(journal_scope))
             if removed:self.forget(removed)
-            state={"version":1,"accepted":True,"agreement_hash":AGREEMENT_HASH,"accepted_at":datetime.now(timezone.utc).isoformat(),
-                   "paused":False,"neural":True,"feedback_scope":sorted(set(feedback_scope)),"journal_scope":sorted(set(journal_scope)),"retention_days":30}
+            state={"version":2,"accepted":True,"agreement_hash":AGREEMENT_HASH,"accepted_at":datetime.now(timezone.utc).isoformat(),
+                   "account_binding":self.account,"brain_id":self.brain_id,"scope_mode":scope_mode,"future_documents_authorized":False,
+                   "scope_ids_hash":digest(sorted(set(feedback_scope))),
+                   "paused":False,"neural":model_available,"feedback_scope":sorted(set(feedback_scope)),"journal_scope":sorted(set(journal_scope)),"retention_days":retention_days}
             atomic_write_json(self.root/"participation.json",state)
-            self.settings.update({"neural_search":True,"collect_research_feedback":True},neural_available=True)
+            self.settings.update({"neural_search":model_available,"collect_research_feedback":True,"allow_journal_learning":False},neural_available=model_available)
             self.queue()
         return self.status()
 
     def configure(self,changes):
         if not self.accepted():raise ValueError("BETA participation is not active")
+        if changes.get("neural") is True:self.models.current()
         if set(changes)-{"paused","neural","feedback_scope","journal_scope","retention_days"}:raise ValueError("Unsupported BETA setting")
         if "retention_days" in changes and (type(changes["retention_days"]) is not int or not 1<=changes["retention_days"]<=90):raise ValueError("Retention must be 1..90 days")
         if any(k in changes and type(changes[k]) is not bool for k in ("paused","neural")):raise ValueError("Boolean required")
         for field in ("feedback_scope","journal_scope"):
-            if field in changes and (not isinstance(changes[field],list) or len(changes[field])>1000 or any(not isinstance(v,str) or len(v)>200 for v in changes[field])):raise ValueError("Explicit document IDs required")
+            if field in changes and (not isinstance(changes[field],list) or len(changes[field])>10000 or any(not isinstance(v,str) or len(v)>200 for v in changes[field])):raise ValueError("Explicit document IDs required")
         with self.lock:
             old=self.state();new={**old,**changes}
+            if "feedback_scope" in changes:new.update(scope_mode="selected_ids",future_documents_authorized=False,scope_ids_hash=digest(sorted(set(changes["feedback_scope"]))))
             removed=(set(old.get("feedback_scope",[]))|set(old.get("journal_scope",[])))-(set(new.get("feedback_scope",[]))|set(new.get("journal_scope",[])))
             atomic_write_json(self.root/"participation.json",new)
             if "neural" in changes:self.settings.update({"neural_search":new["neural"]},neural_available=True)
@@ -131,22 +163,28 @@ class BetaRuntime:
             with self.lock:
                 state=self.state();state.update(accepted=False,paused=True,neural=False)
                 atomic_write_json(self.root/"participation.json",state)
+        if self.settings.path.exists():self.settings.update({"neural_search":False,"collect_research_feedback":False},neural_available=True)
         return self.status()
 
-    def allowed(self,document_id,*,journal=False):
+    def in_scope(self,document_id,*,journal=False):
         state=self.state();permissions=self.settings.read()
-        if not self.collecting() or document_id in permissions.excluded_document_ids:return False
+        if not self.accepted() or document_id in permissions.excluded_document_ids:return False
         # Every passage is opt-in by ID; unknown document collections are never
         # guessed to be safe. Journal scope has its own explicit permission.
         if document_id in state.get("journal_scope",[]):
             return permissions.allow_journal_learning
         return not journal and document_id in state.get("feedback_scope",[])
 
+    def allowed(self,document_id,*,journal=False):
+        return self.collecting() and self.in_scope(document_id,journal=journal)
+
     def record(self,presentation,*,feedback=None,reason=None,source="feedback"):
         if not self.collecting() or not presentation:return {"status":"not_collected"}
         event=deepcopy(presentation);receipt=event.get("receipt",{});identity=receipt.get("target_id")
         if identity in self.settings.read().excluded_document_ids:return {"status":"excluded"}
-        if not self.allowed(identity):event["evidence_text"]=None
+        # A small owner pilot must not retain queries/receipts for other sources.
+        # Scope covers the complete experimental observation, including metadata.
+        if not self.allowed(identity):return {"status":"not_collected_out_of_scope"}
         if event.get("evidence_text") and len(event["evidence_text"].encode("utf-8"))>8000:
             event["evidence_text"]=None
             event["collection_note"]="oversized_passage_not_retained_for_learning"
@@ -198,6 +236,12 @@ class BetaRuntime:
     def forget(self,document_ids):
         self.cancel.set();self.ranker.worker.close()
         self.owned_root()
+        if (self.root/"participation.json").exists():
+            state=self.state();removed=set(document_ids)
+            state["feedback_scope"]=[v for v in state.get("feedback_scope",[]) if v not in removed]
+            state["journal_scope"]=[v for v in state.get("journal_scope",[]) if v not in removed]
+            state["scope_ids_hash"]=digest(state["feedback_scope"])
+            atomic_write_json(self.root/"participation.json",state)
         (self.root/"active.json").unlink(missing_ok=True)
         if self.thread and self.thread.is_alive():self.thread.join(timeout=3)
         if self.thread and self.thread.is_alive():raise ValueError("Training still stopping; adaptations disabled, retry cleanup")
@@ -221,6 +265,7 @@ class BetaRuntime:
         supported=self.channel
         if supported:self.expire()
         state=self.state() if supported else {"accepted":False}
+        if not self.accepted():state={**state,"accepted":False}
         model=None
         if self.accepted():
             try:
@@ -234,11 +279,13 @@ class BetaRuntime:
         return {"version":1,"channel":"aggressive_learning_beta" if supported else "stable","supported":supported,
                 "participation":state,"agreement":AGREEMENT,"agreement_hash":AGREEMENT_HASH,
                 "learning_active":self.collecting(),
-                "model":model,"ranking_mode":"experimental_bounded_neural" if self.enabled() else "deterministic_maae",
+                "model":model,"ranking_mode":"experimental_bounded_neural" if self.enabled() and model and model.get("checkpoint") else "deterministic_maae",
                 "inference":self.last_inference,"fallback_events":self.fallbacks,"rejected_events":self.rejections,
                 "evidence":counts,"last_job":job,"training_running":bool(self.thread and self.thread.is_alive()),
                 "external_uploads":False,"independent_public_acceptance":False,
                 "privacy":self.settings.read().model_dump() if supported else {},
+                "storage_namespace":self.account,"brain_id":self.brain_id,
+                "storage_policy":"per_brain_and_windows_account_excluded_from_drive_backups",
                 "rollback_available":(self.root/"active.json").exists() if supported else False}
 
     def close(self):
@@ -250,13 +297,20 @@ class BetaRuntime:
         self._last_expire=time.monotonic()
         if not self.root.exists():return
         self.owned_root()
-        cutoff=time.time()-self.state().get("retention_days",30)*86400
+        if (self.root/"learning.db").exists():self.queue().counts()
+        cutoff=time.time()-self.state().get("retention_days",7)*86400
         pointer=self.root/"active.json"
         try:pointers=json.loads(pointer.read_text()) if pointer.exists() else {}
         except ValueError:pointers={}
         active=self.root/"models"/pointers.get("current","base")
         if active.exists() and active.stat().st_mtime<cutoff:
             self.ranker.worker.close();pointer.unlink(missing_ok=True);pointers={}
+        previous=pointers.get("previous")
+        if previous and previous!="base":
+            old=self.root/"models"/previous
+            if not old.exists() or old.stat().st_mtime<cutoff:
+                pointers["previous"]="base"
+                atomic_write_json(pointer,pointers)
         # Preserve current/previous until expiry; bound other retained artifacts.
         keep={name for name in (pointers.get("current"),pointers.get("previous")) if name and name!="base" and
               (self.root/"models"/name).exists() and (self.root/"models"/name).stat().st_mtime>=cutoff}
@@ -268,7 +322,9 @@ class BetaRuntime:
             for index,path in enumerate(paths):
                 size=sum(f.stat().st_size for f in path.rglob("*") if f.is_file() and not f.is_symlink())
                 used+=size
-                if (path.stat().st_mtime<cutoff or index>=maximum or used>128*1024*1024) and path.name not in keep:
+                age_file=path/("dataset.json" if folder=="jobs" else "beta-model.json")
+                created=age_file.stat().st_mtime if age_file.exists() else path.stat().st_mtime
+                if (created<cutoff or index>=maximum or used>128*1024*1024) and path.name not in keep:
                     if self.thread and self.thread.is_alive() and folder=="jobs":continue
                     shutil.rmtree(path)
 
@@ -361,7 +417,9 @@ class BetaRuntime:
 
 def runtime():
     from ...config import RUNTIME_ROOT
-    key=(str(RUNTIME_ROOT.resolve()),beta_channel())
+    from .account import account_binding
+    account=account_binding()
+    key=(str(RUNTIME_ROOT.resolve()),beta_channel(),account)
     with _LOCK:
-        if key not in _RUNTIMES:_RUNTIMES[key]=BetaRuntime(RUNTIME_ROOT)
+        if key not in _RUNTIMES:_RUNTIMES[key]=BetaRuntime(RUNTIME_ROOT,account=account)
         return _RUNTIMES[key]

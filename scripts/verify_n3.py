@@ -18,6 +18,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--workspace",required=True)
     parser.add_argument("--model-path",required=True)
+    parser.add_argument("--no-training",action="store_true",help="FIRST CONTACT: deselect tests that fit candidate weights")
+    parser.add_argument("--tests",nargs="+",default=["engine/tests","host/tests"],help="Explicit synthetic verification targets")
     args=parser.parse_args()
     work=Path(args.workspace).resolve()
     if work == ROOT or ROOT in work.parents:
@@ -44,10 +46,17 @@ def main():
             stats=session.config.pluginmanager.get_plugin("terminalreporter").stats
             receipt={"version":1,"exit_code":int(exitstatus),"passed":len(stats.get("passed",[])),
                      "failed":len(stats.get("failed",[])),"errors":len(stats.get("error",[])),
-                     "skipped":len(stats.get("skipped",[])),"offline":True,"synthetic_brain":True}
+                     "skipped":len(stats.get("skipped",[])),"offline":True,"synthetic_brain":True,
+                     "training_tests_deselected":args.no_training,"deselected":len(stats.get("deselected",[]))}
             (work/"verification.json").write_text(json.dumps(receipt,indent=2),encoding="utf-8")
-    return pytest.main(["engine/tests","host/tests","-q", "--basetemp="+str(work/"pytest"),
-                        "--junitxml="+str(work/"results.xml")],plugins=[Receipt()])
+    checks=[*args.tests,"-q", "--basetemp="+str(work/"pytest"),
+            "--junitxml="+str(work/"results.xml")]
+    if args.no_training:
+        checks += ["-k", "not actual_private_candidate_training and not trainer_smoke_preserves_holdout"]
+    import faulthandler
+    faulthandler.dump_traceback_later(60,repeat=True)
+    try:return pytest.main(checks,plugins=[Receipt()])
+    finally:faulthandler.cancel_dump_traceback_later()
 
 
 if __name__ == "__main__":

@@ -42,14 +42,20 @@ internal sealed class BrainProcess : IAsyncDisposable
         return info;
     }
 
-    public static async Task<JsonElement> CommandAsync(string action, string path)
+    internal static string IntelligenceChannel => typeof(BrainProcess).Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyMetadataAttribute), false)
+        .Cast<System.Reflection.AssemblyMetadataAttribute>().Single(a => a.Key == "PESE.IntelligenceChannel").Value!;
+
+    public static async Task<JsonElement> CommandAsync(string action, string path, object? approval = null)
     {
         using var owned = new Job();
         using var child = new Process { StartInfo = StartInfo() };
         child.Start(); owned.Add(child);
         var stdout = child.StandardOutput.ReadToEndAsync();
         var stderr = child.StandardError.ReadToEndAsync();
-        await child.StandardInput.WriteLineAsync(JsonSerializer.Serialize(new { action, brainPath = path }));
+        var command = approval is null ? new Dictionary<string, object?>() : JsonSerializer.Deserialize<Dictionary<string, object?>>(JsonSerializer.Serialize(approval))!;
+        command["action"] = action; command["brainPath"] = path; command["settingsPath"] = Paths.Settings;
+        command["intelligenceChannel"] = IntelligenceChannel;
+        await child.StandardInput.WriteLineAsync(JsonSerializer.Serialize(command));
         child.StandardInput.Close();
         using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(30));
         await child.WaitForExitAsync(timeout.Token);

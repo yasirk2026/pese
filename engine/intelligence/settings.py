@@ -28,14 +28,26 @@ class IntelligenceSettings(BaseModel):
 
 
 class SettingsStore:
-    def __init__(self, brain_root):
+    def __init__(self, brain_root, *, account=None):
         self.root = Path(brain_root) / ".pese-intelligence-v1"
+        self.legacy_path = self.root / "permissions.json"
+        if account is not None:
+            if len(account)!=64 or any(c not in "0123456789abcdef" for c in account):
+                raise ValueError("Invalid local account binding")
+            self.root = self.root / "accounts" / account
         self.path = self.root / "permissions.json"
         self._lock = _PERMISSION_LOCK
 
     def read(self):
         with self._lock:
             if not self.path.exists():
+                if self.path!=self.legacy_path and self.legacy_path.exists():
+                    try:previous=IntelligenceSettings.model_validate_json(self.legacy_path.read_text(encoding="utf-8"))
+                    except (ValueError,OSError):return IntelligenceSettings(learn_from_feedback=False)
+                    # Preserve ordinary Search Sync choices and restrictive
+                    # exclusions, never copy neural/research/journal consent.
+                    return IntelligenceSettings(learn_from_feedback=previous.learn_from_feedback,
+                                                excluded_document_ids=previous.excluded_document_ids)
                 return IntelligenceSettings()
             try:
                 return IntelligenceSettings.model_validate_json(self.path.read_text(encoding="utf-8"))
@@ -59,6 +71,8 @@ class SettingsStore:
 
 def runtime_settings():
     from ..config import RUNTIME_ROOT
+    from .beta.runtime import beta_channel, runtime
+    if beta_channel():return runtime().settings
     return SettingsStore(RUNTIME_ROOT)
 
 

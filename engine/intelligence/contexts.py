@@ -12,15 +12,16 @@ class SearchContexts:
         self._learning = OrderedDict()
         self._lock = RLock()
 
-    def remember(self, context_id, raw_query, results, learning=False):
+    def remember(self, context_id, raw_query, results, learning=False, learning_allowed=None):
         targets = {}
         evidence = {}
         for r in results:
             if not r.evidence_provenance:
                 continue
             receipt = deepcopy(r.evidence_provenance)
+            learn_result = learning and (learning_allowed is None or learning_allowed(r.doc_id))
             targets[("SERP_RESULT", r.doc_id)] = (receipt, r.rank, r.slug, r.base_score)
-            if learning:
+            if learn_result:
                 evidence[("SERP_RESULT",r.doc_id)]={"receipt":receipt,"original_query":raw_query,
                     "evidence_text":r.learning_evidence_text,"rank":r.rank,"maae_score":r.base_score,
                     "neural_adjustment":r.neural_adjustment,"preference_adjustment":r.search_sync_adjustment,
@@ -29,7 +30,7 @@ class SearchContexts:
                 fa = {**receipt, "target_type": "FEATURED_ANSWER", "evidence_id": r.slug + "#fa",
                       "evidence_hash": digest(r.featured_answer)}
                 targets[("FEATURED_ANSWER", r.doc_id)] = (fa, r.rank, r.slug, r.base_score)
-                if learning:evidence[("FEATURED_ANSWER",r.doc_id)]={**evidence[("SERP_RESULT",r.doc_id)],"receipt":fa,"evidence_text":r.featured_answer}
+                if learn_result:evidence[("FEATURED_ANSWER",r.doc_id)]={**evidence[("SERP_RESULT",r.doc_id)],"receipt":fa,"evidence_text":r.featured_answer}
         with self._lock:
             self._items[context_id] = (raw_query, targets)
             if learning:self._learning[context_id]=deepcopy(evidence)

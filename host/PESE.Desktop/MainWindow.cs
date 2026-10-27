@@ -35,6 +35,8 @@ internal sealed class MainWindow : Window
     internal CoreWebView2? AcceptanceCore => browser?.CoreWebView2;
     internal BrainProcess? AcceptanceBrain => brain;
     internal string? AcceptanceError { get; private set; }
+    internal bool TrainingAgreementDeclined { get; private set; }
+    internal JsonElement? TrainingOnboardingReceipt { get; private set; }
     private readonly SoftwareUpdates updates;
     private bool updateInstalling;
     private readonly string? acceptancePlan;
@@ -62,7 +64,7 @@ internal sealed class MainWindow : Window
             catch (ObjectDisposedException) { }
         })), acceptanceUpdates);
         var workArea = SystemParameters.WorkArea;
-        Title = "PESE — Personal Knowledge Engine";
+        Title = Paths.IsOwnerBeta ? "PESE Owner BETA — Neural Genesis" : "PESE — Personal Knowledge Engine";
         Width = Math.Min(1240, workArea.Width); Height = Math.Min(820, workArea.Height);
         MinWidth = Math.Min(850, Width); MinHeight = Math.Min(620, Height);
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -560,6 +562,27 @@ internal sealed class MainWindow : Window
             // Detect the real installed Evergreen runtime before starting the engine.
             _ = CoreWebView2Environment.GetAvailableBrowserVersionString();
             await BrainProcess.CommandAsync("inspect", path);
+            if (Paths.RequiresTrainingAgreement && (!acceptanceMode || TrainingAgreementDialog.TestDecision is not null))
+            {
+                var prepared = await BrainProcess.CommandAsync("beta_prepare", path);
+                if (!prepared.GetProperty("accepted").GetBoolean())
+                {
+                    var agreement = new TrainingAgreementDialog(prepared) { Owner = this };
+                    if (agreement.ShowDialog() != true)
+                    {
+                        await BrainProcess.CommandAsync("beta_decline", path);
+                        TrainingAgreementDeclined = true;
+                        Close();
+                        return;
+                    }
+                    readiness.Text = "Verifying local backup, inactive recovery and neural runtime safety…";
+                    var accepted = await BrainProcess.CommandAsync("beta_accept", path, new {
+                        accepted = true, agreement_hash = prepared.GetProperty("agreement_hash").GetString(),
+                        scope_snapshot_hash = prepared.GetProperty("scope").GetProperty("snapshot_hash").GetString(),
+                        excluded_document_ids = agreement.ExcludedIds });
+                    TrainingOnboardingReceipt = accepted.GetProperty("receipt").Clone();
+                }
+            }
             lifetime.Token.ThrowIfCancellationRequested();
             brain = new BrainProcess();
             var progress = new Progress<BrainStartupProgress>(state =>
@@ -599,7 +622,7 @@ internal sealed class MainWindow : Window
             core.Settings.AreBrowserAcceleratorKeysEnabled = false;
 #endif
             var origin = brain.Origin!;
-            var config = JsonSerializer.Serialize(new { apiBase = origin, token = brain.Token, desktop = true, brainPath = path, version = SoftwareUpdates.Version, uiPreferences = DesktopPreferencesStore.Load() });
+            var config = JsonSerializer.Serialize(new { apiBase = origin, token = brain.Token, desktop = true, trainingUpdate = Paths.RequiresTrainingAgreement, brainPath = path, version = SoftwareUpdates.Version, uiPreferences = DesktopPreferencesStore.Load() });
             // Direct runtime configuration injection and desktop keyboard handlers
             await core.AddScriptToExecuteOnDocumentCreatedAsync(
                 "try { " +
@@ -622,7 +645,11 @@ internal sealed class MainWindow : Window
                         return;
                     }
                     if (msg.Length > 64) return;
-                    if (msg == "change_brain" || msg == "new_brain")
+                    if (msg == "beta_exit" && Paths.RequiresTrainingAgreement)
+                    {
+                        await StopBrainAsync(); Close();
+                    }
+                    else if (msg == "change_brain" || msg == "new_brain")
                     {
                         await StopBrainAsync();
                         Location();

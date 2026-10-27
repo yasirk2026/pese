@@ -59,13 +59,25 @@ def brain_command(command):
     action = command["action"]
     path = Path(command["brainPath"]).resolve()
     require_user_storage(path)
+    settings_target = None
+    if action in ("create", "connect", "beta_prepare", "beta_accept", "beta_decline") and command.get("settingsPath") is not None:
+        from engine.brain.resolver import get_default_local_appdata_dir
+        settings_target = Path(command["settingsPath"]).resolve()
+        vendor = get_default_local_appdata_dir().parent
+        allowed = {(vendor / name / "desktop-settings.json").resolve()
+                   for name in ("PESE", "PESE Owner BETA")}
+        if settings_target not in allowed:
+            raise ValueError("The native settings path must be an application profile pointer")
     if action == "create":
         if path.exists() and any(path.iterdir()):
             raise ValueError("This folder is not empty. Choose an empty folder or a new PESE Brain subfolder.")
         initialize_brain(path, name="Local Brain")
     info = validate_brain(path)
+    if action in ("beta_prepare", "beta_accept", "beta_decline"):
+        from engine.desktop.training_update import onboarding
+        return onboarding(command,info)
     if action in ("create", "connect"):
-        save_desktop_brain_pointer(path)
+        save_desktop_brain_pointer(path, settings_file=settings_target)
     return {"ok": True, "brain": info.model_dump(mode="json")}
 
 

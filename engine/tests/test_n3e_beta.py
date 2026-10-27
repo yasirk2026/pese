@@ -45,9 +45,9 @@ def test_agreement_scope_pause_exit_and_delete(owner):
     beta.accept(AGREEMENT_HASH,affirmative=True,feedback_scope=["d0"],journal_scope=["d1"])
     assert beta.enabled() and beta.collecting()
     beta.record(presentation(docs["d0"]),feedback="LIKE")
-    beta.record(presentation(docs["d2"]),feedback="DISLIKE",reason="not relevant")
-    rows=beta.queue().list();assert len(rows)==2
-    assert next(r for r in rows if r["document_id"]=="d2")["payload"]["evidence_text"] is None
+    assert beta.record(presentation(docs["d2"]),feedback="DISLIKE",reason="not relevant")["status"]=="not_collected_out_of_scope"
+    rows=beta.queue().list();assert len(rows)==1
+    assert rows[0]["document_id"]=="d0"
     beta.configure({"paused":True});count=beta.queue().counts()["total"]
     beta.record(presentation(docs["d0"]),feedback="DISLIKE")
     assert beta.queue().counts()["total"]==count

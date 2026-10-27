@@ -10,19 +10,25 @@ namespace ManiacSoftwares.PESE;
 
 internal sealed record UpdateState(string type = "update_status", string status = "idle",
     string currentVersion = "", string? targetVersion = null, int? progress = null,
-    string? error = null, string? releaseNotes = null, string channel = "win");
+    string? error = null, string? releaseNotes = null, string channel = SoftwareUpdates.Channel);
 
 // Native authority. A web message can request an operation, never supply a feed or command.
 internal sealed class SoftwareUpdates
 {
     internal const string Repository = "https://github.com/yasirk2026/pese";
+#if OWNER_BETA
+    internal const string PackageId = "ManiacSoftwares.PESE.OwnerBeta";
+    internal const string Channel = "win-owner-beta";
+#else
     internal const string PackageId = "ManiacSoftwares.PESE";
     internal const string Channel = "win"; // Preserve Alpha.4's package channel.
+#endif
     internal static string Version => (Assembly.GetExecutingAssembly()
         .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "unknown").Split('+')[0];
     private readonly SemaphoreSlim operation = new(1, 1);
     private readonly Func<UpdateManager> factory;
     private readonly Action<UpdateState> publish;
+    private readonly bool publicFeedDisabled;
     private UpdateManager? manager;
     private UpdateInfo? pending;
     private bool downloaded;
@@ -32,6 +38,7 @@ internal sealed class SoftwareUpdates
     internal SoftwareUpdates(Action<UpdateState> publish, Func<UpdateManager>? acceptanceFactory = null)
     {
         this.publish = publish;
+        publicFeedDisabled = Paths.IsOwnerBeta && acceptanceFactory is null;
         // The injected factory exists only for the explicit disposable CLI acceptance harness.
         factory = acceptanceFactory ?? (() => new UpdateManager(
             new GithubSource(Repository, accessToken: null, prerelease: true, downloader: new UpdateDownloader()),
@@ -61,6 +68,11 @@ internal sealed class SoftwareUpdates
         if (!await operation.WaitAsync(0)) return;
         try
         {
+            if (publicFeedDisabled)
+            {
+                Set("manual", error: "Owner BETA uses reviewed local installers. No public update feed is enabled.");
+                return;
+            }
             // Keep a verified downloaded package ready until the user applies it.
             if (downloaded) { Set("ready", 100); return; }
             pending = null;

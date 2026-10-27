@@ -134,9 +134,10 @@ internal static class UpdateAcceptance
         Check(!stopped, "apply without a verified download must not stop the engine");
         var missingNotes = Path.Combine(Directory.GetParent(feed)!.FullName, "missing-notes-feed");
         Directory.CreateDirectory(missingNotes);
-        var metadata = JsonNode.Parse(File.ReadAllText(Path.Combine(feed, "releases.win.json")))!;
+        var feedName = "releases." + SoftwareUpdates.Channel + ".json";
+        var metadata = JsonNode.Parse(File.ReadAllText(Path.Combine(feed, feedName)))!;
         foreach (var asset in metadata["Assets"]!.AsArray()) asset!["NotesMarkdown"] = "";
-        File.WriteAllText(Path.Combine(missingNotes, "releases.win.json"), metadata.ToJsonString());
+        File.WriteAllText(Path.Combine(missingNotes, feedName), metadata.ToJsonString());
         var invalid = new SoftwareUpdates(_ => { }, () => new UpdateManager(missingNotes,
             new UpdateOptions { ExplicitChannel = SoftwareUpdates.Channel }));
         await invalid.CheckAsync();
