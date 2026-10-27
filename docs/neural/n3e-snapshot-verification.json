@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "synthetic_only": true,
+  "snapshot_id": "20261027T055448Z_f2462e6e",
+  "zip_sha256": "5bc24cc454055e9fea6a25685d9c815b493334385d8c4f37e88b66ab731e8e7f",
+  "documents_sha256": "8d635ac38237af9b6f1c8752d76619263291f03603934df7e23b27f815568236",
+  "restored_documents_identical": true,
+  "experimental_sidecar_excluded": true,
+  "owner_brain_opened": false,
+  "remote_drive_used": false
+}

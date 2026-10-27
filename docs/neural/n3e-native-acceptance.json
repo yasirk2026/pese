@@ -1,0 +1,181 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "query": "what made iris revise neural search?",
+      "trace": {
+        "status": "APPLIED",
+        "authority": "BOUNDED_RANKING_ONLY",
+        "model": "PESE-English-Beta-1:a300",
+        "adjustments": {
+          "validation:iris:0:specific": 0.40679999999999783,
+          "validation:iris:0:wrong_relation": -0.08135999999999954,
+          "validation:iris:0:temporal_conflict": 0.08135999999999954,
+          "validation:iris:0:wrong_entity": -0.40679999999999783,
+          "validation:iris:6:missing": -0.1895706,
+          "validation:iris:6:specific": 0.1881558
+        },
+        "latency_ms": 2720.171400000254,
+        "cold": true,
+        "peak_bytes": 217235456,
+        "execution": "resident_cpu"
+      },
+      "baseline": [
+        "validation:iris:0:specific",
+        "validation:iris:0:wrong_relation",
+        "validation:iris:0:temporal_conflict",
+        "validation:iris:0:wrong_entity",
+        "validation:iris:6:missing",
+        "validation:iris:6:specific",
+        "validation:iris:6:wrong_relation",
+        "validation:iris:4:wrong_entity",
+        "validation:iris:2:wrong_entity",
+        "validation:iris:5:wrong_entity",
+        "validation:iris:3:wrong_entity",
+        "validation:iris:7:wrong_entity",
+        "validation:iris:6:wrong_entity",
+        "validation:iris:4:specific",
+        "validation:iris:7:specific",
+        "validation:iris:5:specific",
+        "validation:iris:2:specific",
+        "validation:iris:3:specific",
+        "validation:iris:0:paraphrase",
+        "validation:iris:7:paraphrase"
+      ],
+      "candidate": [
+        "validation:iris:0:specific",
+        "validation:iris:0:wrong_relation",
+        "validation:iris:0:temporal_conflict",
+        "validation:iris:0:wrong_entity",
+        "validation:iris:6:specific",
+        "validation:iris:6:missing",
+        "validation:iris:6:wrong_relation",
+        "validation:iris:4:wrong_entity",
+        "validation:iris:2:wrong_entity",
+        "validation:iris:5:wrong_entity",
+        "validation:iris:3:wrong_entity",
+        "validation:iris:7:wrong_entity",
+        "validation:iris:6:wrong_entity",
+        "validation:iris:4:specific",
+        "validation:iris:7:specific",
+        "validation:iris:5:specific",
+        "validation:iris:2:specific",
+        "validation:iris:3:specific",
+        "validation:iris:0:paraphrase",
+        "validation:iris:7:paraphrase"
+      ]
+    },
+    {
+      "attemptedInference": {
+        "status": "APPLIED",
+        "authority": "BOUNDED_RANKING_ONLY",
+        "model": "PESE-English-Beta-1:a300",
+        "adjustments": {
+          "validation:iris:0:specific": 0.40679999999999783,
+          "validation:iris:0:wrong_relation": -0.08135999999999954,
+          "validation:iris:0:temporal_conflict": 0.08135999999999954,
+          "validation:iris:0:wrong_entity": -0.40679999999999783,
+          "validation:iris:6:missing": -0.1895706,
+          "validation:iris:6:specific": 0.1881558
+        },
+        "latency_ms": 2720.171400000254,
+        "cold": true,
+        "peak_bytes": 217235456,
+        "execution": "resident_cpu"
+      }
+    },
+    {
+      "warmInference": {
+        "status": "APPLIED",
+        "authority": "BOUNDED_RANKING_ONLY",
+        "model": "PESE-English-Beta-1:a300",
+        "adjustments": {
+          "validation:iris:0:temporal_conflict": 0.34146479999999996,
+          "validation:iris:0:specific": 0.735099,
+          "validation:iris:0:wrong_relation": -0.4381038,
+          "validation:iris:0:wrong_entity": -0.43408199999999997,
+          "validation:iris:6:missing": -0.05357039999999998,
+          "validation:iris:6:specific": 0.15967800000000001
+        },
+        "latency_ms": 10.298699999111705,
+        "cold": false,
+        "peak_bytes": 220307456,
+        "execution": "resident_cpu"
+      }
+    },
+    {
+      "actualWpfWebView2": true,
+      "agreementViaUi": true,
+      "eligibleOrderChanged": true,
+      "baselineOrder": [
+        "validation:iris:0:specific",
+        "validation:iris:0:wrong_relation",
+        "validation:iris:0:temporal_conflict",
+        "validation:iris:0:wrong_entity",
+        "validation:iris:6:missing",
+        "validation:iris:6:specific",
+        "validation:iris:6:wrong_relation",
+        "validation:iris:4:wrong_entity",
+        "validation:iris:2:wrong_entity",
+        "validation:iris:5:wrong_entity",
+        "validation:iris:3:wrong_entity",
+        "validation:iris:7:wrong_entity",
+        "validation:iris:6:wrong_entity",
+        "validation:iris:4:specific",
+        "validation:iris:7:specific",
+        "validation:iris:5:specific",
+        "validation:iris:2:specific",
+        "validation:iris:3:specific",
+        "validation:iris:0:paraphrase",
+        "validation:iris:7:paraphrase"
+      ],
+      "neuralOrder": [
+        "validation:iris:0:specific",
+        "validation:iris:0:wrong_relation",
+        "validation:iris:0:temporal_conflict",
+        "validation:iris:0:wrong_entity",
+        "validation:iris:6:specific",
+        "validation:iris:6:missing",
+        "validation:iris:6:wrong_relation",
+        "validation:iris:4:wrong_entity",
+        "validation:iris:2:wrong_entity",
+        "validation:iris:5:wrong_entity",
+        "validation:iris:3:wrong_entity",
+        "validation:iris:7:wrong_entity",
+        "validation:iris:6:wrong_entity",
+        "validation:iris:4:specific",
+        "validation:iris:7:specific",
+        "validation:iris:5:specific",
+        "validation:iris:2:specific",
+        "validation:iris:3:specific",
+        "validation:iris:0:paraphrase",
+        "validation:iris:7:paraphrase"
+      ],
+      "inference": {
+        "status": "APPLIED",
+        "authority": "BOUNDED_RANKING_ONLY",
+        "model": "PESE-English-Beta-1:a300",
+        "adjustments": {
+          "validation:iris:0:specific": 0.40679999999999783,
+          "validation:iris:0:wrong_relation": -0.08135999999999954,
+          "validation:iris:0:temporal_conflict": 0.08135999999999954,
+          "validation:iris:0:wrong_entity": -0.40679999999999783,
+          "validation:iris:6:missing": -0.1895706,
+          "validation:iris:6:specific": 0.1881558
+        },
+        "latency_ms": 2720.171400000254,
+        "cold": true,
+        "peak_bytes": 217235456,
+        "execution": "resident_cpu"
+      },
+      "captured": 4,
+      "pauseVerified": true
+    },
+    {
+      "restartPersistence": true,
+      "safeExit": true,
+      "canonicalDocumentsUnchanged": true,
+      "networkUpload": false
+    }
+  ]
+}

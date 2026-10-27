@@ -1,0 +1,19 @@
+{
+  "status": "synthetic_journal_fixture_probe_not_independent_human_evaluation",
+  "pairs": 8,
+  "training_seconds": 11.359999999999673,
+  "trained_checkpoint_sha256": "96cf6e532a3919a2258f92a2f8a0622ab988671e27f739eeea234ee80fbe3e69",
+  "parameters_updated": true,
+  "models": {
+    "base": {
+      "correct_binary_pairs": 4,
+      "ndcg10": 0.6309297535714574,
+      "broad_regression_ndcg10": 0.9936766189863826
+    },
+    "local_candidate": {
+      "correct_binary_pairs": 4,
+      "ndcg10": 0.6309297535714574,
+      "broad_regression_ndcg10": 0.9874903589330954
+    }
+  }
+}
