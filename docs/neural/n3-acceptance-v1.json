@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "registered_date": "2026-10-27",
+  "objective": "retrieval_relevance",
+  "independent_reviewed_queries_min": 300,
+  "required_splits": ["train", "validation", "calibration", "test"],
+  "group_isolation": ["query_family", "source_family", "document_lineage", "template_family"],
+  "minimum_ndcg10_delta": 0.02,
+  "minimum_paired_bootstrap_lower95": 0.0,
+  "maximum_critical_category_regression": 0.02,
+  "maximum_new_wrong_promotions": 0,
+  "maximum_evidence_gate_violations": 0,
+  "maximum_warm_added_p95_ms": 50,
+  "maximum_cold_load_ms": 2000,
+  "maximum_worker_peak_mb": 256,
+  "candidate_budget": 6,
+  "provisional_experiments": [
+    {"strategy": "disabled", "relative_cap": 0.0, "gap_cap": 0.0},
+    {"strategy": "shadow", "relative_cap": 0.0, "gap_cap": 0.0},
+    {"strategy": "ordinal_gap", "relative_cap": 0.03, "gap_cap": 0.75},
+    {"strategy": "ordinal_gap", "relative_cap": 0.01, "gap_cap": 0.5}
+  ],
+  "status": "preregistered_no_independent_dataset_no_approved_model",
+  "notes": "Budgets are conservative release ceilings pending consumer-hardware measurement. Existing exposed suites are regression evidence only. No strategy selected for production. No threshold may be relaxed using final holdout outcomes."
+}
