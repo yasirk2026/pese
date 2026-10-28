@@ -133,3 +133,52 @@ their receipts pass, actual per-account owner activation, independent human
 English evaluation, genuine feedback, enough diverse trusted examples, and
 improved cold-start reliability. This update offers experimental capability;
 improvement in real owner search has not been established.
+
+## Exact release acceptance — 28 October 2026
+
+[Alpha.7](https://github.com/yasirk2026/pese/releases/tag/v0.1.0-alpha.7)
+is published on the normal `win` channel, from application source
+`5365e1343fbcd243b11b0fde2eadb633851aa956`. All eight GitHub assets were downloaded,
+matched against local SHA-256 values and checked for anonymous availability.
+An interrupted draft-verification download resumed using validated HTTP ranges;
+publication occurred only after complete-file hashes passed. The tag and assets
+were not replaced.
+
+Actual Alpha.6-to-Alpha.7 updates passed on two 200-document synthetic Brains:
+standard-path WPF Settings and Unicode-path interrupted staging/retry. Canonical
+data, feedback, pointers, appearance, synthetic Drive configuration and DPAPI
+storage were preserved. Neither updater enrolled its Brain. The actual updated
+normal-ID installation passed neural order changes, pause, offline, restart,
+damaged-pointer exact MAAE fallback, base rollback and exit. Its first neural call
+fell back; the successful cold call was 4,952.44 ms and warm call 10.46 ms. The
+updated normal-ID decline check closed before engine startup, preserving 200
+documents and the pointer.
+
+Real Setup and full-current-collection native startup acceptance passed under
+test registration `ManiacSoftwares.PESE.AcceptanceOnly`, preserving the existing
+stable installation, pointer and uninstall registration. All 20,495 application
+payload files matched the sealed normal release. Only `sq.version` registration
+ID, shortcut ID and shortcut locations differ. Installed hashes account for
+Velopack consuming the generated execution stub and relocating `Squirrel.exe`
+to `../Update.exe`. Normal-ID Setup was not run against the owner installation;
+the normal-ID updater and test-registration Setup evidence are distinct.
+
+Reproduce a test-registration installer with `scripts/pack_installer_fixture.ps1`
+and its explicit `-CanonicalArtifacts` input. It restores sealed frontend/native
+build outputs, then verifies the entire fixture payload and only the three
+permitted manifest differences. Do not rebuild Next for this fixture: build IDs
+can differ despite identical source. The old `pack_training_update.ps1
+-InstallerFixture` path now rejects that unreliable method. The installer runner
+supports payload-only verification without owner access, persists its preservation
+baseline before Setup, and can resume a marked completed Setup after a verifier
+layout assertion. Four synthetic ZIP checks cover expected metadata differences,
+changed code, changed version metadata and extra files.
+
+The application/model bytes in the published release remain those of `5365e13`;
+the subsequent source changes repair only acceptance tooling and reporting.
+Real owner activation, searches, feedback, trusted labels, training and earned
+promotions in this work remain zero. Independent English improvement is unproven;
+cold timeout fallback remains a measured limitation. The original Brain's final
+metadata/hash inventory and recovery evidence remain unchanged. Exact local
+receipts are under `n3f-update-work/`; owner questions and private source material
+are not included in the public repository or release assets.

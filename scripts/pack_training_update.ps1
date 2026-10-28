@@ -9,6 +9,7 @@ param(
     [switch]$InstallerFixture
 )
 $ErrorActionPreference='Stop'
+if ($InstallerFixture) { throw 'Use pack_installer_fixture.ps1 with -CanonicalArtifacts. Rebuilding frontend assets changes build IDs and cannot prove an identical installer payload.' }
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $Stage=[IO.Path]::GetFullPath($Stage);$Artifacts=[IO.Path]::GetFullPath($Artifacts)
 if (Test-Path -LiteralPath $Artifacts) { throw 'Fresh immutable artifact output required' }
@@ -68,8 +69,8 @@ for name,expected in BASE_FILES.items():
     & $python -B scripts/audit_desktop_native.py $Stage (Join-Path $Artifacts 'native-audit.json')
     if ($LASTEXITCODE -ne 0) { throw 'Native dependency audit failed' }
     $notes=Join-Path $repo 'docs/releases/0.1.0-alpha.7.md'
-    $id=if ($InstallerFixture) { 'ManiacSoftwares.PESE.AcceptanceOnly' } else { 'ManiacSoftwares.PESE' }
-    $shortcuts=if ($InstallerFixture) { 'None' } else { 'Desktop,StartMenuRoot' }
+    $id='ManiacSoftwares.PESE'
+    $shortcuts='Desktop,StartMenuRoot'
     & $Vpk pack --packId $id --packVersion 0.1.0-alpha.7 --packDir $Stage --mainExe PESE.exe --channel win --icon (Join-Path $Stage 'pese.ico') --packTitle PESE --packAuthors 'Maniac Softwares' --runtime win-x64 --framework 'webview2,vcredist143-x64' --shortcuts $shortcuts --noPortable --delta None --releaseNotes $notes --outputDir $Artifacts *> (Join-Path $Artifacts 'pack.log')
     if ($LASTEXITCODE -ne 0) { throw 'Velopack packaging failed' }
     $setup=@(Get-ChildItem -LiteralPath $Artifacts -Filter '*Setup.exe')
@@ -79,10 +80,6 @@ for name,expected in BASE_FILES.items():
     foreach ($asset in $map) { if ($asset.Type -eq 'Installer') { $asset.RelativeFileName='PESE-Setup.exe' } }
     ConvertTo-Json -InputObject @($map) | Set-Content -LiteralPath (Join-Path $Artifacts 'assets.win.json') -Encoding utf8
     Copy-Item -LiteralPath $notes -Destination (Join-Path $Artifacts 'release-notes.md')
-    if (!$InstallerFixture) {
-        & $python -B scripts/verify_release.py $Artifacts 0.1.0-alpha.7 $commit --training-update
-        if ($LASTEXITCODE -ne 0) { throw 'Release artifact verification failed' }
-    } else {
-        @{acceptance_only=$true;package_id=$id;compiled_package_id='ManiacSoftwares.PESE';source_commit=$commit;purpose='Actual Setup mechanism without replacing stable uninstall registration'} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Artifacts 'fixture-only.json')
-    }
+    & $python -B scripts/verify_release.py $Artifacts 0.1.0-alpha.7 $commit --training-update
+    if ($LASTEXITCODE -ne 0) { throw 'Release artifact verification failed' }
 } finally { Pop-Location }
